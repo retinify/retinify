@@ -1,0 +1,5 @@
+add_subdirectory(core)
+add_subdirectory(pipeline)
+add_subdirectory(engine)
+add_subdirectory(gui)
+add_subdirectory(io)

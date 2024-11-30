@@ -1,0 +1,22 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(OpenCV)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK4 REQUIRED gtk4)
+find_package(CUDAToolkit REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/retinifyTargets.cmake")
+
+add_library(retinify::retinify INTERFACE IMPORTED)
+target_link_libraries(retinify::retinify INTERFACE retinify::retinify_pipeline retinify::retinify_core retinify::retinify_io retinify::retinify_gui)
+set(RETINIFY_LIBS retinify::retinify)
+set(RETINIFY_LIBRARIES retinify::retinify)
+
+# get_filename_component(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+# set(PACKAGE_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
+# set(PACKAGE_LIBRARIES "${CMAKE_INSTALL_PREFIX}/lib/libretinify_pipeline.so" "${CMAKE_INSTALL_PREFIX}/lib/libretinify_gui.so" "${CMAKE_INSTALL_PREFIX}/lib/libretinify_core.so" "${CMAKE_INSTALL_PREFIX}/lib/libretinify_io.so")
+# message(STATUS "PACKAGE_INCLUDE_DIRS: ${CMAKE_INSTALL_PREFIX}")
+
+check_required_components(retinify)
