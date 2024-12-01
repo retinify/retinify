@@ -54,9 +54,10 @@ public:
 private:
     void Open(const char *node1, const char *node2)
     {
+        std::cout << "here" << std::endl;
         l_cap_.open(node1);
         r_cap_.open(node2);
-
+        std::cout << "here" << std::endl;
         if (!l_cap_.isOpened())
         {
             throw std::runtime_error("Error: Unable to open the device at path '" + std::string(node1) + "'");

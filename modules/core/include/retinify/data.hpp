@@ -51,7 +51,7 @@ public:
     bool Read(const std::string filename);
 
     void SetSerial(const std::array<std::string, 2> &serial);
-    std::array<std::string, 2> GetSerial();
+    std::array<std::string, 2> GetSerial() const;
 
     void SetInputImageSize(const cv::Size &input_image_size);
     cv::Size GetInputImageSize();

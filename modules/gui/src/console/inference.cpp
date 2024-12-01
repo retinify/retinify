@@ -18,11 +18,11 @@
 #include <gtk/gtk.h>
 #include <retinify/pipeline.hpp>
 #include <retinify/core.hpp>
-/// @todo configを共有できるようにするべきだが、今は一旦このままで
+
 inline static void OnCameraButtonClicked(GtkButton *button, gpointer user_data)
 {
     retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_ROOT_CALIBRATION_FILE_PATH))
+    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
@@ -33,7 +33,7 @@ inline static void OnCameraButtonClicked(GtkButton *button, gpointer user_data)
 inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data)
 {
     retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_ROOT_CALIBRATION_FILE_PATH))
+    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
@@ -44,7 +44,7 @@ inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data
 inline static void OnLoaderButtonClicked(GtkButton *button, gpointer user_data)
 {
     retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_ROOT_CALIBRATION_FILE_PATH))
+    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
