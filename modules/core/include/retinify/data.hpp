@@ -2,26 +2,29 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 #include <opencv2/core.hpp>
+#include <map>
 namespace retinify
 {
+/// @brief Image data with timestamp
 struct ImageData
 {
     cv::Mat image_;
     float timestamp_;
 };
+/// @brief Stereo Image data including left and right images, disparity and point cloud
 struct StereoImageData
 {
     ImageData left_;
@@ -29,16 +32,18 @@ struct StereoImageData
     cv::Mat disparity_;
     cv::Mat pcd_;
 };
+/// @brief Device data
 struct DeviceData
 {
     std::string node_;
     std::string name_;
     std::string capabilities_;
     std::string serialNumber_;
+    std::map<uint32_t, std::vector<cv::Size>> formats_;
 };
 class CalibrationData
 {
-  public:
+public:
     CalibrationData();
     ~CalibrationData();
 
@@ -47,7 +52,7 @@ class CalibrationData
 
     void SetSerial(const std::array<std::string, 2> &serial);
     std::array<std::string, 2> GetSerial();
-    
+
     void SetInputImageSize(const cv::Size &input_image_size);
     cv::Size GetInputImageSize();
 
@@ -69,7 +74,7 @@ class CalibrationData
     void SetValid(const std::array<cv::Rect, 2> &valid);
     std::array<cv::Rect, 2> GetValid();
 
-  private:
+private:
     std::array<std::string, 2> serial;
     cv::Size inputImageSize;
     std::array<cv::Mat, 2> cameraMatrix;
@@ -78,5 +83,5 @@ class CalibrationData
     std::array<cv::Mat, 2> P;
     cv::Mat Q;
     std::array<cv::Rect, 2> valid;
-};  
+};
 } // namespace retinify
