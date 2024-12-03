@@ -38,6 +38,9 @@ This project is provided under a dual-license model:
 
 - **AGPL License**: This OSI-approved open-source license is perfect for students, enthusiasts, and non-commercial users. It allows free use, modification, and distribution of the software, as long as any changes are shared under the same license.
 
-- **Enterprise License**: For commercial use, the Enterprise License removes the restrictions of AGPL-3.0, allowing businesses to integrate the software and AI models into commercial products and services.
+- **Enterprise License**: Enterprise License removes the AGPL-3.0 restrictions, allowing projects to integrate the software and AI models into commercial products and services.
 
 ## Contact
+For any inquiries, please do not hesitate to contact us at **[contact@retinify.ai](mailto:contact@retinify.ai)**.
+
+We look forward to hearing from you.

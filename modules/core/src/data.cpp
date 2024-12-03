@@ -2,21 +2,20 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
+#include <iostream>
 #include <retinify/data.hpp>
 #include <stdexcept>
-#include <iostream>
-
 #define CONFIGURATION_INPUT_IMAGE_SIZE "CONFIGURATION_INPUT_IMAGE_SIZE"
 #define CONFIGURATION_SCALE "CONFIGURATION_SCALE"
 #define CONFIGURATION_PROCESSING_IMAGE_SIZE "CONFIGURATION_PROCESSING_IMAGE_SIZE"
@@ -34,9 +33,6 @@
 #define CONFIGURATION_VALID_0 "CONFIGURATION_VALID_0"
 #define CONFIGURATION_VALID_1 "CONFIGURATION_VALID_1"
 
-/**
- * Configuration
- */
 retinify::CalibrationData::CalibrationData()
 {
     inputImageSize = cv::Size(1280, 720);
@@ -71,7 +67,7 @@ void retinify::CalibrationData::SetSerial(const std::array<std::string, 2> &seri
     this->serial = serial;
 }
 
-std::array<std::string, 2> retinify::CalibrationData::GetSerial()
+std::array<std::string, 2> retinify::CalibrationData::GetSerial() const
 {
     return this->serial;
 }
@@ -145,7 +141,7 @@ bool retinify::CalibrationData::Write(std::string filename)
         {
             return false;
         }
-        
+
         fs << CONFIGURATION_INPUT_IMAGE_SIZE << inputImageSize;
         fs << CONFIGURATION_SERIAL_0 << serial[0];
         fs << CONFIGURATION_SERIAL_1 << serial[1];
@@ -163,7 +159,7 @@ bool retinify::CalibrationData::Write(std::string filename)
 
         fs.release();
     }
-    catch (const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << "Error writing to file: " << e.what() << std::endl;
         return false;
@@ -178,9 +174,10 @@ bool retinify::CalibrationData::Read(std::string filename)
         cv::FileStorage fs(filename, cv::FileStorage::READ);
         if (!fs.isOpened())
         {
-            return false;
+            this->Write(filename);
+            std::cout << "Creadted new calibration file" << std::endl;
         }
-        
+
         fs[CONFIGURATION_INPUT_IMAGE_SIZE] >> inputImageSize;
         fs[CONFIGURATION_SERIAL_0] >> serial[0];
         fs[CONFIGURATION_SERIAL_1] >> serial[1];
@@ -198,7 +195,7 @@ bool retinify::CalibrationData::Read(std::string filename)
 
         fs.release();
     }
-    catch (const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << "Error reading from file: " << e.what() << std::endl;
         return false;

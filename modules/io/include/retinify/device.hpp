@@ -19,6 +19,8 @@
 #include <retinify/core.hpp>
 namespace retinify
 {
-std::map<std::string, retinify::DeviceData> EnumerateDevices();
+/// @brief Get connected device map
+/// @return key is serial number and value is device data
+std::map<std::string, retinify::DeviceData> GetConnectedDeviceMap();
 std::optional<retinify::DeviceData> GetDeviceBySerialNumber(std::string serialNumber);
 } // namespace retinify
