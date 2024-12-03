@@ -86,7 +86,7 @@ static void GetSupportedV4L2Format(retinify::DeviceData &device)
         memset(&frm_size, 0, sizeof(frm_size));
         frm_size.pixel_format = fmt_desc.pixelformat;
 
-        print_pixel_format(fmt_desc.pixelformat);
+        // print_pixel_format(fmt_desc.pixelformat);
 
         while (SafeIOControl(fd, VIDIOC_ENUM_FRAMESIZES, &frm_size) == 0)
         {

@@ -1,3 +1,13 @@
+# GTK4
+sudo apt install -y libgtk-4-dev
+
+# libudev
+sudo apt update
+sudo apt install -y libudev-dev
+
+# V4L2
+sudo apt install -y libv4l-dev
+
 # OpenCV
 sudo apt install -y libopencv-dev
 
@@ -15,10 +25,3 @@ source ~/.bashrc
 sudo dpkg -i nv-tensorrt-local-repo-ubuntu2204-10.2.0-cuda-12.5_1.0-1_amd64.deb
 sudo apt update
 sudo apt install -y tensorrt
-
-# GTK4
-sudo apt install -y libgtk-4-dev
-
-# libudev
-sudo apt update
-sudo apt install -y libudev-dev

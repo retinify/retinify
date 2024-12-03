@@ -19,11 +19,11 @@
 #include <vector>
 namespace retinify
 {
-class StereoEngineThread
+class StereoEngine
 {
 public:
-    StereoEngineThread();
-    ~StereoEngineThread();
+    StereoEngine();
+    ~StereoEngine();
 
     void SetInputQueue(retinify::Queue<retinify::StereoImageData> *queue);
     void SetOutputQueue(retinify::Queue<retinify::StereoImageData> *queue);
@@ -37,11 +37,11 @@ public:
     void Start(Mode mode);
     void Stop();
 
-    StereoEngineThread(const StereoEngineThread &) = delete;
-    StereoEngineThread &operator=(const StereoEngineThread &) = delete;
+    StereoEngine(const StereoEngine &) = delete;
+    StereoEngine &operator=(const StereoEngine &) = delete;
 
-    StereoEngineThread(StereoEngineThread &&) noexcept = default;
-    StereoEngineThread &operator=(StereoEngineThread &&) noexcept = default;
+    StereoEngine(StereoEngine &&) noexcept = default;
+    StereoEngine &operator=(StereoEngine &&) noexcept = default;
 
 private:
     class Impl;

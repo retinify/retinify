@@ -20,11 +20,11 @@
 #include <retinify/core.hpp>
 namespace retinify
 {
-class CameraThread
+class Camera
 {
 public:
-    CameraThread();
-    ~CameraThread();
+    Camera();
+    ~Camera();
 
     void Start(const char *node1, const char *node2);
 

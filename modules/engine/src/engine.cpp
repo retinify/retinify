@@ -16,7 +16,7 @@
 #include <retinify/engine.hpp>
 #include <retinify/session.hpp>
 
-class retinify::StereoEngineThread::Impl
+class retinify::StereoEngine::Impl
 {
 public:
     Impl()
@@ -95,19 +95,19 @@ public:
         }
     }
 
-    inline void Start(retinify::StereoEngineThread::Mode mode)
+    inline void Start(retinify::StereoEngine::Mode mode)
     {
         switch (mode)
         {
-        case retinify::StereoEngineThread::Mode::RAWIMAGE:
+        case retinify::StereoEngine::Mode::RAWIMAGE:
             this->thread_ = std::make_unique<retinify::Thread>([this]() { this->RawImage(); });
             break;
 
-        case retinify::StereoEngineThread::Mode::CALIBRATION:
+        case retinify::StereoEngine::Mode::CALIBRATION:
             this->thread_ = std::make_unique<retinify::Thread>([this]() { this->Calibration(); });
             break;
 
-        case retinify::StereoEngineThread::Mode::INFERENCE:
+        case retinify::StereoEngine::Mode::INFERENCE:
             this->session_ = std::make_unique<retinify::Session>("/model.onnx");
             this->thread_ = std::make_unique<retinify::Thread>([this]() { this->Inference(); });
             break;
@@ -136,29 +136,29 @@ private:
     std::unique_ptr<retinify::Session> session_;
 };
 
-retinify::StereoEngineThread::StereoEngineThread()
+retinify::StereoEngine::StereoEngine()
 {
-    this->impl_ = std::make_unique<retinify::StereoEngineThread::Impl>();
+    this->impl_ = std::make_unique<retinify::StereoEngine::Impl>();
 }
 
-retinify::StereoEngineThread::~StereoEngineThread() = default;
+retinify::StereoEngine::~StereoEngine() = default;
 
-void retinify::StereoEngineThread::SetInputQueue(retinify::Queue<retinify::StereoImageData> *queue)
+void retinify::StereoEngine::SetInputQueue(retinify::Queue<retinify::StereoImageData> *queue)
 {
     this->impl_->SetInputQueue(queue);
 }
 
-void retinify::StereoEngineThread::SetOutputQueue(retinify::Queue<retinify::StereoImageData> *queue)
+void retinify::StereoEngine::SetOutputQueue(retinify::Queue<retinify::StereoImageData> *queue)
 {
     this->impl_->SetOutputQueue(queue);
 }
 
-void retinify::StereoEngineThread::Start(retinify::StereoEngineThread::Mode mode)
+void retinify::StereoEngine::Start(retinify::StereoEngine::Mode mode)
 {
     this->impl_->Start(mode);
 }
 
-void retinify::StereoEngineThread::Stop()
+void retinify::StereoEngine::Stop()
 {
     this->impl_->Stop();
 }

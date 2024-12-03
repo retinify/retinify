@@ -63,16 +63,15 @@ public:
     inline void Start(const retinify::CalibrationData &config, const retinify::Pipeline::Mode mode)
     {
         this->Stop(); // if already active, deactivate first
+        
         std::optional<retinify::DeviceData> device1 = GetDeviceBySerialNumber(config.GetSerial()[0]);
         std::optional<retinify::DeviceData> device2 = GetDeviceBySerialNumber(config.GetSerial()[1]);
-        std::cout << "Device 1: " << device1->node_ << std::endl;
-        std::cout << "Device 2: " << device2->node_ << std::endl;
         this->camera_.Start(device1->node_.c_str(), device2->node_.c_str());
 
         switch (mode)
         {
         case retinify::Pipeline::Mode::RAWIMAGE:
-            engine_.Start(retinify::StereoEngineThread::Mode::RAWIMAGE);
+            engine_.Start(retinify::StereoEngine::Mode::RAWIMAGE);
             break;
 
         case retinify::Pipeline::Mode::RECTIFY:
@@ -82,7 +81,7 @@ public:
             break;
 
         case retinify::Pipeline::Mode::INFERENCE:
-            engine_.Start(retinify::StereoEngineThread::Mode::INFERENCE);
+            engine_.Start(retinify::StereoEngine::Mode::INFERENCE);
             break;
         }
     }
@@ -225,7 +224,7 @@ public:
                                     config.GetP()[1], config.GetInputImageSize(), CV_32FC1, map2x, map2y);
 
         // initialize engine
-        retinify::StereoEngineThread engine;
+        retinify::StereoEngine engine;
 
         // std::vector<int64> init_input_shape = engine.GetInitialInputShape();
         // cv::Size init_input_size(init_input_shape[3], init_input_shape[2]);
@@ -259,8 +258,8 @@ public:
 private:
     retinify::Queue<retinify::StereoImageData> camera_queue_;
     retinify::Queue<retinify::StereoImageData> engine_queue_;
-    retinify::CameraThread camera_;
-    retinify::StereoEngineThread engine_;
+    retinify::Camera camera_;
+    retinify::StereoEngine engine_;
 };
 
 void retinify::Pipeline::Stop()
