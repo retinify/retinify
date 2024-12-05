@@ -41,7 +41,7 @@ inline static void InitProvider()
 
 inline static void CloseWindow(GtkWidget &widget, gpointer user_data)
 {
-    retinify_get_core.DeactivateCore();
+    retinify_get_hub.DeactivateHub();
 }
 
 inline static void ActivateWindow(GtkApplication &app, gpointer user_data)
@@ -55,7 +55,7 @@ inline static void ActivateWindow(GtkApplication &app, gpointer user_data)
     gtk_box_append(GTK_BOX(middle_box), retinify_get_gui_image.Get());
     gtk_box_append(GTK_BOX(middle_box), retinify_get_gui_glviewer.Get());
 
-    main_box->Append(retinify_get_gui_sidebar.Get());
+    // main_box->Append(retinify_get_gui_sidebar.Get());
     main_box->Append(middle_box);
     main_box->Append(retinify_get_gui_console.Get());
 
@@ -67,8 +67,6 @@ inline static void ActivateWindow(GtkApplication &app, gpointer user_data)
     gtk_header_bar_set_show_title_buttons(GTK_HEADER_BAR(header_bar), TRUE);
     gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header_bar), title_widget);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), tab_console_button->Get());
-
-    gtk_widget_add_css_class(tab_console_button->Get(), "long_button");
 
     // signal
     g_signal_connect(tab_console_button->Get(), "clicked", G_CALLBACK(toggle_widget_visibility),

@@ -13,4 +13,34 @@
 // You should have received a copy of the GNU Affero General Public License along with retinify. 
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include <window/window.hpp>
+#include <retinify/pipeline.hpp>
+
+retinify::Hub::Hub()
+{
+    this->pipeline_ = std::make_unique<Pipeline>();
+}
+
+retinify::Hub::~Hub()
+{
+}
+
+bool retinify::Hub::IsHubRunning()
+{
+    return this->running_;
+}
+
+void retinify::Hub::ActivateHub()
+{
+    this->running_ = true;
+}
+
+void retinify::Hub::DeactivateHub()
+{
+    this->running_ = false;
+    this->pipeline_->Stop();
+}
+
+std::unique_ptr<retinify::Pipeline> &retinify::Hub::GetPipelinePtr()
+{
+    return this->pipeline_;
+}

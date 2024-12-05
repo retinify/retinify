@@ -75,7 +75,5 @@ class ConsoleContext : public Context<ConsoleContext>
     std::unique_ptr<retinify::List> list_;
 
     std::unique_ptr<retinify::ScrollWindow> area1_scroll_;
-    std::unique_ptr<retinify::ScrollWindow> area2_scroll_;
-    std::unique_ptr<retinify::ScrollWindow> area3_scroll_;
 };
 } // namespace retinify

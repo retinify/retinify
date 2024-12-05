@@ -20,7 +20,7 @@
 #include <optional>
 #include <retinify/core.hpp>
 #include <retinify/io.hpp>
-#define retinify_get_core retinify::Core::Instance()
+#define retinify_get_hub retinify::Hub::Instance()
 #define RETINIFY_PIPELINE_API
 namespace retinify
 {
@@ -40,7 +40,7 @@ public:
         LOADER
     };
     /// @brief use USB cameras and capture stereo images
-    RETINIFY_PIPELINE_API void Start(const retinify::CalibrationData &config, const Mode mode = Mode::INFERENCE);
+    RETINIFY_PIPELINE_API void Start(retinify::CalibrationData &calib, const Mode mode = Mode::INFERENCE);
     /// @brief control the pipeline
     RETINIFY_PIPELINE_API void Stop();
     /// @brief Data IO
@@ -57,16 +57,16 @@ private:
     class Impl;
     std::unique_ptr<Impl> impl_;
 };
-/// @brief Core class
-class Core : public Singleton<Core>
+/// @brief Hub class
+class Hub : public Singleton<Hub>
 {
 public:
-    Core();
-    ~Core();
+    Hub();
+    ~Hub();
 
-    bool IsCoreRunning();
-    void ActivateCore();
-    void DeactivateCore();
+    bool IsHubRunning();
+    void ActivateHub();
+    void DeactivateHub();
     std::unique_ptr<Pipeline> &GetPipelinePtr();
 
 private:

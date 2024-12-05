@@ -2,26 +2,26 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 #include <gtk/gtk.h>
-#include <retinify/pipeline.hpp>
+#include <retinify/core.hpp>
 
 namespace retinify
 {
 template <typename T> class Context : public retinify::Singleton<T>
 {
-  public:
+public:
     Context()
     {
         this->main_ = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -35,47 +35,50 @@ template <typename T> class Context : public retinify::Singleton<T>
         gtk_box_append(GTK_BOX(this->main_), widget);
     }
 
+    void SetVisible(bool visible)
+    {
+        gtk_widget_set_visible(this->main_, visible);
+    }
+
     GtkWidget *Get()
     {
         return this->main_;
     }
 
-  private:
+private:
     GtkWidget *main_;
 };
 
 class VerticalBox
 {
-    public:
-        VerticalBox()
-        {
-            this->box_ = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-            // gtk_widget_add_css_class(this->box_), "retinify_vertical");
-        }
-    
-        virtual ~VerticalBox() = default;
-    
-        void Append(GtkWidget *widget)
-        {
-            gtk_box_append(GTK_BOX(this->box_), widget);
-        }
-    
-        GtkWidget *Get()
-        {
-            return this->box_;
-        }
-    
-    private:
-        GtkWidget *box_;
+public:
+    VerticalBox(int spacing = 0)
+    {
+        this->box_ = gtk_box_new(GTK_ORIENTATION_VERTICAL, spacing);
+    }
+
+    virtual ~VerticalBox() = default;
+
+    void Append(GtkWidget *widget)
+    {
+        gtk_box_append(GTK_BOX(this->box_), widget);
+    }
+
+    GtkWidget *Get()
+    {
+        return this->box_;
+    }
+
+private:
+    GtkWidget *box_;
 };
 
 class Horizontal
 {
-  public:
-    Horizontal()
+public:
+    Horizontal(int spacing = 0)
     {
-        this->box_ = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-        // gtk_widget_add_css_class(this->box_), "retinify_horizontal");
+        this->box_ = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, spacing);
     }
 
     virtual ~Horizontal() = default;
@@ -90,13 +93,13 @@ class Horizontal
         return this->box_;
     }
 
-  private:
+private:
     GtkWidget *box_;
 };
 
 class Label
 {
-  public:
+public:
     Label(const char *text)
     {
         this->label_ = gtk_label_new(text);
@@ -111,17 +114,16 @@ class Label
         return this->label_;
     }
 
-  private:
+private:
     GtkWidget *label_;
 };
 
 class Button
 {
-  public:
+public:
     Button(const char *label)
     {
         this->button_ = gtk_button_new_with_label(label);
-        // gtk_widget_set_hexpand(this->button_, true);
         gtk_widget_add_css_class(this->button_, "retinify_button");
     }
 
@@ -137,18 +139,47 @@ class Button
         return this->button_;
     }
 
-  private:
+private:
     GtkWidget *button_;
+};
+
+class Switch
+{
+public:
+    Switch()
+    {
+        this->switch_ = gtk_switch_new();
+        gtk_widget_add_css_class(this->switch_, "retinify_switch");
+    }
+
+    virtual ~Switch() = default;
+
+    void SetActive(bool active)
+    {
+        gtk_switch_set_active(GTK_SWITCH(this->switch_), active);
+    }
+
+    bool GetActive()
+    {
+        return gtk_switch_get_active(GTK_SWITCH(this->switch_));
+    }
+
+    GtkWidget *Get()
+    {
+        return this->switch_;
+    }
+
+private:
+    GtkWidget *switch_;
 };
 
 class DropDown
 {
-  public:
+public:
     DropDown()
     {
         this->string_list_ = gtk_string_list_new(nullptr);
         this->dropdown_ = gtk_drop_down_new(G_LIST_MODEL(this->string_list_), nullptr);
-        // gtk_widget_set_hexpand(this->dropdown_, true);
         gtk_drop_down_set_factory(GTK_DROP_DOWN(this->dropdown_), CreateEllipsizeFactory());
         gtk_drop_down_set_list_factory(GTK_DROP_DOWN(this->dropdown_), CreateEllipsizeFactory());
     }
@@ -184,7 +215,7 @@ class DropDown
         return this->dropdown_;
     }
 
-  private:
+private:
     static GtkListItemFactory *CreateEllipsizeFactory()
     {
         auto *factory = gtk_signal_list_item_factory_new();
@@ -213,11 +244,10 @@ class DropDown
 
 class Grid
 {
-  public:
+public:
     Grid()
     {
         this->grid_ = gtk_grid_new();
-        // gtk_widget_set_hexpand(this->grid_, true);
         gtk_widget_add_css_class(this->grid_, "retinify_grid");
     }
 
@@ -233,18 +263,17 @@ class Grid
         return this->grid_;
     }
 
-  private:
+private:
     GtkWidget *grid_;
 };
 
 class Expander
 {
-  public:
+public:
     Expander(const char *label)
     {
         this->expander_ = gtk_expander_new(label);
         this->content_ = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-        // gtk_widget_set_hexpand(this->content_, true);
         gtk_expander_set_child(GTK_EXPANDER(this->expander_), this->content_);
         gtk_widget_add_css_class(this->expander_, "retinify_expander");
     }
@@ -266,20 +295,19 @@ class Expander
         return this->expander_;
     }
 
-  private:
+private:
     GtkWidget *expander_;
     GtkWidget *content_;
 };
 
 class ScrollWindow
 {
-  public:
+public:
     ScrollWindow()
     {
         this->scroll_ = gtk_scrolled_window_new();
         this->content_ = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
         gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(this->scroll_), this->content_);
-        // gtk_widget_set_hexpand(this->scroll_, true);
         gtk_widget_set_vexpand(this->scroll_, true);
         gtk_widget_add_css_class(this->scroll_, "retinify_scroll_window");
     }
@@ -296,18 +324,17 @@ class ScrollWindow
         return this->scroll_;
     }
 
-  private:
+private:
     GtkWidget *scroll_;
     GtkWidget *content_;
 };
 
 class List
 {
-  public:
+public:
     List()
     {
         this->list_ = gtk_list_box_new();
-        // gtk_widget_set_hexpand(this->list_, true);
         gtk_widget_add_css_class(this->list_, "retinify_list");
     }
 
@@ -323,7 +350,7 @@ class List
         return this->list_;
     }
 
-  private:
+private:
     GtkWidget *list_;
 };
 } // namespace retinify

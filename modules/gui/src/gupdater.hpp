@@ -24,13 +24,13 @@ class Updater
   public:
     inline static gboolean Update(gpointer user_data)
     {
-        auto running = retinify_get_core.IsCoreRunning();
+        auto running = retinify_get_hub.IsHubRunning();
         if (!running)
         {
             return G_SOURCE_REMOVE;
         }
 
-        if (auto frame_data = retinify_get_core.GetPipelinePtr()->TryGetOutputData())
+        if (auto frame_data = retinify_get_hub.GetPipelinePtr()->TryGetOutputData())
         {
             std::unique_ptr<retinify::StereoImageData> data = std::move(frame_data);
 

@@ -2,15 +2,15 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #include <retinify/engine.hpp>
@@ -53,6 +53,8 @@ public:
         auto data = this->GetImageData();
         if (data)
         {
+            cv::remap(data->left_.image_, data->left_.image_, this->l_mapx_, this->l_mapy_, cv::INTER_LINEAR);
+            cv::remap(data->right_.image_, data->right_.image_, this->r_mapx_, this->r_mapy_, cv::INTER_LINEAR);
             this->output_queue_->Replace(std::move(data));
         }
     }
@@ -95,8 +97,18 @@ public:
         }
     }
 
-    inline void Start(retinify::StereoEngine::Mode mode)
+    inline void InitUndistortRectifyMap(CalibrationData &calib)
     {
+        cv::initUndistortRectifyMap(calib.GetCameraMatrix()[0], calib.GetDistCoeffs()[0], calib.GetR()[0],
+                                    calib.GetP()[0], calib.GetInputImageSize(), CV_32FC1, this->l_mapx_, this->l_mapy_);
+        cv::initUndistortRectifyMap(calib.GetCameraMatrix()[1], calib.GetDistCoeffs()[1], calib.GetR()[1],
+                                    calib.GetP()[1], calib.GetInputImageSize(), CV_32FC1, this->r_mapx_, this->r_mapy_);
+    }
+
+    inline void Start(CalibrationData &calib, StereoEngine::Mode mode)
+    {
+        this->InitUndistortRectifyMap(calib);
+
         switch (mode)
         {
         case retinify::StereoEngine::Mode::RAWIMAGE:
@@ -123,13 +135,14 @@ public:
             this->thread_->Stop();
             this->thread_.reset();
         }
-        if(this->session_)
+        if (this->session_)
         {
             this->session_.reset();
         }
     }
 
 private:
+    cv::Mat l_mapx_, l_mapy_, r_mapx_, r_mapy_;
     retinify::Queue<retinify::StereoImageData> *input_queue_;
     retinify::Queue<retinify::StereoImageData> *output_queue_;
     std::unique_ptr<retinify::Thread> thread_;
@@ -153,9 +166,9 @@ void retinify::StereoEngine::SetOutputQueue(retinify::Queue<retinify::StereoImag
     this->impl_->SetOutputQueue(queue);
 }
 
-void retinify::StereoEngine::Start(retinify::StereoEngine::Mode mode)
+void retinify::StereoEngine::Start(CalibrationData &calib, StereoEngine::Mode mode)
 {
-    this->impl_->Start(mode);
+    this->impl_->Start(calib, mode);
 }
 
 void retinify::StereoEngine::Stop()

@@ -27,7 +27,7 @@ inline static void OnCameraButtonClicked(GtkButton *button, gpointer user_data)
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_core.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::RAWIMAGE);
+    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::RAWIMAGE);
 }
 
 inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data)
@@ -38,7 +38,7 @@ inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_core.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::INFERENCE);
+    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::INFERENCE);
 }
 
 inline static void OnLoaderButtonClicked(GtkButton *button, gpointer user_data)
@@ -49,7 +49,7 @@ inline static void OnLoaderButtonClicked(GtkButton *button, gpointer user_data)
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_core.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::LOADER);
+    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::LOADER);
 }
 
 retinify::InferenceContext::InferenceContext()

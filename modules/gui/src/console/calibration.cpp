@@ -47,7 +47,7 @@ inline static void OnImageSizeChanged(GtkDropDown *dropdown, gpointer user_data)
 inline static void OnCalibrationButtonClicked(GtkButton *button, gpointer user_data)
 {
     retinify::CalibrationData config;
-    retinify_get_core.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::CALIBRATION);
+    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::CALIBRATION);
 }
 
 retinify::CalibrationContext::CalibrationContext()
