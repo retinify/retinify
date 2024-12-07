@@ -88,7 +88,6 @@ retinify::ConsoleContext::ConsoleContext()
 
     std::unique_ptr<retinify::Label> label = std::make_unique<retinify::Label>("Calibration");
     std::unique_ptr<retinify::Horizontal> horizontal = std::make_unique<retinify::Horizontal>(5);
-    gtk_widget_set_halign(horizontal->Get(), GTK_ALIGN_END);
 
     std::unique_ptr<retinify::Switch> calibration_switch = std::make_unique<retinify::Switch>();
     g_signal_connect(calibration_switch->Get(), "notify::active", G_CALLBACK(HandlePipelineMode), nullptr);
@@ -101,8 +100,8 @@ retinify::ConsoleContext::ConsoleContext()
 
     // list
     this->list_ = std::make_unique<retinify::List>();
-    std::unique_ptr<PipelineControl> pselect1 = std::make_unique<PipelineControl>("Pipeline 1");
-    this->list_->Append(pselect1->Get());
+    std::unique_ptr<PipelineControl> pipeline_control = std::make_unique<PipelineControl>("Pipeline");
+    this->list_->Append(pipeline_control->Get());
 
     this->scroll_->Append(this->list_->Get());
     upper_area->Append(horizontal->Get());

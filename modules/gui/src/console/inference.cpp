@@ -21,35 +21,35 @@
 
 inline static void OnCameraButtonClicked(GtkButton *button, gpointer user_data)
 {
-    retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
+    retinify::CalibrationData calib_data;
+    if (!calib_data.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::RAWIMAGE);
+    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::RECTIFY); /// @todo change to RAWIMAGE
 }
 
 inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data)
 {
-    retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
+    retinify::CalibrationData calib_data;
+    if (!calib_data.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::INFERENCE);
+    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::INFERENCE);
 }
 
 inline static void OnLoaderButtonClicked(GtkButton *button, gpointer user_data)
 {
-    retinify::CalibrationData config;
-    if (!config.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
+    retinify::CalibrationData calib_data;
+    if (!calib_data.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
     {
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::LOADER);
+    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::LOADER);
 }
 
 retinify::InferenceContext::InferenceContext()

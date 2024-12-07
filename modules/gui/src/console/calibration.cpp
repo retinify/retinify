@@ -46,8 +46,13 @@ inline static void OnImageSizeChanged(GtkDropDown *dropdown, gpointer user_data)
 
 inline static void OnCalibrationButtonClicked(GtkButton *button, gpointer user_data)
 {
-    retinify::CalibrationData config;
-    retinify_get_hub.GetPipelinePtr()->Start(config, retinify::Pipeline::Mode::CALIBRATION);
+    retinify::CalibrationData calib_data;
+    if (!calib_data.Read(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH))
+    {
+        std::cerr << "Error: Configuration file not found" << std::endl;
+        return;
+    }
+    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::CALIBRATION);
 }
 
 retinify::CalibrationContext::CalibrationContext()

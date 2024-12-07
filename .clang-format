@@ -1,3 +1,2 @@
 BasedOnStyle: Microsoft
 Standard: c++20
-AccessModifierOffset: -4

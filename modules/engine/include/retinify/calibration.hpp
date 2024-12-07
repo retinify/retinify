@@ -2,20 +2,20 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 #include <opencv2/opencv.hpp>
-#include <retinify/pipeline.hpp>
+#include <retinify/core.hpp>
 namespace retinify
 {
 // variable
@@ -31,14 +31,14 @@ constexpr auto CORNER_SUBPIX_TERMINATION_EPSILON = 0.01;
 constexpr auto STOCK_SIZE = 16;
 constexpr auto ASPECT_MAX_MIN = 0.4;
 
-class Calib
+class Calibration
 {
   public:
-    Calib()
+    Calibration()
     {
         objp = GenerateObjectPoints();
     };
-    ~Calib() = default;
+    ~Calibration() = default;
 
     inline std::vector<cv::Point3f> GenerateObjectPoints()
     {
@@ -53,11 +53,20 @@ class Calib
         return objp;
     }
 
-    inline void DefineRegionOfInterest(retinify::CalibrationData &config)
+    inline void DefineRegionOfInterest(retinify::CalibrationData &calib_data)
     {
-        float scale_max = (this->state < 8) ? 1.0f : 0.8f;
+        float scale_max;
+        if (this->state < 8)
+        {
+            scale_max = 1.0f;
+        }
+        else
+        {
+            scale_max = 0.8f;
+        }
+
         float scale_min = scale_max * ASPECT_MAX_MIN;
-        cv::Size imageSize = config.GetInputImageSize();
+        cv::Size imageSize = calib_data.GetInputImageSize();
 
         switch (this->state % 8)
         {
@@ -127,7 +136,7 @@ class Calib
         return std::all_of(quad_count.begin(), quad_count.end(), [&](const int &num) { return num > num_threshold; });
     }
 
-    inline void Compute(retinify::CalibrationData &config)
+    inline void Compute(retinify::CalibrationData &calib_data)
     {
         cv::Size inputImageSize;
         std::array<cv::Mat, 2> cameraMatrix;
@@ -137,7 +146,7 @@ class Calib
         cv::Mat Q;
         std::array<cv::Rect, 2> valid;
 
-        inputImageSize = config.GetInputImageSize();
+        inputImageSize = calib_data.GetInputImageSize();
         cameraMatrix[0] = initCameraMatrix2D(object_points_stock, image_points_stock[0], inputImageSize, 0);
         cameraMatrix[1] = initCameraMatrix2D(object_points_stock, image_points_stock[1], inputImageSize, 0);
 
@@ -154,19 +163,19 @@ class Calib
         cv::stereoRectify(cameraMatrix[0], distCoeffs[0], cameraMatrix[1], distCoeffs[1], inputImageSize, R_raw, T_raw,
                           R[0], R[1], P[0], P[1], Q, cv::CALIB_ZERO_DISPARITY, 1, inputImageSize, &valid[0], &valid[1]);
 
-        config.SetInputImageSize(inputImageSize);
-        config.SetCameraMatrix(cameraMatrix);
-        config.SetDistCoeffs(distCoeffs);
-        config.SetR(R);
-        config.SetP(P);
-        config.SetQ(Q);
-        config.SetValid(valid);
+        calib_data.SetInputImageSize(inputImageSize);
+        calib_data.SetCameraMatrix(cameraMatrix);
+        calib_data.SetDistCoeffs(distCoeffs);
+        calib_data.SetR(R);
+        calib_data.SetP(P);
+        calib_data.SetQ(Q);
+        calib_data.SetValid(valid);
 
         std::cout << "imageSize" << inputImageSize << std::endl;
         std::cout << "validRoi[0]" << valid[0] << std::endl;
         std::cout << "validRoi[1]" << valid[1] << std::endl;
 
-        config.Write("calibration.yml");
+        calib_data.Write(RETINIFY_DEFAULT_CALIBRATION_FILE_PATH);
 
         image_points_stock[0].clear();
         image_points_stock[1].clear();

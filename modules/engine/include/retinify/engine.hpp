@@ -31,6 +31,7 @@ public:
     enum class Mode
     {
         RAWIMAGE,
+        RECTIFY,
         CALIBRATION,
         INFERENCE,
     };

@@ -24,6 +24,7 @@
 #define RETINIFY_RESOURCE_DIR_PATH (retinify::GetShareDirPath() / "resources")
 #define RETINIFY_DEFAULT_CALIBRATION_FILE_PATH (retinify::GetShareDirPath() / "resources" / "calibration.yml")
 #define RETINIFY_GUI_STYLE_CSS_PATH (retinify::GetShareDirPath() / "resources" / "style.css")
+#define RETINIFY_DEFALUT_MODEL_PATH (retinify::GetShareDirPath() / "models" / "model.onnx")
 namespace retinify
 {
 std::filesystem::path GetShareDirPath();
