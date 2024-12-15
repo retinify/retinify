@@ -1,6 +1,6 @@
 include(FetchContent)
 
-set(ONNXRUNTIME_VERSION "1.19.2")
+set(ONNXRUNTIME_VERSION "1.20.1")
 set(ONNXRUNTIME_URL "https://github.com/microsoft/onnxruntime/releases/download/v${ONNXRUNTIME_VERSION}/onnxruntime-linux-x64-gpu-${ONNXRUNTIME_VERSION}.tgz")
 set(DOWNLOAD_DIR "${CMAKE_BINARY_DIR}/onnxruntime-download")
 set(EXTRACT_DIR "${CMAKE_BINARY_DIR}/onnxruntime")

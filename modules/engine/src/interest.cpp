@@ -13,25 +13,13 @@
 // You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
-namespace retinify
-{
-/// @brief Singleton class
-template <typename T> class Singleton
-{
-  public:
-    /// @brief Get the instance of the singleton
-    static T &Instance()
-    {
-        static T instance;
-        return instance;
-    }
+#include <retinify/interest.hpp>
 
-    Singleton(Singleton const &) = delete;
-    Singleton &operator=(Singleton const &) = delete;
+retinify::Interest::Interest(cv::Size size)
+{
+    size_ = size;
+    rect_ = cv::Rect(0, 0, size.width, size.height);
+}
 
-  protected:
-    Singleton() = default;
-    ~Singleton() = default;
-};
-} // namespace retinify
+retinify::Interest::~Interest() = default;
+

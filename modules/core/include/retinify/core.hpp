@@ -17,6 +17,7 @@
 #include <filesystem>
 #include <opencv2/opencv.hpp>
 #include <retinify/data.hpp>
+#include <retinify/mutex.hpp>
 #include <retinify/queue.hpp>
 #include <retinify/singleton.hpp>
 #include <retinify/thread.hpp>

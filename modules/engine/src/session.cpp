@@ -2,15 +2,15 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #if USE_GPU
@@ -28,7 +28,7 @@ namespace retinify
 #if USE_GPU
 class Session::Impl
 {
-public:
+  public:
     inline Impl(std::string model_path)
     {
         // ONNX Runtime
@@ -58,25 +58,19 @@ public:
                                                             option_keys.size()));
 
         Ort::SessionOptions session_options;
-        Ort::ThrowOnError(api.SessionOptionsAppendExecutionProvider_TensorRT_V2(session_options, tensorrt_options));
+        // Ort::ThrowOnError(api.SessionOptionsAppendExecutionProvider_TensorRT_V2(session_options, tensorrt_options));
 
-        // CUDA Provider Options
         OrtCUDAProviderOptions cuda_options;
         Ort::ThrowOnError(api.SessionOptionsAppendExecutionProvider_CUDA(session_options, &cuda_options));
 
-        // create session
         this->session_ = Ort::Session(this->env_, ORT_TSTR(model_path.c_str()), session_options);
 
-        // allocator
         this->allocator =
             Ort::Allocator(this->session_, Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault));
-
         this->info_cuda = Ort::MemoryInfo("Cuda", OrtDeviceAllocator, 0, OrtMemTypeDefault);
         this->cuda_allocator = Ort::Allocator(this->session_, info_cuda);
 
-        // RunOptions
         this->run_option_ = Ort::RunOptions();
-
         this->binding_ = Ort::IoBinding(this->session_);
 
         for (size_t i = 0; i < this->session_.GetInputCount(); i++)
@@ -166,7 +160,7 @@ public:
         this->session_.Run(this->run_option_, this->binding_);
     }
 
-protected:
+  protected:
     Ort::Session session_{nullptr};
     Ort::Env env_{nullptr};
     Ort::IoBinding binding_{nullptr};
@@ -223,7 +217,7 @@ void Session::DownloadOutputData(int index, std::vector<float> &data)
 void Session::DownloadOutputData(int index, cv::Mat &data)
 {
     std::vector<int64_t> shape = this->impl_->GetOutputShape(index);
-    cv::Size size(shape[3], shape[2]);
+    cv::Size size(shape[2], shape[1]);
     std::vector<float> output;
     this->DownloadOutputData(index, output);
     data = cv::Mat(size, CV_32F, output.data()).clone();
@@ -232,7 +226,7 @@ void Session::DownloadOutputData(int index, cv::Mat &data)
 void Session::DownloadOutputData(int index, cv::Mat &data, int type)
 {
     std::vector<int64_t> shape = this->impl_->GetOutputShape(index);
-    cv::Size size(shape[3], shape[2]);
+    cv::Size size(shape[2], shape[1]);
     std::vector<float> output;
     this->DownloadOutputData(index, output);
     data = cv::Mat(size, type, output.data()).clone();

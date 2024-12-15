@@ -1,3 +1,6 @@
+# debian binary package
+*.deb
+
 # Build files
 build/
 

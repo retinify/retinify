@@ -4,7 +4,7 @@
 headerbar {
     min-height: 0px;
     padding: 0px;
-    background: hsl(0, 0%, 10%);
+    background: hsl(0, 0%, 5%);
 }
 
 window.background {
@@ -22,47 +22,6 @@ spinbutton {
     padding-bottom: 0px;
     border-radius: 3px;
 }
-
-label {
-    min-height: 12px;
-    min-width: 12px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin: 0px;
-    border: 0px solid transparent;
-    /* font-size: 12px; */
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-button {
-    min-height: 12px;
-    min-width: 12px;
-    border: 0px solid transparent;
-    border-radius: 3px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-/* SIDEBAR */
-/* .sidebar {
-    padding: 0px;
-    background-color: hsl(0, 0%, 15%);
-} */
-
-/* SCALE */
-/* scale {
-    min-width: 10px;
-} */
-
-/* scale slider {
-    box-shadow: none;
-    background: hsl(0, 0%, 80%);
-} */
-
-/* scale highlight {
-    background: hsl(0, 0%, 10%);
-} */
 
 /* 
  * SIDEBUTTON
@@ -86,104 +45,8 @@ button {
 }
 
 /* 
- * CONSOLE
- *
- */
-stacksidebar.sidebar {
-    border: 0px solid transparent;
-    border-radius: 0px;
-    background: transparent;
-    padding: 0px;
-}
-
-stacksidebar.sidebar list {
-    border: 0px solid transparent;
-    border-radius: 0px;
-    background: transparent;
-    padding-top: 7px;
-}
-
-stacksidebar.sidebar list>row {
-    border: 0px solid transparent;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    padding: 0px;
-    margin-top: 0px;
-    margin-bottom: 2px;
-    margin-left: 0px;
-    margin-right: 0px;
-    min-height: 30px;
-    min-width: 30px;
-    background: hsl(0, 0%, 15%);
-}
-
-stacksidebar.sidebar list>row:hover {
-    background: hsl(0, 0%, 20%);
-}
-
-stacksidebar.sidebar list>row:selected {
-    background: hsl(0, 0%, 25%);
-}
-
-/* .console-pane {
-    border: 0px solid transparent;
-    border-radius: 0px;
-    padding: 0px;
-    margin: 10px;
-    background: hsl(186, 96%, 46%);
-} */
-
-/* .console-control {
-    border: 0px solid transparent;
-    border-radius: 3px;
-    background: hsl(0, 0%, 25%);
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-right: 3px;
-} */
-
-/* .console-sidebar {
-    border-radius: 0px;
-    border: 0px solid transparent;
-} */
-
-/* .console-stack {
-    border-radius: 0px;
-    border: 0px solid transparent;
-} */
-
-/* .console-area {
-    border: 0px solid transparent;
-    border-radius: 3px;
-} */
-
-/*
- * IMAGW-BOX
- *
- */
-.image-box {
-    border: 0px solid transparent;
-    margin: 0px;
-}
-
-/* .disparity-box {
-    border: 0px solid transparent;
-    border-radius: 3px;
-    padding: 3px;
-    min-width: 320px;
-    min-height: 180px;
-} */
-
-/* 
  * GLVIWER
  */
-.gl-viewer-box {
-    border: 0px solid transparent;
-    border-radius: 3px;
-}
-
 .gl-viewer-overlay {
     border: 0px solid transparent;
     border-radius: 3px;
@@ -204,7 +67,7 @@ stacksidebar.sidebar list>row:selected {
     border-radius: 3px;
     padding: 0px;
     margin: 12px;
-    background: hsl(327, 100%, 50%);
+    background: transparent;
 }
 
 .retinify_button {
@@ -217,7 +80,7 @@ stacksidebar.sidebar list>row:selected {
     padding-left: 3px;
     padding-right: 3px;
     margin: 2px;
-    background: hsl(277, 75%, 52%);
+    /* background: hsl(277, 75%, 52%); */
 }
 
 .retinify_drop_down {
@@ -226,7 +89,7 @@ stacksidebar.sidebar list>row:selected {
     border-radius: 3px;
     padding: 0px;
     margin: 2px;
-    background: hsl(188, 100%, 71%);
+    background: transparent;
 }
 
 .retinify_grid {

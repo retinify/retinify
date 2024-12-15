@@ -2,15 +2,15 @@
 //
 // This file is part of retinify.
 //
-// retinify is free software: you can redistribute it and/or modify it under the terms of the 
-// GNU Affero General Public License as published by the Free Software Foundation, 
+// retinify is free software: you can redistribute it and/or modify it under the terms of the
+// GNU Affero General Public License as published by the Free Software Foundation,
 // either version 3 of the License, or (at your option) any later version.
 //
-// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// retinify is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Affero General Public License for more details.
 //
-// You should have received a copy of the GNU Affero General Public License along with retinify. 
+// You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
@@ -65,9 +65,11 @@ template <typename T> class Queue
     /// @brief Wait and Pop data from the queue with timeout
     /// @param timeout time to wait for data
     /// @return std::unique_ptr<T>
-    inline std::unique_ptr<T> Pop(const std::chrono::milliseconds& timeout) {
+    inline std::unique_ptr<T> Pop(const std::chrono::milliseconds &timeout)
+    {
         std::unique_lock<std::mutex> lock(mutex_);
-        if (!cond_.wait_for(lock, timeout, [this] { return !queue_.empty(); })) {
+        if (!cond_.wait_for(lock, timeout, [this] { return !queue_.empty(); }))
+        {
             return nullptr;
         }
         std::unique_ptr<T> tmp = std::move(queue_.front());

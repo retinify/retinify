@@ -14,24 +14,32 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+#include <chrono>
+#include <condition_variable>
+#include <mutex>
 namespace retinify
 {
-/// @brief Singleton class
-template <typename T> class Singleton
+class Mutex
 {
   public:
-    /// @brief Get the instance of the singleton
-    static T &Instance()
+    inline void Lock()
     {
-        static T instance;
-        return instance;
+        std::lock_guard<std::mutex> lock(mtx_);
     }
 
-    Singleton(Singleton const &) = delete;
-    Singleton &operator=(Singleton const &) = delete;
+    template <typename Predicate> inline void Wait(int ms, Predicate pred)
+    {
+        std::unique_lock<std::mutex> lock(mtx_);
+        cond_.wait_for(lock, std::chrono::milliseconds(ms), pred);
+    }
 
-  protected:
-    Singleton() = default;
-    ~Singleton() = default;
+    inline void Notify()
+    {
+        cond_.notify_all();
+    }
+
+  private:
+    std::mutex mtx_;
+    std::condition_variable cond_;
 };
 } // namespace retinify

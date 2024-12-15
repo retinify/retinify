@@ -84,7 +84,6 @@ retinify::GLViewer::GLViewer()
     gtk_widget_set_hexpand(this->gl_area, TRUE);
     gtk_widget_set_vexpand(this->gl_area, TRUE);
     gtk_box_append(GTK_BOX(this->gl_viewer_box), this->gl_area);
-    gtk_widget_add_css_class(this->gl_viewer_box, "gl-viewer-box");
     gtk_widget_add_css_class(this->overlay, "gl-viewer-overlay");
     gtk_widget_add_css_class(this->gl_area, "gl-area");
 

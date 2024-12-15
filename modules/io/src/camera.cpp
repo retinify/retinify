@@ -17,7 +17,7 @@
 #include <retinify/core.hpp>
 class retinify::Camera::Impl
 {
-public:
+  public:
     Impl()
     {
         l_thread_ = std::make_unique<retinify::Thread>(
@@ -53,7 +53,7 @@ public:
         this->Close();
     }
 
-private:
+  private:
     void Open(const char *node1, const char *node2)
     {
         l_cap_.open(node1, cv::CAP_V4L2);
@@ -122,19 +122,18 @@ private:
         }
 
         {
-            std::lock_guard<std::mutex> lock(mtx);
+            this->mtx_.Lock();
             frame.image_ = temp.clone();
             ready = true;
         }
 
-        cond.notify_one();
+        this->mtx_.Notify();
     }
 
     void Process()
     {
         retinify::StereoImageData data;
-        std::unique_lock<std::mutex> lock(mtx);
-        cond.wait_for(lock, std::chrono::milliseconds(1000), [this] { return l_ready_ && r_ready_; });
+        this->mtx_.Wait(1000, [this]() { return this->l_ready_ && this->r_ready_; });
 
         if (!l_frame_.image_.empty() && !r_frame_.image_.empty())
         {
@@ -156,10 +155,9 @@ private:
     cv::VideoCapture r_cap_;
 
     retinify::ImageData l_frame_;
-    retinify::ImageData r_frame_;    
+    retinify::ImageData r_frame_;
 
-    std::mutex mtx;
-    std::condition_variable cond;
+    retinify::Mutex mtx_;
     bool l_ready_{false};
     bool r_ready_{false};
 

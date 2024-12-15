@@ -15,6 +15,7 @@
 
 #include <retinify/gui.hpp>
 #include <retinify/io.hpp>
+#include <retinify/session.hpp>
 
 int main()
 {

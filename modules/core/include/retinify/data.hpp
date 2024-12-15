@@ -14,8 +14,8 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
-#include <opencv2/core.hpp>
 #include <map>
+#include <opencv2/core.hpp>
 namespace retinify
 {
 /// @brief Image data with timestamp
@@ -43,7 +43,7 @@ struct DeviceData
 };
 class CalibrationData
 {
-public:
+  public:
     CalibrationData();
     ~CalibrationData();
 
@@ -74,7 +74,7 @@ public:
     void SetValid(const std::array<cv::Rect, 2> &valid);
     std::array<cv::Rect, 2> GetValid();
 
-private:
+  private:
     std::array<std::string, 2> serial;
     cv::Size inputImageSize;
     std::array<cv::Mat, 2> cameraMatrix;

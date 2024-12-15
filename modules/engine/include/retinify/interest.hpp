@@ -14,24 +14,18 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+#include <opencv2/core.hpp>
+
 namespace retinify
 {
-/// @brief Singleton class
-template <typename T> class Singleton
+class Interest
 {
   public:
-    /// @brief Get the instance of the singleton
-    static T &Instance()
-    {
-        static T instance;
-        return instance;
-    }
+    Interest(cv::Size size);
+    ~Interest();
 
-    Singleton(Singleton const &) = delete;
-    Singleton &operator=(Singleton const &) = delete;
-
-  protected:
-    Singleton() = default;
-    ~Singleton() = default;
+  private:
+    cv::Size size_;
+    cv::Rect rect_;
 };
 } // namespace retinify

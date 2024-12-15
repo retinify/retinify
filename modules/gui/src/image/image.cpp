@@ -58,9 +58,6 @@ retinify::ImageBox::ImageBox()
     gtk_box_append(GTK_BOX(this->image_box), this->image4);
 
     this->Append(this->image_box);
-
-    // style
-    gtk_widget_add_css_class(this->image_box, "image-box");
 }
 
 void retinify::ImageBox::UpdateDisplayStereoData(StereoImageData &data)
