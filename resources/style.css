@@ -9,7 +9,7 @@ headerbar {
 
 window.background {
     border-radius: 0px;
-    background: hsl(0, 0%, 10%);
+    background: hsl(0, 0%, 5%);
 }
 
 spinbutton {
@@ -80,7 +80,15 @@ spinbutton {
     padding-left: 3px;
     padding-right: 3px;
     margin: 2px;
-    /* background: hsl(277, 75%, 52%); */
+    background: hsl(0, 0%, 15%);
+}
+
+.retinify_button:hover {
+    background: hsl(0, 0%, 15%);
+}
+
+.retinify_button:active {
+    background: hsl(0, 0%, 15%);
 }
 
 .retinify_drop_down {

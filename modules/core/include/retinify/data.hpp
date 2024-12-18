@@ -15,6 +15,7 @@
 
 #pragma once
 #include <map>
+#include <memory>
 #include <opencv2/core.hpp>
 namespace retinify
 {
@@ -47,9 +48,6 @@ class CalibrationData
     CalibrationData();
     ~CalibrationData();
 
-    bool Write(const std::string filename);
-    bool Read(const std::string filename);
-
     void SetSerial(const std::array<std::string, 2> &serial);
     std::array<std::string, 2> GetSerial() const;
 
@@ -74,7 +72,13 @@ class CalibrationData
     void SetValid(const std::array<cv::Rect, 2> &valid);
     std::array<cv::Rect, 2> GetValid();
 
+    bool Write(const std::string filename);
+    bool Read(const std::string filename);
+
   private:
+    class Impl;
+    std::shared_ptr<Impl> impl_;
+
     std::array<std::string, 2> serial;
     cv::Size inputImageSize;
     std::array<cv::Mat, 2> cameraMatrix;

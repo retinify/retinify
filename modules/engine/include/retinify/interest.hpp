@@ -14,18 +14,30 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+#include <array>
 #include <opencv2/core.hpp>
-
+#include <retinify/mutex.hpp>
 namespace retinify
 {
 class Interest
 {
   public:
+    Interest();
     Interest(cv::Size size);
     ~Interest();
+    enum class Mode
+    {
+        SAME,
+        MIRROR,
+    };
+    void SetImageSize(cv::Size size);
+    void SetScaledRectArray(float x_scale, float y_scale, float w_scale, float h_scale,
+                            Interest::Mode mode = Interest::Mode::SAME);
+    std::array<cv::Rect, 2> GetRectArray() const;
 
   private:
+    retinify::Mutex mutex_;
     cv::Size size_;
-    cv::Rect rect_;
+    std::array<cv::Rect, 2> rect_;
 };
 } // namespace retinify

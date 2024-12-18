@@ -16,25 +16,23 @@
 #include <iostream>
 #include <retinify/data.hpp>
 #include <stdexcept>
-#define CONFIGURATION_INPUT_IMAGE_SIZE "CONFIGURATION_INPUT_IMAGE_SIZE"
-#define CONFIGURATION_SCALE "CONFIGURATION_SCALE"
-#define CONFIGURATION_PROCESSING_IMAGE_SIZE "CONFIGURATION_PROCESSING_IMAGE_SIZE"
-#define CONFIGURATION_SERIAL_0 "CONFIGURATION_SERIAL_0"
-#define CONFIGURATION_SERIAL_1 "CONFIGURATION_SERIAL_1"
-#define CONFIGURATION_CAMERA_MATRIX_0 "CONFIGURATION_CAMERA_MATRIX_0"
-#define CONFIGURATION_CAMERA_MATRIX_1 "CONFIGURATION_CAMERA_MATRIX_1"
-#define CONFIGURATION_DIST_COEFFS_0 "CONFIGURATION_DIST_COEFFS_0"
-#define CONFIGURATION_DIST_COEFFS_1 "CONFIGURATION_DIST_COEFFS_1"
-#define CONFIGURATION_R_1 "CONFIGURATION_R_1"
-#define CONFIGURATION_R_2 "CONFIGURATION_R_2"
-#define CONFIGURATION_P_1 "CONFIGURATION_P_1"
-#define CONFIGURATION_P_2 "CONFIGURATION_P_2"
-#define CONFIGURATION_Q "CONFIGURATION_Q"
-#define CONFIGURATION_VALID_0 "CONFIGURATION_VALID_0"
-#define CONFIGURATION_VALID_1 "CONFIGURATION_VALID_1"
+
+class retinify::CalibrationData::Impl
+{
+  public:
+    std::array<std::string, 2> serial{"", ""};
+    cv::Size inputImageSize{1280, 720};
+    std::array<cv::Mat, 2> cameraMatrix{cv::Mat::eye(3, 3, CV_64F), cv::Mat::eye(3, 3, CV_64F)};
+    std::array<cv::Mat, 2> distCoeffs{cv::Mat::zeros(5, 1, CV_64F), cv::Mat::zeros(5, 1, CV_64F)};
+    std::array<cv::Mat, 2> R{cv::Mat::eye(3, 3, CV_64F), cv::Mat::eye(3, 3, CV_64F)};
+    std::array<cv::Mat, 2> P{cv::Mat::eye(3, 4, CV_64F), cv::Mat::eye(3, 4, CV_64F)};
+    cv::Mat Q{cv::Mat::eye(4, 4, CV_64F)};
+    std::array<cv::Rect, 2> valid{cv::Rect(), cv::Rect()};
+};
 
 retinify::CalibrationData::CalibrationData()
 {
+    this->impl_ = std::make_shared<Impl>();
     inputImageSize = cv::Size(1280, 720);
     serial = {"", ""};
     cameraMatrix = {cv::Mat::eye(3, 3, CV_64F), cv::Mat::eye(3, 3, CV_64F)};
@@ -46,11 +44,6 @@ retinify::CalibrationData::CalibrationData()
 }
 
 retinify::CalibrationData::~CalibrationData() = default;
-
-inline static cv::Size ComputeProcessingImageSize(const cv::Size &input_image_size, float &scale)
-{
-    return {static_cast<int>(input_image_size.width * scale), static_cast<int>(input_image_size.height * scale)};
-}
 
 void retinify::CalibrationData::SetInputImageSize(const cv::Size &input_image_size)
 {
@@ -131,6 +124,23 @@ std::array<cv::Rect, 2> retinify::CalibrationData::GetValid()
 {
     return this->valid;
 }
+
+#define CONFIGURATION_INPUT_IMAGE_SIZE "CONFIGURATION_INPUT_IMAGE_SIZE"
+#define CONFIGURATION_SCALE "CONFIGURATION_SCALE"
+#define CONFIGURATION_PROCESSING_IMAGE_SIZE "CONFIGURATION_PROCESSING_IMAGE_SIZE"
+#define CONFIGURATION_SERIAL_0 "CONFIGURATION_SERIAL_0"
+#define CONFIGURATION_SERIAL_1 "CONFIGURATION_SERIAL_1"
+#define CONFIGURATION_CAMERA_MATRIX_0 "CONFIGURATION_CAMERA_MATRIX_0"
+#define CONFIGURATION_CAMERA_MATRIX_1 "CONFIGURATION_CAMERA_MATRIX_1"
+#define CONFIGURATION_DIST_COEFFS_0 "CONFIGURATION_DIST_COEFFS_0"
+#define CONFIGURATION_DIST_COEFFS_1 "CONFIGURATION_DIST_COEFFS_1"
+#define CONFIGURATION_R_1 "CONFIGURATION_R_1"
+#define CONFIGURATION_R_2 "CONFIGURATION_R_2"
+#define CONFIGURATION_P_1 "CONFIGURATION_P_1"
+#define CONFIGURATION_P_2 "CONFIGURATION_P_2"
+#define CONFIGURATION_Q "CONFIGURATION_Q"
+#define CONFIGURATION_VALID_0 "CONFIGURATION_VALID_0"
+#define CONFIGURATION_VALID_1 "CONFIGURATION_VALID_1"
 
 bool retinify::CalibrationData::Write(std::string filename)
 {
