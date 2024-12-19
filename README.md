@@ -24,7 +24,9 @@ INSTALL_DIR=/path/to/install
 ```
 ```
 mkdir -p build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR ..
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
+      -DUSE_NVIDIA_GPU=ON \
+      ..
 make install
 ```
 ```

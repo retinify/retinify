@@ -50,27 +50,23 @@ inline static void ActivateWindow(GtkApplication &app, gpointer user_data)
     window = gtk_application_window_new(&app);
 
     std::unique_ptr<retinify::Horizontal> main_box = std::make_unique<retinify::Horizontal>();
+    std::unique_ptr<retinify::VerticalBox> middle_box = std::make_unique<retinify::VerticalBox>();
+    middle_box->Append(retinify_get_gui_image.Get());
+    middle_box->Append(retinify_get_gui_inference.Get());
+    middle_box->Append(retinify_get_gui_calibration.Get());
 
-    GtkWidget *middle_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_append(GTK_BOX(middle_box), retinify_get_gui_image.Get());
-    gtk_box_append(GTK_BOX(middle_box), retinify_get_gui_glviewer.Get());
-
-    // main_box->Append(retinify_get_gui_sidebar.Get());
-    main_box->Append(middle_box);
-    main_box->Append(retinify_get_gui_console.Get());
+    main_box->Append(middle_box->Get());
 
     // GtkHeaderBarを作成
     GtkWidget *header_bar = gtk_header_bar_new();
     GtkWidget *title_widget = gtk_label_new("retinify");
-    std::unique_ptr<retinify::Button> tab_console_button = std::make_unique<retinify::Button>("");
+    std::unique_ptr<retinify::Switch> calibration_switch = std::make_unique<retinify::Switch>();
+    g_signal_connect(calibration_switch->Get(), "notify::active", G_CALLBACK(HandlePipelineMode), nullptr);
+    calibration_switch->SetActive(true);
 
     gtk_header_bar_set_show_title_buttons(GTK_HEADER_BAR(header_bar), TRUE);
     gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header_bar), title_widget);
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), tab_console_button->Get());
-
-    // signal
-    g_signal_connect(tab_console_button->Get(), "clicked", G_CALLBACK(toggle_widget_visibility),
-                     retinify_get_gui_console.Get());
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), calibration_switch->Get());
 
     gtk_window_set_child(GTK_WINDOW(window), main_box->Get());
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);

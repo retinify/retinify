@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Affero General Public License along with retinify.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#if USE_GPU
+#if USE_NVIDIA_GPU
 #include <cuda_runtime.h>
 #include <onnxruntime_cxx_api.h>
 #endif
@@ -25,7 +25,7 @@
 #define TRT_TIMING_CACHE_PATH "./trt_timing"
 namespace retinify
 {
-#if USE_GPU
+#if USE_NVIDIA_GPU
 class Session::Impl
 {
   public:

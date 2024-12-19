@@ -80,6 +80,7 @@ retinify::CalibrationContext::CalibrationContext()
 
     // device
     this->device_expander = std::make_unique<retinify::Expander>("Device");
+
     this->device_grid = std::make_unique<retinify::Grid>();
     this->left_id_drop_down = std::make_unique<retinify::DropDown>();
     this->right_id_drop_down = std::make_unique<retinify::DropDown>();
@@ -108,15 +109,13 @@ retinify::CalibrationContext::CalibrationContext()
 
     // calibration
     this->calibration_expander = std::make_unique<retinify::Expander>("Calibration");
-
     this->Append(this->calibration_expander->Get());
 
     // test
     this->test_expander = std::make_unique<retinify::Expander>("Test");
-
     this->Append(this->test_expander->Get());
 
-    // Connect signals
+    // Signals
     g_signal_connect(image_size_dropdown->Get(), "notify::selected", G_CALLBACK(OnImageSizeChanged), this);
     g_signal_connect(calibration_button->Get(), "clicked", G_CALLBACK(OnCalibrationButtonClicked), this);
 }

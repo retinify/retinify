@@ -38,7 +38,7 @@ class Updater
             cv::cvtColor(data->right_.image_, data->right_.image_, cv::COLOR_BGR2RGB);
 
             retinify_get_gui_image.UpdateDisplayStereoData(*data);
-            retinify_get_gui_glviewer.UpdatePCDPositionsAndColors(*data);
+            // retinify_get_gui_glviewer.UpdatePCDPositionsAndColors(*data); ///@todo fix this
         }
 
         return G_SOURCE_CONTINUE;

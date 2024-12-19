@@ -10,13 +10,13 @@ file(GLOB_RECURSE SRCS_ENGINE ./src/*.c* ./src/*.h* ./include/*.h*)
 add_library(${PROJECT_NAME} SHARED ${SRCS_ENGINE})
 
 # OPTIONS
-option(USE_GPU "Use GPU acceleration if available" ON)
-if(USE_GPU)
-  add_definitions(-DUSE_GPU)
+option(USE_NVIDIA_GPU "Use GPU acceleration if available" ON)
+if(USE_NVIDIA_GPU)
+  add_definitions(-DUSE_NVIDIA_GPU)
 endif()
 
 # DEPENDENCIES
-if(USE_GPU)
+if(USE_NVIDIA_GPU)
     find_package(CUDAToolkit REQUIRED)
     project(${PROJECT_NAME} LANGUAGES CXX CUDA)
     target_link_libraries(${PROJECT_NAME} CUDA::cudart ${ONNXRUNTIME_LIBRARY} retinify_core)
@@ -39,7 +39,7 @@ else()
 endif()
 
 # OUTPUT
-message(STATUS "Building with GPU support: ${USE_GPU}")
+message(STATUS "Building with NVIDIA GPU support: ${USE_NVIDIA_GPU}")
 
 # INSTALL
 install(TARGETS ${PROJECT_NAME}

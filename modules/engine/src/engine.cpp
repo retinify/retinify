@@ -185,8 +185,7 @@ class retinify::StereoEngine::Impl
 
     inline void Start(CalibrationData &calib_data, StereoEngine::Mode mode)
     {
-        this->calib_data_ = std::make_unique<retinify::CalibrationData>(calib_data);
-        this->InitUndistortRectifyMap();
+        this->calib_data_ = std::make_shared<retinify::CalibrationData>(calib_data);
 
         switch (mode)
         {
@@ -195,6 +194,7 @@ class retinify::StereoEngine::Impl
             break;
 
         case retinify::StereoEngine::Mode::RECTIFY:
+            this->InitUndistortRectifyMap();
             this->thread_ = std::make_unique<retinify::Thread>([this]() { this->Rectify(); });
             break;
 
@@ -204,11 +204,11 @@ class retinify::StereoEngine::Impl
             break;
 
         case retinify::StereoEngine::Mode::INFERENCE:
+            this->InitUndistortRectifyMap();
             this->session_ = std::make_unique<retinify::Session>(RETINIFY_DEFALUT_MODEL_PATH);
             this->thread_ = std::make_unique<retinify::Thread>([this]() { this->Inference(); });
             break;
         }
-
         this->thread_->Start();
     }
 
@@ -233,7 +233,7 @@ class retinify::StereoEngine::Impl
     retinify::Queue<retinify::StereoImageData> *input_queue_;
     retinify::Queue<retinify::StereoImageData> *output_queue_;
     cv::Mat l_mapx_, l_mapy_, r_mapx_, r_mapy_;
-    std::unique_ptr<retinify::CalibrationData> calib_data_;
+    std::shared_ptr<retinify::CalibrationData> calib_data_;
     std::unique_ptr<retinify::Thread> thread_;
     std::unique_ptr<retinify::Session> session_;
     std::unique_ptr<retinify::Calibration> calibration_;

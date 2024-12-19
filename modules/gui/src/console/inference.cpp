@@ -27,7 +27,7 @@ inline static void OnCameraButtonClicked(GtkButton *button, gpointer user_data)
         std::cerr << "Error: Configuration file not found" << std::endl;
         return;
     }
-    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::RECTIFY); /// @todo change to RAWIMAGE
+    retinify_get_hub.GetPipelinePtr()->Start(calib_data, retinify::Pipeline::Mode::RAWIMAGE);
 }
 
 inline static void OnInfernceButtonClicked(GtkButton *button, gpointer user_data)

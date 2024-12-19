@@ -14,6 +14,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #include <retinify/gui.hpp>
+#include <retinify/io.hpp>
 
 int main()
 {

@@ -17,7 +17,6 @@
 #include <format/format.hpp>
 #include <gtk/gtk.h>
 #include <retinify/pipeline.hpp>
-#define retinify_get_gui_console retinify::ConsoleContext::Instance()
 #define retinify_get_gui_inference retinify::InferenceContext::Instance()
 #define retinify_get_gui_calibration retinify::CalibrationContext::Instance()
 namespace retinify
@@ -62,18 +61,5 @@ class CalibrationContext : public Context<CalibrationContext>
     // test
     std::unique_ptr<retinify::Expander> test_expander;
     std::unique_ptr<retinify::Grid> test_grid;
-};
-
-class ConsoleContext : public Context<ConsoleContext>
-{
-  public:
-    ConsoleContext();
-    ~ConsoleContext();
-
-  private:
-    std::unique_ptr<retinify::ScrollWindow> scroll_;
-    std::unique_ptr<retinify::List> list_;
-
-    std::unique_ptr<retinify::ScrollWindow> area1_scroll_;
 };
 } // namespace retinify

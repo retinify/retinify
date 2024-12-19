@@ -46,7 +46,7 @@ retinify::ImageBox::ImageBox()
     gtk_picture_set_paintable(GTK_PICTURE(this->image4), GDK_PAINTABLE(texture));
     g_object_unref(texture);
 
-    // image box
+    // image box @todo: add css class
     gtk_widget_set_halign(this->image_box, GTK_ALIGN_CENTER);
     gtk_widget_set_hexpand(this->left_image_widget, TRUE);
     gtk_widget_set_hexpand(this->right_image_widget, TRUE);
@@ -58,6 +58,7 @@ retinify::ImageBox::ImageBox()
     gtk_box_append(GTK_BOX(this->image_box), this->image4);
 
     this->Append(this->image_box);
+    gtk_widget_add_css_class(this->image_box, "image_box");
 }
 
 void retinify::ImageBox::UpdateDisplayStereoData(StereoImageData &data)

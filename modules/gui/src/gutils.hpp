@@ -24,3 +24,18 @@ static void toggle_widget_visibility(GtkButton *button, gpointer widget) {
         gtk_widget_set_visible(GTK_WIDGET(widget), TRUE);
     }
 }
+
+void static HandlePipelineMode(GtkWidget *widget, gpointer data)
+{
+    auto *switch_widget = GTK_SWITCH(widget);
+    if (gtk_switch_get_active(switch_widget))
+    {
+        retinify_get_gui_inference.SetVisible(false);
+        retinify_get_gui_calibration.SetVisible(true);
+    }
+    else
+    {
+        retinify_get_gui_inference.SetVisible(true);
+        retinify_get_gui_calibration.SetVisible(false);
+    }
+}

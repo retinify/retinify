@@ -31,8 +31,3 @@ add_subdirectory(cmake)
 add_subdirectory(include)
 add_subdirectory(modules)
 add_subdirectory(apps)
-
-# INSTALL RESOURCES
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/
-    DESTINATION share/retinify/resources/
-)
