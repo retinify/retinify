@@ -26,7 +26,7 @@ public:
     Camera();
     ~Camera();
 
-    void Start(const char *node1, const char *node2);
+    void Start(retinify::CalibrationData &calib_data);
 
     void Stop();
 

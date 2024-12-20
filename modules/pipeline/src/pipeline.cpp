@@ -62,11 +62,8 @@ public:
     inline void Start(retinify::CalibrationData &calib, const retinify::Pipeline::Mode mode)
     {
         this->Stop(); // if already active, deactivate first
-        
-        std::optional<retinify::DeviceData> device1 = GetDeviceBySerialNumber(calib.GetSerial()[0]);
-        std::optional<retinify::DeviceData> device2 = GetDeviceBySerialNumber(calib.GetSerial()[1]);
 
-        this->camera_.Start(device1->node_.c_str(), device2->node_.c_str());
+        this->camera_.Start(calib);
 
         switch (mode)
         {

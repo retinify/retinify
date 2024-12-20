@@ -15,6 +15,7 @@
 
 #include <retinify/camera.hpp>
 #include <retinify/core.hpp>
+#include <retinify/device.hpp>
 class retinify::Camera::Impl
 {
   public:
@@ -177,9 +178,11 @@ retinify::Camera::~Camera()
 {
 }
 
-void retinify::Camera::Start(const char *node1, const char *node2)
+void retinify::Camera::Start(retinify::CalibrationData &calib_data)
 {
-    this->impl_->Start(node1, node2);
+    std::optional<retinify::DeviceData> device1 = GetDeviceBySerialNumber(calib_data.GetSerial()[0]);
+    std::optional<retinify::DeviceData> device2 = GetDeviceBySerialNumber(calib_data.GetSerial()[1]);
+    this->impl_->Start(device1->node_.c_str(), device2->node_.c_str());
 }
 
 void retinify::Camera::Stop()

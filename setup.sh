@@ -1,12 +1,19 @@
+sudo apt update
+
+# Build tools
+sudo apt install -y build-essential cmake
+
 # GTK4
 sudo apt install -y libgtk-4-dev
 
 # libudev
-sudo apt update
 sudo apt install -y libudev-dev
 
 # V4L2
 sudo apt install -y libv4l-dev
+
+# glm
+sudo apt install -y libglm-dev
 
 # OpenCV
 sudo apt install -y libopencv-dev
