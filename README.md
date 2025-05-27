@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_purple.svg" alt="logo">
+<img width="100%" src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_stir.png" alt="logo">
 
 </div>
 
