@@ -1,8 +1,10 @@
-<div align="center">
-
-<img width="100%" src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_stir.png" alt="logo">
-
-</div>
+<a href="https://retinify.ai" style="display:block;">
+  <img
+    src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_stir.png"
+    alt="logo"
+    style="width:100%; display:block;"
+  />
+</a>
 
 <div align="center">
 
