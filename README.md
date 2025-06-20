@@ -1,6 +1,6 @@
 <a href="https://retinify.ai" style="display:block;">
   <img
-    src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_stir.png"
+    src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_mobility.gif"
     alt="logo"
     style="width:100%; display:block;"
   />
