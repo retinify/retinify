@@ -1,0 +1,3 @@
+BasedOnStyle: Microsoft
+Standard: c++20
+ColumnLimit: 1000

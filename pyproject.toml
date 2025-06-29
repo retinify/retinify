@@ -1,0 +1,22 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "retinify"
+dynamic = ["version"]
+description = "Python bindings for retinify"
+requires-python = ">=3.8"
+
+[tool.scikit-build]
+wheel.expand-macos-universal-tags = true
+wheel.packages = ["retinify/pyretinify"]
+sdist.include = ["weights/"]
+
+[tool.scikit-build.cmake.define]
+PYBIND11_FINDPYTHON = "ON"
+
+[tool.scikit-build.metadata]
+version.provider = "scikit_build_core.metadata.regex"
+version.input = "VERSION"
+version.regex = "^(?P<value>.+)$"

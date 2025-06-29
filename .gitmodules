@@ -1,0 +1,3 @@
+[submodule "retinify/tests/googletest"]
+	path = retinify/tests/googletest
+	url = https://github.com/google/googletest.git
