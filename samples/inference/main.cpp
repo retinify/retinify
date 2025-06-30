@@ -92,12 +92,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    std::cout << retinify::HomeDirectoryPath() << std::endl;
-    std::cout << retinify::ConfigDirectoryPath() << std::endl;
-    std::cout << retinify::CacheDirectoryPath() << std::endl;
-    std::cout << retinify::DataDirectoryPath() << std::endl;
-    std::cout << retinify::StateDirectoryPath() << std::endl;
-
     std::string left_path = argv[1];
     std::string right_path = argv[2];
 
