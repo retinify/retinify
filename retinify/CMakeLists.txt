@@ -16,6 +16,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 # COMPILE OPTIONS
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 target_compile_options(${PROJECT_NAME} 
     PRIVATE
         -fvisibility=hidden

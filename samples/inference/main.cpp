@@ -97,9 +97,8 @@ int main(int argc, char **argv)
 
     retinify::SetLogLevel(retinify::LogLevel::DEBUG);
     retinify::Pipeline pipeline;
-    retinify::Mat left, right, output;
 
-    (void)pipeline.Initialize();
+    (void)pipeline.Initialize(320, 640);
 
     cv::Mat img0 = cv::imread(left_path);
     cv::Mat img1 = cv::imread(right_path);
@@ -108,25 +107,8 @@ int main(int argc, char **argv)
     img0.convertTo(img0, CV_32FC3);
     img1.convertTo(img1, CV_32FC3);
     cv::Mat disp = cv::Mat{img0.size(), CV_32FC1};
-    (void)left.Allocate(img0.rows, img0.cols, 3, sizeof(float));
-    (void)right.Allocate(img1.rows, img1.cols, 3, sizeof(float));
-    (void)output.Allocate(img0.rows, img0.cols, 1, sizeof(float));
 
-    (void)left.Upload(img0.ptr(), img0.step);
-    (void)right.Upload(img1.ptr(), img1.step);
-    (void)pipeline.Forward(left, right, output);
-    (void)left.Download(img0.ptr(), img0.step);
-    (void)right.Download(img1.ptr(), img1.step);
-    (void)output.Download(disp.ptr(), disp.step);
-    (void)left.Wait();
-    (void)right.Wait();
-    (void)output.Wait();
-
-    img0.convertTo(img0, CV_8UC3);
-    img1.convertTo(img1, CV_8UC3);
-
-    cv::imshow("left", img0);
-    cv::imshow("right", img1);
+    (void)pipeline.Forward(img0.ptr(), img0.step, img1.ptr(), img1.step, disp.ptr(), disp.step);
 
     cv::Mat colored_disp = ColoringDisparity(disp, 128);
     cv::imshow("show", colored_disp);
@@ -134,9 +116,6 @@ int main(int argc, char **argv)
     retinify::LogInfo("Inference Done.");
 
     cv::waitKey(0);
-
-    (void)left.Free();
-    (void)right.Free();
-    (void)output.Free();
+    
     return 0;
 }

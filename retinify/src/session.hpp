@@ -3,11 +3,12 @@
 
 #pragma once
 
-#include "retinify/mat.hpp"
+#include "mat.hpp"
+
 #include "retinify/status.hpp"
+
 #include <array>
 #include <memory>
-
 #ifdef USE_NVIDIA_GPU
 #include <NvInfer.h>
 #include <cuda_runtime.h>

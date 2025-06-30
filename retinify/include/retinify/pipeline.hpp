@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "retinify/mat.hpp"
 #include "retinify/status.hpp"
 #include <memory>
 
@@ -18,8 +17,8 @@ class RETINIFY_API Pipeline
     Pipeline &operator=(const Pipeline &) = delete;
     Pipeline(Pipeline &&) noexcept = delete;
     Pipeline &operator=(Pipeline &&) noexcept = delete;
-    Status Initialize() const noexcept;
-    Status Forward(const Mat &left, const Mat &right, const Mat &disparity) const noexcept;
+    Status Initialize(const std::size_t rows, const std::size_t cols) noexcept;
+    Status Forward(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept;
 
   private:
     class Impl;

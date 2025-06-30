@@ -83,11 +83,7 @@ install(FILES ${CMAKE_SOURCE_DIR}/weights/model.onnx DESTINATION share/retinify/
 
 # CPACK
 set(CPACK_GENERATOR "DEB")
-if(USE_NVIDIA_GPU)
-    set(CPACK_PACKAGE_NAME "libretinify-gpu-dev")
-else()
-    set(CPACK_PACKAGE_NAME "libretinify-dev")
-endif()
+set(CPACK_PACKAGE_NAME "libretinify-dev")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Sensui Yagi <contact@retinify.ai>")

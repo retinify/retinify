@@ -1,12 +1,14 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "retinify/pipeline.hpp"
-#include "retinify/log.hpp"
-#include "retinify/mat.hpp"
-#include "retinify/path.hpp"
-#include "retinify/status.hpp"
+#include "mat.hpp"
 #include "session.hpp"
+
+#include "retinify/log.hpp"
+#include "retinify/path.hpp"
+#include "retinify/pipeline.hpp"
+#include "retinify/status.hpp"
+
 #include <atomic>
 #include <chrono>
 #include <iostream>
@@ -17,13 +19,56 @@ class Pipeline::Impl
 {
   public:
     Impl() = default;
-    ~Impl() = default;
 
-    Status Initialize() noexcept
+    ~Impl()
+    {
+        initialized_ = false;
+        (void)left_.Free();
+        (void)right_.Free();
+        (void)disparity_.Free();
+    }
+
+    Status Initialize(const std::size_t rows, const std::size_t cols) noexcept
     {
         Status status;
 
+        status = left_.Allocate(rows, cols, 3, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = right_.Allocate(rows, cols, 3, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparity_.Allocate(rows, cols, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
         status = session_.Initialize(ONNXModelFilePath());
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = session_.BindInput("left", left_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = session_.BindInput("right", right_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = session_.BindOutput("disparity", disparity_);
         if (!status.IsOK())
         {
             return status;
@@ -33,56 +78,59 @@ class Pipeline::Impl
         return status;
     }
 
-    Status StereoMatching(const Mat &left, const Mat &right, const Mat &disparity) noexcept
+    Status StereoMatching(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
     {
         Status status;
 
         if (!initialized_)
         {
-            status = this->Initialize();
-            if (!status.IsOK())
-            {
-                return status;
-            }
+            status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
+            return status;
         }
 
-        status = left.Wait();
+        status = left_.Upload(leftData, leftStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right.Wait();
+        status = right_.Upload(rightData, rightStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity.Wait();
+        status = left_.Wait();
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("left", left);
+        status = right_.Wait();
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("right", right);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = session_.BindOutput("disparity", disparity);
+        status = disparity_.Wait();
         if (!status.IsOK())
         {
             return status;
         }
 
         status = session_.Run();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparity_.Download(disparityData, disparityStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparity_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -105,13 +153,13 @@ Pipeline::Pipeline() noexcept : impl_(std::make_unique<Impl>())
 
 Pipeline::~Pipeline() noexcept = default;
 
-Status Pipeline::Initialize() const noexcept
+Status Pipeline::Initialize(const std::size_t rows, const std::size_t cols) noexcept
 {
-    return this->impl_->Initialize();
+    return this->impl_->Initialize(rows, cols);
 }
 
-Status Pipeline::Forward(const Mat &left, const Mat &right, const Mat &disparity) const noexcept
+Status Pipeline::Forward(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
 {
-    return this->impl_->StereoMatching(left, right, disparity);
+    return this->impl_->StereoMatching(leftData, leftStride, rightData, rightStride, disparityData, disparityStride);
 }
 } // namespace retinify
