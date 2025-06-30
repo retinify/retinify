@@ -1,6 +1,12 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+#include "session.hpp"
+#include "mat.hpp"
+
+#include "retinify/log.hpp"
+#include "retinify/path.hpp"
+
 #ifdef USE_NVIDIA_GPU
 #include <NvInfer.h>
 #include <NvOnnxParser.h>
@@ -8,11 +14,6 @@
 #include <fstream>
 #include <memory>
 #endif
-#include "retinify/log.hpp"
-#include "retinify/mat.hpp"
-#include "retinify/path.hpp"
-#include "session.hpp"
-#include <iostream>
 
 namespace retinify
 {

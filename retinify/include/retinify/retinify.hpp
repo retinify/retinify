@@ -5,7 +5,6 @@
 
 #include "retinify/define.hpp"
 #include "retinify/log.hpp"
-#include "retinify/mat.hpp"
 #include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
