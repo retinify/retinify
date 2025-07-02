@@ -10,15 +10,15 @@ int main()
     retinify::SetLogLevel(retinify::LogLevel::INFO);
     retinify::Pipeline pipeline;
 
-    (void)pipeline.Initialize(320, 640);
-
-    cv::Mat img0 = cv::Mat::zeros(320, 640, CV_32FC3);
-    cv::Mat img1 = cv::Mat::zeros(320, 640, CV_32FC3);
-    cv::Mat disp = cv::Mat::zeros(320, 640, CV_32FC1);
+    (void)pipeline.Initialize(720, 1280);
+    cv::Mat img0 = cv::Mat::zeros(720, 1280, CV_32FC3);
+    cv::Mat img1 = cv::Mat::zeros(720, 1280, CV_32FC3);
+    cv::Mat disp = cv::Mat::zeros(720, 1280, CV_32FC1);
 
     std::vector<double> latencies;
-    latencies.reserve(1000);
-    for (int i = 0; i < 1000; i++)
+    int num_frames = 10000;
+    latencies.reserve(num_frames);
+    for (int i = 0; i < num_frames; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
         auto status = pipeline.Forward(img0.ptr(), img0.step, img1.ptr(), img1.step, disp.ptr(), disp.step);
