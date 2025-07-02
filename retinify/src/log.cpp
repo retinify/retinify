@@ -5,6 +5,8 @@
 
 #include <atomic>
 #include <chrono>
+#include <cstring>
+#include <format>
 #include <iostream>
 
 namespace retinify
@@ -25,29 +27,13 @@ void SetLogLevel(LogLevel level) noexcept
     GetLogLevelRef() = level;
 }
 
-constexpr size_t timeBufferSize = 20;
-
-inline static auto GetCurrentTime() noexcept -> std::array<char, timeBufferSize>
+inline static auto GetCurrentTime() -> std::string
 {
-    std::array<char, timeBufferSize> timeBuffer{};
-
     const auto now = std::chrono::system_clock::now();
-    const auto time = std::chrono::system_clock::to_time_t(now);
-
-    std::tm result{};
-    if (localtime_r(&time, &result) != nullptr)
-    {
-        const size_t size = std::strftime(timeBuffer.data(), timeBuffer.size(), "%F %T", &result);
-        if (size == 0)
-        {
-            timeBuffer[0] = '\0';
-        }
-    }
-
-    return timeBuffer;
+    return std::format("{:%F %T}", now);
 }
 
-inline static auto GetColorCode(LogLevel level) noexcept -> std::string_view
+inline static auto GetColorCode(LogLevel level) noexcept -> const char *
 {
     switch (level)
     {
@@ -62,43 +48,70 @@ inline static auto GetColorCode(LogLevel level) noexcept -> std::string_view
     case LogLevel::FATAL:
         return "\033[31;1m";
     default:
-        return "";
+        return "\033[0m";
     }
 }
 
-inline static void Log(LogLevel level, std::string_view label, std::string_view msg, std::ostream &out, std::source_location location) noexcept
+inline static void Log(LogLevel level, const char *label, const char *msg, std::ostream &out, std::source_location location) noexcept
 {
     if (static_cast<int>(level) < static_cast<int>(GetLogLevel()))
     {
         return;
     }
-    auto time = GetCurrentTime();
-    out << "[" << time.data() << "]"
-        << "[" << GetColorCode(level) << label << "\033[0m" << "]"
-        << "[" << location.function_name() << "]" << msg << '\n';
+
+    try
+    {
+        if (label == nullptr || std::strlen(label) == 0)
+        {
+            label = "LOG  ";
+        }
+
+        if (msg == nullptr || std::strlen(msg) == 0)
+        {
+            msg = "No message provided.";
+        }
+
+        if (location.function_name() == nullptr)
+        {
+            return;
+        }
+
+        if (!out.good())
+        {
+            return;
+        }
+
+        out << "[" << GetCurrentTime() << "]"
+            << "[" << GetColorCode(level) << label << "\033[0m" << "]"
+            << "[" << location.function_name() << "]" << msg << '\n';
+    }
+    catch (...) // NOLINT(bugprone-empty-catch)
+    {
+        // do nothing
+    }
 }
 
-void LogDebug(const std::string_view msg, const std::source_location location) noexcept
+void LogDebug(const char *msg, const std::source_location location) noexcept
 {
     Log(LogLevel::DEBUG, "DEBUG", msg, std::cout, location);
 }
 
-void LogInfo(const std::string_view msg, const std::source_location location) noexcept
+void LogInfo(const char *msg, const std::source_location location) noexcept
 {
     Log(LogLevel::INFO, "INFO ", msg, std::cout, location);
 }
 
-void LogWarn(const std::string_view msg, const std::source_location location) noexcept
+void LogWarn(const char *msg, const std::source_location location) noexcept
 {
     Log(LogLevel::WARN, "WARN ", msg, std::cout, location);
 }
 
-void LogError(const std::string_view msg, const std::source_location location) noexcept
+void LogError(const char *msg, const std::source_location location) noexcept
 {
     Log(LogLevel::ERROR, "ERROR", msg, std::cerr, location);
 }
 
-void LogFatal(const std::string_view msg, const std::source_location location) noexcept
+void LogFatal(const char *msg, const std::source_location location) noexcept
 {
     Log(LogLevel::FATAL, "FATAL", msg, std::cerr, location);
 }

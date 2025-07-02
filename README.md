@@ -9,7 +9,8 @@
 <div align="center">
 
 # retinify: Real-Time AI Stereo Vision Library
-![OS](https://img.shields.io/badge/OS-Linux-brightgreen)
+![OS](https://img.shields.io/badge/OS-Linux-orange)
+[![License](https://img.shields.io/github/license/retinify/retinify?style=flat&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
 [![X](https://img.shields.io/badge/Follow-@retinify-blueviolet?logo=x)](https://x.com/retinify)
 [![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?logo=instagram)](https://www.instagram.com/retinify)
 

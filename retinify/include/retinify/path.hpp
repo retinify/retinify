@@ -4,7 +4,6 @@
 #pragma once
 
 #include "retinify/define.hpp"
-#include <filesystem>
 
 namespace retinify
 {
