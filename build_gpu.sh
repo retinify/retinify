@@ -1,5 +1,6 @@
 mkdir -p build && cd build
-cmake -DUSE_NVIDIA_GPU=ON \
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DUSE_NVIDIA_GPU=ON \
       -DBUILD_TESTS=OFF \
       ..
 make
