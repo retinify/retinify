@@ -63,7 +63,7 @@ inline static void Log(LogLevel level, const char *label, const char *msg, std::
     {
         if (label == nullptr || std::strlen(label) == 0)
         {
-            label = "LOG  ";
+            label = "NONE ";
         }
 
         if (msg == nullptr || std::strlen(msg) == 0)

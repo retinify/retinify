@@ -11,9 +11,11 @@
 #include <NvInfer.h>
 #include <NvOnnxParser.h>
 #include <cuda_runtime.h>
+#endif
+
+#include <filesystem>
 #include <fstream>
 #include <memory>
-#endif
 
 namespace retinify
 {
@@ -107,30 +109,31 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
     // Load TensorRT engine
     try
     {
-        // Check if engine cache exists
-        const char *enginePath = TensorRTEngineFilePath();
-        std::ifstream engineFile(enginePath, std::ios::binary);
+        const char *engineFilePath = TensorRTEngineFilePath();
 
-        if (engineFile.is_open())
+        if (std::filesystem::exists(engineFilePath))
         {
-            engineFile.seekg(0, std::ios::end);
-            const auto fileSize = engineFile.tellg();
-            engineFile.seekg(0, std::ios::beg);
-
-            if (fileSize <= 0)
+            std::error_code ec;
+            const auto fileSize = std::filesystem::file_size(engineFilePath, ec);
+            if (ec || fileSize == 0)
             {
                 return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
             }
 
-            const size_t size = static_cast<size_t>(fileSize);
-            std::vector<char> engineData(size);
-            if (!engineFile.read(engineData.data(), static_cast<std::streamsize>(size)))
+            std::ifstream file(engineFilePath, std::ios::binary);
+            if (!file.is_open())
             {
                 return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
             }
-            engineFile.close();
 
-            engine_ = runtime_->deserializeCudaEngine(engineData.data(), size);
+            std::vector<char> engineData(fileSize);
+            file.read(engineData.data(), static_cast<std::streamsize>(fileSize));
+            if (file.fail() || file.gcount() != static_cast<std::streamsize>(fileSize))
+            {
+                return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
+            }
+
+            engine_ = runtime_->deserializeCudaEngine(engineData.data(), fileSize);
         }
         else
         {
@@ -193,7 +196,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             }
 
             // Save engine to cache
-            std::ofstream engineCache(enginePath, std::ios::binary);
+            std::ofstream engineCache(engineFilePath, std::ios::binary);
             if (engineCache.good())
             {
                 engineCache.write(static_cast<const char *>(serializedEngine->data()), serializedEngine->size());

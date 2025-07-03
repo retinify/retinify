@@ -11,8 +11,6 @@
 
 namespace retinify
 {
-constexpr int PATH_ELEMENTS_SIZE = 512;
-
 inline static auto MergePaths(const char *input1, const char *input2) -> const char *
 {
     thread_local static std::string buffer;
@@ -22,20 +20,20 @@ inline static auto MergePaths(const char *input1, const char *input2) -> const c
         return nullptr;
     }
 
-    std::string_view sv1(input1);
-    std::string_view sv2(input2);
+    std::string_view stringv1(input1);
+    std::string_view stringv2(input2);
 
-    if (sv1.empty() && sv2.empty())
+    if (stringv1.empty() && stringv2.empty())
     {
         buffer.clear();
         return buffer.c_str();
     }
 
-    std::filesystem::path path1(sv1);
-    std::filesystem::path path2(sv2);
+    std::filesystem::path path1(stringv1);
+    std::filesystem::path path2(stringv2);
     std::filesystem::path result = path1 / path2;
-
     buffer = result.string();
+
     return buffer.c_str();
 }
 
