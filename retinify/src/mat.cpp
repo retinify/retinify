@@ -11,40 +11,9 @@
 
 namespace retinify
 {
-Mat::Mat() noexcept
-{
-#ifdef USE_NVIDIA_GPU
-    cudaError_t streamErr = cudaStreamCreate(&stream_);
-    if (streamErr != cudaSuccess)
-    {
-        stream_ = nullptr;
-    }
-
-    cudaError_t eventErr = cudaEventCreate(&event_);
-    if (eventErr != cudaSuccess)
-    {
-        event_ = nullptr;
-    }
-#endif
-}
-
 Mat::~Mat() noexcept
 {
     (void)this->Free();
-
-#ifdef USE_NVIDIA_GPU
-    if (stream_ != nullptr)
-    {
-        cudaStreamDestroy(stream_);
-        stream_ = nullptr;
-    }
-
-    if (event_ != nullptr)
-    {
-        cudaEventDestroy(event_);
-        event_ = nullptr;
-    }
-#endif
 }
 
 auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
@@ -81,15 +50,34 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     std::size_t newPitch = 0;
 
 #ifdef USE_NVIDIA_GPU
+    cudaError_t streamErr = cudaStreamCreate(&stream_);
+    if (streamErr != cudaSuccess)
+    {
+        return Status(StatusCategory::CUDA, StatusCode::FAIL);
+    }
+
+    cudaError_t eventErr = cudaEventCreate(&event_);
+    if (eventErr != cudaSuccess)
+    {
+        return Status(StatusCategory::CUDA, StatusCode::FAIL);
+    }
+
     cudaError_t err = cudaMallocPitch(&newDeviceData, &newPitch, columnsInBytes, rows);
     if (err != cudaSuccess)
     {
+        if (newDeviceData != nullptr)
+        {
+            cudaFree(newDeviceData);
+        }
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
     if (rows > std::numeric_limits<std::size_t>::max() / newPitch)
     {
-        cudaFree(newDeviceData);
+        if (newDeviceData != nullptr)
+        {
+            cudaFree(newDeviceData);
+        }
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 #else
@@ -143,9 +131,23 @@ auto Mat::Free() noexcept -> Status
 #else
         std::free(deviceData_);
 #endif
+        this->deviceData_ = nullptr;
     }
 
-    this->deviceData_ = nullptr;
+#ifdef USE_NVIDIA_GPU
+    if (stream_ != nullptr)
+    {
+        cudaStreamDestroy(stream_);
+        stream_ = nullptr;
+    }
+
+    if (event_ != nullptr)
+    {
+        cudaEventDestroy(event_);
+        event_ = nullptr;
+    }
+#endif
+
     this->devicePitch_ = 0;
     this->rows_ = 0;
     this->cols_ = 0;

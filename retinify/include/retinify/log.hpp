@@ -5,16 +5,17 @@
 
 #include "retinify/define.hpp"
 #include "retinify/enum.hpp"
+#include "retinify/status.hpp"
+
 #include <source_location>
-#include <string_view>
 
 namespace retinify
 {
 RETINIFY_API auto GetLogLevel() noexcept -> LogLevel;
 RETINIFY_API void SetLogLevel(LogLevel level) noexcept;
-RETINIFY_API void LogDebug(std::string_view msg, std::source_location location = std::source_location::current()) noexcept;
-RETINIFY_API void LogInfo(std::string_view msg, std::source_location location = std::source_location::current()) noexcept;
-RETINIFY_API void LogWarn(std::string_view msg, std::source_location location = std::source_location::current()) noexcept;
-RETINIFY_API void LogError(std::string_view msg, std::source_location location = std::source_location::current()) noexcept;
-RETINIFY_API void LogFatal(std::string_view msg, std::source_location location = std::source_location::current()) noexcept;
+RETINIFY_API void LogDebug(const char *msg, std::source_location location = std::source_location::current()) noexcept;
+RETINIFY_API void LogInfo(const char *msg, std::source_location location = std::source_location::current()) noexcept;
+RETINIFY_API void LogWarn(const char *msg, std::source_location location = std::source_location::current()) noexcept;
+RETINIFY_API void LogError(const char *msg, std::source_location location = std::source_location::current()) noexcept;
+RETINIFY_API void LogFatal(const char *msg, std::source_location location = std::source_location::current()) noexcept;
 } // namespace retinify

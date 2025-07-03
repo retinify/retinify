@@ -20,9 +20,8 @@ enum class LogLevel : std::uint8_t
 enum class StatusCategory : std::uint8_t
 {
     NONE,
-    DEVICE,
-    SYSTEM,
     RETINIFY,
+    SYSTEM,
     CUDA,
     USER,
 };

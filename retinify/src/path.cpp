@@ -5,151 +5,164 @@
 #include "retinify/libretinify_onnx.hpp"
 
 #include <array>
-#include <cerrno>
 #include <cstdlib>
 #include <cstring>
-#include <string>
-
-#include <sys/stat.h>
-#include <unistd.h>
+#include <filesystem>
 
 namespace retinify
 {
-constexpr mode_t DirectoryPermission = 0755;
-
-inline static auto CreateDirectory(const char *path) noexcept -> bool
+inline static auto MergePaths(const char *input1, const char *input2) -> const char *
 {
-    if (path == nullptr || *path == '\0')
+    thread_local static std::string buffer;
+
+    if (input1 == nullptr || input2 == nullptr)
+    {
+        return nullptr;
+    }
+
+    std::string_view stringv1(input1);
+    std::string_view stringv2(input2);
+
+    if (stringv1.empty() && stringv2.empty())
+    {
+        buffer.clear();
+        return buffer.c_str();
+    }
+
+    std::filesystem::path path1(stringv1);
+    std::filesystem::path path2(stringv2);
+    std::filesystem::path result = path1 / path2;
+    buffer = result.string();
+
+    return buffer.c_str();
+}
+
+inline static auto CreateDirectory(const char *path) -> bool
+{
+    if (path == nullptr || std::strlen(path) == 0)
     {
         return false;
     }
 
-    if (::mkdir(path, DirectoryPermission) == 0)
+    std::error_code error;
+
+    const bool alreadyExists = std::filesystem::exists(path, error);
+    if (error)
     {
-        return true;
+        return false;
     }
 
-    if (errno == EEXIST)
+    if (alreadyExists)
     {
-        struct stat status{};
-        if (::lstat(path, &status) == 0)
-        {
-            return S_ISDIR(status.st_mode);
-        }
+        const bool isDir = std::filesystem::is_directory(path, error);
+        return !error && isDir;
     }
 
-    return false;
-}
-
-constexpr int PATH_ELEMENTS_SIZE = 512;
-
-inline static auto MergePaths(const char *path1, const char *path2) noexcept -> const char *
-{
-    static std::array<char, PATH_ELEMENTS_SIZE> buffer{};
-    static const char *separator{"/"};
-
-    if (path1 == nullptr || path2 == nullptr)
-    {
-        return nullptr;
-    }
-
-    const std::size_t lenPath1 = std::strlen(path1);
-    const std::size_t lenPath2 = std::strlen(path2);
-
-    bool needsSeparator = (lenPath1 > 0 && path1[lenPath1 - 1] != *separator) && (lenPath2 > 0 && path2[0] != *separator);
-
-    std::size_t total_len = lenPath1 + lenPath2 + (needsSeparator ? 1 : 0);
-    if (total_len + 1 >= buffer.size())
-    {
-        return nullptr;
-    }
-
-    std::strcpy(buffer.data(), path1);
-    if (needsSeparator)
-    {
-        std::strcat(buffer.data(), separator);
-    }
-    std::strcat(buffer.data(), path2);
-
-    return buffer.data();
+    std::filesystem::create_directories(path, error);
+    return !error;
 }
 
 auto HomeDirectoryPath() noexcept -> const char *
 {
-    const char *home_path = std::getenv("HOME");
-    if (home_path != nullptr && std::strlen(home_path) > 0)
+    const char *path = std::getenv("HOME");
+    if (path != nullptr && std::strlen(path) > 0)
     {
-        return home_path;
+        return path;
     }
-
     return nullptr;
 }
 
 auto ConfigDirectoryPath() noexcept -> const char *
 {
-    const char *config_path = MergePaths(HomeDirectoryPath(), ".config/retinify");
-    if (config_path == nullptr || std::strlen(config_path) == 0)
+    try
+    {
+        const char *path = MergePaths(HomeDirectoryPath(), ".config/retinify");
+        if (path != nullptr && std::strlen(path) > 0)
+        {
+            (void)CreateDirectory(path);
+            return path;
+        }
+    }
+    catch (...)
     {
         return nullptr;
     }
-
-    (void)CreateDirectory(config_path);
-
-    return config_path;
+    return nullptr;
 }
 
 auto CacheDirectoryPath() noexcept -> const char *
 {
-    const char *cache_path = MergePaths(HomeDirectoryPath(), ".cache/retinify");
-    if (cache_path == nullptr || std::strlen(cache_path) == 0)
+    try
+    {
+        const char *path = MergePaths(HomeDirectoryPath(), ".cache/retinify");
+        if (path != nullptr && std::strlen(path) > 0)
+        {
+            (void)CreateDirectory(path);
+            return path;
+        }
+    }
+    catch (...)
     {
         return nullptr;
     }
-
-    (void)CreateDirectory(cache_path);
-
-    return cache_path;
+    return nullptr;
 }
 
 auto DataDirectoryPath() noexcept -> const char *
 {
-    const char *data_path = MergePaths(HomeDirectoryPath(), ".local/share/retinify");
-    if (data_path == nullptr || std::strlen(data_path) == 0)
+    try
+    {
+        const char *path = MergePaths(HomeDirectoryPath(), ".local/share/retinify");
+        if (path != nullptr && std::strlen(path) > 0)
+        {
+            (void)CreateDirectory(path);
+            return path;
+        }
+    }
+    catch (...)
     {
         return nullptr;
     }
-
-    (void)CreateDirectory(data_path);
-
-    return data_path;
+    return nullptr;
 }
 
 auto StateDirectoryPath() noexcept -> const char *
 {
-    const char *state_path = MergePaths(HomeDirectoryPath(), ".local/state/retinify");
-    if (state_path == nullptr || std::strlen(state_path) == 0)
+    try
+    {
+        const char *path = MergePaths(HomeDirectoryPath(), ".local/state/retinify");
+        if (path != nullptr && std::strlen(path) > 0)
+        {
+            (void)CreateDirectory(path);
+            return path;
+        }
+    }
+    catch (...)
     {
         return nullptr;
     }
-
-    (void)CreateDirectory(state_path);
-
-    return state_path;
+    return nullptr;
 }
 
-RETINIFY_API auto ONNXModelFilePath() noexcept -> const char *
+auto ONNXModelFilePath() noexcept -> const char *
 {
     return LIBRETINIFY_ONNX_PATH;
 }
 
-RETINIFY_API auto TensorRTEngineFilePath() noexcept -> const char *
+auto TensorRTEngineFilePath() noexcept -> const char *
 {
-    const char *trt_engine_path = MergePaths(CacheDirectoryPath(), "model.trt");
-    if (trt_engine_path == nullptr || std::strlen(trt_engine_path) == 0)
+    try
+    {
+        const char *path = MergePaths(CacheDirectoryPath(), "model.trt");
+        if (path != nullptr && std::strlen(path) > 0)
+        {
+            return path;
+        }
+    }
+    catch (...)
     {
         return nullptr;
     }
-
-    return trt_engine_path;
+    return nullptr;
 }
 } // namespace retinify

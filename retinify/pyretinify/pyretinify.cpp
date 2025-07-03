@@ -3,6 +3,7 @@
 
 #include "retinify/retinify.hpp"
 
+#include <filesystem>
 #include <iostream>
 #include <pybind11/pybind11.h>
 #include <string>

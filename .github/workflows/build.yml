@@ -26,15 +26,6 @@ jobs:
         sudo apt-get install -y build-essential cmake curl git libopencv-dev pybind11-dev
         git submodule update --init --recursive
 
-    - name: Configure CMake
+    - name: Build RETINIFY
       run: |
-        mkdir -p build && cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install \
-              -DUSE_NVIDIA_GPU=OFF \
-              -DENABLE_TESTS=OFF \
-              ..
-
-    - name: Make
-      run: |
-        cd build
-        make install -j$(nproc)
+        ./build.sh --install --cpu

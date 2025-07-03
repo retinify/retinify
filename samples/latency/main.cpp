@@ -26,11 +26,10 @@ int main()
 
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
         latencies.push_back(duration.count() / 1000.0); // Convert to milliseconds
-        retinify::LogInfo("Iteration " + std::to_string(i) + ": " + std::to_string(latencies.back()) + " ms");
-    }
-    std::sort(latencies.begin(), latencies.end());
-    double median = latencies[latencies.size() / 2];
-    retinify::LogInfo("Median latency: " + std::to_string(median) + " ms");
-
+        retinify::LogInfo(std::format("Frame {}: Latency = {:.3f} ms", i + 1, latencies.back()).c_str());
+        }
+        std::sort(latencies.begin(), latencies.end());
+        double median = latencies[latencies.size() / 2];
+        retinify::LogInfo(std::format("Median latency: {:.3f} ms", median).c_str());
     return 0;
 }

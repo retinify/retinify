@@ -7,10 +7,6 @@
 
 namespace retinify
 {
-Status::Status() noexcept : category_(StatusCategory::NONE), code_(StatusCode::OK)
-{
-}
-
 Status::Status(const StatusCategory category, const StatusCode code) noexcept : category_(category), code_(code)
 {
 }

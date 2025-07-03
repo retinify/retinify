@@ -11,9 +11,9 @@ namespace retinify
 class RETINIFY_API Status
 {
   public:
-    Status() noexcept;
+    Status() noexcept = default;
     explicit Status(StatusCategory category, StatusCode code) noexcept;
-    ~Status() = default;
+    ~Status() noexcept = default;
     Status(const Status &) noexcept = default;
     auto operator=(const Status &) noexcept -> Status & = default;
     Status(Status &&) noexcept = default;
@@ -23,7 +23,7 @@ class RETINIFY_API Status
     [[nodiscard]] auto Code() const noexcept -> StatusCode;
 
   private:
-    StatusCategory category_;
-    StatusCode code_;
+    StatusCategory category_{StatusCategory::NONE};
+    StatusCode code_{StatusCode::OK};
 };
 } // namespace retinify

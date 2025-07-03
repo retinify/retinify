@@ -15,7 +15,7 @@ namespace retinify
 class RETINIFY_API Mat
 {
   public:
-    Mat() noexcept;
+    Mat() noexcept = default;
     ~Mat() noexcept;
     Mat(const Mat &) = delete;
     auto operator=(const Mat &) -> Mat & = delete;

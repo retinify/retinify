@@ -38,14 +38,11 @@ void LogStatus(const retinify::Status &status)
     case retinify::StatusCategory::NONE:
         std::cout << "NONE";
         break;
-    case retinify::StatusCategory::DEVICE:
-        std::cout << "DEVICE";
+    case retinify::StatusCategory::RETINIFY:
+        std::cout << "RETINIFY";
         break;
     case retinify::StatusCategory::SYSTEM:
         std::cout << "SYSTEM";
-        break;
-    case retinify::StatusCategory::RETINIFY:
-        std::cout << "RETINIFY";
         break;
     case retinify::StatusCategory::CUDA:
         std::cout << "CUDA";
@@ -116,6 +113,6 @@ int main(int argc, char **argv)
     retinify::LogInfo("Inference Done.");
 
     cv::waitKey(0);
-    
+
     return 0;
 }
