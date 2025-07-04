@@ -23,6 +23,9 @@ retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - 💰 **Cost Efficiency**: Operates solely with cameras—eliminating the need for costly LiDAR or specialized sensors—significantly reducing hardware costs.
 - 🎥 **Works with Any Camera**: Fully compatible with any camera, giving you freedom to design your own system.
 
+## Docs
+📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
+
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
 

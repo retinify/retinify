@@ -113,13 +113,11 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     this->deviceRows_ = rows;
     this->deviceColumnsInBytes_ = columnsInBytes;
 
-    return status;
+    return Status{};
 }
 
 auto Mat::Free() noexcept -> Status
 {
-    Status status;
-
     if (deviceData_ != nullptr)
     {
 #ifdef USE_NVIDIA_GPU
@@ -156,7 +154,7 @@ auto Mat::Free() noexcept -> Status
     this->deviceRows_ = 0;
     this->deviceColumnsInBytes_ = 0;
 
-    return status;
+    return Status{};
 }
 
 auto Mat::Upload(const void *hostData, std::size_t hostPitch) const noexcept -> Status
