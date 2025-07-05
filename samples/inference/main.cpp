@@ -111,9 +111,6 @@ int main(int argc, char **argv)
 
     cv::Mat colored_disp = ColoringDisparity(disp, 128);
     cv::imshow("show", colored_disp);
-
-    retinify::LogInfo("Inference Done.");
-
     cv::waitKey(0);
 
     return 0;

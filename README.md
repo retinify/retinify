@@ -1,4 +1,4 @@
-<a href="https://github.com/retinify/retinify" style="display:block;">
+<a href="https://retinify.ai/" style="display:block;">
   <img
     src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_mobility.gif"
     alt="logo"

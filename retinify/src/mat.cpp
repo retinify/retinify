@@ -105,7 +105,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
 #endif
 
     this->deviceData_ = newDeviceData;
-    this->devicePitch_ = newPitch;
+    this->deviceStride_ = newPitch;
     this->rows_ = rows;
     this->cols_ = cols;
     this->channels_ = channels;
@@ -146,7 +146,7 @@ auto Mat::Free() noexcept -> Status
     }
 #endif
 
-    this->devicePitch_ = 0;
+    this->deviceStride_ = 0;
     this->rows_ = 0;
     this->cols_ = 0;
     this->channels_ = 0;
@@ -157,7 +157,7 @@ auto Mat::Free() noexcept -> Status
     return Status{};
 }
 
-auto Mat::Upload(const void *hostData, std::size_t hostPitch) const noexcept -> Status
+auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept -> Status
 {
     if (deviceData_ == nullptr)
     {
@@ -169,13 +169,13 @@ auto Mat::Upload(const void *hostData, std::size_t hostPitch) const noexcept -> 
         return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
     }
 
-    if (hostPitch < deviceColumnsInBytes_)
+    if (hostStride < deviceColumnsInBytes_)
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
 #ifdef USE_NVIDIA_GPU
-    cudaError_t copyErr = cudaMemcpy2DAsync(deviceData_, devicePitch_, hostData, hostPitch, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
+    cudaError_t copyErr = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
     if (copyErr != cudaSuccess)
     {
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
@@ -191,14 +191,14 @@ auto Mat::Upload(const void *hostData, std::size_t hostPitch) const noexcept -> 
     unsigned char *dst = static_cast<unsigned char *>(deviceData_);
     for (std::size_t r = 0; r < deviceRows_; ++r)
     {
-        std::memcpy(dst + r * devicePitch_, src + r * hostPitch, deviceColumnsInBytes_);
+        std::memcpy(dst + r * deviceStride_, src + r * hostStride, deviceColumnsInBytes_);
     }
 #endif
 
     return Status{};
 }
 
-auto Mat::Download(void *hostData, std::size_t hostPitch) const noexcept -> Status
+auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Status
 {
     if (deviceData_ == nullptr)
     {
@@ -210,13 +210,13 @@ auto Mat::Download(void *hostData, std::size_t hostPitch) const noexcept -> Stat
         return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
     }
 
-    if (hostPitch < deviceColumnsInBytes_)
+    if (hostStride < deviceColumnsInBytes_)
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
 #ifdef USE_NVIDIA_GPU
-    cudaError_t copyErr = cudaMemcpy2DAsync(hostData, hostPitch, deviceData_, devicePitch_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
+    cudaError_t copyErr = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
     if (copyErr != cudaSuccess)
     {
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
@@ -232,7 +232,7 @@ auto Mat::Download(void *hostData, std::size_t hostPitch) const noexcept -> Stat
     unsigned char *dst = static_cast<unsigned char *>(hostData);
     for (std::size_t r = 0; r < deviceRows_; ++r)
     {
-        std::memcpy(dst + r * hostPitch, src + r * devicePitch_, deviceColumnsInBytes_);
+        std::memcpy(dst + r * hostStride, src + r * deviceStride_, deviceColumnsInBytes_);
     }
 #endif
 

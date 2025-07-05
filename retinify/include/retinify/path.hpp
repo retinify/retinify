@@ -13,5 +13,4 @@ RETINIFY_API auto CacheDirectoryPath() noexcept -> const char *;
 RETINIFY_API auto DataDirectoryPath() noexcept -> const char *;
 RETINIFY_API auto StateDirectoryPath() noexcept -> const char *;
 RETINIFY_API auto ONNXModelFilePath() noexcept -> const char *;
-RETINIFY_API auto TensorRTEngineFilePath() noexcept -> const char *;
 } // namespace retinify

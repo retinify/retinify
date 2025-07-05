@@ -87,4 +87,7 @@ if(BUILD_TESTS)
     add_subdirectory(tests)
 endif(BUILD_TESTS)
 
-add_subdirectory(pyretinify)
+# PYTHON BINDINGS
+if(BUILD_PYTHON_BINDINGS)
+    add_subdirectory(pyretinify)
+endif(BUILD_PYTHON_BINDINGS)
