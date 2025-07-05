@@ -8,6 +8,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/ximgproc.hpp>
 
+namespace retinify
+{
 cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
 {
     if (disparity.empty())
@@ -31,8 +33,6 @@ cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
     return show;
 }
 
-namespace retinify
-{
 void LogStatus(const retinify::Status &status)
 {
     switch (status.Category())
@@ -109,11 +109,7 @@ int main(int argc, char **argv)
 
     (void)pipeline.Forward(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
 
-    cv::Mat colored_disp = ColoringDisparity(disp, 128);
-    cv::imshow("show", colored_disp);
-
-    retinify::LogInfo("Inference Done.");
-
+    cv::imshow("show", retinify::ColoringDisparity(disp, 128));
     cv::waitKey(0);
 
     return 0;

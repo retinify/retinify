@@ -3,6 +3,7 @@
 
 #include "retinify/path.hpp"
 #include "retinify/libretinify_onnx.hpp"
+#include "retinify/version.hpp"
 
 #include <array>
 #include <cstdlib>
@@ -20,18 +21,20 @@ inline static auto MergePaths(const char *input1, const char *input2) -> const c
         return nullptr;
     }
 
-    std::string_view stringv1(input1);
-    std::string_view stringv2(input2);
+    std::string_view stringInput1{input1};
+    std::string_view stringInpu2{input2};
+    std::string_view stringVersion{Version()};
 
-    if (stringv1.empty() && stringv2.empty())
+    if (stringInput1.empty() && stringInpu2.empty())
     {
         buffer.clear();
         return buffer.c_str();
     }
 
-    std::filesystem::path path1(stringv1);
-    std::filesystem::path path2(stringv2);
-    std::filesystem::path result = path1 / path2;
+    std::filesystem::path pathInput1{stringInput1};
+    std::filesystem::path pathInput2{stringInpu2};
+    std::filesystem::path pathVersion{stringVersion};
+    std::filesystem::path result = pathInput1 / pathInput2 / pathVersion;
     buffer = result.string();
 
     return buffer.c_str();
@@ -147,22 +150,5 @@ auto StateDirectoryPath() noexcept -> const char *
 auto ONNXModelFilePath() noexcept -> const char *
 {
     return LIBRETINIFY_ONNX_PATH;
-}
-
-auto TensorRTEngineFilePath() noexcept -> const char *
-{
-    try
-    {
-        const char *path = MergePaths(CacheDirectoryPath(), "model.trt");
-        if (path != nullptr && std::strlen(path) > 0)
-        {
-            return path;
-        }
-    }
-    catch (...)
-    {
-        return nullptr;
-    }
-    return nullptr;
 }
 } // namespace retinify

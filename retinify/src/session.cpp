@@ -109,7 +109,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
     // Load TensorRT engine
     try
     {
-        const char *engineFilePath = TensorRTEngineFilePath();
+        std::string engineFilePath = std::string(CacheDirectoryPath()) + "model.trt";
 
         if (std::filesystem::exists(engineFilePath))
         {

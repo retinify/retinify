@@ -12,7 +12,7 @@
 
 namespace retinify
 {
-class RETINIFY_API Mat
+class Mat
 {
   public:
     Mat() noexcept = default;
@@ -23,8 +23,8 @@ class RETINIFY_API Mat
     auto operator=(Mat &&other) noexcept -> Mat & = delete;
     [[nodiscard]] auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement = sizeof(float)) noexcept -> Status;
     [[nodiscard]] auto Free() noexcept -> Status;
-    [[nodiscard]] auto Upload(const void *hostData, std::size_t hostPitch) const noexcept -> Status;
-    [[nodiscard]] auto Download(void *hostData, std::size_t hostPitch) const noexcept -> Status;
+    [[nodiscard]] auto Upload(const void *hostData, std::size_t hostStride) const noexcept -> Status;
+    [[nodiscard]] auto Download(void *hostData, std::size_t hostStride) const noexcept -> Status;
     [[nodiscard]] auto Wait() const noexcept -> Status;
     [[nodiscard]] auto Data() const noexcept -> void *;
     [[nodiscard]] auto Rows() const noexcept -> std::size_t;
@@ -45,7 +45,7 @@ class RETINIFY_API Mat
     std::size_t bytesPerElement_{0};
     std::size_t deviceRows_{0};
     std::size_t deviceColumnsInBytes_{0};
-    std::size_t devicePitch_{0};
+    std::size_t deviceStride_{0};
     void *deviceData_{nullptr};
 };
 } // namespace retinify

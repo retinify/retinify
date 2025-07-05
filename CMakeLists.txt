@@ -34,16 +34,13 @@ install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
 
 # BUILD OPTIONS
 option(USE_NVIDIA_GPU "Use GPU acceleration if available" ON)
+option(BUILD_PYTHON_BINDINGS "Build Python binding" ON)
 option(BUILD_SAMPLES "Build samples" ON)
-option(BUILD_TESTS "Build tests" OFF)
-message(STATUS "USE_NVIDIA_GPU: ${USE_NVIDIA_GPU}")
-message(STATUS "BUILD_SAMPLES: ${BUILD_SAMPLES}")
-message(STATUS "BUILD_TESTS: ${BUILD_TESTS}")
+option(BUILD_TESTS "Build tests" ON)
 
 # VERSION
 file(READ "${CMAKE_SOURCE_DIR}/VERSION" VERSION_NUMBER)
 string(STRIP "${VERSION_NUMBER}" PROJECT_VERSION)
-message(STATUS "PROJECT_VERSION: ${PROJECT_VERSION}")
 configure_file(
     "${CMAKE_SOURCE_DIR}/cmake/libretinify_version.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/libretinify_version.hpp"
@@ -53,7 +50,7 @@ configure_file(
 # ONNX MODEL
 set(STEREO_MODEL_URL "https://github.com/retinify/retinify-models/releases/download/v0.0.1/model.onnx")
 set(STEREO_MODEL_HASH "SHA256=3e50a878345a9792cae3c6f92919186ee1a162855f09c91eabb2f7cb86baeb9d")
-set(STEREO_MODEL_PATH "${CMAKE_SOURCE_DIR}/weights/model.onnx")
+set(STEREO_MODEL_PATH "${CMAKE_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
 file(DOWNLOAD
     ${STEREO_MODEL_URL}
     ${STEREO_MODEL_PATH}
@@ -61,8 +58,7 @@ file(DOWNLOAD
     SHOW_PROGRESS
     STATUS status
 )
-
-set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/model.onnx")
+set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/model.onnx")
 configure_file(
     "${CMAKE_SOURCE_DIR}/cmake/libretinify_onnx.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/libretinify_onnx.hpp"
@@ -79,7 +75,7 @@ endif(BUILD_SAMPLES)
 install(FILES ${CMAKE_SOURCE_DIR}/LICENSE DESTINATION share/retinify)
 install(FILES ${CMAKE_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
 install(FILES ${CMAKE_SOURCE_DIR}/VERSION DESTINATION share/retinify)
-install(FILES ${CMAKE_SOURCE_DIR}/weights/model.onnx DESTINATION share/retinify/weights)
+install(FILES ${CMAKE_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
 
 # CPACK
 set(CPACK_GENERATOR "DEB")
@@ -94,3 +90,15 @@ set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://retinify.ai")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 include(CPack)
+
+# MESSAGES
+message(STATUS "================================================================================")
+message(STATUS "                           RETINIFY Build Configuration                         ")
+message(STATUS "================================================================================")
+message(STATUS "PROJECT_VERSION        : ${PROJECT_VERSION}")
+message(STATUS "USE_NVIDIA_GPU         : ${USE_NVIDIA_GPU}")
+message(STATUS "BUILD_PYTHON_BINDINGS  : ${BUILD_PYTHON_BINDINGS}")
+message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
+message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")
+message(STATUS "STEREO_MODEL_PATH      : ${STEREO_MODEL_PATH}")
+message(STATUS "================================================================================")
