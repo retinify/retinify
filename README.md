@@ -1,4 +1,4 @@
-<a href="https://github.com/retinify/retinify-sdk" style="display:block;">
+<a href="https://github.com/retinify/retinify" style="display:block;">
   <img
     src="https://raw.githubusercontent.com/retinify/assets/main/logo/logo_mobility.gif"
     alt="logo"
@@ -16,6 +16,12 @@
 
 </div>
 
+<img
+  src="https://raw.githubusercontent.com/retinify/assets/main/videos/kompira.gif"
+  alt="video"
+  style="width:100%; display:block;"
+/>
+
 ## Why retinify?
 retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by offloading compute-intensive tasks to GPUs and NPUs.
 - 🌐 **Open Source**: Freely available under an open‑source license for full customization.
@@ -25,6 +31,12 @@ retinify is an advanced AI-powered stereo vision library designed for robotics. 
 
 ## Docs
 📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
+
+<!-- - ⚡ [Installation Guide](https://retinify.github.io/retinify-documentation/docs/installation.html)   -->
+
+<!-- - 🧪 [Tutorials](https://retinify.github.io/retinify-documentation/docs/tutorials.html)   -->
+
+<!-- - 🧩 [API Reference](https://retinify.github.io/retinify-documentation/docs/API/)   -->
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).

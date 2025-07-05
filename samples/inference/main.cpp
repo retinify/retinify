@@ -1,10 +1,12 @@
-// Copyright (c) 2025 Sensui Yagi. All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+#include "retinify/retinify.hpp"
 
 #include <iostream>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/ximgproc.hpp>
-#include <retinify/retinify.hpp>
 
 cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
 {
@@ -95,17 +97,17 @@ int main(int argc, char **argv)
     retinify::SetLogLevel(retinify::LogLevel::DEBUG);
     retinify::Pipeline pipeline;
 
-    (void)pipeline.Initialize(320, 640);
+    (void)pipeline.Initialize(720, 1280);
 
     cv::Mat img0 = cv::imread(left_path);
     cv::Mat img1 = cv::imread(right_path);
-    cv::resize(img0, img0, cv::Size(640, 320));
-    cv::resize(img1, img1, cv::Size(640, 320));
+    cv::resize(img0, img0, cv::Size(1280, 720));
+    cv::resize(img1, img1, cv::Size(1280, 720));
     img0.convertTo(img0, CV_32FC3);
     img1.convertTo(img1, CV_32FC3);
     cv::Mat disp = cv::Mat{img0.size(), CV_32FC1};
 
-    (void)pipeline.Forward(img0.ptr(), img0.step, img1.ptr(), img1.step, disp.ptr(), disp.step);
+    (void)pipeline.Forward(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
 
     cv::Mat colored_disp = ColoringDisparity(disp, 128);
     cv::imshow("show", colored_disp);

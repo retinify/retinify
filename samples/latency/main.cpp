@@ -1,9 +1,11 @@
-// Copyright (c) 2025 Sensui Yagi. All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+#include "retinify/retinify.hpp"
 
 #include <chrono>
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include <retinify/retinify.hpp>
 
 int main()
 {
@@ -21,15 +23,15 @@ int main()
     for (int i = 0; i < num_frames; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        auto status = pipeline.Forward(img0.ptr(), img0.step, img1.ptr(), img1.step, disp.ptr(), disp.step);
+        auto status = pipeline.Forward(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
         auto end = std::chrono::high_resolution_clock::now();
 
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
         latencies.push_back(duration.count() / 1000.0); // Convert to milliseconds
         retinify::LogInfo(std::format("Frame {}: Latency = {:.3f} ms", i + 1, latencies.back()).c_str());
-        }
-        std::sort(latencies.begin(), latencies.end());
-        double median = latencies[latencies.size() / 2];
-        retinify::LogInfo(std::format("Median latency: {:.3f} ms", median).c_str());
+    }
+    std::sort(latencies.begin(), latencies.end());
+    double median = latencies[latencies.size() / 2];
+    retinify::LogInfo(std::format("Median latency: {:.3f} ms", median).c_str());
     return 0;
 }
