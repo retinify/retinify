@@ -12,7 +12,7 @@
 
 namespace retinify
 {
-class Mat
+class RETINIFY_API Mat
 {
   public:
     Mat() noexcept = default;

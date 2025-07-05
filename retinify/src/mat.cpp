@@ -3,6 +3,8 @@
 
 #include "mat.hpp"
 
+#include "retinify/log.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -47,7 +49,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     }
 
     void *newDeviceData = nullptr;
-    std::size_t newPitch = 0;
+    std::size_t newStride = 0;
 
 #ifdef USE_NVIDIA_GPU
     cudaError_t streamErr = cudaStreamCreate(&stream_);
@@ -62,7 +64,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t err = cudaMallocPitch(&newDeviceData, &newPitch, columnsInBytes, rows);
+    cudaError_t err = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
     if (err != cudaSuccess)
     {
         if (newDeviceData != nullptr)
@@ -72,7 +74,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    if (rows > std::numeric_limits<std::size_t>::max() / newPitch)
+    if (rows > std::numeric_limits<std::size_t>::max() / newStride)
     {
         if (newDeviceData != nullptr)
         {
@@ -86,12 +88,12 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
-    newPitch = ((columnsInBytes + alignment - 1) / alignment) * alignment;
-    if (rows > std::numeric_limits<std::size_t>::max() / newPitch)
+    newStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
+    if (rows > std::numeric_limits<std::size_t>::max() / newStride)
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
-    std::size_t allocSize = newPitch * rows;
+    std::size_t allocSize = newStride * rows;
     if (allocSize > std::numeric_limits<std::size_t>::max() - (alignment - 1))
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
@@ -105,7 +107,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
 #endif
 
     this->deviceData_ = newDeviceData;
-    this->deviceStride_ = newPitch;
+    this->deviceStride_ = newStride;
     this->rows_ = rows;
     this->cols_ = cols;
     this->channels_ = channels;

@@ -13,14 +13,19 @@ DO_INSTALL=0
 # ARGUMENTS
 for arg in "$@"; do
     case "$arg" in
-        --install)
-            DO_INSTALL=1
-            ;;
         --gpu)
             USE_NVIDIA_GPU=ON
             ;;
         --cpu)
             USE_NVIDIA_GPU=OFF
+            ;;
+        --install)
+            DO_INSTALL=1
+            ;;
+        --dev)
+            BUILD_PYTHON_BINDINGS=ON
+            BUILD_SAMPLES=ON
+            BUILD_TESTS=ON
             ;;
         *)
             echo "Unknown option: $arg"
@@ -53,12 +58,12 @@ cpack -G DEB
 
 # INSTALL
 if [[ "${DO_INSTALL}" -eq 1 ]]; then
-    echo "Installing generated Debian package..."
+    echo -e "\033[1;32m[RETINIFY] INSTALLING DEBIAN PACKAGE\033[0m"
 
     DEB_PACKAGE=$(ls -t libretinify-*.deb 2>/dev/null | head -n 1)
 
     if [[ -z "${DEB_PACKAGE}" ]]; then
-        echo "Error: Retinify Debian package not found."
+        echo -e "\033[1;31m[RETINIFY] ERROR: RETINIFY DEBIAN PACKAGE NOT FOUND.\033[0m"
         exit 1
     fi
 
