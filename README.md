@@ -10,23 +10,28 @@
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
 [![Release](https://img.shields.io/github/v/release/retinify/retinify?sort=semver&style=flat-square&color=blue&label=Release)](https://github.com/retinify/retinify/releases/latest)
-[![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)  
 [![X](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=x)](https://x.com/retinify)
 [![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=instagram)](https://www.instagram.com/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 | Target | Status |
 |--------|--------|
-| **CPU (amd64)**              | [![build_cpu_badge][]][build_cpu_status] |
-| **GPU (amd64 / TensorRT)**   | [![build_tensorrt_badge][]][build_tensorrt_status] |
-| **Jetson (aarch64 / TensorRT)** | [![build_jetson_badge][]][build_jetson_status] |
+| [![target_cpu_badge][]][build_cpu_status]         | [![build_cpu_badge][]][build_cpu_status] |
+| [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
+| [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status] |
 
-<!-- BADGE -->
-[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square
-[build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square
-[build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square
+<!-- TARGET BADGES -->
+[target_cpu_badge]: https://img.shields.io/badge/CPU%20(amd64)-gray?style=flat-square
+[target_tensorrt_badge]: https://img.shields.io/badge/GPU%20(amd64%20%2F%20TensorRT)-gray?style=flat-square
+[target_jetson_badge]: https://img.shields.io/badge/Jetson%20(aarch64%20%2F%20TensorRT)-gray?style=flat-square
 
-<!-- STATUS -->
+<!-- BUILD STATUS BADGES -->
+[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=Build
+[build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square&label=Build
+[build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square&label=Build
+
+<!-- STATUS LINKS -->
 [build_cpu_status]: https://github.com/retinify/retinify/actions/workflows/build_cpu.yml?query=branch%3Amain
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain

@@ -13,14 +13,14 @@ DO_INSTALL=0
 # ARGUMENTS
 for arg in "$@"; do
     case "$arg" in
+        --install)
+            DO_INSTALL=1
+            ;;    
         --gpu)
             USE_NVIDIA_GPU=ON
             ;;
         --cpu)
             USE_NVIDIA_GPU=OFF
-            ;;
-        --install)
-            DO_INSTALL=1
             ;;
         --dev)
             BUILD_PYTHON_BINDINGS=ON
@@ -29,7 +29,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Unknown option: $arg"
-            echo "Usage: $0 [--install] [--gpu|--cpu]"
+            echo "Usage: $0 [--install] [--gpu|--cpu] [--dev]"
             exit 1
             ;;
     esac

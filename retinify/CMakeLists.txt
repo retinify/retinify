@@ -34,31 +34,53 @@ target_compile_options(retinify
 )
 
 # BUILD OPTIONS
-if(USE_NVIDIA_GPU)
+if (USE_NVIDIA_GPU)
     target_compile_definitions(retinify PUBLIC USE_NVIDIA_GPU)
-    find_package(CUDAToolkit REQUIRED)
-    target_link_libraries(retinify PUBLIC CUDA::cudart)
 
-    find_library(NVINFER NAMES nvinfer
-    HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib)
-    find_library(NVINFERPLUGIN NAMES nvinfer_plugin
-        HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib)
-    find_library(NVPARSERS NAMES nvparsers
-        HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib)
-    find_library(NVONNXPARSER NAMES nvonnxparser
-        HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib)
-    find_library(NVONNXPARSERRUNTIME NAMES nvonnxparser_runtime
-        HINTS /usr/lib /usr/lib/x86_64-linux-gnu /usr/local/lib)
-
-    find_path(TENSORRT_INCLUDE_DIR NAMES NvInfer.h
-    HINTS /usr/include/x86_64-linux-gnu /usr/local/include)
-
-    if(NVINFER AND NVINFERPLUGIN AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
-    target_include_directories(retinify PRIVATE ${TENSORRT_INCLUDE_DIR})
-    target_link_libraries(retinify PRIVATE ${NVINFER} ${NVINFERPLUGIN} ${NVONNXPARSER})
-    message(STATUS "TensorRT found and linked")
+    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+        find_package(CUDAToolkit REQUIRED)
+        target_link_libraries(retinify PUBLIC CUDA::cudart)
     else()
-    message(WARNING "TensorRT libraries not found")
+        target_include_directories(retinify PUBLIC /usr/local/cuda/include)
+        target_link_libraries(retinify PUBLIC /usr/local/cuda/lib64/libcudart.so)
+    endif()
+
+    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+        set(_TRT_LIB_HINTS
+            /usr/lib
+            /usr/lib/x86_64-linux-gnu
+            /usr/local/lib
+        )
+        set(_TRT_INC_HINTS
+            /usr/include
+            /usr/include/x86_64-linux-gnu
+        )
+    else()
+        set(_TRT_LIB_HINTS
+            /usr/lib/aarch64-linux-gnu
+            /usr/local/lib
+        )
+        set(_TRT_INC_HINTS
+            /usr/include/aarch64-linux-gnu
+            /usr/local/include
+        )
+    endif()
+
+    find_library(NVINFER       NAMES nvinfer       HINTS ${_TRT_LIB_HINTS})
+    find_library(NVINFERPLUGIN NAMES nvinfer_plugin HINTS ${_TRT_LIB_HINTS})
+    find_library(NVONNXPARSER  NAMES nvonnxparser  HINTS ${_TRT_LIB_HINTS})
+    find_path  (TENSORRT_INCLUDE_DIR NAMES NvInfer.h  HINTS ${_TRT_INC_HINTS})
+
+    if (NVINFER AND NVINFERPLUGIN AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
+        target_include_directories(retinify PRIVATE ${TENSORRT_INCLUDE_DIR})
+        target_link_libraries(retinify PRIVATE
+            ${NVINFER}
+            ${NVINFERPLUGIN}
+            ${NVONNXPARSER}
+        )
+        message(STATUS "TensorRT linked (${CMAKE_SYSTEM_PROCESSOR})")
+    else()
+        message(WARNING "TensorRT libraries not found (${CMAKE_SYSTEM_PROCESSOR})")
     endif()
 else()
 # ONNX RUNTIME
