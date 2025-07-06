@@ -67,7 +67,11 @@ if [[ "${DO_INSTALL}" -eq 1 ]]; then
         exit 1
     fi
 
-    sudo dpkg -i "${DEB_PACKAGE}"
+    if [[ $EUID -eq 0 ]]; then
+        dpkg -i "${DEB_PACKAGE}"
+    else
+        sudo dpkg -i "${DEB_PACKAGE}"
+    fi
 fi
 
 cd ..
