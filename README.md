@@ -27,9 +27,9 @@
 [target_jetson_badge]: https://img.shields.io/badge/Jetson%20(aarch64%20%2F%20TensorRT)-gray?style=flat-square
 
 <!-- BUILD STATUS BADGES -->
-[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=Build
-[build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square&label=Build
-[build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square&label=Build
+[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=build
+[build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square&label=build
+[build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square&label=build
 
 <!-- STATUS LINKS -->
 [build_cpu_status]: https://github.com/retinify/retinify/actions/workflows/build_cpu.yml?query=branch%3Amain

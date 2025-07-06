@@ -6,7 +6,6 @@
 #include <atomic>
 #include <chrono>
 #include <cstring>
-#include <format>
 #include <iostream>
 
 namespace retinify
@@ -29,8 +28,16 @@ void SetLogLevel(LogLevel level) noexcept
 
 inline static auto GetCurrentTime() -> std::string
 {
-    const auto now = std::chrono::system_clock::now();
-    return std::format("{:%F %T}", now);
+    const std::chrono::system_clock::time_point currentTimePoint = std::chrono::system_clock::now();
+    const std::time_t currentTimeT = std::chrono::system_clock::to_time_t(currentTimePoint);
+    std::tm localTimeStruct{};
+    if (localtime_r(&currentTimeT, &localTimeStruct) == nullptr)
+    {
+        return std::string{"Invalid time"};
+    }
+    std::ostringstream timeStream;
+    timeStream << std::put_time(&localTimeStruct, "%F %T");
+    return timeStream.str();
 }
 
 inline static auto GetColorCode(LogLevel level) noexcept -> const char *
