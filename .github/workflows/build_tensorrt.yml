@@ -1,0 +1,43 @@
+name: build_tensorrt
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_tensorrt:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true      
+      
+    - name: Pull and run NGC TensorRT 10 container
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          nvcr.io/nvidia/tensorrt:24.12-py3 \
+          bash -c "
+            echo '=== TensorRT Info ==='
+            python3 -c 'import tensorrt as trt; print(\"TensorRT version:\", trt.__version__)'
+            nvcc --version
+            echo '=== Container Info ==='
+            cat /etc/os-release | grep VERSION
+            echo '=== Python packages ==='
+            pip list | grep -E '(tensorrt|torch|tensorflow)'
+          "
+
+    - name: Dependencies
+      run: |
+        sudo apt update
+        sudo apt-get install -y build-essential cmake curl git libopencv-dev
+        git submodule update --init --recursive
+
+    - name: Build RETINIFY
+      run: |
+        ./build.sh --install --gpu
