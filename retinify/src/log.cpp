@@ -6,7 +6,9 @@
 #include <atomic>
 #include <chrono>
 #include <cstring>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 
 namespace retinify
 {
