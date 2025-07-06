@@ -9,6 +9,8 @@
 #include <sstream>
 #include <string>
 
+namespace retinify
+{
 class StdoutCapture
 {
   public:
@@ -45,13 +47,17 @@ class StderrCapture
     std::streambuf *old_buf_{nullptr};
 };
 
+class LogTest : public ::testing::Test
+{
+};
+
 TEST(LogTest, LogDebug)
 {
     StdoutCapture cap;
-    retinify::SetLogLevel(retinify::LogLevel::DEBUG);
+    SetLogLevel(LogLevel::DEBUG);
 
     cap.Start();
-    retinify::LogDebug("Debug via cout");
+    LogDebug("Debug via cout");
     std::string out = cap.Stop();
 
     ASSERT_NE(out.find("Debug via cout"), std::string::npos);
@@ -60,10 +66,10 @@ TEST(LogTest, LogDebug)
 TEST(LogTest, LogInfo)
 {
     StdoutCapture cap;
-    retinify::SetLogLevel(retinify::LogLevel::INFO);
+    SetLogLevel(LogLevel::INFO);
 
     cap.Start();
-    retinify::LogInfo("Info via cout");
+    LogInfo("Info via cout");
     std::string out = cap.Stop();
 
     ASSERT_NE(out.find("Info via cout"), std::string::npos);
@@ -72,10 +78,10 @@ TEST(LogTest, LogInfo)
 TEST(LogTest, LogWarn)
 {
     StderrCapture cap;
-    retinify::SetLogLevel(retinify::LogLevel::INFO);
+    SetLogLevel(LogLevel::INFO);
 
     cap.Start();
-    retinify::LogWarn("Warning via cerr");
+    LogWarn("Warning via cerr");
     std::string out = cap.Stop();
 
     ASSERT_NE(out.find("Warning via cerr"), std::string::npos);
@@ -84,10 +90,10 @@ TEST(LogTest, LogWarn)
 TEST(LogTest, LogError)
 {
     StderrCapture cap;
-    retinify::SetLogLevel(retinify::LogLevel::INFO);
+    SetLogLevel(LogLevel::INFO);
 
     cap.Start();
-    retinify::LogError("Error via cerr");
+    LogError("Error via cerr");
     std::string out = cap.Stop();
 
     ASSERT_NE(out.find("Error via cerr"), std::string::npos);
@@ -96,11 +102,12 @@ TEST(LogTest, LogError)
 TEST(LogTest, LogFatal)
 {
     StderrCapture cap;
-    retinify::SetLogLevel(retinify::LogLevel::INFO);
+    SetLogLevel(LogLevel::INFO);
 
     cap.Start();
-    retinify::LogFatal("Fatal via cerr");
+    LogFatal("Fatal via cerr");
     std::string out = cap.Stop();
 
     ASSERT_NE(out.find("Fatal via cerr"), std::string::npos);
 }
+} // namespace retinify
