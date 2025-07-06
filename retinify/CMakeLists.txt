@@ -37,7 +37,7 @@ target_compile_options(retinify
 if (USE_NVIDIA_GPU)
     target_compile_definitions(retinify PUBLIC USE_NVIDIA_GPU)
 
-    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         find_package(CUDAToolkit REQUIRED)
         target_link_libraries(retinify PUBLIC CUDA::cudart)
     else()
@@ -45,7 +45,7 @@ if (USE_NVIDIA_GPU)
         target_link_libraries(retinify PUBLIC /usr/local/cuda/lib64/libcudart.so)
     endif()
 
-    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         set(_TRT_LIB_HINTS
             /usr/lib
             /usr/lib/x86_64-linux-gnu
