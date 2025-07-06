@@ -20,7 +20,7 @@
 namespace retinify
 {
 
-class Session
+class RETINIFY_API Session
 {
   public:
     Session() noexcept = default;

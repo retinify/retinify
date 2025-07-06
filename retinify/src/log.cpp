@@ -81,9 +81,10 @@ inline static void Log(LogLevel level, const char *label, const char *msg, std::
             return;
         }
 
-        out << "[" << GetCurrentTime() << "]"
-            << "[" << GetColorCode(level) << label << "\033[0m" << "]"
-            << "[" << location.function_name() << "]" << msg << '\n';
+        out << "[" << GetCurrentTime() << "]"                          //
+            << "[" << GetColorCode(level) << label << "\033[0m" << "]" //
+            << "[" << location.function_name() << "]"                  //
+            << msg << '\n';                                            //
     }
     catch (...) // NOLINT(bugprone-empty-catch)
     {
@@ -103,7 +104,7 @@ void LogInfo(const char *msg, const std::source_location location) noexcept
 
 void LogWarn(const char *msg, const std::source_location location) noexcept
 {
-    Log(LogLevel::WARN, "WARN ", msg, std::cout, location);
+    Log(LogLevel::WARN, "WARN ", msg, std::cerr, location);
 }
 
 void LogError(const char *msg, const std::source_location location) noexcept
