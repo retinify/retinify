@@ -1,5 +1,5 @@
 ﻿# CMAKE
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.14)
 message(STATUS "CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}")
 set(CMAKE_BUILD_TYPE Release)
 
