@@ -49,13 +49,13 @@ inline static auto CreateDirectory(const char *path) -> bool
 
     std::error_code error;
 
-    const bool alreadyExists = std::filesystem::exists(path, error);
+    const bool exists = std::filesystem::exists(path, error);
     if (error)
     {
         return false;
     }
 
-    if (alreadyExists)
+    if (exists)
     {
         const bool isDir = std::filesystem::is_directory(path, error);
         return !error && isDir;
@@ -82,8 +82,10 @@ auto ConfigDirectoryPath() noexcept -> const char *
         const char *path = MergePaths(HomeDirectoryPath(), ".config/retinify");
         if (path != nullptr && std::strlen(path) > 0)
         {
-            (void)CreateDirectory(path);
-            return path;
+            if (CreateDirectory(path))
+            {
+                return path;
+            }
         }
     }
     catch (...)
@@ -100,8 +102,10 @@ auto CacheDirectoryPath() noexcept -> const char *
         const char *path = MergePaths(HomeDirectoryPath(), ".cache/retinify");
         if (path != nullptr && std::strlen(path) > 0)
         {
-            (void)CreateDirectory(path);
-            return path;
+            if (CreateDirectory(path))
+            {
+                return path;
+            }
         }
     }
     catch (...)
@@ -118,8 +122,10 @@ auto DataDirectoryPath() noexcept -> const char *
         const char *path = MergePaths(HomeDirectoryPath(), ".local/share/retinify");
         if (path != nullptr && std::strlen(path) > 0)
         {
-            (void)CreateDirectory(path);
-            return path;
+            if (CreateDirectory(path))
+            {
+                return path;
+            }
         }
     }
     catch (...)
@@ -136,8 +142,10 @@ auto StateDirectoryPath() noexcept -> const char *
         const char *path = MergePaths(HomeDirectoryPath(), ".local/state/retinify");
         if (path != nullptr && std::strlen(path) > 0)
         {
-            (void)CreateDirectory(path);
-            return path;
+            if (CreateDirectory(path))
+            {
+                return path;
+            }
         }
     }
     catch (...)
