@@ -1,4 +1,4 @@
-name: build_tensorrt
+name: build_jetson
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_tensorrt:
+  build_jetson:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,33 +16,37 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: true      
-      
-    - name: Build RETINIFY with TensorRT
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: arm64
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build RETINIFY with Jetson TensorRT
       run: |
-        docker run --rm \
+        docker run --rm --platform linux/arm64 \
           -v ${{ github.workspace }}:/workspace \
           -w /workspace \
-          nvcr.io/nvidia/tensorrt:24.12-py3 \
+          nvcr.io/nvidia/l4t-tensorrt:r10.3.0-devel \
           bash -c "
             set -e
 
             echo '=== TensorRT Info ==='
-            python3 -c 'import tensorrt as trt; print(\"TensorRT version:\", trt.__version__)'
             nvcc --version
 
             echo '=== Container Info ==='
             cat /etc/os-release | grep VERSION
 
-            echo '=== Python packages ==='
-            pip list | grep -E '(tensorrt|torch|tensorflow)'
-
             echo '=== Install Dependencies ==='
-            apt update && apt install -y git cmake build-essential libopencv-dev
+            apt update && apt install -y git cmake build-essential
 
             echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
             git submodule update --init --recursive
 
             echo '=== Build RETINIFY ==='
-            ./build.sh --install --gpu
+            ./build.sh --install --gpu            
           "

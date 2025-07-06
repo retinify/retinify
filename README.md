@@ -8,6 +8,7 @@
 
 ## retinify: Real-Time AI Stereo Vision Library
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
+[![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
 [![Release](https://img.shields.io/github/v/release/retinify/retinify?sort=semver&style=flat-square&color=blue&label=Release)](https://github.com/retinify/retinify/releases/latest)
 [![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=Build)](https://github.com/retinify/retinify/actions/workflows/build_cpu.yml?query=branch%3Amain)
