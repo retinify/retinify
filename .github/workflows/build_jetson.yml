@@ -42,7 +42,7 @@ jobs:
             cat /etc/os-release | grep VERSION
 
             echo '=== Install Dependencies ==='
-            apt update && apt install -y git cmake build-essential
+            apt update && apt install -y git cmake build-essential libopencv-dev
 
             echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
