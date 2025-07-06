@@ -42,6 +42,7 @@ jobs:
             cat /etc/os-release | grep VERSION
 
             echo '=== Install Dependencies ==='
+            export DEBIAN_FRONTEND=noninteractive
             apt update && apt install -y git cmake build-essential libopencv-dev
 
             echo '=== Initialize Submodules ==='
