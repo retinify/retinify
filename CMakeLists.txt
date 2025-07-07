@@ -49,7 +49,7 @@ configure_file(
 
 # ONNX MODEL
 set(STEREO_MODEL_URL "https://github.com/retinify/retinify-models/releases/download/v0.0.1/model.onnx")
-set(STEREO_MODEL_HASH "SHA256=a383b3cb86c599b2d1637f077acfa028370f78dc951bdf0162697ad7e523c450")
+set(STEREO_MODEL_HASH "SHA256=fa8c55c1c8dbc83141c2b02bd08ac193b9eb00f23563106b72f2a4e1557e9377")
 set(STEREO_MODEL_PATH "${CMAKE_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
 file(DOWNLOAD
     ${STEREO_MODEL_URL}
