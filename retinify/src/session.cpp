@@ -55,9 +55,14 @@ Session::~Session() noexcept
     delete context_;
     delete engine_;
     delete runtime_;
+
     if (cudaStream_ != nullptr)
     {
-        (void)cudaStreamDestroy(cudaStream_);
+        cudaError_t cudaStreamError = cudaStreamDestroy(cudaStream_);
+        if (cudaStreamError != cudaSuccess)
+        {
+            LogError(cudaGetErrorString(cudaStreamError));
+        }
         cudaStream_ = nullptr;
     }
 #else
@@ -95,6 +100,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
     cudaError_t cudaStreamError = cudaStreamCreate(&cudaStream_);
     if (cudaStreamError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(cudaStreamError));
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
@@ -103,6 +109,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
     runtime_ = nvinfer1::createInferRuntime(logger);
     if (runtime_ == nullptr)
     {
+        LogError("Failed to create TensorRT runtime: createInferRuntime returned nullptr");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
@@ -113,16 +120,20 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
         if (std::filesystem::exists(engineFilePath))
         {
+            LogDebug("Found TensorRT engine file at cache directory. Loading...");
+
             std::error_code ec;
             const auto fileSize = std::filesystem::file_size(engineFilePath, ec);
             if (ec || fileSize == 0)
             {
+                LogError("Failed to read TensorRT engine file size.");
                 return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
             }
 
             std::ifstream file(engineFilePath, std::ios::binary);
             if (!file.is_open())
             {
+                LogError("Failed to open TensorRT engine file.");
                 return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
             }
 
@@ -130,6 +141,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             file.read(engineData.data(), static_cast<std::streamsize>(fileSize));
             if (file.fail() || file.gcount() != static_cast<std::streamsize>(fileSize))
             {
+                LogError("Failed to read TensorRT engine data from file.");
                 return Status{StatusCategory::SYSTEM, StatusCode::FAIL};
             }
 
@@ -137,34 +149,40 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
         }
         else
         {
-            // Build engine from ONNX model
+            LogDebug("TensorRT engine not found. Starting first-time build. This process may take several minutes...");
+
             auto builder = std::unique_ptr<nvinfer1::IBuilder>(nvinfer1::createInferBuilder(logger));
             if (!builder)
             {
+                LogError("Failed to create TensorRT builder: createInferBuilder returned nullptr");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
             auto config = std::unique_ptr<nvinfer1::IBuilderConfig>(builder->createBuilderConfig());
             if (!config)
             {
+                LogError("Failed to create TensorRT builder config: createBuilderConfig returned nullptr");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
             auto network = std::unique_ptr<nvinfer1::INetworkDefinition>(builder->createNetworkV2(0U));
             if (!network)
             {
+                LogError("Failed to create TensorRT network definition: createNetworkV2 returned nullptr");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
             auto parser = std::unique_ptr<nvonnxparser::IParser>(nvonnxparser::createParser(*network, logger));
             if (!parser)
             {
+                LogError("Failed to create ONNX parser: createParser returned nullptr");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
             // Parse ONNX model
             if (!parser->parseFromFile(model_path, static_cast<int>(nvinfer1::ILogger::Severity::kWARNING)))
             {
+                LogError("Failed to parse ONNX model file.");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
@@ -192,6 +210,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             auto serializedEngine = std::unique_ptr<nvinfer1::IHostMemory>(builder->buildSerializedNetwork(*network, *config));
             if (!serializedEngine)
             {
+                LogError("Failed to build serialized TensorRT engine: buildSerializedNetwork returned nullptr");
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
@@ -214,13 +233,19 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
     if (engine_ == nullptr)
     {
+        LogError("Failed to create TensorRT engine: deserializeCudaEngine returned nullptr");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
+    else
+    {
+        LogDebug("TensorRT engine loaded successfully.");
     }
 
     // Create execution context
     context_ = engine_->createExecutionContext();
     if (context_ == nullptr)
     {
+        LogError("Failed to create TensorRT execution context: createExecutionContext returned nullptr");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
@@ -303,11 +328,13 @@ auto Session::BindInput(const char *name, const Mat &mat) const noexcept -> Stat
 
     if (!context_->setInputShape(name, dims))
     {
+        LogError("Failed to set input shape for tensor.");
         return Status{StatusCategory::CUDA, StatusCode::INVALID_ARGUMENT};
     }
 
     if (!context_->setTensorAddress(name, mat.Data()))
     {
+        LogError("Failed to set tensor address for input.");
         return Status{StatusCategory::CUDA, StatusCode::INVALID_ARGUMENT};
     }
 
@@ -344,6 +371,7 @@ auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Sta
 #ifdef USE_NVIDIA_GPU
     if (!context_->setTensorAddress(name, mat.Data()))
     {
+        LogError("Failed to set tensor address for output.");
         return Status{StatusCategory::CUDA, StatusCode::INVALID_ARGUMENT};
     }
 
@@ -380,17 +408,20 @@ auto Session::Run() const noexcept -> Status
 #ifdef USE_NVIDIA_GPU
     if (!context_->allInputDimensionsSpecified())
     {
+        LogError("Not all input dimensions are specified.");
         return Status{StatusCategory::CUDA, StatusCode::INVALID_ARGUMENT};
     }
 
     if (!context_->enqueueV3(cudaStream_))
     {
+        LogError("Failed to enqueue TensorRT execution context.");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
     cudaError_t cuda_error = cudaStreamSynchronize(cudaStream_);
     if (cuda_error != cudaSuccess)
     {
+        LogError(cudaGetErrorString(cuda_error));
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
