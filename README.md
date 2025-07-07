@@ -17,16 +17,20 @@
 [![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=instagram)](https://www.instagram.com/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
-| Target | Status |
+| 🚀 Target | Status |
 |--------|--------|
-| [![target_cpu_badge][]][build_cpu_status]         | [![build_cpu_badge][]][build_cpu_status] |
+| [![target_cpu_badge][]][build_cpu_status]         　| [![build_cpu_badge][]][build_cpu_status] |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
 | [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status] |
+| ![target_hailort_badge]                             | Coming soon |
+| ![target_openvino_badge]                             | Coming soon |
 
 <!-- TARGET BADGES -->
-[target_cpu_badge]: https://img.shields.io/badge/CPU%20(amd64)-gray?style=flat-square
-[target_tensorrt_badge]: https://img.shields.io/badge/GPU%20(amd64%20%2F%20TensorRT)-gray?style=flat-square
-[target_jetson_badge]: https://img.shields.io/badge/Jetson%20(aarch64%20%2F%20TensorRT)-gray?style=flat-square
+[target_cpu_badge]: https://img.shields.io/badge/CPU-gray?style=flat-square
+[target_tensorrt_badge]: https://img.shields.io/badge/TensorRT-gray?style=flat-square
+[target_jetson_badge]: https://img.shields.io/badge/TensorRT(Jetson)-gray?style=flat-square
+[target_hailort_badge]: https://img.shields.io/badge/HailoRT-gray?style=flat-square
+[target_openvino_badge]: https://img.shields.io/badge/OpenVINO-gray?style=flat-square
 
 <!-- BUILD STATUS BADGES -->
 [build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=build
