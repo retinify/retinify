@@ -16,7 +16,6 @@ target_link_libraries(retinify_tests
 
 # INCLUDES
 target_include_directories(retinify_tests
-    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PRIVATE 
+        ../src # retinify source
 )

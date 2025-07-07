@@ -88,16 +88,19 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
+
     newStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
     if (rows > std::numeric_limits<std::size_t>::max() / newStride)
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
+
     std::size_t allocSize = newStride * rows;
     if (allocSize > std::numeric_limits<std::size_t>::max() - (alignment - 1))
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
+    
     std::size_t alignedSize = ((allocSize + alignment - 1) / alignment) * alignment;
     newDeviceData = std::aligned_alloc(alignment, alignedSize);
     if (newDeviceData == nullptr)
