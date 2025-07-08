@@ -55,7 +55,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     void *newDeviceData = nullptr;
     std::size_t newStride = 0;
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     cudaError_t streamError = cudaStreamCreate(&stream_);
     if (streamError != cudaSuccess)
     {
@@ -136,7 +136,7 @@ auto Mat::Free() noexcept -> Status
 
     if (deviceData_ != nullptr)
     {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
         cudaError_t freeError = cudaFree(deviceData_);
         if (freeError != cudaSuccess)
         {
@@ -149,7 +149,7 @@ auto Mat::Free() noexcept -> Status
         this->deviceData_ = nullptr;
     }
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (stream_ != nullptr)
     {
         cudaError_t streamError = cudaStreamDestroy(stream_);
@@ -204,7 +204,7 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept ->
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
     if (copyError != cudaSuccess)
     {
@@ -250,7 +250,7 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
     if (copyError != cudaSuccess)
     {
@@ -278,7 +278,7 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
 
 auto Mat::Wait() const noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (stream_ != nullptr)
     {
         cudaError_t waitError = cudaStreamWaitEvent(stream_, event_, 0);

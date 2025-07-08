@@ -34,7 +34,7 @@ install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
 )
 
 # BUILD OPTIONS
-option(USE_NVIDIA_GPU "Use GPU acceleration if available" ON)
+option(BUILD_WITH_TENSORRT "Use GPU acceleration if available" ON)
 option(BUILD_PYTHON_BINDINGS "Build Python binding" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 option(BUILD_TESTS "Build tests" ON)
@@ -107,7 +107,7 @@ message(STATUS "================================================================
 message(STATUS "                           RETINIFY Build Configuration                         ")
 message(STATUS "================================================================================")
 message(STATUS "PROJECT_VERSION        : ${PROJECT_VERSION}")
-message(STATUS "USE_NVIDIA_GPU         : ${USE_NVIDIA_GPU}")
+message(STATUS "BUILD_WITH_TENSORRT    : ${BUILD_WITH_TENSORRT}")
 message(STATUS "BUILD_PYTHON_BINDINGS  : ${BUILD_PYTHON_BINDINGS}")
 message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
 message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")

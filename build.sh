@@ -4,7 +4,7 @@ set -e
 # PARAMETERS
 BUILD_DIR="build"
 INSTALL_PREFIX="/usr"
-USE_NVIDIA_GPU=ON
+BUILD_WITH_TENSORRT=ON
 BUILD_PYTHON_BINDINGS=OFF
 BUILD_SAMPLES=OFF
 BUILD_TESTS=OFF
@@ -17,10 +17,10 @@ for arg in "$@"; do
             DO_INSTALL=1
             ;;    
         --gpu)
-            USE_NVIDIA_GPU=ON
+            BUILD_WITH_TENSORRT=ON
             ;;
         --cpu)
-            USE_NVIDIA_GPU=OFF
+            BUILD_WITH_TENSORRT=OFF
             ;;
         --dev)
             BUILD_PYTHON_BINDINGS=ON
@@ -47,7 +47,7 @@ mkdir -p "${BUILD_DIR}"
 cd "${BUILD_DIR}"
 
 cmake -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
-      -DUSE_NVIDIA_GPU="${USE_NVIDIA_GPU}" \
+      -DBUILD_WITH_TENSORRT="${BUILD_WITH_TENSORRT}" \
       -DBUILD_PYTHON_BINDINGS="${BUILD_PYTHON_BINDINGS}" \
       -DBUILD_SAMPLES="${BUILD_SAMPLES}" \
       -DBUILD_TESTS="${BUILD_TESTS}" \

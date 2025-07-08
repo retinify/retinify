@@ -6,7 +6,7 @@
 #include "retinify/define.hpp"
 #include "retinify/status.hpp"
 #include <array>
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
 #include <cuda_runtime.h>
 #endif
 
@@ -35,7 +35,7 @@ class RETINIFY_API Mat
     [[nodiscard]] auto Shape() const noexcept -> std::array<int64_t, 4>;
 
   private:
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     cudaStream_t stream_{nullptr};
     cudaEvent_t event_{nullptr};
 #endif
