@@ -32,55 +32,6 @@ cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
     cv::applyColorMap(normalizedDisparity, coloredDisparity, cv::COLORMAP_JET);
     return coloredDisparity;
 }
-
-void LogStatus(const retinify::Status &status)
-{
-    switch (status.Category())
-    {
-    case retinify::StatusCategory::NONE:
-        std::cout << "NONE";
-        break;
-    case retinify::StatusCategory::RETINIFY:
-        std::cout << "RETINIFY";
-        break;
-    case retinify::StatusCategory::SYSTEM:
-        std::cout << "SYSTEM";
-        break;
-    case retinify::StatusCategory::CUDA:
-        std::cout << "CUDA";
-        break;
-    case retinify::StatusCategory::USER:
-        std::cout << "USER";
-        break;
-    default:
-        std::cout << "UNKNOWN";
-        break;
-    }
-
-    std::cout << " - Code: ";
-    switch (status.Code())
-    {
-    case retinify::StatusCode::OK:
-        std::cout << "OK";
-        break;
-    case retinify::StatusCode::FAIL:
-        std::cout << "FAIL";
-        break;
-    case retinify::StatusCode::INVALID_ARGUMENT:
-        std::cout << "INVALID_ARGUMENT";
-        break;
-    case retinify::StatusCode::NOT_ALLOCATED:
-        std::cout << "NOT_ALLOCATED";
-        break;
-    case retinify::StatusCode::NULL_POINTER:
-        std::cout << "NULL_POINTER";
-        break;
-    default:
-        std::cout << static_cast<int>(status.Code());
-        break;
-    }
-    std::cout << std::endl;
-}
 } // namespace retinify
 
 int main(int argc, char **argv)
