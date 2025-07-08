@@ -10,17 +10,19 @@
 #include "retinify/status.hpp"
 
 #include <atomic>
+#include <cassert>
 #include <chrono>
 #include <iostream>
+#include <new>
 
 namespace retinify
 {
 class Pipeline::Impl
 {
   public:
-    Impl() = default;
+    Impl() noexcept = default;
 
-    ~Impl()
+    ~Impl() noexcept
     {
         initialized_ = false;
         (void)left_.Free();
@@ -28,23 +30,32 @@ class Pipeline::Impl
         (void)disparity_.Free();
     }
 
-    Status Initialize(const std::size_t height, const std::size_t weidth) noexcept
+    Status Initialize(const std::size_t height, const std::size_t width) noexcept
     {
         Status status;
 
-        status = left_.Allocate(height, weidth, 3, sizeof(float));
+        if (!((height == 320 && width == 640) || //
+              (height == 480 && width == 640) || //
+              (height == 720 && width == 1280)))
+        {
+            LogError("Height and width must be one of the following: 320x640, 480x640, or 720x1280.");
+            status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+            return status;
+        }
+
+        status = left_.Allocate(height, width, 3, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(height, weidth, 3, sizeof(float));
+        status = right_.Allocate(height, width, 3, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Allocate(height, weidth, 1, sizeof(float));
+        status = disparity_.Allocate(height, width, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -78,7 +89,7 @@ class Pipeline::Impl
         return status;
     }
 
-    Status StereoMatching(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
+    Status Run(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
     {
         Status status;
 
@@ -147,19 +158,36 @@ class Pipeline::Impl
     Mat disparity_;
 };
 
-Pipeline::Pipeline() noexcept : impl_(std::make_unique<Impl>())
+Pipeline::Pipeline() noexcept
 {
+    static_assert(sizeof(buffer_) >= sizeof(Impl), "Buffer too small for Impl");
+    static_assert(alignof(std::max_align_t) >= alignof(Impl), "Buffer alignment insufficient");
+
+    new (&buffer_) Impl();
 }
 
-Pipeline::~Pipeline() noexcept = default;
-
-Status Pipeline::Initialize(const std::size_t height, const std::size_t weidth) noexcept
+Pipeline::~Pipeline() noexcept
 {
-    return this->impl_->Initialize(height, weidth);
+    impl()->~Impl();
+}
+
+Pipeline::Impl *Pipeline::impl() noexcept
+{
+    return std::launder(reinterpret_cast<Impl *>(&buffer_));
+}
+
+const Pipeline::Impl *Pipeline::impl() const noexcept
+{
+    return std::launder(reinterpret_cast<const Impl *>(&buffer_));
+}
+
+Status Pipeline::Initialize(const std::size_t height, const std::size_t width) noexcept
+{
+    return this->impl()->Initialize(height, width);
 }
 
 Status Pipeline::Run(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
 {
-    return this->impl_->StereoMatching(leftData, leftStride, rightData, rightStride, disparityData, disparityStride);
+    return this->impl()->Run(leftData, leftStride, rightData, rightStride, disparityData, disparityStride);
 }
 } // namespace retinify
