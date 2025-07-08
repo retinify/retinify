@@ -13,6 +13,7 @@
 #include <cuda_runtime.h>
 #endif
 
+#include <exception>
 #include <filesystem>
 #include <fstream>
 #include <memory>
@@ -226,8 +227,14 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             engine_ = runtime_->deserializeCudaEngine(serializedEngine->data(), serializedEngine->size());
         }
     }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
     catch (...)
     {
+        LogFatal("An unknown error occurred.");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 

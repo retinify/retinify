@@ -5,6 +5,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 # PROJECT
 project(retinify)
+set(CMAKE_INSTALL_PREFIX "/usr")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # C++ SETTINGS
