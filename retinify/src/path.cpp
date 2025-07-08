@@ -3,11 +3,13 @@
 
 #include "retinify/path.hpp"
 #include "retinify/libretinify_onnx.hpp"
+#include "retinify/log.hpp"
 #include "retinify/version.hpp"
 
 #include <array>
 #include <cstdlib>
 #include <cstring>
+#include <exception>
 #include <filesystem>
 
 namespace retinify
@@ -21,20 +23,11 @@ inline static auto MergePaths(const char *input1, const char *input2) -> const c
         return nullptr;
     }
 
-    std::string_view stringInput1{input1};
-    std::string_view stringInpu2{input2};
-    std::string_view stringVersion{Version()};
+    std::filesystem::path path1{input1};
+    std::filesystem::path path2{input2};
+    std::filesystem::path version{Version()};
 
-    if (stringInput1.empty() && stringInpu2.empty())
-    {
-        buffer.clear();
-        return buffer.c_str();
-    }
-
-    std::filesystem::path pathInput1{stringInput1};
-    std::filesystem::path pathInput2{stringInpu2};
-    std::filesystem::path pathVersion{stringVersion};
-    std::filesystem::path result = pathInput1 / pathInput2 / pathVersion;
+    std::filesystem::path result = path1 / path2 / version;
     buffer = result.string();
 
     return buffer.c_str();
@@ -72,6 +65,8 @@ auto HomeDirectoryPath() noexcept -> const char *
     {
         return path;
     }
+
+    LogError("Environment variable 'HOME' is not set or empty.");
     return nullptr;
 }
 
@@ -86,12 +81,19 @@ auto ConfigDirectoryPath() noexcept -> const char *
             {
                 return path;
             }
+
+            LogError("Failed to create or access the configuration directory.");
         }
+    }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
     }
     catch (...)
     {
-        return nullptr;
+        LogFatal("An unknown error occurred.");
     }
+
     return nullptr;
 }
 
@@ -106,12 +108,19 @@ auto CacheDirectoryPath() noexcept -> const char *
             {
                 return path;
             }
+
+            LogError("Failed to create or access the cache directory.");
         }
+    }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
     }
     catch (...)
     {
-        return nullptr;
+        LogFatal("An unknown error occurred.");
     }
+
     return nullptr;
 }
 
@@ -126,12 +135,19 @@ auto DataDirectoryPath() noexcept -> const char *
             {
                 return path;
             }
+
+            LogError("Failed to create or access the data directory.");
         }
+    }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
     }
     catch (...)
     {
-        return nullptr;
+        LogFatal("An unknown error occurred.");
     }
+
     return nullptr;
 }
 
@@ -146,12 +162,19 @@ auto StateDirectoryPath() noexcept -> const char *
             {
                 return path;
             }
+
+            LogError("Failed to create or access the state directory.");
         }
+    }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
     }
     catch (...)
     {
-        return nullptr;
+        LogFatal("An unknown error occurred.");
     }
+
     return nullptr;
 }
 
