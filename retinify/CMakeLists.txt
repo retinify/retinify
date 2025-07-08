@@ -34,8 +34,8 @@ target_compile_options(retinify
 )
 
 # BUILD OPTIONS
-if (USE_NVIDIA_GPU)
-    target_compile_definitions(retinify PUBLIC USE_NVIDIA_GPU)
+if (BUILD_WITH_TENSORRT)
+    target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
 
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         find_package(CUDAToolkit REQUIRED)

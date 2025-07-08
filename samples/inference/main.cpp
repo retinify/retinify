@@ -94,7 +94,7 @@ int main(int argc, char **argv)
     std::string left_path = argv[1];
     std::string right_path = argv[2];
 
-    retinify::SetLogLevel(retinify::LogLevel::DEBUG);
+    retinify::SetLogLevel(retinify::LogLevel::INFO);
     retinify::Pipeline pipeline;
 
     (void)pipeline.Initialize(720, 1280);

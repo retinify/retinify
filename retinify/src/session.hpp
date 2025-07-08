@@ -9,7 +9,7 @@
 
 #include <array>
 #include <memory>
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>
 #include <cuda_runtime.h>
 #include <iostream>
@@ -35,7 +35,7 @@ class RETINIFY_API Session
     [[nodiscard]] auto Run() const noexcept -> Status;
 
   private:
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     nvinfer1::IRuntime *runtime_{nullptr};
     nvinfer1::ICudaEngine *engine_{nullptr};
     nvinfer1::IExecutionContext *context_{nullptr};

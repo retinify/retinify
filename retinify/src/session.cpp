@@ -7,19 +7,20 @@
 #include "retinify/log.hpp"
 #include "retinify/path.hpp"
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>
 #include <NvOnnxParser.h>
 #include <cuda_runtime.h>
 #endif
 
+#include <exception>
 #include <filesystem>
 #include <fstream>
 #include <memory>
 
 namespace retinify
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
 class TensorRTLogger : public nvinfer1::ILogger
 {
   public:
@@ -51,7 +52,7 @@ class TensorRTLogger : public nvinfer1::ILogger
 
 Session::~Session() noexcept
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     delete context_;
     delete engine_;
     delete runtime_;
@@ -95,7 +96,7 @@ Session::~Session() noexcept
 
 auto Session::Initialize(const char *model_path) noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     // Create CUDA stream
     cudaError_t cudaStreamError = cudaStreamCreate(&cudaStream_);
     if (cudaStreamError != cudaSuccess)
@@ -193,7 +194,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
             // Set optimization profiles
             auto *profile = builder->createOptimizationProfile();
-            nvinfer1::Dims minDims{4, {1, 180, 320, 3}};
+            nvinfer1::Dims minDims{4, {1, 320, 640, 3}};
             nvinfer1::Dims optDims{4, {1, 480, 640, 3}};
             nvinfer1::Dims maxDims{4, {1, 1440, 2560, 3}};
 
@@ -226,8 +227,14 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             engine_ = runtime_->deserializeCudaEngine(serializedEngine->data(), serializedEngine->size());
         }
     }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
     catch (...)
     {
+        LogFatal("An unknown error occurred.");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
@@ -322,7 +329,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
 auto Session::BindInput(const char *name, const Mat &mat) const noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     std::array<int64_t, 4> shape = mat.Shape();
     nvinfer1::Dims dims{4, {static_cast<int>(shape[0]), static_cast<int>(shape[1]), static_cast<int>(shape[2]), static_cast<int>(shape[3])}};
 
@@ -368,7 +375,7 @@ auto Session::BindInput(const char *name, const Mat &mat) const noexcept -> Stat
 
 auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (!context_->setTensorAddress(name, mat.Data()))
     {
         LogError("Failed to set tensor address for output.");
@@ -405,7 +412,7 @@ auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Sta
 
 auto Session::Run() const noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (!context_->allInputDimensionsSpecified())
     {
         LogError("Not all input dimensions are specified.");

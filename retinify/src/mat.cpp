@@ -28,49 +28,52 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
 
     if (rows == 0 || cols == 0 || channels == 0 || bytesPerElement == 0)
     {
+        LogError("Not allowed zero dimensions.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     if (channels > std::numeric_limits<std::size_t>::max() / cols)
     {
+        LogError("Overflow in channels * cols.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     std::size_t elementsPerRow = cols * channels;
     if (elementsPerRow > std::numeric_limits<std::size_t>::max() / bytesPerElement)
     {
+        LogError("Overflow in elementsPerRow * bytesPerElement.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     std::size_t columnsInBytes = elementsPerRow * bytesPerElement;
     if (rows > std::numeric_limits<std::size_t>::max() / columnsInBytes)
     {
+        LogError("Overflow in rows * columnsInBytes.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     void *newDeviceData = nullptr;
     std::size_t newStride = 0;
 
-#ifdef USE_NVIDIA_GPU
-    cudaError_t streamErr = cudaStreamCreate(&stream_);
-    if (streamErr != cudaSuccess)
+#ifdef BUILD_WITH_TENSORRT
+    cudaError_t streamError = cudaStreamCreate(&stream_);
+    if (streamError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(streamError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventErr = cudaEventCreate(&event_);
-    if (eventErr != cudaSuccess)
+    cudaError_t eventError = cudaEventCreate(&event_);
+    if (eventError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(eventError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t err = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
-    if (err != cudaSuccess)
+    cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
+    if (mallocError != cudaSuccess)
     {
-        if (newDeviceData != nullptr)
-        {
-            cudaFree(newDeviceData);
-        }
+        LogError(cudaGetErrorString(mallocError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
@@ -78,8 +81,14 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     {
         if (newDeviceData != nullptr)
         {
-            cudaFree(newDeviceData);
+            cudaError_t freeError = cudaFree(newDeviceData);
+            if (freeError != cudaSuccess)
+            {
+                LogError(cudaGetErrorString(freeError));
+            }
+            newDeviceData = nullptr;
         }
+        LogError("Overflow in rows * newStride.");
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 #else
@@ -100,7 +109,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     {
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
-    
+
     std::size_t alignedSize = ((allocSize + alignment - 1) / alignment) * alignment;
     newDeviceData = std::aligned_alloc(alignment, alignedSize);
     if (newDeviceData == nullptr)
@@ -123,13 +132,16 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
 
 auto Mat::Free() noexcept -> Status
 {
+    Status status;
+
     if (deviceData_ != nullptr)
     {
-#ifdef USE_NVIDIA_GPU
-        cudaError_t err = cudaFree(deviceData_);
-        if (err != cudaSuccess)
+#ifdef BUILD_WITH_TENSORRT
+        cudaError_t freeError = cudaFree(deviceData_);
+        if (freeError != cudaSuccess)
         {
-            return Status(StatusCategory::CUDA, StatusCode::FAIL);
+            LogError(cudaGetErrorString(freeError));
+            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
 #else
         std::free(deviceData_);
@@ -137,16 +149,26 @@ auto Mat::Free() noexcept -> Status
         this->deviceData_ = nullptr;
     }
 
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (stream_ != nullptr)
     {
-        cudaStreamDestroy(stream_);
+        cudaError_t streamError = cudaStreamDestroy(stream_);
+        if (streamError != cudaSuccess)
+        {
+            LogError(cudaGetErrorString(streamError));
+            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
+        }
         stream_ = nullptr;
     }
 
     if (event_ != nullptr)
     {
-        cudaEventDestroy(event_);
+        cudaError_t eventError = cudaEventDestroy(event_);
+        if (eventError != cudaSuccess)
+        {
+            LogError(cudaGetErrorString(eventError));
+            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
+        }
         event_ = nullptr;
     }
 #endif
@@ -159,36 +181,41 @@ auto Mat::Free() noexcept -> Status
     this->deviceRows_ = 0;
     this->deviceColumnsInBytes_ = 0;
 
-    return Status{};
+    return status;
 }
 
 auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept -> Status
 {
     if (deviceData_ == nullptr)
     {
+        LogError("Device data is not allocated.");
         return Status(StatusCategory::USER, StatusCode::NOT_ALLOCATED);
     }
 
     if (hostData == nullptr)
     {
+        LogError("Host data pointer is null.");
         return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
     }
 
     if (hostStride < deviceColumnsInBytes_)
     {
+        LogError("Host stride is less than device columns in bytes.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef USE_NVIDIA_GPU
-    cudaError_t copyErr = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
-    if (copyErr != cudaSuccess)
+#ifdef BUILD_WITH_TENSORRT
+    cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
+    if (copyError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(copyError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventErr = cudaEventRecord(event_, stream_);
-    if (eventErr != cudaSuccess)
+    cudaError_t eventError = cudaEventRecord(event_, stream_);
+    if (eventError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(eventError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 #else
@@ -207,29 +234,34 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
 {
     if (deviceData_ == nullptr)
     {
+        LogError("Device data is not allocated.");
         return Status(StatusCategory::USER, StatusCode::NOT_ALLOCATED);
     }
 
     if (hostData == nullptr)
     {
+        LogError("Host data pointer is null.");
         return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
     }
 
     if (hostStride < deviceColumnsInBytes_)
     {
+        LogError("Host stride is less than device columns in bytes.");
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef USE_NVIDIA_GPU
-    cudaError_t copyErr = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
-    if (copyErr != cudaSuccess)
+#ifdef BUILD_WITH_TENSORRT
+    cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
+    if (copyError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(copyError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventErr = cudaEventRecord(event_, stream_);
-    if (eventErr != cudaSuccess)
+    cudaError_t eventError = cudaEventRecord(event_, stream_);
+    if (eventError != cudaSuccess)
     {
+        LogError(cudaGetErrorString(eventError));
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 #else
@@ -246,12 +278,13 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
 
 auto Mat::Wait() const noexcept -> Status
 {
-#ifdef USE_NVIDIA_GPU
+#ifdef BUILD_WITH_TENSORRT
     if (stream_ != nullptr)
     {
-        cudaError_t err = cudaStreamWaitEvent(stream_, event_, 0);
-        if (err != cudaSuccess)
+        cudaError_t waitError = cudaStreamWaitEvent(stream_, event_, 0);
+        if (waitError != cudaSuccess)
         {
+            LogError(cudaGetErrorString(waitError));
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
     }
