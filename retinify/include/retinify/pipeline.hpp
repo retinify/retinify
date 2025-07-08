@@ -17,7 +17,7 @@ class RETINIFY_API Pipeline
     Pipeline &operator=(const Pipeline &) = delete;
     Pipeline(Pipeline &&) noexcept = delete;
     Pipeline &operator=(Pipeline &&) noexcept = delete;
-    Status Initialize(const std::size_t rows, const std::size_t cols) noexcept;
+    Status Initialize(const std::size_t height, const std::size_t weidth) noexcept;
     Status Forward(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept;
 
   private:

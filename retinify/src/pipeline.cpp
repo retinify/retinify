@@ -28,23 +28,23 @@ class Pipeline::Impl
         (void)disparity_.Free();
     }
 
-    Status Initialize(const std::size_t rows, const std::size_t cols) noexcept
+    Status Initialize(const std::size_t height, const std::size_t weidth) noexcept
     {
         Status status;
 
-        status = left_.Allocate(rows, cols, 3, sizeof(float));
+        status = left_.Allocate(height, weidth, 3, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(rows, cols, 3, sizeof(float));
+        status = right_.Allocate(height, weidth, 3, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Allocate(rows, cols, 1, sizeof(float));
+        status = disparity_.Allocate(height, weidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -153,9 +153,9 @@ Pipeline::Pipeline() noexcept : impl_(std::make_unique<Impl>())
 
 Pipeline::~Pipeline() noexcept = default;
 
-Status Pipeline::Initialize(const std::size_t rows, const std::size_t cols) noexcept
+Status Pipeline::Initialize(const std::size_t height, const std::size_t weidth) noexcept
 {
-    return this->impl_->Initialize(rows, cols);
+    return this->impl_->Initialize(height, weidth);
 }
 
 Status Pipeline::Forward(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept

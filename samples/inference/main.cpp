@@ -18,19 +18,19 @@ cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
         return cv::Mat();
     }
 
-    cv::Mat show;
+    cv::Mat coloredDisparity;
 
     // set disparity values greater than threshold to 0
-    cv::Mat thresholded_disparity;
-    cv::threshold(disparity, thresholded_disparity, maxDisparity, 0, cv::THRESH_TOZERO_INV);
+    cv::Mat thresholdedDisparity;
+    cv::threshold(disparity, thresholdedDisparity, maxDisparity, 0, cv::THRESH_TOZERO_INV);
 
     // normalize disparity map
-    cv::Mat normalized_disparity;
-    thresholded_disparity.convertTo(normalized_disparity, CV_8UC1, 255.0 / maxDisparity);
+    cv::Mat normalizedDisparity;
+    thresholdedDisparity.convertTo(normalizedDisparity, CV_8UC1, 255.0 / maxDisparity);
 
     // apply color map
-    cv::applyColorMap(normalized_disparity, show, cv::COLORMAP_JET);
-    return show;
+    cv::applyColorMap(normalizedDisparity, coloredDisparity, cv::COLORMAP_JET);
+    return coloredDisparity;
 }
 
 void LogStatus(const retinify::Status &status)
@@ -97,19 +97,46 @@ int main(int argc, char **argv)
     retinify::SetLogLevel(retinify::LogLevel::INFO);
     retinify::Pipeline pipeline;
 
-    (void)pipeline.Initialize(720, 1280);
+    auto statusInitialize = pipeline.Initialize(720, 1280);
+    if (!statusInitialize.IsOK())
+    {
+        retinify::LogError("Failed to initialize the pipeline.");
+        return 1;
+    }
 
-    cv::Mat img0 = cv::imread(left_path);
-    cv::Mat img1 = cv::imread(right_path);
-    cv::resize(img0, img0, cv::Size(1280, 720));
-    cv::resize(img1, img1, cv::Size(1280, 720));
-    img0.convertTo(img0, CV_32FC3);
-    img1.convertTo(img1, CV_32FC3);
-    cv::Mat disp = cv::Mat{img0.size(), CV_32FC1};
+    cv::Mat leftImage = cv::imread(left_path);
+    cv::Mat rightImage = cv::imread(right_path);
+    if (leftImage.empty() || rightImage.empty())
+    {
+        retinify::LogError("Failed to load input images.");
+        return 1;
+    }
 
-    (void)pipeline.Forward(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
+    cv::Size leftImageSize = leftImage.size();
+    cv::Size rightImageSize = rightImage.size();
+    if (leftImageSize != rightImageSize)
+    {
+        retinify::LogError("Input images must have the same size.");
+        return 1;
+    }
 
-    cv::imshow("show", retinify::ColoringDisparity(disp, 128));
+    cv::resize(leftImage, leftImage, cv::Size(1280, 720));
+    cv::resize(rightImage, rightImage, cv::Size(1280, 720));
+
+    leftImage.convertTo(leftImage, CV_32FC3);
+    rightImage.convertTo(rightImage, CV_32FC3);
+    cv::Mat disparity = cv::Mat{leftImage.size(), CV_32FC1};
+
+    auto statusForward = pipeline.Forward(leftImage.ptr(), leftImage.step[0], rightImage.ptr(), rightImage.step[0], disparity.ptr(), disparity.step[0]);
+    if (!statusForward.IsOK())
+    {
+        retinify::LogError("Failed to process the pipeline.");
+        return 1;
+    }
+
+    cv::resize(disparity, disparity, leftImageSize, 0, 0, cv::INTER_NEAREST);
+    cv::imshow("disparity", retinify::ColoringDisparity(disparity, 128));
+    cv::imwrite("disparity.png", retinify::ColoringDisparity(disparity, 128));
     cv::waitKey(0);
 
     return 0;
