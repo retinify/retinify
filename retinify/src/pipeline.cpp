@@ -158,7 +158,7 @@ Status Pipeline::Initialize(const std::size_t height, const std::size_t weidth) 
     return this->impl_->Initialize(height, weidth);
 }
 
-Status Pipeline::Forward(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
+Status Pipeline::Run(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
 {
     return this->impl_->StereoMatching(leftData, leftStride, rightData, rightStride, disparityData, disparityStride);
 }

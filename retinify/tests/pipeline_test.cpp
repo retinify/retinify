@@ -21,7 +21,7 @@ TEST(PipelineTest, Forward)
     Status stInit = pipeline.Initialize(height, width);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stFwd = pipeline.Forward(left.ptr(), left.step, right.ptr(), right.step, disp.ptr(), disp.step);
+    Status stFwd = pipeline.Run(left.ptr(), left.step, right.ptr(), right.step, disp.ptr(), disp.step);
     ASSERT_TRUE(stFwd.IsOK()) << "Forward Failed";
 }
 } // namespace retinify

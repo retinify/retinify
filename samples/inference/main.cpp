@@ -127,10 +127,10 @@ int main(int argc, char **argv)
     rightImage.convertTo(rightImage, CV_32FC3);
     cv::Mat disparity = cv::Mat{leftImage.size(), CV_32FC1};
 
-    auto statusForward = pipeline.Forward(leftImage.ptr(), leftImage.step[0], rightImage.ptr(), rightImage.step[0], disparity.ptr(), disparity.step[0]);
-    if (!statusForward.IsOK())
+    auto statusRun = pipeline.Run(leftImage.ptr(), leftImage.step[0], rightImage.ptr(), rightImage.step[0], disparity.ptr(), disparity.step[0]);
+    if (!statusRun.IsOK())
     {
-        retinify::LogError("Failed to process the pipeline.");
+        retinify::LogError("Failed to run the pipeline.");
         return 1;
     }
 
