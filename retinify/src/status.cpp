@@ -3,8 +3,6 @@
 
 #include "retinify/status.hpp"
 
-#include <sstream>
-
 namespace retinify
 {
 Status::Status(const StatusCategory category, const StatusCode code) noexcept : category_(category), code_(code)
