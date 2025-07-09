@@ -194,9 +194,9 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
             // Set optimization profiles
             auto *profile = builder->createOptimizationProfile();
-            nvinfer1::Dims minDims{4, {1, 320, 640, 3}};
-            nvinfer1::Dims optDims{4, {1, 480, 640, 3}};
-            nvinfer1::Dims maxDims{4, {1, 1440, 2560, 3}};
+            nvinfer1::Dims minDims{4, {1, 320, 640, 1}};
+            nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
+            nvinfer1::Dims maxDims{4, {1, 1440, 2560, 1}};
 
             (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
             (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);

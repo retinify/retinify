@@ -43,13 +43,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left_.Allocate(height, width, 3, sizeof(float));
+        status = left_.Allocate(height, width, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(height, width, 3, sizeof(float));
+        status = right_.Allocate(height, width, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
