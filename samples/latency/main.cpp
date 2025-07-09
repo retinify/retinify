@@ -19,8 +19,8 @@ int main()
         return 1;
     }
 
-    cv::Mat img0 = cv::Mat::zeros(720, 1280, CV_32FC3);
-    cv::Mat img1 = cv::Mat::zeros(720, 1280, CV_32FC3);
+    cv::Mat img0 = cv::Mat::zeros(720, 1280, CV_32FC1);
+    cv::Mat img1 = cv::Mat::zeros(720, 1280, CV_32FC1);
     cv::Mat disp = cv::Mat::zeros(720, 1280, CV_32FC1);
 
     std::vector<double> latencies;

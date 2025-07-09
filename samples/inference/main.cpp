@@ -73,9 +73,10 @@ int main(int argc, char **argv)
 
     cv::resize(leftImage, leftImage, cv::Size(1280, 720));
     cv::resize(rightImage, rightImage, cv::Size(1280, 720));
-
-    leftImage.convertTo(leftImage, CV_32FC3);
-    rightImage.convertTo(rightImage, CV_32FC3);
+    cv::cvtColor(leftImage, leftImage, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(rightImage, rightImage, cv::COLOR_BGR2GRAY);
+    leftImage.convertTo(leftImage, CV_32FC1);
+    rightImage.convertTo(rightImage, CV_32FC1);
     cv::Mat disparity = cv::Mat{leftImage.size(), CV_32FC1};
 
     auto statusRun = pipeline.Run(leftImage.ptr(), leftImage.step[0], rightImage.ptr(), rightImage.step[0], disparity.ptr(), disparity.step[0]);
