@@ -34,8 +34,7 @@ install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
 )
 
 # BUILD OPTIONS
-option(BUILD_WITH_TENSORRT "Use GPU acceleration if available" ON)
-option(BUILD_PYTHON_BINDINGS "Build Python binding" ON)
+option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 option(BUILD_TESTS "Build tests" ON)
 
@@ -108,7 +107,6 @@ message(STATUS "                           RETINIFY Build Configuration         
 message(STATUS "================================================================================")
 message(STATUS "PROJECT_VERSION        : ${PROJECT_VERSION}")
 message(STATUS "BUILD_WITH_TENSORRT    : ${BUILD_WITH_TENSORRT}")
-message(STATUS "BUILD_PYTHON_BINDINGS  : ${BUILD_PYTHON_BINDINGS}")
 message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
 message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")
 message(STATUS "STEREO_MODEL_PATH      : ${STEREO_MODEL_PATH}")
