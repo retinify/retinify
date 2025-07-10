@@ -95,6 +95,7 @@ class Pipeline::Impl
 
         if (!initialized_)
         {
+            LogError("Pipeline is not initialized. Call Initialize() before Run().");
             status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
             return status;
         }
