@@ -63,13 +63,6 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventError = cudaEventCreate(&event_);
-    if (eventError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(eventError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
-
     cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
     if (mallocError != cudaSuccess)
     {
@@ -161,16 +154,6 @@ auto Mat::Free() noexcept -> Status
         stream_ = nullptr;
     }
 
-    if (event_ != nullptr)
-    {
-        cudaError_t eventError = cudaEventDestroy(event_);
-        if (eventError != cudaSuccess)
-        {
-            LogError(cudaGetErrorString(eventError));
-            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
-        }
-        event_ = nullptr;
-    }
 #endif
 
     this->deviceStride_ = 0;
@@ -212,12 +195,6 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept ->
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventError = cudaEventRecord(event_, stream_);
-    if (eventError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(eventError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
 #else
     const unsigned char *src = static_cast<const unsigned char *>(hostData);
     unsigned char *dst = static_cast<unsigned char *>(deviceData_);
@@ -258,12 +235,6 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
         return Status(StatusCategory::CUDA, StatusCode::FAIL);
     }
 
-    cudaError_t eventError = cudaEventRecord(event_, stream_);
-    if (eventError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(eventError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
 #else
     const unsigned char *src = static_cast<const unsigned char *>(deviceData_);
     unsigned char *dst = static_cast<unsigned char *>(hostData);
@@ -281,7 +252,7 @@ auto Mat::Wait() const noexcept -> Status
 #ifdef BUILD_WITH_TENSORRT
     if (stream_ != nullptr)
     {
-        cudaError_t waitError = cudaStreamWaitEvent(stream_, event_, 0);
+        cudaError_t waitError = cudaStreamSynchronize(stream_);
         if (waitError != cudaSuccess)
         {
             LogError(cudaGetErrorString(waitError));

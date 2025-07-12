@@ -166,7 +166,7 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
                 return Status{StatusCategory::CUDA, StatusCode::FAIL};
             }
 
-            auto network = std::unique_ptr<nvinfer1::INetworkDefinition>(builder->createNetworkV2(0U));
+            auto network = std::unique_ptr<nvinfer1::INetworkDefinition>(builder->createNetworkV2(1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kSTRONGLY_TYPED)));
             if (!network)
             {
                 LogError("Failed to create TensorRT network definition: createNetworkV2 returned nullptr");
@@ -188,24 +188,23 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             }
 
             // Configure optimization
-            config->setFlag(nvinfer1::BuilderFlag::kFP16);
             constexpr std::uint64_t kWorkSpacePoolSize = static_cast<std::uint64_t>(1) << 30; // 1 GiB
             config->setMemoryPoolLimit(nvinfer1::MemoryPoolType::kWORKSPACE, kWorkSpacePoolSize);
 
-            // Set optimization profiles
-            auto *profile = builder->createOptimizationProfile();
-            nvinfer1::Dims minDims{4, {1, 320, 640, 1}};
-            nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
-            nvinfer1::Dims maxDims{4, {1, 1440, 2560, 1}};
+            // // Set optimization profiles
+            // auto *profile = builder->createOptimizationProfile();
+            // nvinfer1::Dims minDims{4, {1, 320, 640, 1}};
+            // nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
+            // nvinfer1::Dims maxDims{4, {1, 720, 1280, 1}};
 
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims);
+            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
+            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);
+            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims);
+            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims);
+            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims);
+            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims);
 
-            (void)config->addOptimizationProfile(profile);
+            // (void)config->addOptimizationProfile(profile);
 
             // Build engine
             auto serializedEngine = std::unique_ptr<nvinfer1::IHostMemory>(builder->buildSerializedNetwork(*network, *config));
@@ -439,6 +438,7 @@ auto Session::Run() const noexcept -> Status
     ort_status = api_->RunWithBinding(session_, runOption_, binding_);
     if (ort_status)
     {
+        LogError(api_->GetErrorMessage(ort_status));
         api_->ReleaseStatus(ort_status);
         return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
     }
