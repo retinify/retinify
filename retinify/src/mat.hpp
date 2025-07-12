@@ -37,7 +37,6 @@ class RETINIFY_API Mat
   private:
 #ifdef BUILD_WITH_TENSORRT
     cudaStream_t stream_{nullptr};
-    cudaEvent_t event_{nullptr};
 #endif
     std::size_t rows_{0};
     std::size_t cols_{0};

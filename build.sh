@@ -15,7 +15,7 @@ for arg in "$@"; do
         --install)
             DO_INSTALL=1
             ;;    
-        --gpu)
+        --tensorrt)
             BUILD_WITH_TENSORRT=ON
             ;;
         --cpu)
@@ -27,7 +27,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Unknown option: $arg"
-            echo "Usage: $0 [--install] [--gpu|--cpu] [--dev]"
+            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--dev]"
             exit 1
             ;;
     esac

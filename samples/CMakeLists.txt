@@ -1,9 +1,7 @@
 find_package(OpenCV REQUIRED)
 
-file(GLOB SRCS_INFERENCE ./inference/*.cpp ./inference/*.hpp)
-add_executable(inference ${SRCS_INFERENCE})
+add_executable(inference ./inference/main.cpp)
 target_link_libraries(inference ${OpenCV_LIBS} retinify)
 
-file(GLOB SRC_LATENCY ./latency/*.cpp ./latency/*.hpp)
-add_executable(latency ${SRC_LATENCY})
+add_executable(latency ./latency/main.cpp)
 target_link_libraries(latency ${OpenCV_LIBS} retinify)

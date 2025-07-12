@@ -26,12 +26,12 @@ target_compile_options(retinify
         -fno-rtti
 )
 
-target_compile_options(retinify
-    PRIVATE
-        -Wall
-        -Wextra
-        -Werror
-)
+# target_compile_options(retinify
+#     PRIVATE
+#         -Wall
+#         -Wextra
+#         -Werror
+# )
 
 # BUILD OPTIONS
 if (BUILD_WITH_TENSORRT)

@@ -48,5 +48,5 @@ jobs:
             git submodule update --init --recursive
 
             echo '=== Build RETINIFY ==='
-            ./build.sh --install --gpu
+            ./build.sh --install --tensorrt
           "
