@@ -191,20 +191,20 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             constexpr std::uint64_t kWorkSpacePoolSize = static_cast<std::uint64_t>(1) << 30; // 1 GiB
             config->setMemoryPoolLimit(nvinfer1::MemoryPoolType::kWORKSPACE, kWorkSpacePoolSize);
 
-            // // Set optimization profiles
-            // auto *profile = builder->createOptimizationProfile();
-            // nvinfer1::Dims minDims{4, {1, 320, 640, 1}};
-            // nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
-            // nvinfer1::Dims maxDims{4, {1, 720, 1280, 1}};
+            // Set optimization profiles
+            auto *profile = builder->createOptimizationProfile();
+            nvinfer1::Dims minDims{4, {1, 320, 640, 1}};
+            nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
+            nvinfer1::Dims maxDims{4, {1, 720, 1280, 1}};
 
-            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
-            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);
-            // (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims);
-            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims);
-            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims);
-            // (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims);
+            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
+            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);
+            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims);
+            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims);
+            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims);
+            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims);
 
-            // (void)config->addOptimizationProfile(profile);
+            (void)config->addOptimizationProfile(profile);
 
             // Build engine
             auto serializedEngine = std::unique_ptr<nvinfer1::IHostMemory>(builder->buildSerializedNetwork(*network, *config));
