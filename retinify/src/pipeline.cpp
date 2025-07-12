@@ -30,32 +30,32 @@ class Pipeline::Impl
         (void)disparity_.Free();
     }
 
-    Status Initialize(const std::size_t height, const std::size_t width) noexcept
+    Status Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept
     {
         Status status;
 
-        if (!((height == 320 && width == 640) || //
-              (height == 480 && width == 640) || //
-              (height == 720 && width == 1280)))
+        if (!((imageHeight == 320 && imageWidth == 640) || //
+              (imageHeight == 480 && imageWidth == 640) || //
+              (imageHeight == 720 && imageWidth == 1280)))
         {
             LogError("Height and width must be one of the following: 320x640, 480x640, or 720x1280.");
             status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
             return status;
         }
 
-        status = left_.Allocate(height, width, 1, sizeof(float));
+        status = left_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(height, width, 1, sizeof(float));
+        status = right_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Allocate(height, width, 1, sizeof(float));
+        status = disparity_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -89,23 +89,24 @@ class Pipeline::Impl
         return status;
     }
 
-    Status Run(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
+    Status Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept
     {
         Status status;
 
         if (!initialized_)
         {
+            LogError("Pipeline is not initialized. Call Initialize() before Run().");
             status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
             return status;
         }
 
-        status = left_.Upload(leftData, leftStride);
+        status = left_.Upload(leftImageData, leftImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Upload(rightData, rightStride);
+        status = right_.Upload(rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
@@ -181,13 +182,13 @@ const Pipeline::Impl *Pipeline::impl() const noexcept
     return std::launder(reinterpret_cast<const Impl *>(&buffer_));
 }
 
-Status Pipeline::Initialize(const std::size_t height, const std::size_t width) noexcept
+Status Pipeline::Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept
 {
-    return this->impl()->Initialize(height, width);
+    return this->impl()->Initialize(imageHeight, imageWidth);
 }
 
-Status Pipeline::Run(const void *leftData, const std::size_t leftStride, const void *rightData, const std::size_t rightStride, void *disparityData, const std::size_t disparityStride) const noexcept
+Status Pipeline::Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept
 {
-    return this->impl()->Run(leftData, leftStride, rightData, rightStride, disparityData, disparityStride);
+    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
 }
 } // namespace retinify
