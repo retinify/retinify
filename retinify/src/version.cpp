@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "retinify/version.hpp"
-#include "retinify/libretinify_version.hpp"
+#include "retinify/retinify_version.hpp"
 
 namespace retinify
 {
