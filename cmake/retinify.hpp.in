@@ -9,3 +9,5 @@
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 #include "retinify/version.hpp"
+
+@LIBRETINIFY_OPTION_INCLUDES@

@@ -11,8 +11,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # C++ SETTINGS
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -g -fopenmp -pthread")
 
 # CONFIG
 install(EXPORT retinifyTargets
@@ -20,30 +18,43 @@ install(EXPORT retinifyTargets
     NAMESPACE retinify::
     DESTINATION lib/cmake/retinify
 )
-
 include(CMakePackageConfigHelpers)
-
 configure_package_config_file(
     "${CMAKE_SOURCE_DIR}/cmake/retinifyConfig.cmake.in"
     "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
     INSTALL_DESTINATION "lib/cmake/retinify"
 )
-
 install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
     DESTINATION "lib/cmake/retinify"
 )
 
 # BUILD OPTIONS
 option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
+option(BUILD_TOOLS "Build tools" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 option(BUILD_TESTS "Build tests" ON)
+
+# ALL IN ONE HEADER
+set(LIBRETINIFY_OPTION_INCLUDES "")
+if(BUILD_TOOLS)
+    string(APPEND LIBRETINIFY_OPTION_INCLUDES "#include \"retinify/tools.hpp\"\n")
+endif()
+configure_file(
+    "${CMAKE_SOURCE_DIR}/cmake/retinify.hpp.in"
+    "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
+    @ONLY
+)
+install(
+    FILES "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
+    DESTINATION include/retinify
+)
 
 # VERSION
 file(READ "${CMAKE_SOURCE_DIR}/VERSION" VERSION_NUMBER)
 string(STRIP "${VERSION_NUMBER}" PROJECT_VERSION)
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/libretinify_version.hpp.in"
-    "${CMAKE_BINARY_DIR}/include/retinify/libretinify_version.hpp"
+    "${CMAKE_SOURCE_DIR}/cmake/retinify_version.hpp.in"
+    "${CMAKE_BINARY_DIR}/include/retinify/retinify_version.hpp"
     @ONLY
 )
 
@@ -60,13 +71,16 @@ file(DOWNLOAD
 )
 set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/model.onnx")
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/libretinify_onnx.hpp.in"
-    "${CMAKE_BINARY_DIR}/include/retinify/libretinify_onnx.hpp"
+    "${CMAKE_SOURCE_DIR}/cmake/retinify_onnx.hpp.in"
+    "${CMAKE_BINARY_DIR}/include/retinify/retinify_onnx.hpp"
     @ONLY
 )
 
 # SUBDIRECTORIES
 add_subdirectory(retinify)
+if(BUILD_TOOLS)
+    add_subdirectory(tools)
+endif(BUILD_TOOLS)
 if(BUILD_SAMPLES)
     add_subdirectory(samples)
 endif(BUILD_SAMPLES)
@@ -107,6 +121,7 @@ message(STATUS "                           RETINIFY Build Configuration         
 message(STATUS "================================================================================")
 message(STATUS "PROJECT_VERSION        : ${PROJECT_VERSION}")
 message(STATUS "BUILD_WITH_TENSORRT    : ${BUILD_WITH_TENSORRT}")
+message(STATUS "BUILD_TOOLS            : ${BUILD_TOOLS}")
 message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
 message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")
 message(STATUS "STEREO_MODEL_PATH      : ${STEREO_MODEL_PATH}")
