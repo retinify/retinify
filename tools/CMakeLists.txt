@@ -18,6 +18,12 @@ target_include_directories(retinify-tools
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+# LINK LIBRARIES
+target_link_libraries(retinify-tools
+    PUBLIC
+        retinify ${OpenCV_LIBS}
+)
+
 # COMPILE OPTIONS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 target_compile_options(retinify-tools 

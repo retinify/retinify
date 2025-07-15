@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     std::string right_path = argv[2];
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
-    retinify::Pipeline pipeline;
+    retinify::tools::LRConsistencyPipeline pipeline;
 
     auto statusInitialize = pipeline.Initialize(720, 1280);
     if (!statusInitialize.IsOK())
@@ -57,38 +57,22 @@ int main(int argc, char **argv)
 
     cv::Mat leftImage = cv::imread(left_path);
     cv::Mat rightImage = cv::imread(right_path);
+    cv::Mat disparity;
     if (leftImage.empty() || rightImage.empty())
     {
         retinify::LogError("Failed to load input images.");
         return 1;
     }
 
-    cv::Size leftImageSize = leftImage.size();
-    cv::Size rightImageSize = rightImage.size();
-    if (leftImageSize != rightImageSize)
-    {
-        retinify::LogError("Input images must have the same size.");
-        return 1;
-    }
-
-    cv::resize(leftImage, leftImage, cv::Size(1280, 720));
-    cv::resize(rightImage, rightImage, cv::Size(1280, 720));
-    cv::cvtColor(leftImage, leftImage, cv::COLOR_BGR2GRAY);
-    cv::cvtColor(rightImage, rightImage, cv::COLOR_BGR2GRAY);
-    leftImage.convertTo(leftImage, CV_32FC1);
-    rightImage.convertTo(rightImage, CV_32FC1);
-    cv::Mat disparity = cv::Mat{leftImage.size(), CV_32FC1};
-
-    auto statusRun = pipeline.Run(leftImage.ptr(), leftImage.step[0], rightImage.ptr(), rightImage.step[0], disparity.ptr(), disparity.step[0]);
+    auto statusRun = pipeline.Run(leftImage, rightImage, disparity);
     if (!statusRun.IsOK())
     {
         retinify::LogError("Failed to run the pipeline.");
         return 1;
     }
 
-    cv::resize(disparity, disparity, leftImageSize, 0, 0, cv::INTER_NEAREST);
-    cv::imshow("disparity", retinify::ColoringDisparity(disparity, 128));
-    cv::imwrite("disparity.png", retinify::ColoringDisparity(disparity, 128));
+    cv::imshow("disparity", retinify::ColoringDisparity(disparity, 256));
+    cv::imwrite("disparity.png", retinify::ColoringDisparity(disparity, 256));
     cv::waitKey(0);
 
     return 0;
