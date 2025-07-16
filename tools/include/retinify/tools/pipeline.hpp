@@ -19,7 +19,8 @@ class RETINIFY_API LRConsistencyPipeline
     LRConsistencyPipeline() = default;
     ~LRConsistencyPipeline() = default;
     [[nodiscard]] Status Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept;
-    [[nodiscard]] Status Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept;
+    [[nodiscard]] Status Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
+                             const float maxDisparityDifference = 1.0f) const noexcept;
 
   private:
     Pipeline pipeline_;

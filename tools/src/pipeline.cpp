@@ -10,7 +10,7 @@ namespace retinify
 {
 namespace tools
 {
-inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float threshold = 1.0f)
+inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float maxDisparityDifference)
 {
     if (leftDisparity.empty() || rightDisparity.empty())
     {
@@ -24,9 +24,15 @@ inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
         return false;
     }
 
+    if (leftDisparity.channels() != 1 || rightDisparity.channels() != 1)
+    {
+        LogError("Left and right disparity maps must be single channel.");
+        return false;
+    }
+
     disparity = cv::Mat::zeros(leftDisparity.size(), CV_32FC1);
 
-    cv::parallel_for_(cv::Range(0, leftDisparity.rows), [leftDisparity, rightDisparity, &disparity, threshold](const cv::Range &range) {
+    cv::parallel_for_(cv::Range(0, leftDisparity.rows), [leftDisparity, rightDisparity, &disparity, maxDisparityDifference](const cv::Range &range) {
         for (int y = range.start; y < range.end; y++)
         {
             const float *leftPtr = leftDisparity.ptr<float>(y);
@@ -44,7 +50,7 @@ inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
                     {
                         float right_d = rightPtr[right_x];
 
-                        if (std::abs(left_d - right_d) <= threshold)
+                        if (std::abs(left_d - right_d) <= maxDisparityDifference)
                         {
                             disparityPtr[x] = left_d;
                         }
@@ -62,26 +68,51 @@ Status LRConsistencyPipeline::Initialize(std::size_t imageHeight, std::size_t im
     return pipeline_.Initialize(imageHeight, imageWidth);
 }
 
-Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept
+Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept
 {
     try
     {
 
         if (leftImage.empty() || rightImage.empty())
         {
+            LogError("Left or right image is empty.");
             return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
         }
 
         if (leftImage.size() != rightImage.size())
         {
+            LogError("Left and right images have different sizes.");
+            return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        }
+
+        // Check if both images have the same number of channels
+        if (leftImage.channels() != rightImage.channels())
+        {
+            LogError("Left and right images have different number of channels.");
+            return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        }
+
+        // Only support 1 (grayscale) or 3 (RGB) channel images
+        if (leftImage.channels() != 1 && leftImage.channels() != 3)
+        {
+            LogError("Only 1 (grayscale) or 3 (RGB) channel images are supported.");
             return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
         }
 
         cv::Mat leftGray, rightGray;
         cv::Mat leftGrayFlipped, rightGrayFlipped;
 
-        cv::cvtColor(leftImage, leftGray, cv::COLOR_BGR2GRAY);
-        cv::cvtColor(rightImage, rightGray, cv::COLOR_BGR2GRAY);
+        // Convert to grayscale if needed
+        if (leftImage.channels() == 3)
+        {
+            cv::cvtColor(leftImage, leftGray, cv::COLOR_BGR2GRAY);
+            cv::cvtColor(rightImage, rightGray, cv::COLOR_BGR2GRAY);
+        }
+        else
+        {
+            leftGray = leftImage.clone();
+            rightGray = rightImage.clone();
+        }
 
         constexpr int width = 1280;
         constexpr int height = 720;
@@ -111,7 +142,7 @@ Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &right
 
         // LRCheck
         cv::Mat lrCheckedDisparity = cv::Mat::zeros(leftDisparity.size(), CV_32FC1);
-        if (!LRConsistencyCheck(leftDisparity, rightDisparity, lrCheckedDisparity))
+        if (!LRConsistencyCheck(leftDisparity, rightDisparity, lrCheckedDisparity, maxDisparityDifference))
         {
             return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
         }
