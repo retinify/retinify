@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     retinify::SetLogLevel(retinify::LogLevel::INFO);
     retinify::tools::LRConsistencyPipeline pipeline;
 
-    auto statusInitialize = pipeline.Initialize(720, 1280);
+    auto statusInitialize = pipeline.Initialize();
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Failed to initialize the pipeline.");

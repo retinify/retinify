@@ -30,13 +30,18 @@ class Pipeline::Impl
         (void)disparity_.Free();
     }
 
-    Status Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept
+    Impl(const Impl &) = delete;
+    auto operator=(const Impl &) noexcept -> Impl & = delete;
+    Impl(Impl &&) noexcept = delete;
+    auto operator=(Impl &&other) noexcept -> Impl & = delete;
+
+    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept -> Status
     {
         Status status;
 
-        if (!((imageHeight == 320 && imageWidth == 640) || //
-              (imageHeight == 480 && imageWidth == 640) || //
-              (imageHeight == 720 && imageWidth == 1280)))
+        if ((imageHeight != 320 || imageWidth != 640) && //
+            (imageHeight != 480 || imageWidth != 640) && //
+            (imageHeight != 720 || imageWidth != 1280))
         {
             LogError("Height and width must be one of the following: 320x640, 480x640, or 720x1280.");
             status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
@@ -89,7 +94,7 @@ class Pipeline::Impl
         return status;
     }
 
-    Status Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept
+    auto Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept -> Status
     {
         Status status;
 
@@ -172,22 +177,22 @@ Pipeline::~Pipeline() noexcept
     impl()->~Impl();
 }
 
-Pipeline::Impl *Pipeline::impl() noexcept
+auto Pipeline::impl() noexcept -> Impl *
 {
-    return std::launder(reinterpret_cast<Impl *>(&buffer_));
+    return std::launder(reinterpret_cast<Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-const Pipeline::Impl *Pipeline::impl() const noexcept
+auto Pipeline::impl() const noexcept -> const Impl *
 {
-    return std::launder(reinterpret_cast<const Impl *>(&buffer_));
+    return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-Status Pipeline::Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept
+auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status
 {
     return this->impl()->Initialize(imageHeight, imageWidth);
 }
 
-Status Pipeline::Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept
+auto Pipeline::Run(const void *leftImageData, std::size_t leftImageStride, const void *rightImageData, std::size_t rightImageStride, void *disparityData, std::size_t disparityStride) const noexcept -> Status
 {
     return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
 }

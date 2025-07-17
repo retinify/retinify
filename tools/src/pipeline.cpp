@@ -6,11 +6,9 @@
 
 #include <opencv2/imgproc.hpp>
 
-namespace retinify
+namespace retinify::tools
 {
-namespace tools
-{
-inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float maxDisparityDifference)
+inline static auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float maxDisparityDifference) -> bool
 {
     if (leftDisparity.empty() || rightDisparity.empty())
     {
@@ -35,16 +33,16 @@ inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     cv::parallel_for_(cv::Range(0, leftDisparity.rows), [leftDisparity, rightDisparity, &disparity, maxDisparityDifference](const cv::Range &range) {
         for (int y = range.start; y < range.end; y++)
         {
-            const float *leftPtr = leftDisparity.ptr<float>(y);
-            const float *rightPtr = rightDisparity.ptr<float>(y);
-            float *disparityPtr = disparity.ptr<float>(y);
+            const auto *leftPtr = leftDisparity.ptr<float>(y);
+            const auto *rightPtr = rightDisparity.ptr<float>(y);
+            auto *disparityPtr = disparity.ptr<float>(y);
 
             for (int x = 0; x < leftDisparity.cols; x++)
             {
                 float left_d = leftPtr[x];
                 if (left_d > 0)
                 {
-                    int right_x = x - static_cast<int>(left_d + 0.5f);
+                    int right_x = x - static_cast<int>(left_d + 0.5F);
 
                     if (right_x >= 0 && right_x < rightDisparity.cols)
                     {
@@ -63,12 +61,29 @@ inline static bool LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-Status LRConsistencyPipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept
+auto LRConsistencyPipeline::Initialize(PipelineResolution resolution) noexcept -> Status
 {
-    return pipeline_.Initialize(imageHeight, imageWidth);
+    switch (resolution)
+    {
+    case PipelineResolution::LOW:
+        imageSize_ = cv::Size(640, 320);
+        break;
+    case PipelineResolution::MEDIUM:
+        imageSize_ = cv::Size(640, 480);
+        break;
+    case PipelineResolution::HIGH:
+        imageSize_ = cv::Size(1280, 720);
+        break;
+    default:
+        LogError("Invalid resolution specified for LRConsistencyPipeline.");
+        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+    }
+
+    auto status = pipeline_.Initialize(imageSize_.height, imageSize_.width);
+    return status;
 }
 
-Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept
+auto LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
 {
     try
     {
@@ -99,8 +114,10 @@ Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &right
             return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
         }
 
-        cv::Mat leftGray, rightGray;
-        cv::Mat leftGrayFlipped, rightGrayFlipped;
+        cv::Mat leftGray;
+        cv::Mat rightGray;
+        cv::Mat leftGrayFlipped;
+        cv::Mat rightGrayFlipped;
 
         // Convert to grayscale if needed
         if (leftImage.channels() == 3)
@@ -114,10 +131,8 @@ Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &right
             rightGray = rightImage.clone();
         }
 
-        constexpr int width = 1280;
-        constexpr int height = 720;
-        cv::resize(leftGray, leftGray, cv::Size(width, height));
-        cv::resize(rightGray, rightGray, cv::Size(width, height));
+        cv::resize(leftGray, leftGray, imageSize_);
+        cv::resize(rightGray, rightGray, imageSize_);
         leftGray.convertTo(leftGray, CV_32FC1);
         rightGray.convertTo(rightGray, CV_32FC1);
         cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
@@ -149,7 +164,7 @@ Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &right
 
         // resize disparity to original size
         cv::resize(lrCheckedDisparity, disparity, leftImage.size(), 0, 0, cv::INTER_NEAREST);
-        disparity = disparity * (static_cast<float>(leftImage.cols) / width);
+        disparity = disparity * (static_cast<float>(leftImage.cols) / static_cast<float>(imageSize_.width));
     }
     catch (const std::exception &e)
     {
@@ -164,5 +179,4 @@ Status LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &right
 
     return Status{};
 }
-} // namespace tools
-} // namespace retinify
+} // namespace retinify::tools

@@ -9,21 +9,31 @@
 
 #include <opencv2/core.hpp>
 
-namespace retinify
+namespace retinify::tools
 {
-namespace tools
+/// @brief The resolution options for stereo matching pipelines.
+enum class PipelineResolution : std::uint8_t
 {
+    LOW,    // height=320, width=640
+    MEDIUM, // height=480, width=640
+    HIGH,   // height=720, width=1280
+};
+
 class RETINIFY_API LRConsistencyPipeline
 {
   public:
     LRConsistencyPipeline() = default;
     ~LRConsistencyPipeline() = default;
-    [[nodiscard]] Status Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept;
-    [[nodiscard]] Status Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
-                             const float maxDisparityDifference = 1.0f) const noexcept;
+    LRConsistencyPipeline(const LRConsistencyPipeline &) = delete;
+    auto operator=(const LRConsistencyPipeline &) noexcept -> LRConsistencyPipeline & = delete;
+    LRConsistencyPipeline(LRConsistencyPipeline &&) = delete;
+    auto operator=(LRConsistencyPipeline &&other) noexcept -> LRConsistencyPipeline & = delete;
+    [[nodiscard]] auto Initialize(PipelineResolution resolution = PipelineResolution::HIGH) noexcept -> Status;
+    [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
+                           float maxDisparityDifference = 1.0F) const noexcept -> Status;
 
   private:
+    cv::Size imageSize_;
     Pipeline pipeline_;
 };
-} // namespace tools
-} // namespace retinify
+} // namespace retinify::tools
