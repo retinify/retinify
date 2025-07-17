@@ -31,6 +31,7 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating the success or failure of the initialization.
     [[nodiscard]] auto Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status;
+
     /// @brief
     /// Runs the stereo matching pipeline with the provided left and right image data.
     /// @param leftImageData
