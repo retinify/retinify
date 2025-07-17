@@ -19,7 +19,7 @@ enum class PipelineResolution : std::uint8_t
     HIGH,   // height=720, width=1280
 };
 
-/// @brief A class for performing left-right consistency checks in stereo matching with OpenCV-compatible interface.
+/// @brief A class that wraps retinify::Pipeline to perform left-right consistency checks, providing an OpenCV-compatible interface for stereo matching.
 class RETINIFY_API LRConsistencyPipeline
 {
   public:
