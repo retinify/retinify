@@ -5,6 +5,7 @@ set -e
 BUILD_DIR="build"
 INSTALL_PREFIX="/usr"
 BUILD_WITH_TENSORRT=ON
+BUILD_TOOLS=OFF
 BUILD_SAMPLES=OFF
 BUILD_TESTS=OFF
 DO_INSTALL=0
@@ -21,13 +22,17 @@ for arg in "$@"; do
         --cpu)
             BUILD_WITH_TENSORRT=OFF
             ;;
+        --tools)
+            BUILD_TOOLS=ON
+            ;;
         --dev)
+            BUILD_TOOLS=ON
             BUILD_SAMPLES=ON
             BUILD_TESTS=ON
             ;;
         *)
             echo "Unknown option: $arg"
-            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--dev]"
+            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--tools] [--dev]"
             exit 1
             ;;
     esac
@@ -46,6 +51,7 @@ cd "${BUILD_DIR}"
 
 cmake -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
       -DBUILD_WITH_TENSORRT="${BUILD_WITH_TENSORRT}" \
+      -DBUILD_TOOLS="${BUILD_TOOLS}" \
       -DBUILD_SAMPLES="${BUILD_SAMPLES}" \
       -DBUILD_TESTS="${BUILD_TESTS}" \
       ..

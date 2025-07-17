@@ -5,6 +5,7 @@
 
 #include "retinify/status.hpp"
 
+#include <array>
 #include <cstddef>
 #include <type_traits>
 
@@ -18,9 +19,9 @@ class RETINIFY_API Pipeline
     Pipeline() noexcept;
     ~Pipeline() noexcept;
     Pipeline(const Pipeline &) = delete;
-    Pipeline &operator=(const Pipeline &) = delete;
+    auto operator=(const Pipeline &) noexcept -> Pipeline & = delete;
     Pipeline(Pipeline &&) noexcept = delete;
-    Pipeline &operator=(Pipeline &&) noexcept = delete;
+    auto operator=(Pipeline &&) noexcept -> Pipeline & = delete;
     /// @brief
     /// Initializes the stereo matching pipeline with the specified image dimensions.
     /// @param imageHeight
@@ -29,7 +30,8 @@ class RETINIFY_API Pipeline
     /// The width of the input images.
     /// @return
     /// A Status object indicating the success or failure of the initialization.
-    [[nodiscard]] Status Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept;
+    [[nodiscard]] auto Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status;
+
     /// @brief
     /// Runs the stereo matching pipeline with the provided left and right image data.
     /// @param leftImageData
@@ -46,14 +48,15 @@ class RETINIFY_API Pipeline
     /// The stride of the output disparity data in bytes.
     /// @return
     /// A Status object indicating the success or failure of the operation.
-    [[nodiscard]] Status Run(const void *leftImageData, const std::size_t leftImageStride,   //
-                             const void *rightImageData, const std::size_t rightImageStride, //
-                             void *disparityData, const std::size_t disparityStride) const noexcept;
+    [[nodiscard]] auto Run(const void *leftImageData, std::size_t leftImageStride,   //
+                           const void *rightImageData, std::size_t rightImageStride, //
+                           void *disparityData, std::size_t disparityStride) const noexcept -> Status;
 
   private:
     class Impl;
-    Impl *impl() noexcept;
-    const Impl *impl() const noexcept;
-    alignas(alignof(std::max_align_t)) unsigned char buffer_[512];
+    auto impl() noexcept -> Impl *;
+    [[nodiscard]] auto impl() const noexcept -> const Impl *;
+    static constexpr std::size_t BufferSize = 512;
+    alignas(alignof(std::max_align_t)) std::array<unsigned char, BufferSize> buffer_{};
 };
 } // namespace retinify

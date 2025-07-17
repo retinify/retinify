@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "retinify/path.hpp"
-#include "retinify/libretinify_onnx.hpp"
 #include "retinify/log.hpp"
+#include "retinify/retinify_onnx.hpp"
 #include "retinify/version.hpp"
 
 #include <array>

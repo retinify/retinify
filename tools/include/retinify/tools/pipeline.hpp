@@ -1,0 +1,57 @@
+// SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+#pragma once
+
+#include "retinify/define.hpp"
+#include "retinify/pipeline.hpp"
+#include "retinify/status.hpp"
+
+#include <opencv2/core.hpp>
+
+namespace retinify::tools
+{
+/// @brief The resolution options for stereo matching pipelines.
+enum class PipelineResolution : std::uint8_t
+{
+    LOW,    // height=320, width=640
+    MEDIUM, // height=480, width=640
+    HIGH,   // height=720, width=1280
+};
+
+/// @brief A class for performing left-right consistency checks in stereo matching with OpenCV-compatible interface.
+class RETINIFY_API LRConsistencyPipeline
+{
+  public:
+    LRConsistencyPipeline() = default;
+    ~LRConsistencyPipeline() = default;
+    LRConsistencyPipeline(const LRConsistencyPipeline &) = delete;
+    auto operator=(const LRConsistencyPipeline &) noexcept -> LRConsistencyPipeline & = delete;
+    LRConsistencyPipeline(LRConsistencyPipeline &&) = delete;
+    auto operator=(LRConsistencyPipeline &&other) noexcept -> LRConsistencyPipeline & = delete;
+    /// @brief Initializes the stereo matching pipeline with the processing resolution.
+    /// @param resolution
+    /// The processing resolution for the stereo matching pipeline.
+    /// @return
+    /// A Status object indicating the success or failure of the initialization.
+    [[nodiscard]] auto Initialize(PipelineResolution resolution = PipelineResolution::HIGH) noexcept -> Status;
+
+    /// @brief Runs the stereo matching pipeline with left-right consistency check using the provided left and right image data.
+    /// @param leftImage
+    /// The left image data as a `cv::Mat`.
+    /// @param rightImage
+    /// The right image data as a `cv::Mat`.
+    /// @param disparity
+    /// The output disparity data as a `cv::Mat`.
+    /// @param maxDisparityDifference
+    /// The maximum allowed difference in disparity values for the left-right consistency check.
+    /// @return
+    /// A Status object indicating the success or failure of the operation.
+    [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
+                           float maxDisparityDifference = 1.0F) const noexcept -> Status;
+
+  private:
+    cv::Size imageSize_;
+    Pipeline pipeline_;
+};
+} // namespace retinify::tools

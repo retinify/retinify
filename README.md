@@ -42,17 +42,18 @@
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
-<img
-  src="https://raw.githubusercontent.com/retinify/assets/main/videos/kompira.gif"
-  alt="video"
-  style="width:100%; display:block;"
-/>
+<table style="width:100%;">
+  <tr>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif" style="width:100%;" /></td>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif" style="width:100%;" /></td>
+  </tr>
+</table>
 
 ## Why retinify?
 retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.
 - 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
-- 💰 **Cost Efficiency**: Runs using only cameras, eliminating the need for expensive LiDAR or other specialized sensors—drastically lowering hardware costs.
+- 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 
 ## Docs
