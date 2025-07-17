@@ -32,7 +32,7 @@ for arg in "$@"; do
             ;;
         *)
             echo "Unknown option: $arg"
-            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--dev]"
+            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--tools] [--dev]"
             exit 1
             ;;
     esac
