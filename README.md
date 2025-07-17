@@ -42,11 +42,9 @@
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
-<img
-  src="https://raw.githubusercontent.com/retinify/assets/main/videos/kompira.gif"
-  alt="video"
-  style="width:100%; display:block;"
-/>
+|  |  |
+|:------|:------|
+| ![](https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif) | ![](https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif) |
 
 ## Why retinify?
 retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.
