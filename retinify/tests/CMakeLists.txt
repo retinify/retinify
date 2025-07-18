@@ -11,7 +11,7 @@ add_executable(retinify_tests ${SRCS_TESTS} ${SRC_RETINIFY})
 
 # LINKS
 target_link_libraries(retinify_tests 
-    PUBLIC retinify ${OpenCV_LIBS} gtest gtest_main
+    PUBLIC retinify-core ${OpenCV_LIBS} gtest gtest_main
 )
 
 # INCLUDES
