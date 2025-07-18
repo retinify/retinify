@@ -1,11 +1,11 @@
 # SOURCES
-file(GLOB_RECURSE SRCS_RETINIFY ./src/*.cpp ./src/*.hpp ./include/*.hpp)
+file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
 
 # LIBRARY
-add_library(retinify SHARED ${SRCS_RETINIFY})
+add_library(retinify-core SHARED ${SRCS_CORE})
 
 # INCLUDES
-target_include_directories(retinify
+target_include_directories(retinify-core
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
@@ -17,7 +17,7 @@ target_include_directories(retinify
 
 # COMPILE OPTIONS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-target_compile_options(retinify 
+target_compile_options(retinify-core 
     PRIVATE
         -fvisibility=hidden
         -fvisibility-inlines-hidden
@@ -26,7 +26,7 @@ target_compile_options(retinify
         -fno-rtti
 )
 
-target_compile_options(retinify
+target_compile_options(retinify-core
     PRIVATE
         -Wall
         -Wextra
@@ -35,11 +35,11 @@ target_compile_options(retinify
 
 # BUILD OPTIONS
 if (BUILD_WITH_TENSORRT)
-    target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
+    target_compile_definitions(retinify-core PUBLIC BUILD_WITH_TENSORRT)
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         find_package(CUDAToolkit REQUIRED)
-        target_link_libraries(retinify PUBLIC CUDA::cudart)
+        target_link_libraries(retinify-core PUBLIC CUDA::cudart)
 
         set(_TRT_LIB_HINTS
             /usr/lib
@@ -51,8 +51,8 @@ if (BUILD_WITH_TENSORRT)
             /usr/include/x86_64-linux-gnu
         )
     elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)$")
-        target_include_directories(retinify PUBLIC /usr/local/cuda/include)
-        target_link_libraries(retinify PUBLIC /usr/local/cuda/lib64/libcudart.so)
+        target_include_directories(retinify-core PUBLIC /usr/local/cuda/include)
+        target_link_libraries(retinify-core PUBLIC /usr/local/cuda/lib64/libcudart.so)
 
         set(_TRT_LIB_HINTS
             /usr/lib
@@ -72,8 +72,8 @@ if (BUILD_WITH_TENSORRT)
     find_path  (TENSORRT_INCLUDE_DIR NAMES NvInfer.h  HINTS ${_TRT_INC_HINTS})
 
     if (NVINFER AND NVINFERPLUGIN AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
-        target_include_directories(retinify PRIVATE ${TENSORRT_INCLUDE_DIR})
-        target_link_libraries(retinify PRIVATE
+        target_include_directories(retinify-core PRIVATE ${TENSORRT_INCLUDE_DIR})
+        target_link_libraries(retinify-core PRIVATE
             ${NVINFER}
             ${NVINFERPLUGIN}
             ${NVONNXPARSER}
@@ -85,14 +85,14 @@ if (BUILD_WITH_TENSORRT)
 else()
 # CPU BUILD
     include(${CMAKE_CURRENT_SOURCE_DIR}/onnxruntime.cmake)
-    target_link_libraries(retinify
+    target_link_libraries(retinify-core
         PRIVATE
             onnxruntime
     )
 endif()
 
 # INSTALL
-install(TARGETS retinify
+install(TARGETS retinify-core
     EXPORT retinifyTargets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

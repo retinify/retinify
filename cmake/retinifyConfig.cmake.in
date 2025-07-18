@@ -3,3 +3,16 @@
 include(CMakeFindDependencyMacro)
 
 include("${CMAKE_CURRENT_LIST_DIR}/retinifyTargets.cmake")
+
+add_library(retinify INTERFACE)
+target_link_libraries(retinify 
+    INTERFACE
+        retinify::retinify-core
+)
+
+if(@BUILD_TOOLS@)
+    target_link_libraries(retinify 
+        INTERFACE
+            retinify::retinify-tools
+    )
+endif()
