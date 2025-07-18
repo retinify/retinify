@@ -21,7 +21,7 @@ target_include_directories(retinify-tools
 # LINK LIBRARIES
 target_link_libraries(retinify-tools
     PUBLIC
-        retinify ${OpenCV_LIBS}
+        retinify-core ${OpenCV_LIBS}
 )
 
 # COMPILE OPTIONS
