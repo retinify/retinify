@@ -4,3 +4,4 @@
 #pragma once
 
 #include "retinify/tools/pipeline.hpp"
+#include "retinify/tools/utils.hpp"
