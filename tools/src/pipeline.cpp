@@ -66,20 +66,23 @@ auto LRConsistencyPipeline::Initialize(PipelineResolution resolution) noexcept -
     switch (resolution)
     {
     case PipelineResolution::LOW:
-        imageSize_ = cv::Size(640, 320);
+        imageHeight_ = 320;
+        imageWidth_ = 640;
         break;
     case PipelineResolution::MEDIUM:
-        imageSize_ = cv::Size(640, 480);
+        imageHeight_ = 480;
+        imageWidth_ = 640;
         break;
     case PipelineResolution::HIGH:
-        imageSize_ = cv::Size(1280, 720);
+        imageHeight_ = 720;
+        imageWidth_ = 1280;
         break;
     default:
         LogError("Invalid resolution specified for LRConsistencyPipeline.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    auto status = pipeline_.Initialize(imageSize_.height, imageSize_.width);
+    auto status = pipeline_.Initialize(imageHeight_, imageWidth_);
     return status;
 }
 
@@ -131,8 +134,8 @@ auto LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightIm
             rightGray = rightImage.clone();
         }
 
-        cv::resize(leftGray, leftGray, imageSize_);
-        cv::resize(rightGray, rightGray, imageSize_);
+        cv::resize(leftGray, leftGray, cv::Size(imageWidth_, imageHeight_));
+        cv::resize(rightGray, rightGray, cv::Size(imageWidth_, imageHeight_));
         leftGray.convertTo(leftGray, CV_32FC1);
         rightGray.convertTo(rightGray, CV_32FC1);
         cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
@@ -164,7 +167,7 @@ auto LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightIm
 
         // resize disparity to original size
         cv::resize(lrCheckedDisparity, disparity, leftImage.size(), 0, 0, cv::INTER_NEAREST);
-        disparity = disparity * (static_cast<float>(leftImage.cols) / static_cast<float>(imageSize_.width));
+        disparity = disparity * (static_cast<float>(leftImage.cols) / static_cast<float>(imageWidth_));
     }
     catch (const std::exception &e)
     {
