@@ -6,7 +6,7 @@
   />
 </a>
 
-## retinify: Real-Time AI Stereo Vision Library
+# Real-Time AI Stereo Vision Library
   
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
@@ -17,7 +17,57 @@
 [![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=instagram)](https://www.instagram.com/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
-| 🚀 Target | Status |
+Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
+Its C++ API allows the same code to run seamlessly across various acceleration backends.
+  
+## Quick Start
+
+`retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
+  
+> [!IMPORTANT]
+> The core `retinify::Pipeline` is independent of OpenCV and supports various image data types.
+  
+```c++
+#include <retinify/retinify.hpp>
+#include <opencv2/opencv.hpp>
+
+// LOAD INPUT IMAGES
+cv::Mat leftImage = cv::imread(<left_image_path>);
+cv::Mat rightImage = cv::imread(<right_image_path>);
+
+// PREPARE OUTPUT CONTAINER
+cv::Mat disparity;
+
+// CREATE STEREO MATCHING PIPELINE
+retinify::tools::LRConsistencyPipeline pipeline;
+
+// INITIALIZE THE PIPELINE
+pipeline.Initialize();
+
+// EXECUTE STEREO MATCHING
+pipeline.Run(leftImage, rightImage, disparity);
+```
+<table style="width:100%;">
+  <tr>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif" style="width:100%;" /></td>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif" style="width:100%;" /></td>
+  </tr>
+</table>
+
+## Getting Started
+📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
+
+- 🚀 [Installation Guide](https://retinify.github.io/retinify-documentation/docs/installation.html)  
+  Step-by-step guide to build and install retinify.
+
+- 🔨 [Tutorials](https://retinify.github.io/retinify-documentation/docs/tutorials.html)  
+  Hands-on examples to get you started with real-world use cases.
+
+- 🧩 [API Reference](https://retinify.github.io/retinify-documentation/docs/API/)  
+  Detailed class and function-level documentation for developers.
+
+## Supported Backends
+| ⚡ Target | Status |
 |--------|--------|
 | [![target_cpu_badge][]][build_cpu_status]         　| [![build_cpu_badge][]][build_cpu_status] |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
@@ -42,31 +92,11 @@
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
-<table style="width:100%;">
-  <tr>
-    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif" style="width:100%;" /></td>
-    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif" style="width:100%;" /></td>
-  </tr>
-</table>
-
-## Why retinify?
-retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.
+## Why Retinify?
 - 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
-
-## Docs
-📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
-
-- 🚀 [Installation Guide](https://retinify.github.io/retinify-documentation/docs/installation.html)  
-  Step-by-step guide to build and install retinify.
-
-- 🔨 [Tutorials](https://retinify.github.io/retinify-documentation/docs/tutorials.html)  
-  Hands-on examples to get you started with real-world use cases.
-
-- 🧩 [API Reference](https://retinify.github.io/retinify-documentation/docs/API/)  
-  Detailed class and function-level documentation for developers.
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).

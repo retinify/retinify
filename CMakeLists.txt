@@ -77,7 +77,7 @@ configure_file(
 )
 
 # SUBDIRECTORIES
-add_subdirectory(retinify)
+add_subdirectory(core)
 if(BUILD_TOOLS)
     add_subdirectory(tools)
 endif(BUILD_TOOLS)
