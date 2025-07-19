@@ -22,10 +22,10 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
 
 ## Quick Start
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.  
-
-> 💡 **Note**  
+  
+> [!NOTE] 
 > The core `retinify::Pipeline` is independent of OpenCV and supports various image data types.
-
+  
 ```c++
 #include <retinify/retinify.hpp>
 #include <opencv2/opencv.hpp>
