@@ -6,7 +6,7 @@
   />
 </a>
 
-## RETINIFY: Real-Time AI Stereo Vision Library
+# Real-Time AI Stereo Vision Library
   
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
@@ -18,12 +18,13 @@
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
-Its C++ API allows the same code to run seamlessly across various acceleration backends.　　
-
-## Quick Start
-`retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.  
+Its C++ API allows the same code to run seamlessly across various acceleration backends.
   
-> [!NOTE] 
+## Quick Start
+
+`retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
+  
+> [!IMPORTANT]
 > The core `retinify::Pipeline` is independent of OpenCV and supports various image data types.
   
 ```c++

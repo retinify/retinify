@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "retinify/tools/utils.hpp"
+#include "retinify/log.hpp"
 
 #include <opencv2/imgproc.hpp>
 
@@ -11,6 +12,7 @@ cv::Mat ColorizeDisparity(const cv::Mat &disparity, int maxDisparity)
 {
     if (disparity.empty())
     {
+        retinify::LogError("Disparity map is empty.");
         return cv::Mat::zeros(disparity.size(), CV_32FC1);
     }
 
