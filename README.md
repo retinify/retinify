@@ -20,6 +20,13 @@
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
 Its C++ API allows the same code to run seamlessly across various acceleration backends.
   
+<table style="width:100%;">
+  <tr>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif" style="width:100%;" /></td>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif" style="width:100%;" /></td>
+  </tr>
+</table>
+
 ## Quick Start
 
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
@@ -47,12 +54,6 @@ pipeline.Initialize();
 // EXECUTE STEREO MATCHING
 pipeline.Run(leftImage, rightImage, disparity);
 ```
-<table style="width:100%;">
-  <tr>
-    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/motion.gif" style="width:100%;" /></td>
-    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/desk.gif" style="width:100%;" /></td>
-  </tr>
-</table>
 
 ## Getting Started
 📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
@@ -67,13 +68,13 @@ pipeline.Run(leftImage, rightImage, disparity);
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
-| ⚡ Target | Status |
-|--------|--------|
-| [![target_cpu_badge][]][build_cpu_status]         　| [![build_cpu_badge][]][build_cpu_status] |
+| ⚡ Target                                            | Status                                             |
+| --------------------------------------------------- | -------------------------------------------------- |
+| [![target_cpu_badge][]][build_cpu_status]           | [![build_cpu_badge][]][build_cpu_status]           |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
-| [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status] |
-| ![target_hailort_badge]                             | Coming soon |
-| ![target_openvino_badge]                             | Coming soon |
+| [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status]     |
+| ![target_hailort_badge]                             | Coming soon                                        |
+| ![target_openvino_badge]                            | Coming soon                                        |
 
 <!-- TARGET BADGES -->
 [target_cpu_badge]: https://img.shields.io/badge/CPU-gray?style=flat-square
