@@ -23,12 +23,13 @@ enum class PipelineResolution : std::uint8_t
 class RETINIFY_API LRConsistencyPipeline
 {
   public:
-    LRConsistencyPipeline() = default;
-    ~LRConsistencyPipeline() = default;
+    LRConsistencyPipeline() noexcept = default;
+    ~LRConsistencyPipeline() noexcept = default;
     LRConsistencyPipeline(const LRConsistencyPipeline &) = delete;
     auto operator=(const LRConsistencyPipeline &) noexcept -> LRConsistencyPipeline & = delete;
     LRConsistencyPipeline(LRConsistencyPipeline &&) = delete;
     auto operator=(LRConsistencyPipeline &&other) noexcept -> LRConsistencyPipeline & = delete;
+
     /// @brief Initializes the stereo matching pipeline with the processing resolution.
     /// @param resolution
     /// The processing resolution for the stereo matching pipeline.
@@ -51,7 +52,8 @@ class RETINIFY_API LRConsistencyPipeline
                            float maxDisparityDifference = 1.0F) const noexcept -> Status;
 
   private:
-    cv::Size imageSize_;
+    size_t imageHeight_{0};
+    size_t imageWidth_{0};
     Pipeline pipeline_;
 };
 } // namespace retinify::tools
