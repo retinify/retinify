@@ -51,7 +51,7 @@ jobs:
 
             echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
-            git config --global --add safe.directory /workspace/retinify/tests/googletest
+            git config --global --add safe.directory /workspace/core/tests/googletest
             git submodule sync --recursive
             git submodule update --init --recursive
 
