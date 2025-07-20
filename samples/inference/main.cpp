@@ -8,32 +8,6 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/ximgproc.hpp>
 
-namespace retinify
-{
-cv::Mat ColoringDisparity(const cv::Mat disparity, const int maxDisparity)
-{
-    if (disparity.empty())
-    {
-        retinify::LogError("Disparity map is empty.");
-        return cv::Mat();
-    }
-
-    cv::Mat coloredDisparity;
-
-    // set disparity values greater than threshold to 0
-    cv::Mat thresholdedDisparity;
-    cv::threshold(disparity, thresholdedDisparity, maxDisparity, 0, cv::THRESH_TOZERO_INV);
-
-    // normalize disparity map
-    cv::Mat normalizedDisparity;
-    thresholdedDisparity.convertTo(normalizedDisparity, CV_8UC1, 255.0 / maxDisparity);
-
-    // apply color map
-    cv::applyColorMap(normalizedDisparity, coloredDisparity, cv::COLORMAP_JET);
-    return coloredDisparity;
-}
-} // namespace retinify
-
 int main(int argc, char **argv)
 {
     if (argc < 3)
@@ -71,8 +45,8 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    cv::imshow("disparity", retinify::ColoringDisparity(disparity, 256));
-    cv::imwrite("disparity.png", retinify::ColoringDisparity(disparity, 256));
+    cv::imshow("disparity", retinify::tools::ColorizeDisparity(disparity, 256));
+    cv::imwrite("disparity.png", retinify::tools::ColorizeDisparity(disparity, 256));
     cv::waitKey(0);
 
     return 0;
