@@ -84,7 +84,7 @@ if (BUILD_WITH_TENSORRT)
     endif()
 else()
 # CPU BUILD
-    include(${CMAKE_CURRENT_SOURCE_DIR}/onnxruntime.cmake)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/onnxruntime.cmake)
     target_link_libraries(retinify-core
         PRIVATE
             onnxruntime
