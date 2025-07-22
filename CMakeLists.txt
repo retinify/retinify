@@ -20,7 +20,7 @@ install(EXPORT retinifyTargets
 )
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-    "${CMAKE_SOURCE_DIR}/cmake/retinifyConfig.cmake.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinifyConfig.cmake.in"
     "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
     INSTALL_DESTINATION "lib/cmake/retinify"
 )
@@ -40,7 +40,7 @@ if(BUILD_TOOLS)
     string(APPEND LIBRETINIFY_OPTION_INCLUDES "#include \"retinify/tools.hpp\"\n")
 endif()
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/retinify.hpp.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
     @ONLY
 )
@@ -50,10 +50,10 @@ install(
 )
 
 # VERSION
-file(READ "${CMAKE_SOURCE_DIR}/VERSION" VERSION_NUMBER)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION_NUMBER)
 string(STRIP "${VERSION_NUMBER}" PROJECT_VERSION)
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/retinify_version.hpp.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_version.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/retinify_version.hpp"
     @ONLY
 )
@@ -61,7 +61,7 @@ configure_file(
 # ONNX MODEL
 set(STEREO_MODEL_URL "https://github.com/retinify/retinify-models/releases/download/v${PROJECT_VERSION}/model.onnx")
 set(STEREO_MODEL_HASH "SHA256=82d90520efcd7474f32cc117e0fb35b470213c0e3185eafd731b4b7c030c21c7")
-set(STEREO_MODEL_PATH "${CMAKE_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
+set(STEREO_MODEL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
 file(DOWNLOAD
     ${STEREO_MODEL_URL}
     ${STEREO_MODEL_PATH}
@@ -71,7 +71,7 @@ file(DOWNLOAD
 )
 set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/model.onnx")
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/retinify_onnx.hpp.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_onnx.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/retinify_onnx.hpp"
     @ONLY
 )
@@ -86,10 +86,10 @@ if(BUILD_SAMPLES)
 endif(BUILD_SAMPLES)
 
 # SHARE
-install(FILES ${CMAKE_SOURCE_DIR}/LICENSE DESTINATION share/retinify)
-install(FILES ${CMAKE_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
-install(FILES ${CMAKE_SOURCE_DIR}/VERSION DESTINATION share/retinify)
-install(FILES ${CMAKE_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE DESTINATION share/retinify)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/VERSION DESTINATION share/retinify)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
 
 # CPACK
 set(CPACK_GENERATOR "DEB")
