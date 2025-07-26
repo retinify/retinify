@@ -15,10 +15,6 @@ target_link_libraries(retinify
         retinify::retinify-core
 )
 
-if(@BUILD_WITH_TENSORRT@)
-    find_package(CUDAToolkit REQUIRED)
-endif()
-
 if(@BUILD_TOOLS@)
     target_link_libraries(retinify 
         INTERFACE
