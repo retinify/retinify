@@ -37,10 +37,10 @@ target_compile_options(retinify-core
 if (BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify-core PUBLIC BUILD_WITH_TENSORRT)
 
-    if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
-        find_package(CUDAToolkit REQUIRED)
-        target_link_libraries(retinify-core PUBLIC CUDA::cudart)
+    find_package(CUDAToolkit REQUIRED)
+    target_link_libraries(retinify-core PUBLIC CUDA::cudart)
 
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         set(_TRT_LIB_HINTS
             /usr/lib
             /usr/lib/x86_64-linux-gnu
@@ -51,9 +51,6 @@ if (BUILD_WITH_TENSORRT)
             /usr/include/x86_64-linux-gnu
         )
     elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)$")
-        target_include_directories(retinify-core PUBLIC /usr/local/cuda/include)
-        target_link_libraries(retinify-core PUBLIC /usr/local/cuda/lib64/libcudart.so)
-
         set(_TRT_LIB_HINTS
             /usr/lib
             /usr/lib/aarch64-linux-gnu
@@ -83,7 +80,6 @@ if (BUILD_WITH_TENSORRT)
         message(WARNING "TensorRT libraries not found (${CMAKE_SYSTEM_PROCESSOR})")
     endif()
 else()
-# CPU BUILD
     include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/onnxruntime.cmake)
     target_link_libraries(retinify-core
         PRIVATE
