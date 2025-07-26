@@ -37,8 +37,8 @@ target_compile_options(retinify-core
 if (BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify-core PUBLIC BUILD_WITH_TENSORRT)
 
-    find_package(CUDAToolkit REQUIRED)
-    target_link_libraries(retinify-core PUBLIC CUDA::cudart)
+    target_include_directories(retinify-core PUBLIC /usr/local/cuda/include)
+    target_link_libraries(retinify-core PUBLIC /usr/local/cuda/lib64/libcudart.so)
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         set(_TRT_LIB_HINTS
