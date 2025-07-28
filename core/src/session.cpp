@@ -5,7 +5,7 @@
 #include "mat.hpp"
 
 #include "retinify/log.hpp"
-#include "retinify/path.hpp"
+#include "path.hpp"
 
 #ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>

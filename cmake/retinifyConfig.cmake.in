@@ -21,3 +21,5 @@ if(@BUILD_TOOLS@)
             retinify::retinify-tools
     )
 endif()
+
+message(STATUS "Found retinify")

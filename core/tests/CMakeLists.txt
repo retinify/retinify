@@ -1,5 +1,3 @@
-add_subdirectory(googletest)
-
 # PACKAGE
 find_package(OpenCV REQUIRED)
 
@@ -17,5 +15,5 @@ target_link_libraries(retinify-tests
 # INCLUDES
 target_include_directories(retinify-tests
     PRIVATE 
-        ../src # retinify source
+        ../src # retinify core source
 )

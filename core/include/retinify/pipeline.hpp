@@ -22,6 +22,7 @@ class RETINIFY_API Pipeline
     auto operator=(const Pipeline &) noexcept -> Pipeline & = delete;
     Pipeline(Pipeline &&) noexcept = delete;
     auto operator=(Pipeline &&) noexcept -> Pipeline & = delete;
+
     /// @brief
     /// Initializes the stereo matching pipeline with the specified image dimensions.
     /// @param imageHeight
