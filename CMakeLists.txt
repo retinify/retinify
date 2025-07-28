@@ -78,6 +78,7 @@ configure_file(
 
 # SUBDIRECTORIES
 add_subdirectory(core)
+add_subdirectory(3rdparty)
 if(BUILD_TOOLS)
     add_subdirectory(tools)
 endif(BUILD_TOOLS)
