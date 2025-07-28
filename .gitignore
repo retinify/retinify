@@ -14,9 +14,6 @@ build/
 # VS Code
 .vscode/
 
-# 3rdparty
-3rdparty/
-
 # Prerequisites
 *.d
 
