@@ -11,15 +11,17 @@
 
 namespace retinify::tools
 {
-/// @brief The resolution options for stereo matching pipelines.
-enum class PipelineResolution : std::uint8_t
+/// @brief
+/// The resolution options for stereo matching pipelines.
+enum class Resolution : std::uint8_t
 {
-    LOW,    // height=320, width=640
+    SMALL,  // height=320, width=640
     MEDIUM, // height=480, width=640
-    HIGH,   // height=720, width=1280
+    LARGE,  // height=720, width=1280
 };
 
-/// @brief A class that wraps retinify::Pipeline to perform left-right consistency checks, providing an OpenCV-compatible interface for stereo matching.
+/// @brief
+/// This class provides an interface for running a stereo matching pipeline with left-right consistency check.
 class RETINIFY_API LRConsistencyPipeline
 {
   public:
@@ -30,24 +32,26 @@ class RETINIFY_API LRConsistencyPipeline
     LRConsistencyPipeline(LRConsistencyPipeline &&) = delete;
     auto operator=(LRConsistencyPipeline &&other) noexcept -> LRConsistencyPipeline & = delete;
 
-    /// @brief Initializes the stereo matching pipeline with the processing resolution.
+    /// @brief
+    /// Initializes the stereo matching pipeline with the specified processing resolution.
     /// @param resolution
-    /// The processing resolution for the stereo matching pipeline.
+    /// The processing resolution to use for the stereo matching pipeline.
     /// @return
-    /// A Status object indicating the success or failure of the initialization.
-    [[nodiscard]] auto Initialize(PipelineResolution resolution = PipelineResolution::HIGH) noexcept -> Status;
+    /// A Status object indicating whether initialization succeeded.
+    [[nodiscard]] auto Initialize(Resolution resolution = Resolution::LARGE) noexcept -> Status;
 
-    /// @brief Runs the stereo matching pipeline with left-right consistency check using the provided left and right image data.
+    /// @brief
+    /// Runs the stereo matching pipeline with left-right consistency check on the provided images.
     /// @param leftImage
-    /// The left image data as a `cv::Mat`.
+    /// The left input image as a `cv::Mat`.
     /// @param rightImage
-    /// The right image data as a `cv::Mat`.
+    /// The right input image as a `cv::Mat`.
     /// @param disparity
-    /// The output disparity data as a `cv::Mat`.
+    /// The output disparity map as a `cv::Mat`.
     /// @param maxDisparityDifference
-    /// The maximum allowed difference in disparity values for the left-right consistency check.
+    /// Maximum allowed disparity difference for left-right consistency check.
     /// @return
-    /// A Status object indicating the success or failure of the operation.
+    /// A Status object indicating whether the operation succeeded.
     [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                            float maxDisparityDifference = 1.0F) const noexcept -> Status;
 

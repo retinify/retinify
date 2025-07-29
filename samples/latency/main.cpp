@@ -9,24 +9,27 @@
 
 int main()
 {
+    constexpr int height = 720;
+    constexpr int width = 1280;
+    constexpr int num_iters = 10000;
+
     retinify::SetLogLevel(retinify::LogLevel::INFO);
     retinify::Pipeline pipeline;
 
-    auto statusInitialize = pipeline.Initialize(720, 1280);
+    auto statusInitialize = pipeline.Initialize(height, width);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Failed to initialize the pipeline.");
         return 1;
     }
 
-    cv::Mat img0 = cv::Mat::zeros(720, 1280, CV_32FC1);
-    cv::Mat img1 = cv::Mat::zeros(720, 1280, CV_32FC1);
-    cv::Mat disp = cv::Mat::zeros(720, 1280, CV_32FC1);
+    cv::Mat img0 = cv::Mat::zeros(height, width, CV_32FC1);
+    cv::Mat img1 = cv::Mat::zeros(height, width, CV_32FC1);
+    cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
 
     std::vector<double> latencies;
-    int num_frames = 10000;
-    latencies.reserve(num_frames);
-    for (int i = 0; i < num_frames; i++)
+    latencies.reserve(num_iters);
+    for (int i = 0; i < num_iters; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
         auto statusRun = pipeline.Run(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
