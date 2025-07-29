@@ -50,6 +50,7 @@ class RETINIFY_API StereoMatchingPipeline
     /// The output disparity map as a `cv::Mat`.
     /// @param maxDisparityDifference
     /// Maximum allowed disparity difference for left-right consistency check.
+    /// If the value is less than or equal to 0, the check will be skipped.
     /// @return
     /// A Status object indicating whether the operation succeeded.
     [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
