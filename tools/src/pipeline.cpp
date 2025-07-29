@@ -61,7 +61,7 @@ inline static auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-auto LRConsistencyPipeline::Initialize(Resolution resolution) noexcept -> Status
+auto StereoMatchingPipeline::Initialize(Resolution resolution) noexcept -> Status
 {
     switch (resolution)
     {
@@ -86,7 +86,7 @@ auto LRConsistencyPipeline::Initialize(Resolution resolution) noexcept -> Status
     return status;
 }
 
-auto LRConsistencyPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
 {
     try
     {
