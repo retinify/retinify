@@ -46,7 +46,7 @@ cv::Mat rightImage = cv::imread(<right_image_path>);
 cv::Mat disparity;
 
 // CREATE STEREO MATCHING PIPELINE
-retinify::tools::LRConsistencyPipeline pipeline;
+retinify::tools::StereoMatchingPipeline pipeline;
 
 // INITIALIZE THE PIPELINE
 pipeline.Initialize();

@@ -21,16 +21,16 @@ enum class Resolution : std::uint8_t
 };
 
 /// @brief
-/// This class provides an interface for running a stereo matching pipeline with left-right consistency check.
-class RETINIFY_API LRConsistencyPipeline
+/// This class provides an interface for running a stereo matching pipeline using OpenCV
+class RETINIFY_API StereoMatchingPipeline
 {
   public:
-    LRConsistencyPipeline() noexcept = default;
-    ~LRConsistencyPipeline() noexcept = default;
-    LRConsistencyPipeline(const LRConsistencyPipeline &) = delete;
-    auto operator=(const LRConsistencyPipeline &) noexcept -> LRConsistencyPipeline & = delete;
-    LRConsistencyPipeline(LRConsistencyPipeline &&) = delete;
-    auto operator=(LRConsistencyPipeline &&other) noexcept -> LRConsistencyPipeline & = delete;
+    StereoMatchingPipeline() noexcept = default;
+    ~StereoMatchingPipeline() noexcept = default;
+    StereoMatchingPipeline(const StereoMatchingPipeline &) = delete;
+    auto operator=(const StereoMatchingPipeline &) noexcept -> StereoMatchingPipeline & = delete;
+    StereoMatchingPipeline(StereoMatchingPipeline &&) = delete;
+    auto operator=(StereoMatchingPipeline &&other) noexcept -> StereoMatchingPipeline & = delete;
 
     /// @brief
     /// Initializes the stereo matching pipeline with the specified processing resolution.
@@ -50,6 +50,7 @@ class RETINIFY_API LRConsistencyPipeline
     /// The output disparity map as a `cv::Mat`.
     /// @param maxDisparityDifference
     /// Maximum allowed disparity difference for left-right consistency check.
+    /// If the value is less than or equal to 0, the check will be skipped.
     /// @return
     /// A Status object indicating whether the operation succeeded.
     [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
