@@ -8,7 +8,8 @@
 
 namespace retinify
 {
-/// @brief Status class representing the result of an operation.
+/// @brief
+/// This class represents the status of an operation in the Retinify library.
 class RETINIFY_API Status
 {
   public:
@@ -20,16 +21,22 @@ class RETINIFY_API Status
     Status(Status &&) noexcept = default;
     auto operator=(Status &&) noexcept -> Status & = default;
 
-    /// @brief Check if the status is OK.
-    /// @return True if the status is OK, false otherwise.
+    /// @brief
+    /// Returns whether the status is OK.
+    /// @return
+    /// True if the status is OK; false otherwise.
     [[nodiscard]] auto IsOK() const noexcept -> bool;
 
-    /// @brief Get the status category.
-    /// @return The category of the status.
+    /// @brief
+    /// Returns the status category.
+    /// @return
+    /// The status category.
     [[nodiscard]] auto Category() const noexcept -> StatusCategory;
 
-    /// @brief Get the status code.
-    /// @return The code of the status.
+    /// @brief
+    /// Returns the status code.
+    /// @return
+    /// The status code.
     [[nodiscard]] auto Code() const noexcept -> StatusCode;
 
   private:

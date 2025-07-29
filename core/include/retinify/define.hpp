@@ -3,5 +3,10 @@
 
 #pragma once
 
+/// @brief
+/// Defines a macro for setting API visibility to "default" for the Retinify library.
 #define RETINIFY_API __attribute__((visibility("default")))
+
+/// @brief
+/// Defines a macro to mark functions as deprecated with a custom message.
 #define RETINIFY_DEPRECATED __attribute__((deprecated("This function is deprecated. Use the new function.")))

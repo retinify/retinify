@@ -24,31 +24,31 @@ class RETINIFY_API Pipeline
     auto operator=(Pipeline &&) noexcept -> Pipeline & = delete;
 
     /// @brief
-    /// Initializes the stereo matching pipeline with the specified image dimensions.
+    /// Initializes the stereo matching pipeline with the given image dimensions.
     /// @param imageHeight
-    /// The height of the input images.
+    /// Height of the input images (in pixels).
     /// @param imageWidth
-    /// The width of the input images.
+    /// Width of the input images (in pixels).
     /// @return
-    /// A Status object indicating the success or failure of the initialization.
+    /// A Status object indicating whether the initialization was successful.
     [[nodiscard]] auto Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status;
 
     /// @brief
-    /// Runs the stereo matching pipeline with the provided left and right image data.
+    /// Executes the stereo matching pipeline using the given left and right image data.
     /// @param leftImageData
-    /// The pointer to the left image data.
+    /// Pointer to the left image data (e.g., raw pixels).
     /// @param leftImageStride
-    /// The stride of the left image data in bytes.
+    /// Stride (in bytes) of a row in the left image.
     /// @param rightImageData
-    /// The pointer to the right image data.
+    /// Pointer to the right image data.
     /// @param rightImageStride
-    /// The stride of the right image data in bytes.
+    /// Stride (in bytes) of a row in the right image.
     /// @param disparityData
-    /// The pointer to the output disparity data.
+    /// Pointer to the output buffer for disparity data.
     /// @param disparityStride
-    /// The stride of the output disparity data in bytes.
+    /// Stride (in bytes) of a row in the output disparity data.
     /// @return
-    /// A Status object indicating the success or failure of the operation.
+    /// A Status object indicating whether the operation was successful.
     [[nodiscard]] auto Run(const void *leftImageData, std::size_t leftImageStride,   //
                            const void *rightImageData, std::size_t rightImageStride, //
                            void *disparityData, std::size_t disparityStride) const noexcept -> Status;
