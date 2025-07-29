@@ -61,19 +61,19 @@ inline static auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-auto LRConsistencyPipeline::Initialize(PipelineResolution resolution) noexcept -> Status
+auto LRConsistencyPipeline::Initialize(Resolution resolution) noexcept -> Status
 {
     switch (resolution)
     {
-    case PipelineResolution::LOW:
+    case Resolution::SMALL:
         imageHeight_ = 320;
         imageWidth_ = 640;
         break;
-    case PipelineResolution::MEDIUM:
+    case Resolution::MEDIUM:
         imageHeight_ = 480;
         imageWidth_ = 640;
         break;
-    case PipelineResolution::HIGH:
+    case Resolution::LARGE:
         imageHeight_ = 720;
         imageWidth_ = 1280;
         break;

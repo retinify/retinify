@@ -12,11 +12,11 @@
 namespace retinify::tools
 {
 /// @brief The resolution options for stereo matching pipelines.
-enum class PipelineResolution : std::uint8_t
+enum class Resolution : std::uint8_t
 {
-    LOW,    // height=320, width=640
+    SMALL,  // height=320, width=640
     MEDIUM, // height=480, width=640
-    HIGH,   // height=720, width=1280
+    LARGE,  // height=720, width=1280
 };
 
 /// @brief A class that wraps retinify::Pipeline to perform left-right consistency checks, providing an OpenCV-compatible interface for stereo matching.
@@ -35,7 +35,7 @@ class RETINIFY_API LRConsistencyPipeline
     /// The processing resolution for the stereo matching pipeline.
     /// @return
     /// A Status object indicating the success or failure of the initialization.
-    [[nodiscard]] auto Initialize(PipelineResolution resolution = PipelineResolution::HIGH) noexcept -> Status;
+    [[nodiscard]] auto Initialize(Resolution resolution = Resolution::LARGE) noexcept -> Status;
 
     /// @brief Runs the stereo matching pipeline with left-right consistency check using the provided left and right image data.
     /// @param leftImage
