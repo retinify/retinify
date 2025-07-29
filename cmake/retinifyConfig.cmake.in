@@ -16,6 +16,8 @@ target_link_libraries(retinify
 )
 
 if(@BUILD_TOOLS@)
+    find_package(OpenCV REQUIRED)
+    
     target_link_libraries(retinify 
         INTERFACE
             retinify::retinify-tools

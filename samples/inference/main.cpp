@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     std::string right_path = argv[2];
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
-    retinify::tools::LRConsistencyPipeline pipeline;
+    retinify::tools::StereoMatchingPipeline pipeline;
 
     auto statusInitialize = pipeline.Initialize();
     if (!statusInitialize.IsOK())
