@@ -7,7 +7,9 @@
 
 namespace retinify
 {
-/// @brief Get the version of the Retinify library in semantic versioning format.
-/// @return The version string of the Retinify library.
+/// @brief
+/// Returns the Retinify library version in semantic versioning format.
+/// @return
+/// A string representing the Retinify library version.
 RETINIFY_API auto Version() noexcept -> const char *;
 } // namespace retinify

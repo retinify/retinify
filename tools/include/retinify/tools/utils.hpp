@@ -9,12 +9,13 @@
 
 namespace retinify::tools
 {
-/// @brief Colorizes a disparity map
-/// @param disparity 
-/// The disparity map to be colorized as a `cv::Mat`.
-/// @param maxDisparity 
+/// @brief
+/// Colorizes a disparity map.
+/// @param disparity
+/// The disparity map to colorize as a `cv::Mat`.
+/// @param maxDisparity
 /// The maximum disparity value used for normalization.
-/// @return 
+/// @return
 /// A colorized disparity map as a `cv::Mat`.
 RETINIFY_API [[nodiscard]] cv::Mat ColorizeDisparity(const cv::Mat &disparity, int maxDisparity);
 } // namespace retinify::tools
