@@ -27,7 +27,7 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
   </tr>
 </table>
 
-## Quick Start
+## Basic Usage
 
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
   
