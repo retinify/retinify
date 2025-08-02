@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "path.hpp"
-
+#include "retinify/path.hpp"
 #include "retinify/log.hpp"
 #include "retinify/retinify_onnx.hpp"
 #include "retinify/version.hpp"
@@ -15,26 +14,27 @@
 
 namespace retinify
 {
-inline static auto MergePaths(const char *input1, const char *input2) -> const char *
-{
-    thread_local static std::string buffer;
+constexpr auto kConfigDirName = ".config/retinify";
+constexpr auto kCacheDirName = ".cache/retinify";
+constexpr auto kDataDirName = ".local/share/retinify";
+constexpr auto kStateDirName = ".local/state/retinify";
 
+static inline auto JoinPathWithVersion(const char *input1, const char *input2) -> const char *
+{
     if (input1 == nullptr || input2 == nullptr)
     {
         return nullptr;
     }
 
-    std::filesystem::path path1{input1};
-    std::filesystem::path path2{input2};
-    std::filesystem::path version{Version()};
+    thread_local static std::string buffer;
 
-    std::filesystem::path result = path1 / path2 / version;
+    std::filesystem::path result = std::filesystem::path(input1) / input2 / Version();
     buffer = result.string();
 
     return buffer.c_str();
 }
 
-inline static auto CreateDirectory(const char *path) -> bool
+static inline auto CreateDirectory(const char *path) -> bool
 {
     if (path == nullptr || std::strlen(path) == 0)
     {
@@ -75,7 +75,7 @@ auto ConfigDirectoryPath() noexcept -> const char *
 {
     try
     {
-        const char *path = MergePaths(HomeDirectoryPath(), ".config/retinify");
+        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kConfigDirName);
         if (path != nullptr && std::strlen(path) > 0)
         {
             if (CreateDirectory(path))
@@ -102,7 +102,7 @@ auto CacheDirectoryPath() noexcept -> const char *
 {
     try
     {
-        const char *path = MergePaths(HomeDirectoryPath(), ".cache/retinify");
+        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kCacheDirName);
         if (path != nullptr && std::strlen(path) > 0)
         {
             if (CreateDirectory(path))
@@ -129,7 +129,7 @@ auto DataDirectoryPath() noexcept -> const char *
 {
     try
     {
-        const char *path = MergePaths(HomeDirectoryPath(), ".local/share/retinify");
+        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kDataDirName);
         if (path != nullptr && std::strlen(path) > 0)
         {
             if (CreateDirectory(path))
@@ -156,7 +156,7 @@ auto StateDirectoryPath() noexcept -> const char *
 {
     try
     {
-        const char *path = MergePaths(HomeDirectoryPath(), ".local/state/retinify");
+        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kStateDirName);
         if (path != nullptr && std::strlen(path) > 0)
         {
             if (CreateDirectory(path))

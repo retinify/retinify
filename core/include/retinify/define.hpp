@@ -4,7 +4,7 @@
 #pragma once
 
 /// @brief
-/// Defines a macro for setting API visibility to "default" for the Retinify library.
+/// Defines a macro for setting API visibility to "default" for the retinify library.
 #define RETINIFY_API __attribute__((visibility("default")))
 
 /// @brief

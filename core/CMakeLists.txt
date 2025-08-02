@@ -64,15 +64,13 @@ if (BUILD_WITH_TENSORRT)
     endif()
 
     find_library(NVINFER       NAMES nvinfer        HINTS ${_TRT_LIB_HINTS})
-    find_library(NVINFERPLUGIN NAMES nvinfer_plugin HINTS ${_TRT_LIB_HINTS})
     find_library(NVONNXPARSER  NAMES nvonnxparser   HINTS ${_TRT_LIB_HINTS})
     find_path(TENSORRT_INCLUDE_DIR NAMES NvInfer.h  HINTS ${_TRT_INC_HINTS})
 
-    if (NVINFER AND NVINFERPLUGIN AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
+    if (NVINFER AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
         target_include_directories(retinify-core PRIVATE ${TENSORRT_INCLUDE_DIR})
         target_link_libraries(retinify-core PRIVATE
             ${NVINFER}
-            ${NVINFERPLUGIN}
             ${NVONNXPARSER}
         )
         message(STATUS "TensorRT linked (${CMAKE_SYSTEM_PROCESSOR})")
