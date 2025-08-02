@@ -5,7 +5,7 @@
 #include "session.hpp"
 
 #include "retinify/log.hpp"
-#include "path.hpp"
+#include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 
@@ -44,7 +44,7 @@ class Pipeline::Impl
             (imageHeight != 720 || imageWidth != 1280))
         {
             LogError("Height and width must be one of the following: 320x640, 480x640, or 720x1280.");
-            status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+            status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
             return status;
         }
 
@@ -101,7 +101,7 @@ class Pipeline::Impl
         if (!initialized_)
         {
             LogError("Pipeline is not initialized. Call Initialize() before Run().");
-            status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
+            status = Status(StatusCategory::USER, StatusCode::FAIL);
             return status;
         }
 

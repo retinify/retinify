@@ -12,7 +12,7 @@
 
 namespace retinify
 {
-inline static auto GetLogLevelRef() noexcept -> LogLevel &
+static inline auto GetLogLevelRef() noexcept -> LogLevel &
 {
     static LogLevel level = LogLevel::INFO;
     return level;
@@ -28,7 +28,7 @@ void SetLogLevel(LogLevel level) noexcept
     GetLogLevelRef() = level;
 }
 
-inline static auto GetCurrentTime() -> std::string
+static inline auto GetCurrentTime() -> std::string
 {
     const std::chrono::system_clock::time_point currentTimePoint = std::chrono::system_clock::now();
     const std::time_t currentTimeT = std::chrono::system_clock::to_time_t(currentTimePoint);
@@ -42,7 +42,7 @@ inline static auto GetCurrentTime() -> std::string
     return timeStream.str();
 }
 
-inline static auto GetColorCode(LogLevel level) noexcept -> const char *
+static inline auto GetColorCode(LogLevel level) noexcept -> const char *
 {
     switch (level)
     {
@@ -61,7 +61,7 @@ inline static auto GetColorCode(LogLevel level) noexcept -> const char *
     }
 }
 
-inline static void Log(LogLevel level, const char *label, const char *message, std::ostream &out, std::source_location location) noexcept
+static inline void Log(LogLevel level, const char *label, const char *message, std::ostream &out, std::source_location location) noexcept
 {
     if (static_cast<int>(level) < static_cast<int>(GetLogLevel()))
     {
