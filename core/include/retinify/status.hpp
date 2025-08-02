@@ -9,7 +9,7 @@
 namespace retinify
 {
 /// @brief
-/// This class represents the status of an operation in the Retinify library.
+/// This class represents the status of an operation in the retinify library.
 class RETINIFY_API Status
 {
   public:
