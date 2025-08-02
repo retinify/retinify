@@ -5,7 +5,7 @@
 #include "session.hpp"
 
 #include "retinify/log.hpp"
-#include "path.hpp"
+#include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 
