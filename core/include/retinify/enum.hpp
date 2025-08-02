@@ -31,7 +31,5 @@ enum class StatusCode : std::uint8_t
     OK,
     FAIL,
     INVALID_ARGUMENT,
-    NOT_ALLOCATED,
-    NULL_POINTER,
 };
 } // namespace retinify

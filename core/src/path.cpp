@@ -17,18 +17,14 @@ namespace retinify
 {
 static inline auto MergePaths(const char *input1, const char *input2) -> const char *
 {
-    thread_local static std::string buffer;
-
     if (input1 == nullptr || input2 == nullptr)
     {
         return nullptr;
     }
 
-    std::filesystem::path path1{input1};
-    std::filesystem::path path2{input2};
-    std::filesystem::path version{Version()};
+    thread_local static std::string buffer;
 
-    std::filesystem::path result = path1 / path2 / version;
+    std::filesystem::path result = std::filesystem::path(input1) / input2 / Version();
     buffer = result.string();
 
     return buffer.c_str();

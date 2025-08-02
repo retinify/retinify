@@ -172,13 +172,13 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept ->
     if (deviceData_ == nullptr)
     {
         LogError("Device data is not allocated.");
-        return Status(StatusCategory::USER, StatusCode::NOT_ALLOCATED);
+        return Status(StatusCategory::RETINIFY, StatusCode::FAIL);
     }
 
     if (hostData == nullptr)
     {
         LogError("Host data pointer is null.");
-        return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     if (hostStride < deviceColumnsInBytes_)
@@ -212,13 +212,13 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
     if (deviceData_ == nullptr)
     {
         LogError("Device data is not allocated.");
-        return Status(StatusCategory::USER, StatusCode::NOT_ALLOCATED);
+        return Status(StatusCategory::RETINIFY, StatusCode::FAIL);
     }
 
     if (hostData == nullptr)
     {
         LogError("Host data pointer is null.");
-        return Status(StatusCategory::USER, StatusCode::NULL_POINTER);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     if (hostStride < deviceColumnsInBytes_)
