@@ -8,7 +8,7 @@
 
 namespace retinify::tools
 {
-inline static auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float maxDisparityDifference) -> bool
+static inline auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Mat &rightDisparity, cv::Mat &disparity, float maxDisparityDifference) -> bool
 {
     if (leftDisparity.empty() || rightDisparity.empty())
     {

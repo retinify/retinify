@@ -15,7 +15,7 @@
 
 namespace retinify
 {
-inline static auto MergePaths(const char *input1, const char *input2) -> const char *
+static inline auto MergePaths(const char *input1, const char *input2) -> const char *
 {
     thread_local static std::string buffer;
 
@@ -34,7 +34,7 @@ inline static auto MergePaths(const char *input1, const char *input2) -> const c
     return buffer.c_str();
 }
 
-inline static auto CreateDirectory(const char *path) -> bool
+static inline auto CreateDirectory(const char *path) -> bool
 {
     if (path == nullptr || std::strlen(path) == 0)
     {
