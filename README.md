@@ -34,7 +34,7 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
 > [!IMPORTANT]
 > The core `retinify::Pipeline` is independent of OpenCV and supports various image data types.
   
-```c++
+```cpp
 #include <retinify/retinify.hpp>
 #include <opencv2/opencv.hpp>
 
@@ -56,15 +56,15 @@ pipeline.Run(leftImage, rightImage, disparity);
 ```
 
 ## Getting Started
-📖 [retinify-documentation](https://retinify.github.io/retinify-documentation/) — Developer guide and API reference.
+📖 [retinify-documentation](https://retinify.github.io/retinify/) — Developer guide and API reference.
 
-- 🚀 [Installation Guide](https://retinify.github.io/retinify-documentation/docs/installation.html)  
+- 🚀 [Installation Guide](https://retinify.github.io/retinify/md_markdown_2installation.html)  
   Step-by-step guide to build and install retinify.
 
-- 🔨 [Tutorials](https://retinify.github.io/retinify-documentation/docs/tutorials.html)  
+- 🔨 [Tutorials](https://retinify.github.io/retinify/md_markdown_2tutorials.html)  
   Hands-on examples to get you started with real-world use cases.
 
-- 🧩 [API Reference](https://retinify.github.io/retinify-documentation/docs/API/)  
+- 🧩 [API Reference](https://retinify.github.io/retinify/md_markdown_2api.html)  
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
