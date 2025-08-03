@@ -6,9 +6,9 @@
   />
 </a>
 
-# Overview
+# Welcome to retinify
 
-## 🚀 About retinify
+## 🚀 Introduction
 Retinify is an advanced AI-powered stereo vision library designed for robotics.  
 It enables real-time, high-precision 3D perception by offloading compute-intensive tasks to GPUs and NPUs.
   
