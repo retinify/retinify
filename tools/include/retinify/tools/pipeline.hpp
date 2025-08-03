@@ -15,9 +15,12 @@ namespace retinify::tools
 /// The resolution options for stereo matching pipelines.
 enum class Resolution : std::uint8_t
 {
-    SMALL,  // height=320, width=640
-    MEDIUM, // height=480, width=640
-    LARGE,  // height=720, width=1280
+    /// height=320, width=640
+    SMALL,
+    /// height=480, width=640
+    MEDIUM,
+    /// height=720, width=1280
+    LARGE,
 };
 
 /// @brief
