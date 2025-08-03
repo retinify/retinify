@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]],
-  ['resolution_1',['Resolution',['../namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45',1,'retinify::tools']]],
-  ['retinify_2',['retinify',['../namespaceretinify.html',1,'retinify'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a',1,'retinify::RETINIFY'],['../index.html',1,'retinify']]],
-  ['retinify_3a_3atools_3',['tools',['../namespaceretinify_1_1tools.html',1,'retinify']]],
-  ['retinify_5fapi_4',['RETINIFY_API',['../define_8hpp.html#a26f652e8294f73d41c56d880ace92d28',1,'define.hpp']]],
-  ['retinify_5fdeprecated_5',['RETINIFY_DEPRECATED',['../define_8hpp.html#ae4c8bbc2c76704e26f1144806d6f4ccb',1,'define.hpp']]],
-  ['run_6',['run',['../classretinify_1_1Pipeline.html#a8a88e85bf34dd801031544ee94c57b03',1,'retinify::Pipeline::Run()'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a57dc50ee68e0f5ca805d937e7d42214a',1,'retinify::tools::StereoMatchingPipeline::Run()']]]
+  ['index_2emd_0',['index.md',['../index_8md.html',1,'']]],
+  ['info_1',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
+  ['initialize_2',['initialize',['../classretinify_1_1Pipeline.html#a58bf1412b87dbce28ed35f855cee9a6a',1,'retinify::Pipeline::Initialize()'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a7061277e763acaf3ec528462c7453296',1,'retinify::tools::StereoMatchingPipeline::Initialize()']]],
+  ['install_20retinify_3',['install retinify',['../md_markdown_2tutorials.html#autotoc_md16',1,'1. Install retinify'],['../md_markdown_2installation.html#autotoc_md8',1,'2. Install retinify']]],
+  ['installation_4',['installation',['../md_markdown_2installation.html#autotoc_md13',1,'3. Verify Installation'],['../md_markdown_2installation.html',1,'Installation']]],
+  ['installation_2emd_5',['installation.md',['../installation_8md.html',1,'']]],
+  ['invalid_5fargument_6',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
+  ['isok_7',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
 ];

@@ -25,6 +25,29 @@
 var NAVTREE =
 [
   [ "retinify", "index.html", [
+    [ "Welcome to retinify documentation", "index.html#autotoc_md0", [
+      [ "🚀 About retinify", "index.html#autotoc_md1", null ],
+      [ "⚡ Getting started", "index.html#autotoc_md2", null ],
+      [ "✉️ Contact", "index.html#autotoc_md4", null ]
+    ] ],
+    [ "Installation", "md_markdown_2installation.html", [
+      [ "0. Dependencies", "md_markdown_2installation.html#autotoc_md6", null ],
+      [ "1. Clone the retinify repository.", "md_markdown_2installation.html#autotoc_md7", null ],
+      [ "2. Install retinify", "md_markdown_2installation.html#autotoc_md8", [
+        [ "2.1 with TensorRT", "md_markdown_2installation.html#autotoc_md9", null ],
+        [ "2.2 with CPU", "md_markdown_2installation.html#autotoc_md10", null ],
+        [ "2.3 with HailoRT", "md_markdown_2installation.html#autotoc_md11", null ],
+        [ "2.4 with OpenVINO", "md_markdown_2installation.html#autotoc_md12", null ]
+      ] ],
+      [ "3. Verify Installation", "md_markdown_2installation.html#autotoc_md13", null ],
+      [ "4. Uninstall retinify", "md_markdown_2installation.html#autotoc_md14", null ]
+    ] ],
+    [ "Tutorials", "md_markdown_2tutorials.html", [
+      [ "1. Install retinify", "md_markdown_2tutorials.html#autotoc_md16", null ],
+      [ "2. Link retinify", "md_markdown_2tutorials.html#autotoc_md17", null ],
+      [ "3. C++ Code", "md_markdown_2tutorials.html#autotoc_md18", null ]
+    ] ],
+    [ "API Reference", "md_markdown_2api.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

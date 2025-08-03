@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['enum_2ehpp_0',['enum.hpp',['../enum_8hpp.html',1,'']]],
-  ['error_1',['ERROR',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fabb1ca97ec761fc37101737ba0aa2e7c5',1,'retinify']]]
+  ['2_201_20with_20tensorrt_0',['2.1 with TensorRT',['../md_markdown_2installation.html#autotoc_md9',1,'']]],
+  ['2_202_20with_20cpu_1',['2.2 with CPU',['../md_markdown_2installation.html#autotoc_md10',1,'']]],
+  ['2_203_20with_20hailort_2',['2.3 with HailoRT',['../md_markdown_2installation.html#autotoc_md11',1,'']]],
+  ['2_204_20with_20openvino_3',['2.4 with OpenVINO',['../md_markdown_2installation.html#autotoc_md12',1,'']]],
+  ['2_20install_20retinify_4',['2. Install retinify',['../md_markdown_2installation.html#autotoc_md8',1,'']]],
+  ['2_20link_20retinify_5',['2. Link retinify',['../md_markdown_2tutorials.html#autotoc_md17',1,'']]]
 ];

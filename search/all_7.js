@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['large_0',['LARGE',['../namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8',1,'retinify::tools']]],
-  ['log_2ehpp_1',['log.hpp',['../log_8hpp.html',1,'']]],
-  ['logdebug_2',['LogDebug',['../namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b',1,'retinify']]],
-  ['logerror_3',['LogError',['../namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0',1,'retinify']]],
-  ['logfatal_4',['LogFatal',['../namespaceretinify.html#a9a9b1f6e167926306723c22265f71068',1,'retinify']]],
-  ['loginfo_5',['LogInfo',['../namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83',1,'retinify']]],
-  ['loglevel_6',['LogLevel',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f',1,'retinify']]],
-  ['logwarn_7',['LogWarn',['../namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809',1,'retinify']]]
+  ['datadirectorypath_0',['DataDirectoryPath',['../namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16',1,'retinify']]],
+  ['debug_1',['DEBUG',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15',1,'retinify']]],
+  ['define_2ehpp_2',['define.hpp',['../define_8hpp.html',1,'']]],
+  ['dependencies_3',['0. Dependencies',['../md_markdown_2installation.html#autotoc_md6',1,'']]],
+  ['documentation_4',['Welcome to retinify documentation',['../index.html#autotoc_md0',1,'']]]
 ];

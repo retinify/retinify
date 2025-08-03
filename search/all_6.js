@@ -1,7 +1,13 @@
 var searchData=
 [
-  ['info_0',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
-  ['initialize_1',['initialize',['../classretinify_1_1Pipeline.html#a58bf1412b87dbce28ed35f855cee9a6a',1,'retinify::Pipeline::Initialize()'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a7061277e763acaf3ec528462c7453296',1,'retinify::tools::StereoMatchingPipeline::Initialize()']]],
-  ['invalid_5fargument_2',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
-  ['isok_3',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
+  ['c_20code_0',['3. C++ Code',['../md_markdown_2tutorials.html#autotoc_md18',1,'']]],
+  ['cachedirectorypath_1',['CacheDirectoryPath',['../namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c',1,'retinify']]],
+  ['category_2',['Category',['../classretinify_1_1Status.html#aa3b1b3edf09c19cfeab7151237946849',1,'retinify::Status']]],
+  ['clone_20the_20retinify_20repository_3',['1. Clone the retinify repository.',['../md_markdown_2installation.html#autotoc_md7',1,'']]],
+  ['code_4',['code',['../md_markdown_2tutorials.html#autotoc_md18',1,'3. C++ Code'],['../classretinify_1_1Status.html#a2b78d61f4f0fd7ccfe7e5153b17a2630',1,'retinify::Status::Code()']]],
+  ['colorizedisparity_5',['ColorizeDisparity',['../namespaceretinify_1_1tools.html#ab33d301f0fba216b39ac3c0d0a8c6980',1,'retinify::tools']]],
+  ['configdirectorypath_6',['ConfigDirectoryPath',['../namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1',1,'retinify']]],
+  ['contact_7',['✉️ Contact',['../index.html#autotoc_md4',1,'']]],
+  ['cpu_8',['2.2 with CPU',['../md_markdown_2installation.html#autotoc_md10',1,'']]],
+  ['cuda_9',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]]
 ];

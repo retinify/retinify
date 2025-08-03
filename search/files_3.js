@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['path_2ehpp_0',['path.hpp',['../path_8hpp.html',1,'']]],
-  ['pipeline_2ehpp_1',['pipeline.hpp',['../core_2include_2retinify_2pipeline_8hpp.html',1,'(Global Namespace)'],['../tools_2include_2retinify_2tools_2pipeline_8hpp.html',1,'(Global Namespace)']]]
+  ['index_2emd_0',['index.md',['../index_8md.html',1,'']]],
+  ['installation_2emd_1',['installation.md',['../installation_8md.html',1,'']]]
 ];

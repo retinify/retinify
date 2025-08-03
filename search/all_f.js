@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['version_0',['Version',['../namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc',1,'retinify']]],
-  ['version_2ehpp_1',['version.hpp',['../version_8hpp.html',1,'']]]
+  ['none_0',['NONE',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693',1,'retinify']]]
 ];

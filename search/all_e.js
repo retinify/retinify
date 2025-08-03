@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['user_0',['USER',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12',1,'retinify']]],
-  ['utils_2ehpp_1',['utils.hpp',['../utils_8hpp.html',1,'']]]
+  ['medium_0',['MEDIUM',['../namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45ac87f3be66ffc3c0d4249f1c2cc5f3cce',1,'retinify::tools']]]
 ];
