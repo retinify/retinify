@@ -1,0 +1,40 @@
+var namespaceretinify =
+[
+    [ "tools", "namespaceretinify_1_1tools.html", "namespaceretinify_1_1tools" ],
+    [ "Pipeline", "classretinify_1_1Pipeline.html", "classretinify_1_1Pipeline" ],
+    [ "Status", "classretinify_1_1Status.html", "classretinify_1_1Status" ],
+    [ "LogLevel", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f", [
+      [ "DEBUG", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15", null ],
+      [ "INFO", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3", null ],
+      [ "WARN", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa32bd8a1db2275458673903bdb84cb277", null ],
+      [ "ERROR", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fabb1ca97ec761fc37101737ba0aa2e7c5", null ],
+      [ "FATAL", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
+      [ "OFF", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
+    ] ],
+    [ "StatusCategory", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d", [
+      [ "NONE", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "RETINIFY", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a", null ],
+      [ "SYSTEM", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03", null ],
+      [ "CUDA", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d", null ],
+      [ "USER", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12", null ]
+    ] ],
+    [ "StatusCode", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4", [
+      [ "OK", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ae0aa021e21dddbd6d8cecec71e9cf564", null ],
+      [ "FAIL", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ac2759effffc94bb9acc71d69fe3e8a1f", null ],
+      [ "INVALID_ARGUMENT", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d", null ]
+    ] ],
+    [ "CacheDirectoryPath", "namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c", null ],
+    [ "ConfigDirectoryPath", "namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1", null ],
+    [ "DataDirectoryPath", "namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16", null ],
+    [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
+    [ "HomeDirectoryPath", "namespaceretinify.html#aacffaa83dff370322a2bd10317728f65", null ],
+    [ "LogDebug", "namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b", null ],
+    [ "LogError", "namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0", null ],
+    [ "LogFatal", "namespaceretinify.html#a9a9b1f6e167926306723c22265f71068", null ],
+    [ "LogInfo", "namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83", null ],
+    [ "LogWarn", "namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809", null ],
+    [ "ONNXModelFilePath", "namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f", null ],
+    [ "SetLogLevel", "namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177", null ],
+    [ "StateDirectoryPath", "namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7", null ],
+    [ "Version", "namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc", null ]
+];
