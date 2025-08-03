@@ -6,7 +6,7 @@
   />
 </a>
 
-# Welcome to retinify documentation
+# Overview
 
 ## 🚀 About retinify
 Retinify is an advanced AI-powered stereo vision library designed for robotics.  
