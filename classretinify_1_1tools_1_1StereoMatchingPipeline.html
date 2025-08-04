@@ -127,9 +127,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7061277e763acaf3ec528462c7453296" id="r_a7061277e763acaf3ec528462c7453296"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a7061277e763acaf3ec528462c7453296">Initialize</a> (<a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45">Resolution</a> resolution=<a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8">Resolution::LARGE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a7061277e763acaf3ec528462c7453296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing resolution.  <br /></td></tr>
 <tr class="separator:a7061277e763acaf3ec528462c7453296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57dc50ee68e0f5ca805d937e7d42214a" id="r_a57dc50ee68e0f5ca805d937e7d42214a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a57dc50ee68e0f5ca805d937e7d42214a">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity, float maxDisparityDifference=1.0F) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a57dc50ee68e0f5ca805d937e7d42214a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline with left-right consistency check on the provided images.  <br /></td></tr>
-<tr class="separator:a57dc50ee68e0f5ca805d937e7d42214a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0d4649227e3121989dff170e82d7c8a" id="r_ae0d4649227e3121989dff170e82d7c8a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#ae0d4649227e3121989dff170e82d7c8a">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:ae0d4649227e3121989dff170e82d7c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline.  <br /></td></tr>
+<tr class="separator:ae0d4649227e3121989dff170e82d7c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf73a02c65c4d67f1706583d8f3d5678" id="r_aaf73a02c65c4d67f1706583d8f3d5678"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#aaf73a02c65c4d67f1706583d8f3d5678">RunWithLeftRightConsistencyCheck</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity, float maxDisparityDifference=1.0F) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:aaf73a02c65c4d67f1706583d8f3d5678"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline with left-right consistency check on the provided images.  <br /></td></tr>
+<tr class="separator:aaf73a02c65c4d67f1706583d8f3d5678"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class provides an interface for running a stereo matching pipeline using OpenCV. </p>
@@ -324,8 +327,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a57dc50ee68e0f5ca805d937e7d42214a" name="a57dc50ee68e0f5ca805d937e7d42214a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57dc50ee68e0f5ca805d937e7d42214a">&#9670;&#160;</a></span>Run()</h2>
+<a id="ae0d4649227e3121989dff170e82d7c8a" name="ae0d4649227e3121989dff170e82d7c8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0d4649227e3121989dff170e82d7c8a">&#9670;&#160;</a></span>Run()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,6 +338,59 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">auto retinify::tools::StereoMatchingPipeline::Run </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>leftImage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>rightImage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>disparity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Runs the stereo matching pipeline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">leftImage</td><td>The left input image as a <code>cv::Mat</code>. </td></tr>
+    <tr><td class="paramname">rightImage</td><td>The right input image as a <code>cv::Mat</code>. </td></tr>
+    <tr><td class="paramname">disparity</td><td>The output disparity map as a <code>cv::Mat</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation succeeded. </dd></dl>
+
+</div>
+</div>
+<a id="aaf73a02c65c4d67f1706583d8f3d5678" name="aaf73a02c65c4d67f1706583d8f3d5678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf73a02c65c4d67f1706583d8f3d5678">&#9670;&#160;</a></span>RunWithLeftRightConsistencyCheck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::tools::StereoMatchingPipeline::RunWithLeftRightConsistencyCheck </td>
           <td>(</td>
           <td class="paramtype">const cv::Mat &amp;&#160;</td>
           <td class="paramname"><em>leftImage</em>, </td>
