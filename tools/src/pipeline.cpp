@@ -87,7 +87,22 @@ auto StereoMatchingPipeline::Initialize(Resolution resolution) noexcept -> Statu
     return status;
 }
 
-auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status
+{
+    constexpr float kMaxDisparityDifference = -1.0F; // Disable left-right consistency check by default
+    return RunImpl(leftImage, rightImage, disparity, kMaxDisparityDifference);
+}
+
+auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+{
+    if (maxDisparityDifference <= 0.0F)
+    {
+        LogWarn("Left-right consistency check is disabled due to non-positive maxDisparityDifference.");
+    }
+    return RunImpl(leftImage, rightImage, disparity, maxDisparityDifference);
+}
+
+auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
 {
     try
     {
