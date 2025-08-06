@@ -3,9 +3,45 @@
 
 #include "retinify/retinify.hpp"
 
+#include <algorithm>
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <vector>
+
+double BenchmarkPipeline(retinify::tools::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
+{
+    retinify::tools::StereoMatchingPipeline pipeline;
+    retinify::Status statusInitialize = pipeline.Initialize(mode);
+    if (!statusInitialize.IsOK())
+    {
+        retinify::LogError("Pipeline initialization failed for mode.");
+        return -1.0;
+    }
+
+    std::vector<double> latencies;
+    latencies.reserve(num_iters);
+
+    for (int i = 0; i < num_iters; ++i)
+    {
+        auto start = std::chrono::high_resolution_clock::now();
+        retinify::Status statusRun = pipeline.Run(img0, img1, disp);
+        if (!statusRun.IsOK())
+        {
+            retinify::LogError("Pipeline run failed for mode.");
+            return -1.0;
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+        double ms = static_cast<double>(duration.count()) / 1000.0;
+        latencies.push_back(ms);
+    }
+
+    std::sort(latencies.begin(), latencies.end());
+    double median = latencies[latencies.size() / 2];
+    return median;
+}
 
 int main()
 {
@@ -13,39 +49,61 @@ int main()
     constexpr int width = 1280;
     constexpr int num_iters = 10000;
 
+    cv::Mat img0 = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat img1 = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat disp;
+
     retinify::SetLogLevel(retinify::LogLevel::INFO);
-    retinify::Pipeline pipeline;
 
-    auto statusInitialize = pipeline.Initialize(height, width);
-    if (!statusInitialize.IsOK())
+    const std::vector<retinify::tools::Mode> modes = {retinify::tools::Mode::FAST, retinify::tools::Mode::BALANCED, retinify::tools::Mode::ACCURATE};
+
+    struct Result
     {
-        retinify::LogError("Failed to initialize the pipeline.");
-        return 1;
-    }
+        std::string name;
+        double median_ms;
+        double fps;
+    };
+    std::vector<Result> results;
+    results.reserve(modes.size());
 
-    cv::Mat img0 = cv::Mat::zeros(height, width, CV_32FC1);
-    cv::Mat img1 = cv::Mat::zeros(height, width, CV_32FC1);
-    cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
-
-    std::vector<double> latencies;
-    latencies.reserve(num_iters);
-    for (int i = 0; i < num_iters; i++)
+    for (retinify::tools::Mode m : modes)
     {
-        auto start = std::chrono::high_resolution_clock::now();
-        auto statusRun = pipeline.Run(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], disp.ptr(), disp.step[0]);
-        if (!statusRun.IsOK())
+        std::string mode_name;
+        switch (m)
         {
-            retinify::LogError("Failed to run the pipeline.");
-            return 1;
+        case retinify::tools::Mode::FAST:
+            mode_name = "FAST";
+            break;
+        case retinify::tools::Mode::BALANCED:
+            mode_name = "BALANCED";
+            break;
+        case retinify::tools::Mode::ACCURATE:
+            mode_name = "ACCURATE";
+            break;
+        default:
+            mode_name = "UNKNOWN";
+            break;
         }
-        auto end = std::chrono::high_resolution_clock::now();
 
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-        latencies.push_back(duration.count() / 1000.0); // Convert to milliseconds
-        retinify::LogInfo(std::format("Frame {}: Latency = {:.3f} ms", i + 1, latencies.back()).c_str());
+        retinify::LogInfo(cv::format("Running benchmark for mode: %s ...", mode_name.c_str()).c_str());
+
+        double median_ms = BenchmarkPipeline(m, img0, img1, disp, num_iters);
+        if (median_ms < 0.0)
+        {
+            retinify::LogError(cv::format("Benchmark failed for mode: %s", mode_name.c_str()).c_str());
+            continue;
+        }
+
+        double fps = 1000.0 / median_ms;
+        results.push_back({mode_name, median_ms, fps});
     }
-    std::sort(latencies.begin(), latencies.end());
-    double median = latencies[latencies.size() / 2];
-    retinify::LogInfo(std::format("Median latency: {:.3f} ms", median).c_str());
+
+    std::cout << std::endl << std::left << std::setw(10) << "Mode" << std::right << std::setw(15) << "Median (ms)" << std::setw(15) << "FPS" << std::endl << std::string(40, '-') << std::endl;
+
+    for (auto const &r : results)
+    {
+        std::cout << std::left << std::setw(10) << r.name << std::right << std::setw(15) << std::fixed << std::setprecision(3) << r.median_ms << std::setw(15) << std::fixed << std::setprecision(1) << r.fps << std::endl;
+    }
+
     return 0;
 }

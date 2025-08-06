@@ -12,15 +12,15 @@
 namespace retinify::tools
 {
 /// @brief
-/// The resolution options for stereo matching pipelines.
-enum class Resolution : std::uint8_t
+/// The mode options for the stereo matching pipeline.
+enum class Mode : std::uint8_t
 {
-    /// height=320, width=640
-    SMALL,
-    /// height=480, width=640
-    MEDIUM,
-    /// height=720, width=1280
-    LARGE,
+    /// Fastest, with lowest accuracy.
+    FAST,
+    /// Balanced, with moderate accuracy and speed.
+    BALANCED,
+    /// Most accurate, with slowest performance.
+    ACCURATE,
 };
 
 /// @brief
@@ -36,12 +36,12 @@ class RETINIFY_API StereoMatchingPipeline
     auto operator=(StereoMatchingPipeline &&other) noexcept -> StereoMatchingPipeline & = delete;
 
     /// @brief
-    /// Initializes the stereo matching pipeline with the specified processing resolution.
-    /// @param resolution
-    /// The processing resolution to use for the stereo matching pipeline.
+    /// Initializes the stereo matching pipeline with the specified processing mode.
+    /// @param mode
+    /// The processing mode to use for the stereo matching pipeline.
     /// @return
     /// A Status object indicating whether initialization succeeded.
-    [[nodiscard]] auto Initialize(Resolution resolution = Resolution::LARGE) noexcept -> Status;
+    [[nodiscard]] auto Initialize(Mode mode = Mode::ACCURATE) noexcept -> Status;
 
     /// @brief
     /// Runs the stereo matching pipeline.
@@ -53,6 +53,9 @@ class RETINIFY_API StereoMatchingPipeline
     /// The output disparity map as a `cv::Mat`.
     /// @return
     /// A Status object indicating whether the operation succeeded.
+    /// @note
+    /// Input images are resized internally, so as long as the left and right
+    /// images share the same dimensions, their original sizes don’t matter.
     [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status;
 
     /// @brief
@@ -68,6 +71,9 @@ class RETINIFY_API StereoMatchingPipeline
     /// If the value is less than or equal to 0, the check will be skipped.
     /// @return
     /// A Status object indicating whether the operation succeeded.
+    /// @note
+    /// Input images are resized internally, so as long as the left and right
+    /// images share the same dimensions, their original sizes don’t matter.
     [[nodiscard]] auto RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                                                         float maxDisparityDifference = 1.0F) const noexcept -> Status;
 
@@ -75,8 +81,8 @@ class RETINIFY_API StereoMatchingPipeline
     [[nodiscard]] auto RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                                float maxDisparityDifference) const noexcept -> Status;
 
-    size_t imageHeight_{0};
-    size_t imageWidth_{0};
+    size_t matchingHeight_{0};
+    size_t matchingWidth_{0};
     Pipeline pipeline_;
 };
 } // namespace retinify::tools
