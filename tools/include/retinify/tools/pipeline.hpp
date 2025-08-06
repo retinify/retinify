@@ -12,15 +12,15 @@
 namespace retinify::tools
 {
 /// @brief
-/// The model options for stereo matching pipelines.
-enum class Model : std::uint8_t
+/// The mode options for the stereo matching pipeline.
+enum class Mode : std::uint8_t
 {
-    /// height=320, width=640
-    SMALL,
-    /// height=480, width=640
-    MEDIUM,
-    /// height=720, width=1280
-    LARGE,
+    /// Fastest, with lowest accuracy.
+    FAST,
+    /// Balanced, with moderate accuracy and speed.
+    BALANCED,
+    /// Most accurate, with slowest performance.
+    ACCURATE,
 };
 
 /// @brief
@@ -36,12 +36,12 @@ class RETINIFY_API StereoMatchingPipeline
     auto operator=(StereoMatchingPipeline &&other) noexcept -> StereoMatchingPipeline & = delete;
 
     /// @brief
-    /// Initializes the stereo matching pipeline with the specified processing model.
-    /// @param model
-    /// The processing model to use for the stereo matching pipeline.
+    /// Initializes the stereo matching pipeline with the specified processing mode.
+    /// @param mode
+    /// The processing mode to use for the stereo matching pipeline.
     /// @return
     /// A Status object indicating whether initialization succeeded.
-    [[nodiscard]] auto Initialize(Model model = Model::LARGE) noexcept -> Status;
+    [[nodiscard]] auto Initialize(Mode mode = Mode::ACCURATE) noexcept -> Status;
 
     /// @brief
     /// Runs the stereo matching pipeline.

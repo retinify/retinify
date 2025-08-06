@@ -93,6 +93,14 @@ pipeline.Run(leftImage, rightImage, disparity);
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
+## Pipeline Latencies
+Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.
+
+| DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
+| ----------------------- | ------------------ | ------------------ | ------------------ |
+| NVIDIA RTX 3060         | 3.800ms / 263.2FPS | 4.746ms / 210.7FPS | 11.672ms / 85.7FPS |
+| NVIDIA Jetson Orin Nano | 17.894ms / 55.9FPS | 25.079ms / 39.9FPS | 50.966ms / 19.6FPS |
+
 ## Why Retinify?
 - 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
