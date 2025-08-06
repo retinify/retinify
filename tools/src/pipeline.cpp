@@ -62,24 +62,24 @@ static inline auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-auto StereoMatchingPipeline::Initialize(Model model) noexcept -> Status
+auto StereoMatchingPipeline::Initialize(Mode mode) noexcept -> Status
 {
-    switch (model)
+    switch (mode)
     {
-    case Model::SMALL:
+    case Mode::FAST:
         matchingHeight_ = 320;
         matchingWidth_ = 640;
         break;
-    case Model::MEDIUM:
+    case Mode::BALANCED:
         matchingHeight_ = 480;
         matchingWidth_ = 640;
         break;
-    case Model::LARGE:
+    case Mode::ACCURATE:
         matchingHeight_ = 720;
         matchingWidth_ = 1280;
         break;
     default:
-        LogError("Invalid model specified for StereoMatchingPipeline.");
+        LogError("Invalid mode specified for StereoMatchingPipeline.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
@@ -151,7 +151,7 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
         rightGray.convertTo(rightGray, CV_32FC1);
         cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
 
-        auto leftStatus = pipeline_.Run(leftGray.ptr(), leftGray.step, rightGray.ptr(), rightGray.step, leftDisparity.ptr(), leftDisparity.step);
+        auto leftStatus = pipeline_.Run(leftGray.ptr(), leftGray.step[0], rightGray.ptr(), rightGray.step[0], leftDisparity.ptr(), leftDisparity.step[0]);
         if (!leftStatus.IsOK())
         {
             return leftStatus;
@@ -170,7 +170,7 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             cv::flip(rightGray, rightGrayFlipped, 1);
             cv::Mat rightDisparity = cv::Mat::zeros(rightGray.size(), CV_32FC1);
 
-            auto rightStatus = pipeline_.Run(rightGrayFlipped.ptr(), rightGrayFlipped.step, leftGrayFlipped.ptr(), leftGrayFlipped.step, rightDisparity.ptr(), rightDisparity.step);
+            auto rightStatus = pipeline_.Run(rightGrayFlipped.ptr(), rightGrayFlipped.step[0], leftGrayFlipped.ptr(), leftGrayFlipped.step[0], rightDisparity.ptr(), rightDisparity.step[0]);
             if (!rightStatus.IsOK())
             {
                 return rightStatus;
