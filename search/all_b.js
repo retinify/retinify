@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hailort_0',['2.3 with HailoRT',['../md_markdown_2installation.html#autotoc_md11',1,'']]],
-  ['homedirectorypath_1',['HomeDirectoryPath',['../namespaceretinify.html#aacffaa83dff370322a2bd10317728f65',1,'retinify']]]
+  ['getloglevel_0',['GetLogLevel',['../namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84',1,'retinify']]],
+  ['getting_20started_1',['⚡ Getting started',['../index.html#autotoc_md2',1,'']]]
 ];

@@ -1,9 +1,9 @@
 var tools_2include_2retinify_2tools_2pipeline_8hpp =
 [
     [ "retinify::tools::StereoMatchingPipeline", "classretinify_1_1tools_1_1StereoMatchingPipeline.html", "classretinify_1_1tools_1_1StereoMatchingPipeline" ],
-    [ "Resolution", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a00dfa55cbd3c5269b11f80983140bb45", [
-      [ "SMALL", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a00dfa55cbd3c5269b11f80983140bb45a9b9c17e13f0e3dc9860a26e08b59b2a7", null ],
-      [ "MEDIUM", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a00dfa55cbd3c5269b11f80983140bb45ac87f3be66ffc3c0d4249f1c2cc5f3cce", null ],
-      [ "LARGE", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8", null ]
+    [ "Mode", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a95f8dc4900c1543085e802782b190db8", [
+      [ "FAST", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a95f8dc4900c1543085e802782b190db8adca6e617f6fb54033deb311e7e7c93cc", null ],
+      [ "BALANCED", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a95f8dc4900c1543085e802782b190db8a0cb4635d100151dcaac6f91db856c402", null ],
+      [ "ACCURATE", "tools_2include_2retinify_2tools_2pipeline_8hpp.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657", null ]
     ] ]
 ];

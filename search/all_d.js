@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['large_0',['LARGE',['../namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8',1,'retinify::tools']]],
-  ['link_20retinify_1',['2. Link retinify',['../md_markdown_2tutorials.html#autotoc_md17',1,'']]],
-  ['log_2ehpp_2',['log.hpp',['../log_8hpp.html',1,'']]],
-  ['logdebug_3',['LogDebug',['../namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b',1,'retinify']]],
-  ['logerror_4',['LogError',['../namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0',1,'retinify']]],
-  ['logfatal_5',['LogFatal',['../namespaceretinify.html#a9a9b1f6e167926306723c22265f71068',1,'retinify']]],
-  ['loginfo_6',['LogInfo',['../namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83',1,'retinify']]],
-  ['loglevel_7',['LogLevel',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f',1,'retinify']]],
-  ['logwarn_8',['LogWarn',['../namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809',1,'retinify']]]
+  ['index_2emd_0',['index.md',['../index_8md.html',1,'']]],
+  ['info_1',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
+  ['initialize_2',['initialize',['../classretinify_1_1Pipeline.html#a58bf1412b87dbce28ed35f855cee9a6a',1,'retinify::Pipeline::Initialize()'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362',1,'retinify::tools::StereoMatchingPipeline::Initialize()']]],
+  ['install_20retinify_3',['install retinify',['../md_markdown_2tutorials.html#autotoc_md16',1,'1. Install retinify'],['../md_markdown_2installation.html#autotoc_md8',1,'2. Install retinify']]],
+  ['installation_4',['installation',['../md_markdown_2installation.html#autotoc_md13',1,'3. Verify Installation'],['../md_markdown_2installation.html',1,'Installation']]],
+  ['installation_2emd_5',['installation.md',['../installation_8md.html',1,'']]],
+  ['introduction_6',['🚀 Introduction',['../index.html#autotoc_md1',1,'']]],
+  ['invalid_5fargument_7',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
+  ['isok_8',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
 ];

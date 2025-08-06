@@ -102,12 +102,18 @@ $(document).ready(function(){initNavTree('md_markdown_2api.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> Retinify is written in C++ and defined under the <code>retinify::</code> namespace. <br  />
- The key classes for using Retinify are as follows:</p>
+ The key classes for using retinify are as follows:</p>
 <ul>
 <li><code><a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">retinify::Status</a></code> <br  />
  Holds the result of a function call.</li>
 <li><code><a class="el" href="classretinify_1_1Pipeline.html" title="This class provides an interface for running a stereo matching pipeline.">retinify::Pipeline</a></code> <br  />
  Executes stereo matching on rectified image pairs.</li>
+</ul>
+<p>The <code><a class="el" href="namespaceretinify_1_1tools.html">retinify::tools</a></code> namespace provides utility functions using OpenCV. <br  />
+</p>
+<ul>
+<li><code><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html" title="This class provides an interface for running a stereo matching pipeline using OpenCV.">retinify::tools::StereoMatchingPipeline</a></code> <br  />
+ Executes stereo matching on rectified OpenCV image pairs.</li>
 </ul>
 <blockquote class="doxtable">
 <p>&zwj;Retinify is designed to avoid throwing exceptions. Instead, it uses <code><a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">retinify::Status</a></code> to report and manage the result of each operation.</p>

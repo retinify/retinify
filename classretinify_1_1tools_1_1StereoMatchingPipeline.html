@@ -124,9 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a73f7611912baef98d13a5865d79d620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa86872bfa870701fff0c59eec504510" id="r_afa86872bfa870701fff0c59eec504510"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#afa86872bfa870701fff0c59eec504510">operator=</a> (<a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html">StereoMatchingPipeline</a> &amp;&amp;other) noexcept -&gt; <a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html">StereoMatchingPipeline</a> &amp;=delete</td></tr>
 <tr class="separator:afa86872bfa870701fff0c59eec504510"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7061277e763acaf3ec528462c7453296" id="r_a7061277e763acaf3ec528462c7453296"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a7061277e763acaf3ec528462c7453296">Initialize</a> (<a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45">Resolution</a> resolution=<a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8">Resolution::LARGE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a7061277e763acaf3ec528462c7453296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing resolution.  <br /></td></tr>
-<tr class="separator:a7061277e763acaf3ec528462c7453296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1de113d40524003334860ac20f771362" id="r_a1de113d40524003334860ac20f771362"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362">Initialize</a> (<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a> mode=<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a1de113d40524003334860ac20f771362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing mode.  <br /></td></tr>
+<tr class="separator:a1de113d40524003334860ac20f771362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0d4649227e3121989dff170e82d7c8a" id="r_ae0d4649227e3121989dff170e82d7c8a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#ae0d4649227e3121989dff170e82d7c8a">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:ae0d4649227e3121989dff170e82d7c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline.  <br /></td></tr>
 <tr class="separator:ae0d4649227e3121989dff170e82d7c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,8 +240,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7061277e763acaf3ec528462c7453296" name="a7061277e763acaf3ec528462c7453296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7061277e763acaf3ec528462c7453296">&#9670;&#160;</a></span>Initialize()</h2>
+<a id="a1de113d40524003334860ac20f771362" name="a1de113d40524003334860ac20f771362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1de113d40524003334860ac20f771362">&#9670;&#160;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,8 +252,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">auto retinify::tools::StereoMatchingPipeline::Initialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45">Resolution</a>&#160;</td>
-          <td class="paramname"><em>resolution</em> = <code><a class="el" href="namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8">Resolution::LARGE</a></code></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a></code></td><td>)</td>
           <td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
         </tr>
       </table>
@@ -264,10 +264,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes the stereo matching pipeline with the specified processing resolution. </p>
+<p>Initializes the stereo matching pipeline with the specified processing mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">resolution</td><td>The processing resolution to use for the stereo matching pipeline. </td></tr>
+    <tr><td class="paramname">mode</td><td>The processing mode to use for the stereo matching pipeline. </td></tr>
   </table>
   </dd>
 </dl>
@@ -377,6 +377,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation succeeded. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Input images are resized internally, so as long as the left and right images share the same dimensions, their original sizes don’t matter. </dd></dl>
 
 </div>
 </div>
@@ -437,6 +438,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation succeeded. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Input images are resized internally, so as long as the left and right images share the same dimensions, their original sizes don’t matter. </dd></dl>
 
 </div>
 </div>

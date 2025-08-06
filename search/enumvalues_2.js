@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['error_0',['ERROR',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fabb1ca97ec761fc37101737ba0aa2e7c5',1,'retinify']]]
+  ['cuda_0',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]]
 ];

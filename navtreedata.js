@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "retinify documentation", "index.html", [
-    [ "Welcome to retinify", "index.html#autotoc_md0", [
+    [ "Welcome to retinify.", "index.html#autotoc_md0", [
       [ "🚀 Introduction", "index.html#autotoc_md1", null ],
       [ "⚡ Getting started", "index.html#autotoc_md2", null ],
       [ "✉️ Contact", "index.html#autotoc_md4", null ]

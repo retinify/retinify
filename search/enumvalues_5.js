@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['large_0',['LARGE',['../namespaceretinify_1_1tools.html#a00dfa55cbd3c5269b11f80983140bb45a71726adf0ff60cd03eaf3c515883eeb8',1,'retinify::tools']]]
+  ['fail_0',['FAIL',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ac2759effffc94bb9acc71d69fe3e8a1f',1,'retinify']]],
+  ['fast_1',['FAST',['../namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8adca6e617f6fb54033deb311e7e7c93cc',1,'retinify::tools']]],
+  ['fatal_2',['FATAL',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc',1,'retinify']]]
 ];
