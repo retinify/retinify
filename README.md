@@ -27,6 +27,12 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
   </tr>
 </table>
 
+## Why Retinify?
+- 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
+- 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
+- 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
+- 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
+
 ## Basic Usage
 
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
@@ -101,12 +107,6 @@ These measurements were taken using each setting of `retinify::tools::Mode`.
 | ----------------------- | ------------------ | ------------------ | ------------------ |
 | NVIDIA RTX 3060         | 3.800ms / 263.2FPS | 4.746ms / 210.7FPS | 11.672ms / 85.7FPS |
 | NVIDIA Jetson Orin Nano | 17.894ms / 55.9FPS | 25.079ms / 39.9FPS | 50.966ms / 19.6FPS |
-
-## Why Retinify?
-- 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
-- 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
-- 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
-- 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
