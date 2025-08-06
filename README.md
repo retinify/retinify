@@ -94,7 +94,8 @@ pipeline.Run(leftImage, rightImage, disparity);
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
 ## Pipeline Latencies
-Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.
+Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.  
+These measurements were taken using each setting of `retinify::tools::Mode`.  
 
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
