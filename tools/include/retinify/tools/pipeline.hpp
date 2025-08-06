@@ -12,8 +12,8 @@
 namespace retinify::tools
 {
 /// @brief
-/// The resolution options for stereo matching pipelines.
-enum class Resolution : std::uint8_t
+/// The model options for stereo matching pipelines.
+enum class Model : std::uint8_t
 {
     /// height=320, width=640
     SMALL,
@@ -36,12 +36,12 @@ class RETINIFY_API StereoMatchingPipeline
     auto operator=(StereoMatchingPipeline &&other) noexcept -> StereoMatchingPipeline & = delete;
 
     /// @brief
-    /// Initializes the stereo matching pipeline with the specified processing resolution.
-    /// @param resolution
-    /// The processing resolution to use for the stereo matching pipeline.
+    /// Initializes the stereo matching pipeline with the specified processing model.
+    /// @param model
+    /// The processing model to use for the stereo matching pipeline.
     /// @return
     /// A Status object indicating whether initialization succeeded.
-    [[nodiscard]] auto Initialize(Resolution resolution = Resolution::LARGE) noexcept -> Status;
+    [[nodiscard]] auto Initialize(Model model = Model::LARGE) noexcept -> Status;
 
     /// @brief
     /// Runs the stereo matching pipeline.
@@ -53,6 +53,9 @@ class RETINIFY_API StereoMatchingPipeline
     /// The output disparity map as a `cv::Mat`.
     /// @return
     /// A Status object indicating whether the operation succeeded.
+    /// @note
+    /// Input images are resized internally, so as long as the left and right
+    /// images share the same dimensions, their original sizes don’t matter.
     [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status;
 
     /// @brief
@@ -68,6 +71,9 @@ class RETINIFY_API StereoMatchingPipeline
     /// If the value is less than or equal to 0, the check will be skipped.
     /// @return
     /// A Status object indicating whether the operation succeeded.
+    /// @note
+    /// Input images are resized internally, so as long as the left and right
+    /// images share the same dimensions, their original sizes don’t matter.
     [[nodiscard]] auto RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                                                         float maxDisparityDifference = 1.0F) const noexcept -> Status;
 

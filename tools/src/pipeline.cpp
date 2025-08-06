@@ -62,24 +62,24 @@ static inline auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-auto StereoMatchingPipeline::Initialize(Resolution resolution) noexcept -> Status
+auto StereoMatchingPipeline::Initialize(Model model) noexcept -> Status
 {
-    switch (resolution)
+    switch (model)
     {
-    case Resolution::SMALL:
+    case Model::SMALL:
         matchingHeight_ = 320;
         matchingWidth_ = 640;
         break;
-    case Resolution::MEDIUM:
+    case Model::MEDIUM:
         matchingHeight_ = 480;
         matchingWidth_ = 640;
         break;
-    case Resolution::LARGE:
+    case Model::LARGE:
         matchingHeight_ = 720;
         matchingWidth_ = 1280;
         break;
     default:
-        LogError("Invalid resolution specified for LRConsistencyPipeline.");
+        LogError("Invalid model specified for StereoMatchingPipeline.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
