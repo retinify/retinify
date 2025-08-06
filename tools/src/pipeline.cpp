@@ -62,28 +62,28 @@ static inline auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
     return true;
 }
 
-auto StereoMatchingPipeline::Initialize(Resolution resolution) noexcept -> Status
+auto StereoMatchingPipeline::Initialize(Model model) noexcept -> Status
 {
-    switch (resolution)
+    switch (model)
     {
-    case Resolution::SMALL:
-        imageHeight_ = 320;
-        imageWidth_ = 640;
+    case Model::SMALL:
+        matchingHeight_ = 320;
+        matchingWidth_ = 640;
         break;
-    case Resolution::MEDIUM:
-        imageHeight_ = 480;
-        imageWidth_ = 640;
+    case Model::MEDIUM:
+        matchingHeight_ = 480;
+        matchingWidth_ = 640;
         break;
-    case Resolution::LARGE:
-        imageHeight_ = 720;
-        imageWidth_ = 1280;
+    case Model::LARGE:
+        matchingHeight_ = 720;
+        matchingWidth_ = 1280;
         break;
     default:
-        LogError("Invalid resolution specified for LRConsistencyPipeline.");
+        LogError("Invalid model specified for StereoMatchingPipeline.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    auto status = pipeline_.Initialize(imageHeight_, imageWidth_);
+    auto status = pipeline_.Initialize(matchingHeight_, matchingWidth_);
     return status;
 }
 
@@ -145,8 +145,8 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             rightGray = rightImage.clone();
         }
 
-        cv::resize(leftGray, leftGray, cv::Size(imageWidth_, imageHeight_));
-        cv::resize(rightGray, rightGray, cv::Size(imageWidth_, imageHeight_));
+        cv::resize(leftGray, leftGray, cv::Size(matchingWidth_, matchingHeight_));
+        cv::resize(rightGray, rightGray, cv::Size(matchingWidth_, matchingHeight_));
         leftGray.convertTo(leftGray, CV_32FC1);
         rightGray.convertTo(rightGray, CV_32FC1);
         cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
@@ -160,6 +160,9 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
         // If maxDisparityDifference is greater than 0, perform left-right consistency check
         if (maxDisparityDifference > 0.0F)
         {
+            // Scale maxDisparityDifference to fit the processing size
+            float tmpMaxDisparityDifference = maxDisparityDifference * (static_cast<float>(matchingWidth_) / static_cast<float>(leftImage.cols));
+
             cv::Mat leftGrayFlipped;
             cv::Mat rightGrayFlipped;
 
@@ -176,7 +179,7 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             cv::flip(rightDisparity, rightDisparity, 1);
 
             cv::Mat lrCheckedDisparity = cv::Mat::zeros(leftDisparity.size(), CV_32FC1);
-            if (!LRConsistencyCheck(leftDisparity, rightDisparity, lrCheckedDisparity, maxDisparityDifference))
+            if (!LRConsistencyCheck(leftDisparity, rightDisparity, lrCheckedDisparity, tmpMaxDisparityDifference))
             {
                 return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
             }
@@ -190,7 +193,7 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
 
         // resize disparity to original image size
         cv::resize(disparity, disparity, leftImage.size(), 0, 0, cv::INTER_NEAREST);
-        disparity = disparity * (static_cast<float>(leftImage.cols) / static_cast<float>(imageWidth_));
+        disparity = disparity * (static_cast<float>(leftImage.cols) / static_cast<float>(matchingWidth_));
     }
     catch (const std::exception &e)
     {
