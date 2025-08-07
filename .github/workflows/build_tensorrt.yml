@@ -19,8 +19,14 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        submodules: true      
-      
+        submodules: true
+
+    - name: Login to NVIDIA NGC
+      env:
+        NGC_API_KEY: ${{ secrets.NGC_API_KEY }}
+      run: |
+        echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
+
     - name: Build RETINIFY with TensorRT
       run: |
         docker run --rm \
