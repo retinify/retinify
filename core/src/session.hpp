@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "retinify/mat.hpp"
+#include "mat.hpp"
+
 #include "retinify/status.hpp"
 
 #include <array>
