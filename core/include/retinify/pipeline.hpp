@@ -7,7 +7,6 @@
 
 #include <array>
 #include <cstddef>
-#include <type_traits>
 
 namespace retinify
 {
@@ -57,7 +56,7 @@ class RETINIFY_API Pipeline
     class Impl;
     auto impl() noexcept -> Impl *;
     [[nodiscard]] auto impl() const noexcept -> const Impl *;
-    static constexpr std::size_t BufferSize = 512;
+    static constexpr std::size_t BufferSize = 2048;
     alignas(alignof(std::max_align_t)) std::array<unsigned char, BufferSize> buffer_{};
 };
 } // namespace retinify
