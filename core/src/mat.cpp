@@ -5,6 +5,8 @@
 
 #include "retinify/log.hpp"
 
+#include <cstdlib>
+#include <cstring>
 #include <limits>
 
 namespace retinify
