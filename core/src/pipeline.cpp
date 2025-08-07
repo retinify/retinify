@@ -1,10 +1,10 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "mat.hpp"
 #include "session.hpp"
 
 #include "retinify/log.hpp"
+#include "retinify/mat.hpp"
 #include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
