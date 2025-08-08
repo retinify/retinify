@@ -292,6 +292,11 @@ auto Mat::ElementCount() const noexcept -> std::size_t
     return rows_ * cols_ * channels_;
 }
 
+auto Mat::Stride() const noexcept -> std::size_t
+{
+    return deviceStride_;
+}
+
 auto Mat::Shape() const noexcept -> std::array<int64_t, 4>
 {
     return {1, static_cast<int64_t>(rows_), static_cast<int64_t>(cols_), static_cast<int64_t>(channels_)};
