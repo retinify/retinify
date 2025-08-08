@@ -11,8 +11,8 @@ namespace retinify
 class MatTest : public ::testing::Test
 {
   protected:
-    static constexpr std::size_t rows = 40;
-    static constexpr std::size_t cols = 30;
+    static constexpr std::size_t rows = 400;
+    static constexpr std::size_t cols = 300;
     static constexpr std::size_t channels = 3;
     static constexpr std::size_t bytesPerElement = sizeof(float);
 
@@ -64,6 +64,41 @@ TEST_F(MatTest, UploadDownload)
         for (std::size_t j = 0; j < cols * channels; ++j)
         {
             ASSERT_FLOAT_EQ(hostSrc_.at<float>(i, j), hostDst_.at<float>(i, j)) << "Mismatch at (" << i << ", " << j << ")";
+        }
+    }
+
+    Status stFree = mat_.Free();
+    ASSERT_TRUE(stFree.IsOK());
+}
+
+TEST_F(MatTest, UploadDownloadUInt8)
+{
+    constexpr std::size_t bytesPerElementUint8 = sizeof(std::uint8_t);
+
+    cv::Mat hostSrc(rows, cols * channels, CV_8U);
+    cv::randu(hostSrc, 0, 255);
+    cv::Mat hostDst = cv::Mat::zeros(rows, cols * channels, CV_8U);
+
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8);
+    ASSERT_TRUE(stAlloc.IsOK());
+
+    Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0]);
+    ASSERT_TRUE(stUp.IsOK());
+
+    Status stWaitUp = mat_.Wait();
+    ASSERT_TRUE(stWaitUp.IsOK());
+
+    Status stDown = mat_.Download(hostDst.ptr(), hostDst.step[0]);
+    ASSERT_TRUE(stDown.IsOK());
+
+    Status stWaitDown = mat_.Wait();
+    ASSERT_TRUE(stWaitDown.IsOK());
+
+    for (std::size_t i = 0; i < rows; ++i)
+    {
+        for (std::size_t j = 0; j < cols * channels; ++j)
+        {
+            ASSERT_EQ(hostSrc.at<std::uint8_t>(i, j), hostDst.at<std::uint8_t>(i, j)) << "Mismatch at (" << i << ", " << j << ")";
         }
     }
 

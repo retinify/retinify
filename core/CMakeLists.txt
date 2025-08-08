@@ -4,6 +4,12 @@ file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
 # LIBRARY
 add_library(retinify-core SHARED ${SRCS_CORE})
 
+# LINK LIBRARIES
+target_link_libraries(retinify-core
+    PRIVATE
+        stb
+)
+
 # INCLUDES
 target_include_directories(retinify-core
     PUBLIC
