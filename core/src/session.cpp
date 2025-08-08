@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "session.hpp"
-#include "mat.hpp"
 
 #include "retinify/log.hpp"
+#include "retinify/mat.hpp"
 #include "retinify/path.hpp"
 
 #include <filesystem>

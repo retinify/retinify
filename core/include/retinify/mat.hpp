@@ -7,17 +7,14 @@
 #include "retinify/status.hpp"
 
 #include <array>
-
-#ifdef BUILD_WITH_TENSORRT
-#include <cuda_runtime.h>
-#endif
+#include <cstddef>
 
 namespace retinify
 {
 class RETINIFY_API Mat
 {
   public:
-    Mat() noexcept = default;
+    Mat() noexcept;
     ~Mat() noexcept;
     Mat(const Mat &) = delete;
     auto operator=(const Mat &) -> Mat & = delete;
@@ -38,16 +35,10 @@ class RETINIFY_API Mat
     [[nodiscard]] auto Shape() const noexcept -> std::array<int64_t, 4>;
 
   private:
-#ifdef BUILD_WITH_TENSORRT
-    cudaStream_t stream_{nullptr};
-#endif
-    std::size_t rows_{0};
-    std::size_t cols_{0};
-    std::size_t channels_{0};
-    std::size_t bytesPerElement_{0};
-    std::size_t deviceRows_{0};
-    std::size_t deviceColumnsInBytes_{0};
-    std::size_t deviceStride_{0};
-    void *deviceData_{nullptr};
+    class Impl;
+    auto impl() noexcept -> Impl *;
+    [[nodiscard]] auto impl() const noexcept -> const Impl *;
+    static constexpr std::size_t BufferSize = 512;
+    alignas(alignof(std::max_align_t)) std::array<unsigned char, BufferSize> buffer_{};
 };
 } // namespace retinify
