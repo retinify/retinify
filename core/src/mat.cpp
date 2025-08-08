@@ -5,8 +5,6 @@
 
 #include "retinify/log.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <limits>
@@ -292,6 +290,11 @@ auto Mat::BytesPerElement() const noexcept -> std::size_t
 auto Mat::ElementCount() const noexcept -> std::size_t
 {
     return rows_ * cols_ * channels_;
+}
+
+auto Mat::Stride() const noexcept -> std::size_t
+{
+    return deviceStride_;
 }
 
 auto Mat::Shape() const noexcept -> std::array<int64_t, 4>

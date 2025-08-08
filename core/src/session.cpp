@@ -7,16 +7,14 @@
 #include "retinify/log.hpp"
 #include "retinify/path.hpp"
 
+#include <filesystem>
+#include <fstream>
+
 #ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>
 #include <NvOnnxParser.h>
 #include <cuda_runtime.h>
 #endif
-
-#include <exception>
-#include <filesystem>
-#include <fstream>
-#include <memory>
 
 namespace retinify
 {

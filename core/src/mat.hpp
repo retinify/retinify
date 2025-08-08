@@ -5,7 +5,9 @@
 
 #include "retinify/define.hpp"
 #include "retinify/status.hpp"
+
 #include <array>
+
 #ifdef BUILD_WITH_TENSORRT
 #include <cuda_runtime.h>
 #endif
@@ -32,6 +34,7 @@ class RETINIFY_API Mat
     [[nodiscard]] auto Channels() const noexcept -> std::size_t;
     [[nodiscard]] auto BytesPerElement() const noexcept -> std::size_t;
     [[nodiscard]] auto ElementCount() const noexcept -> std::size_t;
+    [[nodiscard]] auto Stride() const noexcept -> std::size_t;
     [[nodiscard]] auto Shape() const noexcept -> std::array<int64_t, 4>;
 
   private:

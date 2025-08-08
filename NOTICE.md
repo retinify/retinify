@@ -8,9 +8,10 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-| Name | Link | License | Copyright |
-| ------- | ------- | ------- | ------- |
+| Name        | Link                                     | License     | Copyright                           |
+| ----------- | ---------------------------------------- | ----------- | ----------------------------------- |
 | onnxruntime | https://github.com/microsoft/onnxruntime | MIT License | Copyright (c) Microsoft Corporation |
+| stb         | https://github.com/nothings/stb          | MIT License | Copyright (c) 2017 Sean Barrett     |
 ## Apache-2.0
 
                                  Apache License
@@ -214,11 +215,11 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-| Name | Link | License | Copyright |
-| ------- | ------- | ------- | ------- |
+| Name   | Link                             | License            | Copyright                 |
+| ------ | -------------------------------- | ------------------ | ------------------------- |
 | OpenCV | https://github.com/opencv/opencv | Apache-2.0 License | Copyright (c) OpenCV team |
 ## Other Third-Party Licenses
-| Name | Link | License | Copyright |
-| ------- | ------- | ------- | ------- |
-| CUDA Toolkit | https://developer.nvidia.com/cuda-toolkit | [CUDA End User License Agreement](https://docs.nvidia.com/cuda/eula/index.html) | Copyright (c) NVIDIA Corporation |
-| TensorRT | https://developer.nvidia.com/tensorrt | [TensorRT Software License Agreement](https://docs.nvidia.com/deeplearning/tensorrt/sla/index.html) | Copyright (c) NVIDIA Corporation |
+| Name         | Link                                      | License                                                                                             | Copyright                        |
+| ------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------- |
+| CUDA Toolkit | https://developer.nvidia.com/cuda-toolkit | [CUDA End User License Agreement](https://docs.nvidia.com/cuda/eula/index.html)                     | Copyright (c) NVIDIA Corporation |
+| TensorRT     | https://developer.nvidia.com/tensorrt     | [TensorRT Software License Agreement](https://docs.nvidia.com/deeplearning/tensorrt/sla/index.html) | Copyright (c) NVIDIA Corporation |

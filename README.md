@@ -28,7 +28,7 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
 </table>
 
 ## Why Retinify?
-- 🌐 **Open Source**: Fully customizable and freely available under an open-source license.
+- 🌐 **Open Source**: Fully customizable and freely available under an open source license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
@@ -102,6 +102,9 @@ pipeline.Run(leftImage, rightImage, disparity);
 ## Pipeline Latencies
 Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.  
 These measurements were taken using each setting of `retinify::tools::Mode`.  
+
+> [!NOTE]
+> Results may vary depending on the execution environment.
 
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
