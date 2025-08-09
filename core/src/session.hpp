@@ -3,11 +3,13 @@
 
 #pragma once
 
-#include "retinify/mat.hpp"
+#include "mat.hpp"
+
 #include "retinify/status.hpp"
 
 #include <array>
 #include <memory>
+
 #ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>
 #include <cuda_runtime.h>
