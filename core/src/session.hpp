@@ -9,6 +9,7 @@
 
 #include <array>
 #include <memory>
+
 #ifdef BUILD_WITH_TENSORRT
 #include <NvInfer.h>
 #include <cuda_runtime.h>
