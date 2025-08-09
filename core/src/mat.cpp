@@ -31,7 +31,7 @@ class Mat::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, bool copyToDevice) noexcept -> Status
+    auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
     {
         Status status = this->Free();
         if (!status.IsOK())
@@ -66,7 +66,7 @@ class Mat::Impl
         }
 
         void *newDeviceData = nullptr;
-        std::size_t newStride = 0;
+        std::size_t newDeviceStride = 0;
 
 #ifdef BUILD_WITH_TENSORRT
         cudaError_t streamError = cudaStreamCreate(&stream_);
@@ -76,14 +76,14 @@ class Mat::Impl
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
 
-        cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
+        cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newDeviceStride, columnsInBytes, rows);
         if (mallocError != cudaSuccess)
         {
             LogError(cudaGetErrorString(mallocError));
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
 
-        if (rows > std::numeric_limits<std::size_t>::max() / newStride)
+        if (rows > std::numeric_limits<std::size_t>::max() / newDeviceStride)
         {
             if (newDeviceData != nullptr)
             {
@@ -94,7 +94,7 @@ class Mat::Impl
                 }
                 newDeviceData = nullptr;
             }
-            LogError("Overflow in rows * newStride.");
+            LogError("Overflow in rows * newDeviceStride.");
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
 #else
@@ -104,13 +104,13 @@ class Mat::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        newStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
-        if (rows > std::numeric_limits<std::size_t>::max() / newStride)
+        newDeviceStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
+        if (rows > std::numeric_limits<std::size_t>::max() / newDeviceStride)
         {
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        std::size_t allocSize = newStride * rows;
+        std::size_t allocSize = newDeviceStride * rows;
         if (allocSize > std::numeric_limits<std::size_t>::max() - (alignment - 1))
         {
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
@@ -125,7 +125,7 @@ class Mat::Impl
 #endif
 
         this->deviceData_ = newDeviceData;
-        this->deviceStride_ = newStride;
+        this->deviceStride_ = newDeviceStride;
         this->rows_ = rows;
         this->cols_ = cols;
         this->channels_ = channels;
@@ -318,6 +318,7 @@ class Mat::Impl
 #ifdef BUILD_WITH_TENSORRT
     cudaStream_t stream_{nullptr};
 #endif
+
     std::size_t rows_{0};
     std::size_t cols_{0};
     std::size_t channels_{0};
@@ -351,9 +352,9 @@ auto Mat::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, bool copyToDevice) noexcept -> Status
+auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
 {
-    return impl()->Allocate(rows, cols, channels, bytesPerElement, copyToDevice);
+    return impl()->Allocate(rows, cols, channels, bytesPerElement);
 }
 
 auto Mat::Free() noexcept -> Status
