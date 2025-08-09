@@ -31,7 +31,7 @@ class Mat::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
+    auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, bool copyToDevice) noexcept -> Status
     {
         Status status = this->Free();
         if (!status.IsOK())
@@ -166,7 +166,6 @@ class Mat::Impl
             }
             stream_ = nullptr;
         }
-
 #endif
 
         this->deviceStride_ = 0;
@@ -207,7 +206,6 @@ class Mat::Impl
             LogError(cudaGetErrorString(copyError));
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
-
 #else
         const unsigned char *src = static_cast<const unsigned char *>(hostData);
         unsigned char *dst = static_cast<unsigned char *>(deviceData_);
@@ -247,7 +245,6 @@ class Mat::Impl
             LogError(cudaGetErrorString(copyError));
             return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
-
 #else
         const unsigned char *src = static_cast<const unsigned char *>(deviceData_);
         unsigned char *dst = static_cast<unsigned char *>(hostData);
@@ -354,9 +351,9 @@ auto Mat::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
+auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, bool copyToDevice) noexcept -> Status
 {
-    return impl()->Allocate(rows, cols, channels, bytesPerElement);
+    return impl()->Allocate(rows, cols, channels, bytesPerElement, copyToDevice);
 }
 
 auto Mat::Free() noexcept -> Status
