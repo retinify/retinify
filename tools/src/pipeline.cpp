@@ -87,13 +87,13 @@ auto StereoMatchingPipeline::Initialize(Mode mode) noexcept -> Status
     return status;
 }
 
-auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status
+auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) noexcept -> Status
 {
     constexpr float kMaxDisparityDifference = -1.0F; // Disable left-right consistency check by default
     return RunImpl(leftImage, rightImage, disparity, kMaxDisparityDifference);
 }
 
-auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) noexcept -> Status
 {
     if (maxDisparityDifference <= 0.0F)
     {
@@ -102,7 +102,7 @@ auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &lef
     return RunImpl(leftImage, rightImage, disparity, maxDisparityDifference);
 }
 
-auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) noexcept -> Status
 {
     try
     {

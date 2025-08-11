@@ -50,7 +50,7 @@ class RETINIFY_API Pipeline
     /// A Status object indicating whether the operation was successful.
     [[nodiscard]] auto Run(const void *leftImageData, std::size_t leftImageStride,   //
                            const void *rightImageData, std::size_t rightImageStride, //
-                           void *disparityData, std::size_t disparityStride) const noexcept -> Status;
+                           void *disparityData, std::size_t disparityStride) noexcept -> Status;
 
   private:
     class Impl;

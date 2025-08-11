@@ -94,7 +94,7 @@ class Pipeline::Impl
         return status;
     }
 
-    auto Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) const noexcept -> Status
+    auto Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) noexcept -> Status
     {
         Status status;
 
@@ -192,7 +192,7 @@ auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth) noexc
     return this->impl()->Initialize(imageHeight, imageWidth);
 }
 
-auto Pipeline::Run(const void *leftImageData, std::size_t leftImageStride, const void *rightImageData, std::size_t rightImageStride, void *disparityData, std::size_t disparityStride) const noexcept -> Status
+auto Pipeline::Run(const void *leftImageData, std::size_t leftImageStride, const void *rightImageData, std::size_t rightImageStride, void *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
 }
