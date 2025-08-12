@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+#include "buffer.hpp"
 #include "mat.hpp"
 #include "session.hpp"
 
@@ -48,6 +49,9 @@ class Pipeline::Impl
             return status;
         }
 
+        imageHeight_ = imageHeight;
+        imageWidth_ = imageWidth;
+
         status = left_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
@@ -94,7 +98,7 @@ class Pipeline::Impl
         return status;
     }
 
-    auto Run(const void *leftImageData, const std::size_t leftImageStride, const void *rightImageData, const std::size_t rightImageStride, void *disparityData, const std::size_t disparityStride) noexcept -> Status
+    auto Run(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
     {
         Status status;
 
@@ -105,13 +109,20 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left_.Upload(leftImageData, leftImageStride);
+        PipelineImageBuffer leftBuffer_;
+        PipelineImageBuffer rightBuffer_;
+        (void)leftBuffer_.Resize(imageHeight_, imageWidth_);
+        (void)rightBuffer_.Resize(imageHeight_, imageWidth_);
+        (void)leftBuffer_.Upload(leftImageData, leftImageStride);
+        (void)rightBuffer_.Upload(rightImageData, rightImageStride);
+
+        status = left_.Upload(leftBuffer_.Data(), leftBuffer_.Stride());
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Upload(rightImageData, rightImageStride);
+        status = right_.Upload(rightBuffer_.Data(), rightBuffer_.Stride());
         if (!status.IsOK())
         {
             return status;
@@ -158,6 +169,8 @@ class Pipeline::Impl
 
   private:
     bool initialized_{false};
+    size_t imageHeight_{0};
+    size_t imageWidth_{0};
     Session session_;
     Mat left_;
     Mat right_;
@@ -192,7 +205,7 @@ auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth) noexc
     return this->impl()->Initialize(imageHeight, imageWidth);
 }
 
-auto Pipeline::Run(const void *leftImageData, std::size_t leftImageStride, const void *rightImageData, std::size_t rightImageStride, void *disparityData, std::size_t disparityStride) noexcept -> Status
+auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
 }

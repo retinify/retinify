@@ -5,9 +5,10 @@ file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
 add_library(retinify-core SHARED ${SRCS_CORE})
 
 # LINK LIBRARIES
+find_package(OpenMP REQUIRED)
 target_link_libraries(retinify-core
     PRIVATE
-        stb
+        stb OpenMP::OpenMP_CXX
 )
 
 # INCLUDES
