@@ -87,13 +87,13 @@ auto StereoMatchingPipeline::Initialize(Mode mode) noexcept -> Status
     return status;
 }
 
-auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status
+auto StereoMatchingPipeline::Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) noexcept -> Status
 {
     constexpr float kMaxDisparityDifference = -1.0F; // Disable left-right consistency check by default
     return RunImpl(leftImage, rightImage, disparity, kMaxDisparityDifference);
 }
 
-auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) noexcept -> Status
 {
     if (maxDisparityDifference <= 0.0F)
     {
@@ -102,7 +102,7 @@ auto StereoMatchingPipeline::RunWithLeftRightConsistencyCheck(const cv::Mat &lef
     return RunImpl(leftImage, rightImage, disparity, maxDisparityDifference);
 }
 
-auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) const noexcept -> Status
+auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, const float maxDisparityDifference) noexcept -> Status
 {
     try
     {
@@ -147,11 +147,9 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
 
         cv::resize(leftGray, leftGray, cv::Size(matchingWidth_, matchingHeight_));
         cv::resize(rightGray, rightGray, cv::Size(matchingWidth_, matchingHeight_));
-        leftGray.convertTo(leftGray, CV_32FC1);
-        rightGray.convertTo(rightGray, CV_32FC1);
         cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
 
-        auto leftStatus = pipeline_.Run(leftGray.ptr(), leftGray.step[0], rightGray.ptr(), rightGray.step[0], leftDisparity.ptr(), leftDisparity.step[0]);
+        auto leftStatus = pipeline_.Run(leftGray.ptr<std::uint8_t>(), leftGray.step[0], rightGray.ptr<std::uint8_t>(), rightGray.step[0], leftDisparity.ptr<float>(), leftDisparity.step[0]);
         if (!leftStatus.IsOK())
         {
             return leftStatus;
@@ -170,7 +168,7 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             cv::flip(rightGray, rightGrayFlipped, 1);
             cv::Mat rightDisparity = cv::Mat::zeros(rightGray.size(), CV_32FC1);
 
-            auto rightStatus = pipeline_.Run(rightGrayFlipped.ptr(), rightGrayFlipped.step[0], leftGrayFlipped.ptr(), leftGrayFlipped.step[0], rightDisparity.ptr(), rightDisparity.step[0]);
+            auto rightStatus = pipeline_.Run(rightGrayFlipped.ptr<std::uint8_t>(), rightGrayFlipped.step[0], leftGrayFlipped.ptr<std::uint8_t>(), leftGrayFlipped.step[0], rightDisparity.ptr<float>(), rightDisparity.step[0]);
             if (!rightStatus.IsOK())
             {
                 return rightStatus;
