@@ -74,7 +74,7 @@ pipeline.Run(leftImage, rightImage, disparity);
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
-| ⚡ Target                                            | Status                                             |
+| 🎯 Target                                            | Status                                             |
 | --------------------------------------------------- | -------------------------------------------------- |
 | [![target_cpu_badge][]][build_cpu_status]           | [![build_cpu_badge][]][build_cpu_status]           |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
@@ -109,7 +109,7 @@ These measurements were taken using each setting of `retinify::tools::Mode`.
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
 | NVIDIA RTX 3060         | 3.800ms / 263.2FPS | 4.746ms / 210.7FPS | 11.672ms / 85.7FPS |
-| NVIDIA Jetson Orin Nano | 17.894ms / 55.9FPS | 25.079ms / 39.9FPS | 50.966ms / 19.6FPS |
+| NVIDIA Jetson Orin Nano | 18.532ms / 54.0FPS | 25.151ms / 39.8FPS | 49.190ms / 20.3FPS |
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
