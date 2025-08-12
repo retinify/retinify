@@ -35,22 +35,22 @@ class RETINIFY_API Pipeline
     /// @brief
     /// Executes the stereo matching pipeline using the given left and right image data.
     /// @param leftImageData
-    /// Pointer to the left image data (e.g., raw pixels).
+    /// Pointer to the left image data (8-bit grayscale).
     /// @param leftImageStride
     /// Stride (in bytes) of a row in the left image.
     /// @param rightImageData
-    /// Pointer to the right image data.
+    /// Pointer to the right image data (8-bit grayscale).
     /// @param rightImageStride
     /// Stride (in bytes) of a row in the right image.
     /// @param disparityData
-    /// Pointer to the output buffer for disparity data.
+    /// Pointer to the output buffer for disparity data (32-bit float).
     /// @param disparityStride
     /// Stride (in bytes) of a row in the output disparity data.
     /// @return
     /// A Status object indicating whether the operation was successful.
-    [[nodiscard]] auto Run(const void *leftImageData, std::size_t leftImageStride,   //
-                           const void *rightImageData, std::size_t rightImageStride, //
-                           void *disparityData, std::size_t disparityStride) const noexcept -> Status;
+    [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
+                           const std::uint8_t *rightImageData, std::size_t rightImageStride, //
+                           float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
   private:
     class Impl;

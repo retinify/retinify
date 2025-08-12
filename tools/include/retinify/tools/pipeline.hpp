@@ -56,7 +56,7 @@ class RETINIFY_API StereoMatchingPipeline
     /// @note
     /// Input images are resized internally, so as long as the left and right
     /// images share the same dimensions, their original sizes don’t matter.
-    [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) const noexcept -> Status;
+    [[nodiscard]] auto Run(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity) noexcept -> Status;
 
     /// @brief
     /// Runs the stereo matching pipeline with left-right consistency check on the provided images.
@@ -75,11 +75,11 @@ class RETINIFY_API StereoMatchingPipeline
     /// Input images are resized internally, so as long as the left and right
     /// images share the same dimensions, their original sizes don’t matter.
     [[nodiscard]] auto RunWithLeftRightConsistencyCheck(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
-                                                        float maxDisparityDifference = 1.0F) const noexcept -> Status;
+                                                        float maxDisparityDifference = 1.0F) noexcept -> Status;
 
   private:
     [[nodiscard]] auto RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
-                               float maxDisparityDifference) const noexcept -> Status;
+                               float maxDisparityDifference) noexcept -> Status;
 
     size_t matchingHeight_{0};
     size_t matchingWidth_{0};
