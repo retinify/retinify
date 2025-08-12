@@ -73,6 +73,10 @@ class PipelineImageBuffer
         {
             const std::uint8_t *srcRow = imageData + static_cast<std::size_t>(row) * imageStride;
             float *dstRow = buffer_.data() + static_cast<std::size_t>(row) * imageWidth_;
+
+#ifdef _OPENMP
+#pragma omp simd
+#endif
             for (std::size_t col = 0; col < imageWidth_; ++col)
             {
                 dstRow[col] = static_cast<float>(srcRow[col]);
@@ -94,7 +98,7 @@ class PipelineImageBuffer
 
   private:
     static constexpr std::size_t BufferSize = 720 * 1280 * 1;
-    std::array<float, BufferSize> buffer_{};
+    alignas(64) std::array<float, BufferSize> buffer_{};
     std::size_t imageHeight_{0};
     std::size_t imageWidth_{0};
     std::size_t imageStride_{0};
