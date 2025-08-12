@@ -25,7 +25,7 @@ class PipelineImageBuffer
     PipelineImageBuffer(PipelineImageBuffer &&) noexcept = delete;
     auto operator=(PipelineImageBuffer &&) noexcept -> PipelineImageBuffer & = delete;
 
-    [[nodiscard]] auto Resize(std::size_t imageHeight, std::size_t imageWidth) -> Status
+    [[nodiscard]] auto Resize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status
     {
         if (imageHeight == 0 || imageWidth == 0)
         {
