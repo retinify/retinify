@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('md_markdown_2installation.html',''); i
  This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools. <br  />
 </p>
 <h1><a class="anchor" id="autotoc_md6"></a>
-0. Dependencies</h1>
+1. Dependencies</h1>
 <ul>
 <li><a href="https://gcc.gnu.org/releases.html"><b>GCC 11 or later</b></a></li>
 <li><a href="https://cmake.org/download/"><b>CMake 3.14 or later</b></a></li>
@@ -114,16 +114,17 @@ $(document).ready(function(){initNavTree('md_markdown_2installation.html',''); i
 <dl class="section note"><dt>Note</dt><dd>OpenCV is only required when building <code><a class="el" href="namespaceretinify_1_1tools.html">retinify::tools</a></code> with the <code>--tools</code> option. <br  />
  If you do not use the <code>--tools</code> option, OpenCV is not required.</dd></dl>
 <h1><a class="anchor" id="autotoc_md7"></a>
-1. Clone the retinify repository.</h1>
+2. Clone the retinify repository.</h1>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
 <div class="line">cd retinify</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
-2. Install retinify</h1>
-<p>Select the hardware backend (e.g., NVIDIA GPU or CPU) to be used for acceleration, then run the installation script with the appropriate options.</p>
+3. Install retinify</h1>
+<p>Build retinify and install its Debian package. <br  />
+ Select the hardware backend (e.g., NVIDIA GPU or CPU) to be used for acceleration, then run the installation script with the appropriate options.</p>
 <dl class="section note"><dt>Note</dt><dd>If you do not add <code>--install</code>, a Debian package will just be created in the build directory. <br  />
 </dd></dl>
 <h2><a class="anchor" id="autotoc_md9"></a>
-2.1 with TensorRT</h2>
+3.1 with TensorRT</h2>
 <p>The following additional libraries are required.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -133,19 +134,13 @@ $(document).ready(function(){initNavTree('md_markdown_2installation.html',''); i
 </table>
 <div class="fragment"><div class="line">./build.sh --install --tensorrt --tools</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
-2.2 with CPU</h2>
+3.2 with CPU</h2>
 <div class="fragment"><div class="line">./build.sh --install --cpu --tools</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
-2.3 with HailoRT</h2>
-<p>coming soon</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
-2.4 with OpenVINO</h2>
-<p>coming soon</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
-3. Verify Installation</h1>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
+4. Verify Installation</h1>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
-4. Uninstall retinify</h1>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+5. Uninstall retinify</h1>
 <p>To uninstall the Debian package, use the following script. </p><div class="fragment"><div class="line">sudo apt remove libretinify-dev</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

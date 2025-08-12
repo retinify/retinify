@@ -127,12 +127,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1de113d40524003334860ac20f771362" id="r_a1de113d40524003334860ac20f771362"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362">Initialize</a> (<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a> mode=<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a1de113d40524003334860ac20f771362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing mode.  <br /></td></tr>
 <tr class="separator:a1de113d40524003334860ac20f771362"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0d4649227e3121989dff170e82d7c8a" id="r_ae0d4649227e3121989dff170e82d7c8a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#ae0d4649227e3121989dff170e82d7c8a">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:ae0d4649227e3121989dff170e82d7c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline.  <br /></td></tr>
-<tr class="separator:ae0d4649227e3121989dff170e82d7c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf73a02c65c4d67f1706583d8f3d5678" id="r_aaf73a02c65c4d67f1706583d8f3d5678"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#aaf73a02c65c4d67f1706583d8f3d5678">RunWithLeftRightConsistencyCheck</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity, float maxDisparityDifference=1.0F) const noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:aaf73a02c65c4d67f1706583d8f3d5678"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline with left-right consistency check on the provided images.  <br /></td></tr>
-<tr class="separator:aaf73a02c65c4d67f1706583d8f3d5678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a74777efea43cf3d9ae9ced89479d4c" id="r_a0a74777efea43cf3d9ae9ced89479d4c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a0a74777efea43cf3d9ae9ced89479d4c">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a0a74777efea43cf3d9ae9ced89479d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline.  <br /></td></tr>
+<tr class="separator:a0a74777efea43cf3d9ae9ced89479d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57ac18825d15c7c6e062feab668fa80c" id="r_a57ac18825d15c7c6e062feab668fa80c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a57ac18825d15c7c6e062feab668fa80c">RunWithLeftRightConsistencyCheck</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity, float maxDisparityDifference=1.0F) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a57ac18825d15c7c6e062feab668fa80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline with left-right consistency check on the provided images.  <br /></td></tr>
+<tr class="separator:a57ac18825d15c7c6e062feab668fa80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class provides an interface for running a stereo matching pipeline using OpenCV. </p>
@@ -327,8 +327,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0d4649227e3121989dff170e82d7c8a" name="ae0d4649227e3121989dff170e82d7c8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0d4649227e3121989dff170e82d7c8a">&#9670;&#160;</a></span>Run()</h2>
+<a id="a0a74777efea43cf3d9ae9ced89479d4c" name="a0a74777efea43cf3d9ae9ced89479d4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a74777efea43cf3d9ae9ced89479d4c">&#9670;&#160;</a></span>Run()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +357,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
         </tr>
       </table>
   </td>
@@ -381,8 +381,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aaf73a02c65c4d67f1706583d8f3d5678" name="aaf73a02c65c4d67f1706583d8f3d5678"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf73a02c65c4d67f1706583d8f3d5678">&#9670;&#160;</a></span>RunWithLeftRightConsistencyCheck()</h2>
+<a id="a57ac18825d15c7c6e062feab668fa80c" name="a57ac18825d15c7c6e062feab668fa80c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57ac18825d15c7c6e062feab668fa80c">&#9670;&#160;</a></span>RunWithLeftRightConsistencyCheck()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +417,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
         </tr>
       </table>
   </td>

@@ -101,13 +101,13 @@ $(document).ready(function(){initNavTree('md_markdown_2tutorials.html',''); init
   <div class="headertitle"><div class="title">Tutorials</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md15"></a>This tutorial provides a step-by-step guide to using retinify with OpenCV. Please refer to the following repository for the code examples used throughout the tutorial. <br  />
+<div class="textblock"><p><a class="anchor" id="autotoc_md13"></a>This tutorial provides a step-by-step guide to using retinify with OpenCV. Please refer to the following repository for the code examples used throughout the tutorial. <br  />
  👉 <a href="https://github.com/retinify/retinify-opencv-template">Example Repository</a></p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 1. Install retinify</h1>
 <p>Please refer to the <a class="el" href="md_markdown_2installation.html">Installation</a> section for details. <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 2. Link retinify</h1>
 <p>We recommend using a CMake-based project when integrating retinify. <br  />
  Retinify requires <b>C++20</b> and <b>GCC 11 or later</b>. <br  />
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('md_markdown_2tutorials.html',''); init
 <div class="line">find_package(retinify REQUIRED)</div>
 <div class="line"> </div>
 <div class="line">target_link_libraries(${PROJECT_NAME} retinify)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
 3. C++ Code</h1>
 <p>In this tutorial, we will use image data in the form of <code>cv::Mat</code>. <br  />
  Stereo matching can be performed using the <code><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html" title="This class provides an interface for running a stereo matching pipeline using OpenCV.">retinify::tools::StereoMatchingPipeline</a></code>. <br  />
@@ -138,15 +138,15 @@ $(document).ready(function(){initNavTree('md_markdown_2tutorials.html',''); init
 <div class="line">pipeline.<a class="code hl_function" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362">Initialize</a>();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// EXECUTE STEREO MATCHING</span></div>
-<div class="line">pipeline.<a class="code hl_function" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#ae0d4649227e3121989dff170e82d7c8a">Run</a>(leftImage, rightImage, disparity);</div>
+<div class="line">pipeline.<a class="code hl_function" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a0a74777efea43cf3d9ae9ced89479d4c">Run</a>(leftImage, rightImage, disparity);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// SHOW DISPARITY</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> maxDisparity = 256;</div>
 <div class="line">cv::imshow(<span class="stringliteral">&quot;disparity&quot;</span>, <a class="code hl_function" href="namespaceretinify_1_1tools.html#ab33d301f0fba216b39ac3c0d0a8c6980">retinify::tools::ColorizeDisparity</a>(disparity, maxDisparity));</div>
 <div class="line">cv::waitKey(0);</div>
 <div class="ttc" id="aclassretinify_1_1tools_1_1StereoMatchingPipeline_html"><div class="ttname"><a href="classretinify_1_1tools_1_1StereoMatchingPipeline.html">retinify::tools::StereoMatchingPipeline</a></div><div class="ttdoc">This class provides an interface for running a stereo matching pipeline using OpenCV.</div><div class="ttdef"><b>Definition</b> pipeline.hpp:29</div></div>
+<div class="ttc" id="aclassretinify_1_1tools_1_1StereoMatchingPipeline_html_a0a74777efea43cf3d9ae9ced89479d4c"><div class="ttname"><a href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a0a74777efea43cf3d9ae9ced89479d4c">retinify::tools::StereoMatchingPipeline::Run</a></div><div class="ttdeci">auto Run(const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) noexcept -&gt; Status</div><div class="ttdoc">Runs the stereo matching pipeline.</div></div>
 <div class="ttc" id="aclassretinify_1_1tools_1_1StereoMatchingPipeline_html_a1de113d40524003334860ac20f771362"><div class="ttname"><a href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362">retinify::tools::StereoMatchingPipeline::Initialize</a></div><div class="ttdeci">auto Initialize(Mode mode=Mode::ACCURATE) noexcept -&gt; Status</div><div class="ttdoc">Initializes the stereo matching pipeline with the specified processing mode.</div></div>
-<div class="ttc" id="aclassretinify_1_1tools_1_1StereoMatchingPipeline_html_ae0d4649227e3121989dff170e82d7c8a"><div class="ttname"><a href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#ae0d4649227e3121989dff170e82d7c8a">retinify::tools::StereoMatchingPipeline::Run</a></div><div class="ttdeci">auto Run(const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) const noexcept -&gt; Status</div><div class="ttdoc">Runs the stereo matching pipeline.</div></div>
 <div class="ttc" id="anamespaceretinify_1_1tools_html_ab33d301f0fba216b39ac3c0d0a8c6980"><div class="ttname"><a href="namespaceretinify_1_1tools.html#ab33d301f0fba216b39ac3c0d0a8c6980">retinify::tools::ColorizeDisparity</a></div><div class="ttdeci">RETINIFY_API cv::Mat ColorizeDisparity(const cv::Mat &amp;disparity, int maxDisparity)</div><div class="ttdoc">Colorizes a disparity map.</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
