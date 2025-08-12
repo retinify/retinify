@@ -98,6 +98,57 @@ class Pipeline::Impl
         return status;
     }
 
+    [[nodiscard]] auto CheckInitialized() const noexcept -> Status
+    {
+        if (!initialized_)
+        {
+            LogError("retinify::Pipeline is not initialized. Call Initialize() before using Run().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+        return Status{};
+    }
+
+    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
+    {
+        if (!leftImageData)
+        {
+            LogError("Left image data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (!rightImageData)
+        {
+            LogError("Right image data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (!disparityData)
+        {
+            LogError("Output disparity data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (leftImageStride < imageWidth_ * sizeof(std::uint8_t))
+        {
+            LogError("Left image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (rightImageStride < imageWidth_ * sizeof(std::uint8_t))
+        {
+            LogError("Right image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (disparityStride < imageWidth_ * sizeof(float))
+        {
+            LogError("Disparity stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        return Status{};
+    }
+
     auto Run(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
     {
         Status status;
@@ -109,12 +160,38 @@ class Pipeline::Impl
             return status;
         }
 
+        status = CheckInputImage(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
         PipelineImageBuffer leftBuffer_;
         PipelineImageBuffer rightBuffer_;
-        (void)leftBuffer_.Resize(imageHeight_, imageWidth_);
-        (void)rightBuffer_.Resize(imageHeight_, imageWidth_);
-        (void)leftBuffer_.Upload(leftImageData, leftImageStride);
-        (void)rightBuffer_.Upload(rightImageData, rightImageStride);
+
+        status = leftBuffer_.Resize(imageHeight_, imageWidth_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightBuffer_.Resize(imageHeight_, imageWidth_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftBuffer_.Upload(leftImageData, leftImageStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightBuffer_.Upload(rightImageData, rightImageStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
 
         status = left_.Upload(leftBuffer_.Data(), leftBuffer_.Stride());
         if (!status.IsOK())
