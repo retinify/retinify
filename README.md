@@ -108,7 +108,7 @@ These measurements were taken using each setting of `retinify::tools::Mode`.
 
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
-| NVIDIA RTX 3060         | 3.800ms / 263.2FPS | 4.746ms / 210.7FPS | 11.672ms / 85.7FPS |
+| NVIDIA RTX 3060         | 4.082ms / 245.0FPS | 4.941ms / 202.4FPS | 12.138ms / 82.4FPS |
 | NVIDIA Jetson Orin Nano | 18.532ms / 54.0FPS | 25.151ms / 39.8FPS | 49.190ms / 20.3FPS |
 
 ## Third-Party
