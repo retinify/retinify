@@ -115,5 +115,4 @@ These measurements were taken using each setting of `retinify::tools::Mode`.
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
 
 ## Contact
-For any inquiries, please feel free to contact us at **[contact@retinify.ai](mailto:contact@retinify.ai)**.  
-We would be pleased to assist you and look forward to hearing from you.
+For commercial inquiries, additional technical support, or any other questions, please feel free to contact us at **[contact@retinify.ai](mailto:contact@retinify.ai)**.  
