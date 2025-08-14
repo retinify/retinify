@@ -1,4 +1,4 @@
-# API Reference 
+\page api API Reference
 
 Retinify is written in C++ and defined under the `retinify::` namespace.  
 The key classes for using retinify are as follows:

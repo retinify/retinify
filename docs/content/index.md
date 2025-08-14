@@ -6,9 +6,9 @@
   />
 </a>
 
-# Welcome to retinify
+\section welcome Welcome to retinify
 
-## 🚀 Introduction
+\subsection introduction 🚀 Introduction
 Retinify is an advanced AI-powered stereo vision library designed for robotics.  
 It enables real-time, high-precision 3D perception by offloading compute-intensive tasks to GPUs and NPUs.
   
@@ -24,16 +24,16 @@ It enables real-time, high-precision 3D perception by offloading compute-intensi
 [![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=instagram)](https://www.instagram.com/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
-## ⚡ Getting started
-1. [Install retinify](installation.md)  
+\subsection getting_started ⚡ Getting started
+1. [Install retinify](installation.html)  
 Step-by-step instructions to build and install retinify.
-1. [Tutorials](tutorials.md)  
+1. [Tutorials](tutorials.html)  
 Hands-on examples to get you started with real-world use cases.
-1. [API Reference](api.md)  
+1. [API Reference](api.html)  
 Detailed class and function-level documentation for developers.
 
 ---
 
-## ✉️ Contact
+\subsection contact ✉️ Contact
 For any inquiries, please feel free to contact us at [contact@retinify.ai](mailto:contact@retinify.ai).  
 We would be pleased to assist you and look forward to hearing from you.  

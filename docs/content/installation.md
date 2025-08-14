@@ -1,4 +1,5 @@
-# Installation
+\page installation Installation
+
 retinify supports Linux (Ubuntu) and can be easily installed using the provided `build.sh` script.  
 This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools.  
 
@@ -20,10 +21,7 @@ cd retinify
 # 3. Install retinify
 Build retinify and install its Debian package.  
 Select the hardware backend (e.g., NVIDIA GPU or CPU) to be used for acceleration, then run the installation script with the appropriate options.
-  
-@note
-If you do not add `--install`, a Debian package will just be created in the build directory.  
-  
+
 ## 3.1 with TensorRT
 The following additional libraries are required.
   
