@@ -25,27 +25,23 @@
 var NAVTREE =
 [
   [ "retinify documentation", "index.html", [
-    [ "Welcome to retinify", "index.html#autotoc_md0", [
-      [ "🚀 Introduction", "index.html#autotoc_md1", null ],
-      [ "⚡ Getting started", "index.html#autotoc_md2", null ],
-      [ "✉️ Contact", "index.html#autotoc_md4", null ]
+    [ "Welcome to retinify", "index.html#welcome", [
+      [ "🚀 Introduction", "index.html#introduction", null ],
+      [ "⚡ Getting started", "index.html#getting_started", null ],
+      [ "✉️ Contact", "index.html#contact", null ]
     ] ],
-    [ "Installation", "md_markdown_2installation.html", [
-      [ "1. Dependencies", "md_markdown_2installation.html#autotoc_md6", null ],
-      [ "2. Clone the retinify repository.", "md_markdown_2installation.html#autotoc_md7", null ],
-      [ "3. Install retinify", "md_markdown_2installation.html#autotoc_md8", [
-        [ "3.1 with TensorRT", "md_markdown_2installation.html#autotoc_md9", null ],
-        [ "3.2 with CPU", "md_markdown_2installation.html#autotoc_md10", null ]
+    [ "Installation", "installation.html", [
+      [ "1. Dependencies", "installation.html#autotoc_md1", null ],
+      [ "2. Clone the retinify repository.", "installation.html#autotoc_md2", null ],
+      [ "3. Install retinify", "installation.html#autotoc_md3", [
+        [ "3.1 with TensorRT", "installation.html#autotoc_md4", null ],
+        [ "3.2 with CPU", "installation.html#autotoc_md5", null ]
       ] ],
-      [ "4. Verify Installation", "md_markdown_2installation.html#autotoc_md11", null ],
-      [ "5. Uninstall retinify", "md_markdown_2installation.html#autotoc_md12", null ]
+      [ "4. Verify Installation", "installation.html#autotoc_md6", null ],
+      [ "5. Uninstall retinify", "installation.html#autotoc_md7", null ]
     ] ],
-    [ "Tutorials", "md_markdown_2tutorials.html", [
-      [ "1. Install retinify", "md_markdown_2tutorials.html#autotoc_md14", null ],
-      [ "2. Link retinify", "md_markdown_2tutorials.html#autotoc_md15", null ],
-      [ "3. C++ Code", "md_markdown_2tutorials.html#autotoc_md16", null ]
-    ] ],
-    [ "API Reference", "md_markdown_2api.html", null ],
+    [ "Tutorials", "tutorials.html", null ],
+    [ "API Reference", "api.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

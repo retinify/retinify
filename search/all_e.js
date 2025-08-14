@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['link_20retinify_0',['2. Link retinify',['../md_markdown_2tutorials.html#autotoc_md15',1,'']]],
+  ['link_20retinify_0',['2. Link retinify',['../tutorials.html#autotoc_md9',1,'']]],
   ['log_2ehpp_1',['log.hpp',['../log_8hpp.html',1,'']]],
   ['logdebug_2',['LogDebug',['../namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b',1,'retinify']]],
   ['logerror_3',['LogError',['../namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0',1,'retinify']]],
