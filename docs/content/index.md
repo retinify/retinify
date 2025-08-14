@@ -35,5 +35,4 @@ Detailed class and function-level documentation for developers.
 ---
 
 \subsection contact ✉️ Contact
-For any inquiries, please feel free to contact us at [contact@retinify.ai](mailto:contact@retinify.ai).  
-We would be pleased to assist you and look forward to hearing from you.  
+For commercial inquiries, additional technical support, or any other questions, please feel free to contact us at [contact@retinify.ai](mailto:contact@retinify.ai).  
