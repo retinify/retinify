@@ -10,10 +10,6 @@
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 
-#include <atomic>
-#include <cassert>
-#include <chrono>
-#include <iostream>
 #include <new>
 
 namespace retinify
@@ -49,8 +45,8 @@ class Pipeline::Impl
             return status;
         }
 
-        imageHeight_ = imageHeight;
-        imageWidth_ = imageWidth;
+        matchingHeight_ = imageHeight;
+        matchingWidth_ = imageWidth;
 
         status = left_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
@@ -98,16 +94,6 @@ class Pipeline::Impl
         return status;
     }
 
-    [[nodiscard]] auto CheckInitialized() const noexcept -> Status
-    {
-        if (!initialized_)
-        {
-            LogError("retinify::Pipeline is not initialized. Call Initialize() before using Run().");
-            return Status(StatusCategory::USER, StatusCode::FAIL);
-        }
-        return Status{};
-    }
-
     [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
     {
         if (!leftImageData)
@@ -128,19 +114,19 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (leftImageStride < imageWidth_ * sizeof(std::uint8_t))
+        if (leftImageStride < matchingWidth_ * sizeof(std::uint8_t))
         {
             LogError("Left image stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (rightImageStride < imageWidth_ * sizeof(std::uint8_t))
+        if (rightImageStride < matchingWidth_ * sizeof(std::uint8_t))
         {
             LogError("Right image stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (disparityStride < imageWidth_ * sizeof(float))
+        if (disparityStride < matchingWidth_ * sizeof(float))
         {
             LogError("Disparity stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
@@ -169,13 +155,13 @@ class Pipeline::Impl
         PipelineImageBuffer leftBuffer_;
         PipelineImageBuffer rightBuffer_;
 
-        status = leftBuffer_.Resize(imageHeight_, imageWidth_);
+        status = leftBuffer_.Resize(matchingHeight_, matchingWidth_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightBuffer_.Resize(imageHeight_, imageWidth_);
+        status = rightBuffer_.Resize(matchingHeight_, matchingWidth_);
         if (!status.IsOK())
         {
             return status;
@@ -246,8 +232,10 @@ class Pipeline::Impl
 
   private:
     bool initialized_{false};
-    size_t imageHeight_{0};
-    size_t imageWidth_{0};
+
+    size_t matchingHeight_{0};
+    size_t matchingWidth_{0};
+
     Session session_;
     Mat left_;
     Mat right_;
