@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['warn_0',['WARN',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa32bd8a1db2275458673903bdb84cb277',1,'retinify']]],
-  ['welcome_20to_20retinify_1',['Welcome to retinify',['../index.html#welcome',1,'']]],
-  ['with_20cpu_2',['3.2 with CPU',['../installation.html#autotoc_md5',1,'']]],
-  ['with_20tensorrt_3',['3.1 with TensorRT',['../installation.html#autotoc_md4',1,'']]]
+  ['verify_20installation_0',['4. Verify Installation',['../installation.html#autotoc_md6',1,'']]],
+  ['version_1',['Version',['../namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc',1,'retinify']]],
+  ['version_2ehpp_2',['version.hpp',['../version_8hpp.html',1,'']]]
 ];

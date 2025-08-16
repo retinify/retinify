@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['✉️_20contact_0',['✉️ Contact',['../index.html#contact',1,'']]]
+  ['⚡_20getting_20started_0',['⚡ Getting started',['../index.html#getting_started',1,'']]]
 ];

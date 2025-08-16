@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['setloglevel_0',['SetLogLevel',['../namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177',1,'retinify']]],
-  ['started_1',['⚡ Getting started',['../index.html#getting_started',1,'']]],
-  ['statedirectorypath_2',['StateDirectoryPath',['../namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7',1,'retinify']]],
-  ['status_3',['status',['../classretinify_1_1Status.html',1,'retinify::Status'],['../classretinify_1_1Status.html#a6ce624fbd2239802e14bbaf1079b3bd5',1,'retinify::Status::Status() noexcept=default'],['../classretinify_1_1Status.html#a17ebabbd700e537fbf081959fda8fb85',1,'retinify::Status::Status(StatusCategory category, StatusCode code) noexcept'],['../classretinify_1_1Status.html#a09e8f981bb2e2631353b407a7b5b9955',1,'retinify::Status::Status(const Status &amp;) noexcept=default'],['../classretinify_1_1Status.html#ac89b5383d6f3bcb3b2c7c8db8b5a2534',1,'retinify::Status::Status(Status &amp;&amp;) noexcept=default']]],
-  ['status_2ehpp_4',['status.hpp',['../status_8hpp.html',1,'']]],
-  ['statuscategory_5',['StatusCategory',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d',1,'retinify']]],
-  ['statuscode_6',['StatusCode',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4',1,'retinify']]],
-  ['stereomatchingpipeline_7',['stereomatchingpipeline',['../classretinify_1_1tools_1_1StereoMatchingPipeline.html',1,'retinify::tools::StereoMatchingPipeline'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a8c062a7ff5cf2cad8cd3c70e4880bf42',1,'retinify::tools::StereoMatchingPipeline::StereoMatchingPipeline() noexcept=default'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#aa23e77c592ce0ebfdff580e723ef58c5',1,'retinify::tools::StereoMatchingPipeline::StereoMatchingPipeline(const StereoMatchingPipeline &amp;)=delete'],['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a73f7611912baef98d13a5865d79d620b',1,'retinify::tools::StereoMatchingPipeline::StereoMatchingPipeline(StereoMatchingPipeline &amp;&amp;)=delete']]],
-  ['system_8',['SYSTEM',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03',1,'retinify']]]
+  ['reference_0',['API Reference',['../api.html',1,'']]],
+  ['repository_1',['2. Clone the retinify repository.',['../installation.html#autotoc_md2',1,'']]],
+  ['retinify_2',['retinify',['../tutorials.html#autotoc_md8',1,'1. Install retinify'],['../installation.html#autotoc_md3',1,'3. Install retinify'],['../installation.html#autotoc_md7',1,'5. Uninstall retinify'],['../namespaceretinify.html',1,'retinify'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a',1,'retinify::RETINIFY'],['../index.html#welcome',1,'Welcome to retinify']]],
+  ['retinify_20documentation_3',['retinify documentation',['../index.html',1,'']]],
+  ['retinify_20project_4',['3. Create a retinify project',['../tutorials.html#autotoc_md10',1,'']]],
+  ['retinify_20repository_5',['2. Clone the retinify repository.',['../installation.html#autotoc_md2',1,'']]],
+  ['retinify_3a_3atools_6',['tools',['../namespaceretinify_1_1tools.html',1,'retinify']]],
+  ['retinify_5fapi_7',['RETINIFY_API',['../define_8hpp.html#a26f652e8294f73d41c56d880ace92d28',1,'define.hpp']]],
+  ['retinify_5fdeprecated_8',['RETINIFY_DEPRECATED',['../define_8hpp.html#ae4c8bbc2c76704e26f1144806d6f4ccb',1,'define.hpp']]],
+  ['run_9',['run',['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a0a74777efea43cf3d9ae9ced89479d4c',1,'retinify::tools::StereoMatchingPipeline::Run()'],['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline::Run()']]],
+  ['runwithleftrightconsistencycheck_10',['RunWithLeftRightConsistencyCheck',['../classretinify_1_1tools_1_1StereoMatchingPipeline.html#a57ac18825d15c7c6e062feab668fa80c',1,'retinify::tools::StereoMatchingPipeline']]]
 ];

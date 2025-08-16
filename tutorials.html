@@ -107,8 +107,27 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 1. Install retinify</h2>
 <p>Please refer to the <a href="installation.html">Installation</a> section for details. <br  />
 </p>
+<dl class="section note"><dt>Note</dt><dd>This tutorial uses OpenCV, so please install retinify using the <code>--tools</code> option.</dd></dl>
 <h2><a class="anchor" id="autotoc_md9"></a>
-2. Link retinify</h2>
+2. Quick Demo</h2>
+<p>This section demonstrates how to perform stereo matching on an arbitrary stereo image pair. <br  />
+ First, clone the repository used for the demo: <br  />
+</p>
+<div class="fragment"><div class="line">git clone https://github.com/retinify/retinify-opencv-example.git</div>
+<div class="line">cd retinify-opencv-example</div>
+</div><!-- fragment --><p>Next, build the project: <br  />
+</p>
+<div class="fragment"><div class="line">mkdir build</div>
+<div class="line">cd build</div>
+<div class="line">cmake ..</div>
+<div class="line">make</div>
+</div><!-- fragment --><p>An executable will be produced in the build directory. Use it to perform stereo matching. Locate the demo stereo images in the <code>retinify-opencv-example/img</code> directory (you may substitute any stereo image pair). Run the executable with the left and right stereo image paths as arguments:</p>
+<dl class="section note"><dt>Note</dt><dd>If TensorRT is used as the backend, creation of the engine file may require some time.</dd></dl>
+<div class="fragment"><div class="line">./retinify-opencv-example &lt;left_image_path&gt; &lt;right_image_path&gt;</div>
+</div><!-- fragment --><p>Upon successful execution, the result will be displayed and a file named <code>disparity.png</code> will be saved in the same directory as the executable. If you use the images provided in the <code>retinify-opencv-example/img</code> directory, a successful run should produce a disparity image similar to the following:</p>
+<p><img src="https://raw.githubusercontent.com/retinify/retinify-opencv-example/main/img/disparity.png" alt="demo_output" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+3. Create a retinify project</h2>
 <p>We recommend using a CMake-based project when integrating retinify. <br  />
  Retinify requires <b>C++20</b> and <b>GCC 11 or later</b>. <br  />
  </p><div class="fragment"><div class="line">set(CMAKE_CXX_STANDARD 20)</div>
@@ -116,9 +135,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line">find_package(retinify REQUIRED)</div>
 <div class="line"> </div>
 <div class="line">target_link_libraries(${PROJECT_NAME} retinify)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
-3. C++ Code</h2>
-<p>In this tutorial, we will use image data in the form of <code>cv::Mat</code>. <br  />
+</div><!-- fragment --><p>In this tutorial, we will use image data in the form of <code>cv::Mat</code>. <br  />
  Stereo matching can be performed using the <code><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html" title="This class provides an interface for running a stereo matching pipeline using OpenCV.">retinify::tools::StereoMatchingPipeline</a></code>. <br  />
 </p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;retinify/retinify.hpp&gt;</span></div>
