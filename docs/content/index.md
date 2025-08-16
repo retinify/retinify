@@ -27,9 +27,9 @@ It enables real-time, high-precision 3D perception by offloading compute-intensi
 \subsection getting_started ⚡ Getting started
 1. [Install retinify](installation.html)  
 Step-by-step instructions to build and install retinify.
-1. [Tutorials](tutorials.html)  
+2. [Tutorials](tutorials.html)  
 Hands-on examples to get you started with real-world use cases.
-1. [API Reference](api.html)  
+3. [API Reference](api.html)  
 Detailed class and function-level documentation for developers.
 
 ---
