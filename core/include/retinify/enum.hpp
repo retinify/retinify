@@ -10,15 +10,15 @@ namespace retinify
 /// @brief Logging verbosity levels for retinify.
 enum class LogLevel : std::uint8_t
 {
-    /// Debug-level messages.
+    /// Debug messages.
     DEBUG,
     /// Informational messages.
     INFO,
-    /// Warning-level messages.
+    /// Warning messages.
     WARN,
-    /// Error-level messages.
+    /// Error messages.
     ERROR,
-    /// Critical-level messages.
+    /// Fatal Error messages.
     FATAL,
     /// Disable all logging.
     OFF,
@@ -27,15 +27,15 @@ enum class LogLevel : std::uint8_t
 /// @brief Status categories used by retinify.
 enum class StatusCategory : std::uint8_t
 {
-    /// No status category.
+    /// No category.
     NONE,
-    /// retinify-specific status codes.
+    /// Retinify-internal category.
     RETINIFY,
-    /// System-related status codes.
+    /// System-related category.
     SYSTEM,
-    /// CUDA-related status codes.
+    /// CUDA-related category.
     CUDA,
-    /// User-originated status codes.
+    /// User-originated category.
     USER,
 };
 
