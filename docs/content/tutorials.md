@@ -69,10 +69,18 @@ cv::Mat disparity;
 retinify::tools::StereoMatchingPipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-pipeline.Initialize();
+auto statusInitialize = pipeline.Initialize();
+if (!statusInitialize.IsOK())
+{
+    return 1;
+}
 
 // EXECUTE STEREO MATCHING
-pipeline.Run(leftImage, rightImage, disparity);
+auto statusRun = pipeline.Run(leftImage, rightImage, disparity);
+if (!statusRun.IsOK())
+{
+    return 1;
+}
 
 // SHOW DISPARITY
 const int maxDisparity = 256;
