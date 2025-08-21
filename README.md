@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
 ![Language](https://img.shields.io/github/languages/top/retinify/retinify?style=flat-square&color=yellow)  
 [![X](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=x)](https://x.com/retinify)
-[![Instagram](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=instagram)](https://www.instagram.com/retinify)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
