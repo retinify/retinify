@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "buffer.hpp"
+#include "imgproc.hpp"
 #include "mat.hpp"
 #include "session.hpp"
 
@@ -22,8 +22,10 @@ class Pipeline::Impl
     ~Impl() noexcept
     {
         initialized_ = false;
-        (void)left_.Free();
-        (void)right_.Free();
+        (void)left8U_.Free();
+        (void)right8U_.Free();
+        (void)left32F_.Free();
+        (void)right32F_.Free();
         (void)disparity_.Free();
     }
 
@@ -48,13 +50,25 @@ class Pipeline::Impl
         matchingHeight_ = imageHeight;
         matchingWidth_ = imageWidth;
 
-        status = left_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = left8U_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = right8U_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = left32F_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = right32F_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -72,13 +86,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.BindInput("left", left_);
+        status = session_.BindInput("left", left32F_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("right", right_);
+        status = session_.BindInput("right", right32F_);
         if (!status.IsOK())
         {
             return status;
@@ -152,52 +166,37 @@ class Pipeline::Impl
             return status;
         }
 
-        PipelineImageBuffer leftBuffer_;
-        PipelineImageBuffer rightBuffer_;
-
-        status = leftBuffer_.Resize(matchingHeight_, matchingWidth_);
+        status = left8U_.Upload(leftImageData, leftImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightBuffer_.Resize(matchingHeight_, matchingWidth_);
+        status = right8U_.Upload(rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftBuffer_.Upload(leftImageData, leftImageStride);
+        status = GrayMatCast8UTo32F(left8U_, left32F_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightBuffer_.Upload(rightImageData, rightImageStride);
+        status = GrayMatCast8UTo32F(right8U_, right32F_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left_.Upload(leftBuffer_.Data(), leftBuffer_.Stride());
+        status = left32F_.Wait();
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Upload(rightBuffer_.Data(), rightBuffer_.Stride());
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = left_.Wait();
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = right_.Wait();
+        status = right32F_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -237,8 +236,10 @@ class Pipeline::Impl
     size_t matchingWidth_{0};
 
     Session session_;
-    Mat left_;
-    Mat right_;
+    Mat left8U_;
+    Mat right8U_;
+    Mat left32F_;
+    Mat right32F_;
     Mat disparity_;
 };
 
