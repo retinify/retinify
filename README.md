@@ -76,26 +76,22 @@ pipeline.Run(leftImage, rightImage, disparity);
 ## Supported Backends
 | 🎯 Target                                            | Status                                             |
 | --------------------------------------------------- | -------------------------------------------------- |
-| [![target_cpu_badge][]][build_cpu_status]           | [![build_cpu_badge][]][build_cpu_status]           |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
 | [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status]     |
 | ![target_hailort_badge]                             | Coming soon                                        |
 | ![target_openvino_badge]                            | Coming soon                                        |
 
 <!-- TARGET BADGES -->
-[target_cpu_badge]: https://img.shields.io/badge/CPU-gray?style=flat-square
 [target_tensorrt_badge]: https://img.shields.io/badge/TensorRT-gray?style=flat-square
 [target_jetson_badge]: https://img.shields.io/badge/TensorRT(Jetson)-gray?style=flat-square
 [target_hailort_badge]: https://img.shields.io/badge/HailoRT-gray?style=flat-square
 [target_openvino_badge]: https://img.shields.io/badge/OpenVINO-gray?style=flat-square
 
 <!-- BUILD STATUS BADGES -->
-[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=build
 [build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square&label=build
 [build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square&label=build
 
 <!-- STATUS LINKS -->
-[build_cpu_status]: https://github.com/retinify/retinify/actions/workflows/build_cpu.yml?query=branch%3Amain
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 

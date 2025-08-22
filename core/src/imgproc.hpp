@@ -29,8 +29,8 @@ namespace retinify
 #else
     (void)src;
     (void)dst;
-    LogError("GrayMatCast8UTo32F is not supported in this build.");
-    return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 } // namespace retinify

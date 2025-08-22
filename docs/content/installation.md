@@ -20,7 +20,6 @@ cd retinify
 
 # 3. Install retinify
 Build retinify and install its Debian package.  
-Select the hardware backend (e.g., NVIDIA GPU or CPU) to be used for acceleration, then run the installation script with the appropriate options.
 
 ## 3.1 with TensorRT
 The following additional libraries are required.
@@ -31,11 +30,6 @@ The following additional libraries are required.
   
 ```bash
 ./build.sh --install --tensorrt --tools
-```
-
-## 3.2 with CPU
-```bash
-./build.sh --install --cpu --tools
 ```
 
 # 4. Verify Installation
