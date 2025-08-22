@@ -45,7 +45,34 @@ if (BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify-core PUBLIC BUILD_WITH_TENSORRT)
 
     target_include_directories(retinify-core PUBLIC /usr/local/cuda/include)
-    target_link_libraries(retinify-core PUBLIC /usr/local/cuda/lib64/libcudart.so)
+
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17")
+        find_package(CUDAToolkit REQUIRED)
+        target_link_libraries(retinify-core
+            PUBLIC
+                CUDA::cudart
+                CUDA::nppc
+                # CUDA::nppial
+                # CUDA::nppicc
+                CUDA::nppidei
+                # CUDA::nppif
+                # CUDA::nppig
+                # CUDA::nppim
+                # CUDA::nppist
+                # CUDA::nppisu
+                # CUDA::nppitc
+                # CUDA::npps
+        )
+
+    else()
+        find_package(CUDA REQUIRED)
+        target_link_libraries(retinify-core 
+            PUBLIC
+                ${CUDA_LIBRARIES}        
+                ${CUDA_npp_LIBRARY} 
+        )
+
+    endif()
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
         set(_TRT_LIB_HINTS
