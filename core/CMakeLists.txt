@@ -43,6 +43,7 @@ if (BUILD_WITH_TENSORRT)
             /usr/local/cuda/lib64/libcudart.so
             /usr/local/cuda/lib64/libnppc.so
             /usr/local/cuda/lib64/libnppidei.so
+            /usr/local/cuda/lib64/libnppicc.so
     )
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")

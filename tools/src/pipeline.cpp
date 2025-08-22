@@ -132,18 +132,8 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
 
         cv::Mat leftGray;
         cv::Mat rightGray;
-
-        // Convert to grayscale if needed
-        if (leftImage.channels() == 3)
-        {
-            cv::cvtColor(leftImage, leftGray, cv::COLOR_BGR2GRAY);
-            cv::cvtColor(rightImage, rightGray, cv::COLOR_BGR2GRAY);
-        }
-        else
-        {
-            leftGray = leftImage.clone();
-            rightGray = rightImage.clone();
-        }
+        leftGray = leftImage.clone();
+        rightGray = rightImage.clone();
 
         cv::resize(leftGray, leftGray, cv::Size(matchingWidth_, matchingHeight_));
         cv::resize(rightGray, rightGray, cv::Size(matchingWidth_, matchingHeight_));

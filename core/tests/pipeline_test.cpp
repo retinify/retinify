@@ -12,8 +12,8 @@ TEST(PipelineTest, Forward)
 {
     const int height = 720;
     const int width = 1280;
-    cv::Mat left = cv::Mat::zeros(height, width, CV_8UC1);
-    cv::Mat right = cv::Mat::zeros(height, width, CV_8UC1);
+    cv::Mat left = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat right = cv::Mat::zeros(height, width, CV_8UC3);
     cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
 
     Pipeline pipeline;

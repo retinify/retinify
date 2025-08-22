@@ -22,10 +22,10 @@ class Pipeline::Impl
     ~Impl() noexcept
     {
         initialized_ = false;
-        (void)left8U_.Free();
-        (void)right8U_.Free();
-        (void)left32F_.Free();
-        (void)right32F_.Free();
+        (void)left8UC1_.Free();
+        (void)right8UC1_.Free();
+        (void)left32FC1_.Free();
+        (void)right32FC1_.Free();
         (void)disparity_.Free();
     }
 
@@ -50,25 +50,37 @@ class Pipeline::Impl
         matchingHeight_ = imageHeight;
         matchingWidth_ = imageWidth;
 
-        status = left8U_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
+        status = left8UC3_.Allocate(imageHeight, imageWidth, 3, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8U_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
+        status = right8UC3_.Allocate(imageHeight, imageWidth, 3, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left32F_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = left8UC1_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right32F_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = right8UC1_.Allocate(imageHeight, imageWidth, 1, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = left32FC1_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = right32FC1_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -86,13 +98,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.BindInput("left", left32F_);
+        status = session_.BindInput("left", left32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("right", right32F_);
+        status = session_.BindInput("right", right32FC1_);
         if (!status.IsOK())
         {
             return status;
@@ -166,37 +178,49 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8U_.Upload(leftImageData, leftImageStride);
+        status = left8UC3_.Upload(leftImageData, leftImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8U_.Upload(rightImageData, rightImageStride);
+        status = right8UC3_.Upload(rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = GrayMatCast8UTo32F(left8U_, left32F_);
+        status = Mat8UC3To8UC1(left8UC3_, left8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = GrayMatCast8UTo32F(right8U_, right32F_);
+        status = Mat8UC3To8UC1(right8UC3_, right8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left32F_.Wait();
+        status = MatConvert8UC1To32FC1(left8UC1_, left32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right32F_.Wait();
+        status = MatConvert8UC1To32FC1(right8UC1_, right32FC1_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = left32FC1_.Wait();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = right32FC1_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -236,10 +260,12 @@ class Pipeline::Impl
     size_t matchingWidth_{0};
 
     Session session_;
-    Mat left8U_;
-    Mat right8U_;
-    Mat left32F_;
-    Mat right32F_;
+    Mat left8UC3_;
+    Mat right8UC3_;
+    Mat left8UC1_;
+    Mat right8UC1_;
+    Mat left32FC1_;
+    Mat right32FC1_;
     Mat disparity_;
 };
 
