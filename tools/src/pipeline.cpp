@@ -130,26 +130,16 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
         }
 
-        cv::Mat leftGray;
-        cv::Mat rightGray;
+        cv::Mat leftRGB;
+        cv::Mat rightRGB;
+        leftRGB = leftImage.clone();
+        rightRGB = rightImage.clone();
 
-        // Convert to grayscale if needed
-        if (leftImage.channels() == 3)
-        {
-            cv::cvtColor(leftImage, leftGray, cv::COLOR_BGR2GRAY);
-            cv::cvtColor(rightImage, rightGray, cv::COLOR_BGR2GRAY);
-        }
-        else
-        {
-            leftGray = leftImage.clone();
-            rightGray = rightImage.clone();
-        }
+        cv::resize(leftRGB, leftRGB, cv::Size(matchingWidth_, matchingHeight_));
+        cv::resize(rightRGB, rightRGB, cv::Size(matchingWidth_, matchingHeight_));
+        cv::Mat leftDisparity = cv::Mat::zeros(leftRGB.size(), CV_32FC1);
 
-        cv::resize(leftGray, leftGray, cv::Size(matchingWidth_, matchingHeight_));
-        cv::resize(rightGray, rightGray, cv::Size(matchingWidth_, matchingHeight_));
-        cv::Mat leftDisparity = cv::Mat::zeros(leftGray.size(), CV_32FC1);
-
-        auto leftStatus = pipeline_.Run(leftGray.ptr<std::uint8_t>(), leftGray.step[0], rightGray.ptr<std::uint8_t>(), rightGray.step[0], leftDisparity.ptr<float>(), leftDisparity.step[0]);
+        auto leftStatus = pipeline_.Run(leftRGB.ptr<std::uint8_t>(), leftRGB.step[0], rightRGB.ptr<std::uint8_t>(), rightRGB.step[0], leftDisparity.ptr<float>(), leftDisparity.step[0]);
         if (!leftStatus.IsOK())
         {
             return leftStatus;
@@ -164,9 +154,9 @@ auto StereoMatchingPipeline::RunImpl(const cv::Mat &leftImage, const cv::Mat &ri
             cv::Mat leftGrayFlipped;
             cv::Mat rightGrayFlipped;
 
-            cv::flip(leftGray, leftGrayFlipped, 1);
-            cv::flip(rightGray, rightGrayFlipped, 1);
-            cv::Mat rightDisparity = cv::Mat::zeros(rightGray.size(), CV_32FC1);
+            cv::flip(leftRGB, leftGrayFlipped, 1);
+            cv::flip(rightRGB, rightGrayFlipped, 1);
+            cv::Mat rightDisparity = cv::Mat::zeros(rightRGB.size(), CV_32FC1);
 
             auto rightStatus = pipeline_.Run(rightGrayFlipped.ptr<std::uint8_t>(), rightGrayFlipped.step[0], leftGrayFlipped.ptr<std::uint8_t>(), leftGrayFlipped.step[0], rightDisparity.ptr<float>(), rightDisparity.step[0]);
             if (!rightStatus.IsOK())

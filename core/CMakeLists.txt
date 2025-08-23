@@ -4,13 +4,6 @@ file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
 # LIBRARY
 add_library(retinify-core SHARED ${SRCS_CORE})
 
-# LINK LIBRARIES
-find_package(OpenMP REQUIRED)
-target_link_libraries(retinify-core
-    PRIVATE
-        stb OpenMP::OpenMP_CXX
-)
-
 # INCLUDES
 target_include_directories(retinify-core
     PUBLIC
@@ -50,6 +43,8 @@ if (BUILD_WITH_TENSORRT)
             /usr/local/cuda/lib64/libcudart.so
             /usr/local/cuda/lib64/libnppc.so
             /usr/local/cuda/lib64/libnppidei.so
+            /usr/local/cuda/lib64/libnppicc.so
+            /usr/local/cuda/lib64/libnppig.so
     )
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
@@ -90,11 +85,6 @@ if (BUILD_WITH_TENSORRT)
         message(WARNING "TensorRT libraries not found (${CMAKE_SYSTEM_PROCESSOR})")
     endif()
 else()
-    include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/onnxruntime.cmake)
-    target_link_libraries(retinify-core
-        PRIVATE
-            onnxruntime
-    )
 endif()
 
 # INSTALL
