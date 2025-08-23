@@ -18,7 +18,6 @@
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
-Its C++ API allows the same code to run seamlessly across various acceleration backends.
   
 <table style="width:100%;">
   <tr>

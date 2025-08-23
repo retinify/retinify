@@ -12,6 +12,38 @@
 
 namespace retinify
 {
+[[nodiscard]] auto MatResizeLinear8UC3(const Mat &src, Mat &dst) noexcept -> Status
+{
+#ifdef BUILD_WITH_TENSORRT
+    if (src.Channels() != 3 || dst.Channels() != 3)
+    {
+        LogError("Source and destination must have 3 channels.");
+        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+    }
+
+    NppStatus status = nppiResize_8u_C3R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                         {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                         {0, 0, static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},     //
+                                         static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                         {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},           //
+                                         {0, 0, static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},     //
+                                         NPPI_INTER_LINEAR);
+
+    if (status != NPP_SUCCESS)
+    {
+        LogError("MatResizeLinear8UC3 failed");
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    };
+
+    return Status{};
+#else
+    (void)src;
+    (void)dst;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+#endif
+}
+
 [[nodiscard]] auto Mat8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 {
 #ifdef BUILD_WITH_TENSORRT
