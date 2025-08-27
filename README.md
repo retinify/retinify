@@ -96,7 +96,7 @@ pipeline.Run(leftImage, rightImage, disparity);
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
 ## Pipeline Latencies
-Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.  
+Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations (measured with `retinify::Pipeline`).  
 These measurements were taken using each setting of `retinify::Mode`.  
 
 > [!NOTE]
@@ -104,7 +104,7 @@ These measurements were taken using each setting of `retinify::Mode`.
 
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
-| NVIDIA RTX 3060         | 4.082ms / 245.0FPS | 4.941ms / 202.4FPS | 12.138ms / 82.4FPS |
+| NVIDIA RTX 3060         | 3.925ms / 254.8FPS | 4.691ms / 213.2FPS | 10.790ms / 92.7FPS |
 | NVIDIA Jetson Orin Nano | 18.532ms / 54.0FPS | 25.151ms / 39.8FPS | 49.190ms / 20.3FPS |
 
 ## Third-Party
