@@ -22,6 +22,8 @@ class Pipeline::Impl
     ~Impl() noexcept
     {
         initialized_ = false;
+        (void)left8UC3_.Free();
+        (void)right8UC3_.Free();
         (void)left8UC1_.Free();
         (void)right8UC1_.Free();
         (void)left32FC1_.Free();
