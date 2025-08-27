@@ -16,7 +16,7 @@ static constexpr int kBenchmarkNumIters = 10000;
 
 double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
 {
-    retinify::tools::StereoMatchingPipeline pipeline;
+    retinify::Pipeline pipeline;
     retinify::Status statusInitialize = pipeline.Initialize(kBenchmarkImageHeight, kBenchmarkImageWidth, mode);
     if (!statusInitialize.IsOK())
     {
@@ -30,7 +30,7 @@ double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat
     for (int i = 0; i < num_iters; ++i)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        retinify::Status statusRun = pipeline.Run(img0, img1, disp);
+        retinify::Status statusRun = pipeline.Run(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], reinterpret_cast<float *>(disp.ptr()), disp.step[0]);
         if (!statusRun.IsOK())
         {
             retinify::LogError("Pipeline run failed for mode.");
@@ -51,7 +51,7 @@ int main()
 {
     cv::Mat img0 = cv::Mat::zeros(kBenchmarkImageHeight, kBenchmarkImageWidth, CV_8UC3);
     cv::Mat img1 = cv::Mat::zeros(kBenchmarkImageHeight, kBenchmarkImageWidth, CV_8UC3);
-    cv::Mat disp;
+    cv::Mat disp = cv::Mat::zeros(kBenchmarkImageHeight, kBenchmarkImageWidth, CV_32FC1);
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
 

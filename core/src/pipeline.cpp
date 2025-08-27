@@ -231,37 +231,37 @@ class Pipeline::Impl
             return status;
         }
 
-        status = MatResizeLinear8UC3(left8UC3_, leftResized8UC3_);
+        status = ResizeLinear8UC3(left8UC3_, leftResized8UC3_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = MatResizeLinear8UC3(right8UC3_, rightResized8UC3_);
+        status = ResizeLinear8UC3(right8UC3_, rightResized8UC3_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Mat8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
+        status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Mat8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
+        status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = MatConvert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_);
+        status = Convert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = MatConvert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_);
+        status = Convert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_);
         if (!status.IsOK())
         {
             return status;
@@ -291,7 +291,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = MatResizeNearest32FC1(disparityResized32FC1_, disparity32FC1_);
+        status = ResizeDisparity32FC1(disparityResized32FC1_, disparity32FC1_);
         if (!status.IsOK())
         {
             return status;

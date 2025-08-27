@@ -12,7 +12,7 @@
 
 namespace retinify
 {
-[[nodiscard]] auto MatResizeLinear8UC3(const Mat &src, Mat &dst) noexcept -> Status
+[[nodiscard]] auto ResizeLinear8UC3(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Channels() != 3 || dst.Channels() != 3)
     {
@@ -31,7 +31,7 @@ namespace retinify
 
     if (status != NPP_SUCCESS)
     {
-        LogError("MatResizeLinear8UC3 failed");
+        LogError("nppiResize_8u_C3R failed");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     };
 
@@ -44,7 +44,7 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto MatResizeNearest32FC1(const Mat &src, Mat &dst) noexcept -> Status
+[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Channels() != 1 || dst.Channels() != 1)
     {
@@ -85,7 +85,7 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto Mat8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
+[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Channels() != 3 || dst.Channels() != 1)
     {
@@ -100,7 +100,7 @@ namespace retinify
 
     if (status != NPP_SUCCESS)
     {
-        LogError("Mat8UC3To8UC1 failed");
+        LogError("nppiRGBToGray_8u_C3C1R failed");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     };
 
@@ -113,7 +113,7 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto MatConvert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
+[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Channels() != 1 || dst.Channels() != 1)
     {
@@ -128,7 +128,7 @@ namespace retinify
 
     if (status != NPP_SUCCESS)
     {
-        LogError("MatCast8UTC1To32FC1 failed");
+        LogError("nppiConvert_8u32f_C1R failed");
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     };
 
