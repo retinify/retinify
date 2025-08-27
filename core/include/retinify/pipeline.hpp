@@ -28,9 +28,12 @@ class RETINIFY_API Pipeline
     /// Height of the input images (in pixels).
     /// @param imageWidth
     /// Width of the input images (in pixels).
+    /// @param mode
+    /// The mode option for the stereo matching.
     /// @return
     /// A Status object indicating whether the initialization was successful.
-    [[nodiscard]] auto Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status;
+    [[nodiscard]] auto Initialize(std::size_t imageHeight, std::size_t imageWidth, //
+                                  Mode mode = Mode::ACCURATE) noexcept -> Status;
 
     /// @brief
     /// Executes the stereo matching pipeline using the given left and right image data.
