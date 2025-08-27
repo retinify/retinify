@@ -33,6 +33,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 
 ## Basic Usage
+![pipeline](https://raw.githubusercontent.com/retinify/assets/main/images/pipeline.png)
 
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
   
