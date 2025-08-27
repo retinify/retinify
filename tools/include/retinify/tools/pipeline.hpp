@@ -12,18 +12,6 @@
 namespace retinify::tools
 {
 /// @brief
-/// The mode options for the stereo matching pipeline.
-enum class Mode : std::uint8_t
-{
-    /// Fastest, with lowest accuracy.
-    FAST,
-    /// Balanced, with moderate accuracy and speed.
-    BALANCED,
-    /// Most accurate, with slowest performance.
-    ACCURATE,
-};
-
-/// @brief
 /// This class provides an interface for running a stereo matching pipeline using OpenCV
 class RETINIFY_API StereoMatchingPipeline
 {
@@ -41,7 +29,7 @@ class RETINIFY_API StereoMatchingPipeline
     /// The processing mode to use for the stereo matching pipeline.
     /// @return
     /// A Status object indicating whether initialization succeeded.
-    [[nodiscard]] auto Initialize(Mode mode = Mode::ACCURATE) noexcept -> Status;
+    [[nodiscard]] auto Initialize(int imageHeight, int imageWidth, Mode mode = Mode::ACCURATE) noexcept -> Status;
 
     /// @brief
     /// Runs the stereo matching pipeline.
@@ -81,8 +69,8 @@ class RETINIFY_API StereoMatchingPipeline
     [[nodiscard]] auto RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                                float maxDisparityDifference) noexcept -> Status;
 
-    size_t matchingHeight_{0};
-    size_t matchingWidth_{0};
+    size_t imageHeight_{0};
+    size_t imageWidth_{0};
     Pipeline pipeline_;
 };
 } // namespace retinify::tools

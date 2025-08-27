@@ -55,7 +55,7 @@ cv::Mat disparity;
 retinify::tools::StereoMatchingPipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-pipeline.Initialize();
+pipeline.Initialize(leftImage.rows, leftImage.cols);
 
 // EXECUTE STEREO MATCHING
 pipeline.Run(leftImage, rightImage, disparity);
@@ -97,7 +97,7 @@ pipeline.Run(leftImage, rightImage, disparity);
 
 ## Pipeline Latencies
 Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.  
-These measurements were taken using each setting of `retinify::tools::Mode`.  
+These measurements were taken using each setting of `retinify::Mode`.  
 
 > [!NOTE]
 > Results may vary depending on the execution environment.

@@ -10,10 +10,14 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-double BenchmarkPipeline(retinify::tools::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
+static constexpr int kBenchmarkImageHeight = 720;
+static constexpr int kBenchmarkImageWidth = 1280;
+static constexpr int kBenchmarkNumIters = 10000;
+
+double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
 {
     retinify::tools::StereoMatchingPipeline pipeline;
-    retinify::Status statusInitialize = pipeline.Initialize(mode);
+    retinify::Status statusInitialize = pipeline.Initialize(kBenchmarkImageHeight, kBenchmarkImageWidth, mode);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Pipeline initialization failed for mode.");
@@ -45,17 +49,13 @@ double BenchmarkPipeline(retinify::tools::Mode mode, const cv::Mat &img0, const 
 
 int main()
 {
-    constexpr int height = 720;
-    constexpr int width = 1280;
-    constexpr int num_iters = 10000;
-
-    cv::Mat img0 = cv::Mat::zeros(height, width, CV_8UC3);
-    cv::Mat img1 = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat img0 = cv::Mat::zeros(kBenchmarkImageHeight, kBenchmarkImageWidth, CV_8UC3);
+    cv::Mat img1 = cv::Mat::zeros(kBenchmarkImageHeight, kBenchmarkImageWidth, CV_8UC3);
     cv::Mat disp;
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
 
-    const std::vector<retinify::tools::Mode> modes = {retinify::tools::Mode::FAST, retinify::tools::Mode::BALANCED, retinify::tools::Mode::ACCURATE};
+    const std::vector<retinify::Mode> modes = {retinify::Mode::FAST, retinify::Mode::BALANCED, retinify::Mode::ACCURATE};
 
     struct Result
     {
@@ -66,18 +66,18 @@ int main()
     std::vector<Result> results;
     results.reserve(modes.size());
 
-    for (retinify::tools::Mode m : modes)
+    for (retinify::Mode m : modes)
     {
         std::string mode_name;
         switch (m)
         {
-        case retinify::tools::Mode::FAST:
+        case retinify::Mode::FAST:
             mode_name = "FAST";
             break;
-        case retinify::tools::Mode::BALANCED:
+        case retinify::Mode::BALANCED:
             mode_name = "BALANCED";
             break;
-        case retinify::tools::Mode::ACCURATE:
+        case retinify::Mode::ACCURATE:
             mode_name = "ACCURATE";
             break;
         default:
@@ -87,7 +87,7 @@ int main()
 
         retinify::LogInfo(cv::format("Running benchmark for mode: %s ...", mode_name.c_str()).c_str());
 
-        double median_ms = BenchmarkPipeline(m, img0, img1, disp, num_iters);
+        double median_ms = BenchmarkPipeline(m, img0, img1, disp, kBenchmarkNumIters);
         if (median_ms < 0.0)
         {
             retinify::LogError(cv::format("Benchmark failed for mode: %s", mode_name.c_str()).c_str());

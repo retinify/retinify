@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    auto statusInitialize = pipeline.Initialize();
+    auto statusInitialize = pipeline.Initialize(leftImage.rows, leftImage.cols);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Failed to initialize the pipeline.");
