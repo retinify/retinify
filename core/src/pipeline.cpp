@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "buffer.hpp"
+#include "imgproc.hpp"
 #include "mat.hpp"
 #include "session.hpp"
 
@@ -22,9 +22,16 @@ class Pipeline::Impl
     ~Impl() noexcept
     {
         initialized_ = false;
-        (void)left_.Free();
-        (void)right_.Free();
-        (void)disparity_.Free();
+        (void)left8UC3_.Free();
+        (void)right8UC3_.Free();
+        (void)disparity32FC1_.Free();
+        (void)leftResized8UC3_.Free();
+        (void)rightResized8UC3_.Free();
+        (void)leftResized8UC1_.Free();
+        (void)rightResized8UC1_.Free();
+        (void)leftResized32FC1_.Free();
+        (void)rightResized32FC1_.Free();
+        (void)disparityResized32FC1_.Free();
     }
 
     Impl(const Impl &) = delete;
@@ -32,35 +39,95 @@ class Pipeline::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth) noexcept -> Status
+    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth, const Mode mode) noexcept -> Status
     {
         Status status;
 
-        if ((imageHeight != 320 || imageWidth != 640) && //
-            (imageHeight != 480 || imageWidth != 640) && //
-            (imageHeight != 720 || imageWidth != 1280))
+        if ((imageHeight <= 0) || (imageWidth <= 0))
         {
-            LogError("Height and width must be one of the following: 320x640, 480x640, or 720x1280.");
+            LogError("Image height and width must be greater than zero.");
             status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
             return status;
         }
 
-        matchingHeight_ = imageHeight;
-        matchingWidth_ = imageWidth;
+        imageHeight_ = imageHeight;
+        imageWidth_ = imageWidth;
 
-        status = left_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        switch (mode)
+        {
+        case Mode::FAST:
+            matchingHeight_ = 320;
+            matchingWidth_ = 640;
+            break;
+        case Mode::BALANCED:
+            matchingHeight_ = 480;
+            matchingWidth_ = 640;
+            break;
+        case Mode::ACCURATE:
+            matchingHeight_ = 720;
+            matchingWidth_ = 1280;
+            break;
+        default:
+            LogError("Invalid stereo matching mode.");
+            status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+            return status;
+        }
+
+        status = left8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = right8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Allocate(imageHeight, imageWidth, 1, sizeof(float));
+        status = disparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparityResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -72,19 +139,19 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.BindInput("left", left_);
+        status = session_.BindInput("left", leftResized32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("right", right_);
+        status = session_.BindInput("right", rightResized32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindOutput("disparity", disparity_);
+        status = session_.BindOutput("disparity", disparityResized32FC1_);
         if (!status.IsOK())
         {
             return status;
@@ -152,58 +219,67 @@ class Pipeline::Impl
             return status;
         }
 
-        PipelineImageBuffer leftBuffer_;
-        PipelineImageBuffer rightBuffer_;
-
-        status = leftBuffer_.Resize(matchingHeight_, matchingWidth_);
+        status = left8UC3_.Upload(leftImageData, leftImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightBuffer_.Resize(matchingHeight_, matchingWidth_);
+        status = right8UC3_.Upload(rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftBuffer_.Upload(leftImageData, leftImageStride);
+        status = ResizeLinear8UC3(left8UC3_, leftResized8UC3_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightBuffer_.Upload(rightImageData, rightImageStride);
+        status = ResizeLinear8UC3(right8UC3_, rightResized8UC3_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left_.Upload(leftBuffer_.Data(), leftBuffer_.Stride());
+        status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Upload(rightBuffer_.Data(), rightBuffer_.Stride());
+        status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left_.Wait();
+        status = Convert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right_.Wait();
+        status = Convert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Wait();
+        status = leftResized32FC1_.Wait();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightResized32FC1_.Wait();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparityResized32FC1_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -215,13 +291,19 @@ class Pipeline::Impl
             return status;
         }
 
-        status = disparity_.Download(disparityData, disparityStride);
+        status = ResizeDisparity32FC1(disparityResized32FC1_, disparity32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity_.Wait();
+        status = disparity32FC1_.Download(disparityData, disparityStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparity32FC1_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -233,13 +315,21 @@ class Pipeline::Impl
   private:
     bool initialized_{false};
 
-    size_t matchingHeight_{0};
-    size_t matchingWidth_{0};
-
-    Session session_;
-    Mat left_;
-    Mat right_;
-    Mat disparity_;
+    size_t imageHeight_{0};     // original input image height
+    size_t imageWidth_{0};      // original input image width
+    size_t matchingHeight_{0};  // image height for stereo matching
+    size_t matchingWidth_{0};   // image width for stereo matching
+    Session session_;           // inference session
+    Mat left8UC3_;              // input rgb image
+    Mat right8UC3_;             // input rgb image
+    Mat disparity32FC1_;        // output disparity map
+    Mat leftResized8UC3_;       // resized rgb image
+    Mat rightResized8UC3_;      // resized rgb image
+    Mat leftResized8UC1_;       // resized gray image
+    Mat rightResized8UC1_;      // resized gray image
+    Mat leftResized32FC1_;      // resized gray image for stereo matching
+    Mat rightResized32FC1_;     // resized gray image for stereo matching
+    Mat disparityResized32FC1_; // resized output disparity map from stereo matching
 };
 
 Pipeline::Pipeline() noexcept
@@ -265,9 +355,9 @@ auto Pipeline::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth) noexcept -> Status
+auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth, Mode mode) noexcept -> Status
 {
-    return this->impl()->Initialize(imageHeight, imageWidth);
+    return this->impl()->Initialize(imageHeight, imageWidth, mode);
 }
 
 auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -> Status

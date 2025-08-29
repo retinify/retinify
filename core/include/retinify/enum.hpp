@@ -7,7 +7,8 @@
 
 namespace retinify
 {
-/// @brief Logging verbosity levels for retinify.
+/// @brief
+/// Logging verbosity levels for retinify.
 enum class LogLevel : std::uint8_t
 {
     /// Debug messages.
@@ -24,7 +25,8 @@ enum class LogLevel : std::uint8_t
     OFF,
 };
 
-/// @brief Status categories used by retinify.
+/// @brief
+/// Status categories used by retinify.
 enum class StatusCategory : std::uint8_t
 {
     /// No category.
@@ -39,7 +41,8 @@ enum class StatusCategory : std::uint8_t
     USER,
 };
 
-/// @brief Status codes returned by retinify operations.
+/// @brief
+/// Status codes returned by retinify operations.
 enum class StatusCode : std::uint8_t
 {
     /// Operation succeeded.
@@ -48,5 +51,17 @@ enum class StatusCode : std::uint8_t
     FAIL,
     /// Invalid argument provided.
     INVALID_ARGUMENT,
+};
+
+/// @brief
+/// The mode options for the stereo matching pipeline.
+enum class Mode : std::uint8_t
+{
+    /// Fastest, with lowest accuracy.
+    FAST,
+    /// Balanced, with moderate accuracy and speed.
+    BALANCED,
+    /// Most accurate, with slowest performance.
+    ACCURATE,
 };
 } // namespace retinify

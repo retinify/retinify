@@ -18,7 +18,6 @@
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
-Its C++ API allows the same code to run seamlessly across various acceleration backends.
   
 <table style="width:100%;">
   <tr>
@@ -28,12 +27,13 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
 </table>
 
 ## Why Retinify?
-- 🌐 **Open Source**: Fully customizable and freely available under an open source license.
+- 🌐 **Open Source**: Fully customizable and freely available under an Apache-2.0 license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 
 ## Basic Usage
+![pipeline](https://raw.githubusercontent.com/retinify/assets/main/images/pipeline.png)
 
 `retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
   
@@ -45,8 +45,8 @@ Its C++ API allows the same code to run seamlessly across various acceleration b
 #include <opencv2/opencv.hpp>
 
 // LOAD INPUT IMAGES
-cv::Mat leftImage = cv::imread(<left_image_path>);
-cv::Mat rightImage = cv::imread(<right_image_path>);
+cv::Mat leftImage = cv::imread("path/to/left.png");
+cv::Mat rightImage = cv::imread("path/to/right.png");
 
 // PREPARE OUTPUT CONTAINER
 cv::Mat disparity;
@@ -55,7 +55,7 @@ cv::Mat disparity;
 retinify::tools::StereoMatchingPipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-pipeline.Initialize();
+pipeline.Initialize(leftImage.rows, leftImage.cols);
 
 // EXECUTE STEREO MATCHING
 pipeline.Run(leftImage, rightImage, disparity);
@@ -76,40 +76,36 @@ pipeline.Run(leftImage, rightImage, disparity);
 ## Supported Backends
 | 🎯 Target                                            | Status                                             |
 | --------------------------------------------------- | -------------------------------------------------- |
-| [![target_cpu_badge][]][build_cpu_status]           | [![build_cpu_badge][]][build_cpu_status]           |
 | [![target_tensorrt_badge][]][build_tensorrt_status] | [![build_tensorrt_badge][]][build_tensorrt_status] |
 | [![target_jetson_badge][]][build_jetson_status]     | [![build_jetson_badge][]][build_jetson_status]     |
 | ![target_hailort_badge]                             | Coming soon                                        |
 | ![target_openvino_badge]                            | Coming soon                                        |
 
 <!-- TARGET BADGES -->
-[target_cpu_badge]: https://img.shields.io/badge/CPU-gray?style=flat-square
 [target_tensorrt_badge]: https://img.shields.io/badge/TensorRT-gray?style=flat-square
 [target_jetson_badge]: https://img.shields.io/badge/TensorRT(Jetson)-gray?style=flat-square
 [target_hailort_badge]: https://img.shields.io/badge/HailoRT-gray?style=flat-square
 [target_openvino_badge]: https://img.shields.io/badge/OpenVINO-gray?style=flat-square
 
 <!-- BUILD STATUS BADGES -->
-[build_cpu_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_cpu.yml?style=flat-square&label=build
 [build_tensorrt_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_tensorrt.yml?style=flat-square&label=build
 [build_jetson_badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build_jetson.yml?style=flat-square&label=build
 
 <!-- STATUS LINKS -->
-[build_cpu_status]: https://github.com/retinify/retinify/actions/workflows/build_cpu.yml?query=branch%3Amain
 [build_tensorrt_status]: https://github.com/retinify/retinify/actions/workflows/build_tensorrt.yml?query=branch%3Amain
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
 ## Pipeline Latencies
-Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations.  
-These measurements were taken using each setting of `retinify::tools::Mode`.  
+Latency includes the time for image upload, inference, and disparity download, reported as the median over 10,000 iterations (measured with `retinify::Pipeline`).  
+These measurements were taken using each setting of `retinify::Mode`.  
 
 > [!NOTE]
 > Results may vary depending on the execution environment.
 
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
-| NVIDIA RTX 3060         | 4.082ms / 245.0FPS | 4.941ms / 202.4FPS | 12.138ms / 82.4FPS |
-| NVIDIA Jetson Orin Nano | 18.532ms / 54.0FPS | 25.151ms / 39.8FPS | 49.190ms / 20.3FPS |
+| NVIDIA RTX 3060         | 3.925ms / 254.8FPS | 4.691ms / 213.2FPS | 10.790ms / 92.7FPS |
+| NVIDIA Jetson Orin Nano | 17.462ms / 57.3FPS | 19.751ms / 50.6FPS | 46.104ms / 21.7FPS |
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).

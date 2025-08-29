@@ -65,30 +65,6 @@ Session::~Session() noexcept
         cudaStream_ = nullptr;
     }
 #else
-    if (binding_)
-    {
-        api_->ReleaseIoBinding(binding_);
-    }
-    if (runOption_)
-    {
-        api_->ReleaseRunOptions(runOption_);
-    }
-    if (session_)
-    {
-        api_->ReleaseSession(session_);
-    }
-    if (sessionOptions_)
-    {
-        api_->ReleaseSessionOptions(sessionOptions_);
-    }
-    if (deviceMemoryInfo_)
-    {
-        api_->ReleaseMemoryInfo(deviceMemoryInfo_);
-    }
-    if (env_)
-    {
-        api_->ReleaseEnv(env_);
-    }
 #endif
 }
 
@@ -255,72 +231,9 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
 
     return Status{};
 #else
-    OrtStatus *ort_status = nullptr;
-
-    // Create environment
-    ort_status = api_->CreateEnv(ORT_LOGGING_LEVEL_FATAL, "retinify", &env_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Create session options
-    ort_status = api_->CreateSessionOptions(&sessionOptions_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Set graph optimization level and thread count
-    ort_status = api_->SetSessionGraphOptimizationLevel(sessionOptions_, ORT_ENABLE_ALL);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    ort_status = api_->SetIntraOpNumThreads(sessionOptions_, 4);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Create CPU memory info
-    ort_status = api_->CreateMemoryInfo("Cpu", OrtArenaAllocator, 0, OrtMemTypeDefault, &deviceMemoryInfo_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Create session
-    ort_status = api_->CreateSession(env_, model_path, sessionOptions_, &session_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Create run options
-    ort_status = api_->CreateRunOptions(&runOption_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    // Create IO binding
-    ort_status = api_->CreateIoBinding(session_, &binding_);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    return Status{};
+    (void)model_path;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
@@ -344,29 +257,10 @@ auto Session::BindInput(const char *name, const Mat &mat) const noexcept -> Stat
 
     return Status{};
 #else
-    size_t elementCount = mat.ElementCount();
-    size_t bytesPerElement = mat.BytesPerElement();
-    std::array<int64_t, 4> shape = mat.Shape();
-
-    OrtValue *tensor = nullptr;
-    OrtStatus *ort_status = nullptr;
-
-    ort_status = api_->CreateTensorWithDataAsOrtValue(deviceMemoryInfo_, static_cast<float *>(mat.Data()), elementCount * bytesPerElement, shape.data(), shape.size(), ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT, &tensor);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    ort_status = api_->BindInput(binding_, name, tensor);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        api_->ReleaseValue(tensor);
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    return Status{};
+    (void)name;
+    (void)mat;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
@@ -381,29 +275,10 @@ auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Sta
 
     return Status{};
 #else
-    size_t elementCount = mat.ElementCount();
-    size_t bytesPerElement = mat.BytesPerElement();
-    std::array<int64_t, 4> shape = mat.Shape();
-
-    OrtValue *tensor = nullptr;
-    OrtStatus *ort_status = nullptr;
-
-    ort_status = api_->CreateTensorWithDataAsOrtValue(deviceMemoryInfo_, static_cast<float *>(mat.Data()), elementCount * bytesPerElement, shape.data(), shape.size(), ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT, &tensor);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    ort_status = api_->BindOutput(binding_, name, tensor);
-    if (ort_status)
-    {
-        api_->ReleaseStatus(ort_status);
-        api_->ReleaseValue(tensor);
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    return Status{};
+    (void)name;
+    (void)mat;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
@@ -431,17 +306,8 @@ auto Session::Run() const noexcept -> Status
 
     return Status{};
 #else
-    OrtStatus *ort_status = nullptr;
-
-    ort_status = api_->RunWithBinding(session_, runOption_, binding_);
-    if (ort_status)
-    {
-        LogError(api_->GetErrorMessage(ort_status));
-        api_->ReleaseStatus(ort_status);
-        return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-    }
-
-    return Status{};
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 } // namespace retinify

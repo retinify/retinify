@@ -15,12 +15,10 @@
 #include <cuda_runtime.h>
 #include <iostream>
 #else
-#include <onnxruntime_c_api.h>
 #endif
 
 namespace retinify
 {
-
 class RETINIFY_API Session
 {
   public:
@@ -42,13 +40,6 @@ class RETINIFY_API Session
     nvinfer1::IExecutionContext *context_{nullptr};
     cudaStream_t cudaStream_{nullptr};
 #else
-    OrtEnv *env_{nullptr};
-    OrtSessionOptions *sessionOptions_{nullptr};
-    OrtSession *session_{nullptr};
-    OrtIoBinding *binding_{nullptr};
-    OrtRunOptions *runOption_{nullptr};
-    OrtMemoryInfo *deviceMemoryInfo_{nullptr};
-    const OrtApi *api_{OrtGetApiBase()->GetApi(ORT_API_VERSION)};
 #endif
 };
 } // namespace retinify
