@@ -69,7 +69,7 @@ cv::Mat disparity;
 retinify::tools::StereoMatchingPipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-auto statusInitialize = pipeline.Initialize();
+auto statusInitialize = pipeline.Initialize(leftImage.rows, leftImage.cols);
 if (!statusInitialize.IsOK())
 {
     return 1;
