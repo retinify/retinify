@@ -27,7 +27,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 </table>
 
 ## Why Retinify?
-- 🌐 **Open Source**: Fully customizable and freely available under an open source license.
+- 🌐 **Open Source**: Fully customizable and freely available under an Apache-2.0 license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
@@ -45,8 +45,8 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 #include <opencv2/opencv.hpp>
 
 // LOAD INPUT IMAGES
-cv::Mat leftImage = cv::imread(<left_image_path>);
-cv::Mat rightImage = cv::imread(<right_image_path>);
+cv::Mat leftImage = cv::imread("path/to/left.png");
+cv::Mat rightImage = cv::imread("path/to/right.png");
 
 // PREPARE OUTPUT CONTAINER
 cv::Mat disparity;
@@ -96,7 +96,7 @@ pipeline.Run(leftImage, rightImage, disparity);
 [build_jetson_status]: https://github.com/retinify/retinify/actions/workflows/build_jetson.yml?query=branch%3Amain
 
 ## Pipeline Latencies
-Latency includes the time for image upload, inference, and disparity download, reported as the median over 10000 iterations (measured with `retinify::Pipeline`).  
+Latency includes the time for image upload, inference, and disparity download, reported as the median over 10,000 iterations (measured with `retinify::Pipeline`).  
 These measurements were taken using each setting of `retinify::Mode`.  
 
 > [!NOTE]
@@ -105,7 +105,7 @@ These measurements were taken using each setting of `retinify::Mode`.
 | DEVICE \ MODE           | FAST               | BALANCED           | ACCURATE           |
 | ----------------------- | ------------------ | ------------------ | ------------------ |
 | NVIDIA RTX 3060         | 3.925ms / 254.8FPS | 4.691ms / 213.2FPS | 10.790ms / 92.7FPS |
-| NVIDIA Jetson Orin Nano | 18.532ms / 54.0FPS | 25.151ms / 39.8FPS | 49.190ms / 20.3FPS |
+| NVIDIA Jetson Orin Nano | 17.462ms / 57.3FPS | 19.751ms / 50.6FPS | 46.104ms / 21.7FPS |
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
