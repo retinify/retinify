@@ -124,9 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a98b1af42c11f725a00e73b93a135e182"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33c3b968a968193cbe9bbeab89919e06" id="r_a33c3b968a968193cbe9bbeab89919e06"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a33c3b968a968193cbe9bbeab89919e06">operator=</a> (<a class="el" href="classretinify_1_1Pipeline.html">Pipeline</a> &amp;&amp;) noexcept -&gt; <a class="el" href="classretinify_1_1Pipeline.html">Pipeline</a> &amp;=delete</td></tr>
 <tr class="separator:a33c3b968a968193cbe9bbeab89919e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58bf1412b87dbce28ed35f855cee9a6a" id="r_a58bf1412b87dbce28ed35f855cee9a6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a58bf1412b87dbce28ed35f855cee9a6a">Initialize</a> (std::size_t imageHeight, std::size_t imageWidth) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a58bf1412b87dbce28ed35f855cee9a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the given image dimensions.  <br /></td></tr>
-<tr class="separator:a58bf1412b87dbce28ed35f855cee9a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a007ea6125af54145eb6730c400fd7d37" id="r_a007ea6125af54145eb6730c400fd7d37"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a007ea6125af54145eb6730c400fd7d37">Initialize</a> (std::size_t imageHeight, std::size_t imageWidth, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> mode=<a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a007ea6125af54145eb6730c400fd7d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the given image dimensions.  <br /></td></tr>
+<tr class="separator:a007ea6125af54145eb6730c400fd7d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63e6a9d44c617fca87fc98e7e20a01fa" id="r_a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a> (const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the stereo matching pipeline using the given left and right image data.  <br /></td></tr>
 <tr class="separator:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -237,8 +237,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a58bf1412b87dbce28ed35f855cee9a6a" name="a58bf1412b87dbce28ed35f855cee9a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58bf1412b87dbce28ed35f855cee9a6a">&#9670;&#160;</a></span>Initialize()</h2>
+<a id="a007ea6125af54145eb6730c400fd7d37" name="a007ea6125af54145eb6730c400fd7d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a007ea6125af54145eb6730c400fd7d37">&#9670;&#160;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +256,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>imageWidth</em>&#160;</td>
+          <td class="paramname"><em>imageWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -276,6 +282,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">imageHeight</td><td>Height of the input images (in pixels). </td></tr>
     <tr><td class="paramname">imageWidth</td><td>Width of the input images (in pixels). </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode option for the stereo matching. </td></tr>
   </table>
   </dd>
 </dl>
@@ -396,9 +403,9 @@ Public Member Functions</h2></td></tr>
 <p>Executes the stereo matching pipeline using the given left and right image data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data (8-bit grayscale). </td></tr>
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data (8-bit rgb). </td></tr>
     <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the left image. </td></tr>
-    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data (8-bit grayscale). </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data (8-bit rgb). </td></tr>
     <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the right image. </td></tr>
     <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float). </td></tr>
     <tr><td class="paramname">disparityStride</td><td>Stride (in bytes) of a row in the output disparity data. </td></tr>

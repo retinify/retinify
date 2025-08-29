@@ -124,9 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a73f7611912baef98d13a5865d79d620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa86872bfa870701fff0c59eec504510" id="r_afa86872bfa870701fff0c59eec504510"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#afa86872bfa870701fff0c59eec504510">operator=</a> (<a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html">StereoMatchingPipeline</a> &amp;&amp;other) noexcept -&gt; <a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html">StereoMatchingPipeline</a> &amp;=delete</td></tr>
 <tr class="separator:afa86872bfa870701fff0c59eec504510"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1de113d40524003334860ac20f771362" id="r_a1de113d40524003334860ac20f771362"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a1de113d40524003334860ac20f771362">Initialize</a> (<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a> mode=<a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a1de113d40524003334860ac20f771362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing mode.  <br /></td></tr>
-<tr class="separator:a1de113d40524003334860ac20f771362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2294ffb9663b67fb6befac2162eb2be4" id="r_a2294ffb9663b67fb6befac2162eb2be4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a2294ffb9663b67fb6befac2162eb2be4">Initialize</a> (int imageHeight, int imageWidth, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> mode=<a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a>) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a2294ffb9663b67fb6befac2162eb2be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the stereo matching pipeline with the specified processing mode.  <br /></td></tr>
+<tr class="separator:a2294ffb9663b67fb6befac2162eb2be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a74777efea43cf3d9ae9ced89479d4c" id="r_a0a74777efea43cf3d9ae9ced89479d4c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#a0a74777efea43cf3d9ae9ced89479d4c">Run</a> (const cv::Mat &amp;leftImage, const cv::Mat &amp;rightImage, cv::Mat &amp;disparity) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a0a74777efea43cf3d9ae9ced89479d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the stereo matching pipeline.  <br /></td></tr>
 <tr class="separator:a0a74777efea43cf3d9ae9ced89479d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,8 +240,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1de113d40524003334860ac20f771362" name="a1de113d40524003334860ac20f771362"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1de113d40524003334860ac20f771362">&#9670;&#160;</a></span>Initialize()</h2>
+<a id="a2294ffb9663b67fb6befac2162eb2be4" name="a2294ffb9663b67fb6befac2162eb2be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2294ffb9663b67fb6befac2162eb2be4">&#9670;&#160;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,9 +252,25 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">auto retinify::tools::StereoMatchingPipeline::Initialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a>&#160;</td>
-          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a></code></td><td>)</td>
-          <td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>imageHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>imageWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">Mode::ACCURATE</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
         </tr>
       </table>
   </td>

@@ -34,11 +34,10 @@ var NAVTREE =
       [ "1. Dependencies", "installation.html#autotoc_md1", null ],
       [ "2. Clone the retinify repository.", "installation.html#autotoc_md2", null ],
       [ "3. Install retinify", "installation.html#autotoc_md3", [
-        [ "3.1 with TensorRT", "installation.html#autotoc_md4", null ],
-        [ "3.2 with CPU", "installation.html#autotoc_md5", null ]
+        [ "3.1 with TensorRT", "installation.html#autotoc_md4", null ]
       ] ],
-      [ "4. Verify Installation", "installation.html#autotoc_md6", null ],
-      [ "5. Uninstall retinify", "installation.html#autotoc_md7", null ]
+      [ "4. Verify Installation", "installation.html#autotoc_md5", null ],
+      [ "5. Uninstall retinify", "installation.html#autotoc_md6", null ]
     ] ],
     [ "Tutorials", "tutorials.html", null ],
     [ "API Reference", "api.html", null ],

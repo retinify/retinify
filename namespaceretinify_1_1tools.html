@@ -100,7 +100,6 @@ $(document).ready(function(){initNavTree('namespaceretinify_1_1tools.html',''); 
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">retinify::tools Namespace Reference</div></div>
 </div><!--header-->
@@ -112,54 +111,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class provides an interface for running a stereo matching pipeline using OpenCV.  <a href="classretinify_1_1tools_1_1StereoMatchingPipeline.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a95f8dc4900c1543085e802782b190db8" id="r_a95f8dc4900c1543085e802782b190db8"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">Mode</a> : std::uint8_t { <a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
-, <a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
-, <a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
- }</td></tr>
-<tr class="memdesc:a95f8dc4900c1543085e802782b190db8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode options for the stereo matching pipeline.  <a href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">More...</a><br /></td></tr>
-<tr class="separator:a95f8dc4900c1543085e802782b190db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab33d301f0fba216b39ac3c0d0a8c6980" id="r_ab33d301f0fba216b39ac3c0d0a8c6980"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify_1_1tools.html#ab33d301f0fba216b39ac3c0d0a8c6980">ColorizeDisparity</a> (const cv::Mat &amp;disparity, int maxDisparity)</td></tr>
 <tr class="memdesc:ab33d301f0fba216b39ac3c0d0a8c6980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colorizes a disparity map.  <br /></td></tr>
 <tr class="separator:ab33d301f0fba216b39ac3c0d0a8c6980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a95f8dc4900c1543085e802782b190db8" name="a95f8dc4900c1543085e802782b190db8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95f8dc4900c1543085e802782b190db8">&#9670;&#160;</a></span>Mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="namespaceretinify_1_1tools.html#a95f8dc4900c1543085e802782b190db8">retinify::tools::Mode</a> : std::uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The mode options for the stereo matching pipeline. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a95f8dc4900c1543085e802782b190db8adca6e617f6fb54033deb311e7e7c93cc" name="a95f8dc4900c1543085e802782b190db8adca6e617f6fb54033deb311e7e7c93cc"></a>FAST&#160;</td><td class="fielddoc"><p>Fastest, with lowest accuracy. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a95f8dc4900c1543085e802782b190db8a0cb4635d100151dcaac6f91db856c402" name="a95f8dc4900c1543085e802782b190db8a0cb4635d100151dcaac6f91db856c402"></a>BALANCED&#160;</td><td class="fielddoc"><p>Balanced, with moderate accuracy and speed. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657" name="a95f8dc4900c1543085e802782b190db8a12be95d6acf8f32c3a193ad12b70d657"></a>ACCURATE&#160;</td><td class="fielddoc"><p>Most accurate, with slowest performance. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab33d301f0fba216b39ac3c0d0a8c6980" name="ab33d301f0fba216b39ac3c0d0a8c6980"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab33d301f0fba216b39ac3c0d0a8c6980">&#9670;&#160;</a></span>ColorizeDisparity()</h2>

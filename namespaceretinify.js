@@ -11,6 +11,11 @@ var namespaceretinify =
       [ "FATAL", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
       [ "OFF", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
     ] ],
+    [ "Mode", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6", [
+      [ "FAST", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc", null ],
+      [ "BALANCED", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402", null ],
+      [ "ACCURATE", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657", null ]
+    ] ],
     [ "StatusCategory", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d", [
       [ "NONE", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693", null ],
       [ "RETINIFY", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a", null ],

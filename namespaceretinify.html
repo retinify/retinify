@@ -152,6 +152,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status codes returned by retinify operations.  <a href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4">More...</a><br /></td></tr>
 <tr class="separator:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28fa89b14047dfa14d14b015cb396d6" id="r_ad28fa89b14047dfa14d14b015cb396d6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
+, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
+, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
+ }</td></tr>
+<tr class="memdesc:ad28fa89b14047dfa14d14b015cb396d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode options for the stereo matching pipeline.  <a href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">More...</a><br /></td></tr>
+<tr class="separator:ad28fa89b14047dfa14d14b015cb396d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -232,6 +238,38 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc" name="ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc"></a>FATAL&#160;</td><td class="fielddoc"><p>Fatal Error messages. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4" name="ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4"></a>OFF&#160;</td><td class="fielddoc"><p>Disable all logging. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ad28fa89b14047dfa14d14b015cb396d6" name="ad28fa89b14047dfa14d14b015cb396d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad28fa89b14047dfa14d14b015cb396d6">&#9670;&#160;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">retinify::Mode</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The mode options for the stereo matching pipeline. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc" name="ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc"></a>FAST&#160;</td><td class="fielddoc"><p>Fastest, with lowest accuracy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402" name="ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402"></a>BALANCED&#160;</td><td class="fielddoc"><p>Balanced, with moderate accuracy and speed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657" name="ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657"></a>ACCURATE&#160;</td><td class="fielddoc"><p>Most accurate, with slowest performance. </p>
 </td></tr>
 </table>
 
