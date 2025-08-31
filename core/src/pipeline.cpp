@@ -231,13 +231,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = ResizeLinear8UC3(left8UC3_, leftResized8UC3_);
+        status = ResizeImage8UC3(left8UC3_, leftResized8UC3_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeLinear8UC3(right8UC3_, rightResized8UC3_);
+        status = ResizeImage8UC3(right8UC3_, rightResized8UC3_);
         if (!status.IsOK())
         {
             return status;

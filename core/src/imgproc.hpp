@@ -12,12 +12,23 @@
 
 namespace retinify
 {
-[[nodiscard]] auto ResizeLinear8UC3(const Mat &src, Mat &dst) noexcept -> Status
+[[nodiscard]] auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status;
+[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status;
+[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+
+inline auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
 {
+    if (src.Empty() || dst.Empty())
+    {
+        LogError("Source or destination is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
     if (src.Channels() != 3 || dst.Channels() != 3)
     {
         LogError("Source and destination must have 3 channels.");
-        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
     }
 
 #ifdef BUILD_WITH_TENSORRT
@@ -44,12 +55,18 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
+inline auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
+    if (src.Empty() || dst.Empty())
+    {
+        LogError("Source or destination is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
     if (src.Channels() != 1 || dst.Channels() != 1)
     {
         LogError("Source and destination must have 1 channel.");
-        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
     }
 
 #ifdef BUILD_WITH_TENSORRT
@@ -85,12 +102,18 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
+inline auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 {
+    if (src.Empty() || dst.Empty())
+    {
+        LogError("Source or destination is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
     if (src.Channels() != 3 || dst.Channels() != 1)
     {
         LogError("Source must have 3 channels and destination must have 1 channel.");
-        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
     }
 
 #ifdef BUILD_WITH_TENSORRT
@@ -113,12 +136,18 @@ namespace retinify
 #endif
 }
 
-[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
+inline auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
+    if (src.Empty() || dst.Empty())
+    {
+        LogError("Source or destination is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
     if (src.Channels() != 1 || dst.Channels() != 1)
     {
         LogError("Source and destination must have 1 channel.");
-        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
     }
 
 #ifdef BUILD_WITH_TENSORRT

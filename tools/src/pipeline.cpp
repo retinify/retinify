@@ -64,8 +64,6 @@ static inline auto LRConsistencyCheck(const cv::Mat &leftDisparity, const cv::Ma
 
 auto StereoMatchingPipeline::Initialize(int imageHeight, int imageWidth, Mode mode) noexcept -> Status
 {
-    imageHeight_ = imageHeight;
-    imageWidth_ = imageWidth;
     auto status = pipeline_.Initialize(imageHeight, imageWidth, mode);
     return status;
 }
