@@ -267,6 +267,11 @@ auto Mat::Data() const noexcept -> void *
     return deviceData_;
 }
 
+auto Mat::Empty() const noexcept -> bool
+{
+    return deviceData_ == nullptr;
+}
+
 auto Mat::Rows() const noexcept -> std::size_t
 {
     return rows_;
