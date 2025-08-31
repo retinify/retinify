@@ -25,6 +25,10 @@ class RETINIFY_API StereoMatchingPipeline
 
     /// @brief
     /// Initializes the stereo matching pipeline with the specified processing mode.
+    /// @param imageHeight
+    /// The height of the input images.
+    /// @param imageWidth
+    /// The width of the input images.
     /// @param mode
     /// The processing mode to use for the stereo matching pipeline.
     /// @return
@@ -69,8 +73,6 @@ class RETINIFY_API StereoMatchingPipeline
     [[nodiscard]] auto RunImpl(const cv::Mat &leftImage, const cv::Mat &rightImage, cv::Mat &disparity, //
                                float maxDisparityDifference) noexcept -> Status;
 
-    size_t imageHeight_{0};
-    size_t imageWidth_{0};
     Pipeline pipeline_;
 };
 } // namespace retinify::tools

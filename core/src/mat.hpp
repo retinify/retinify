@@ -29,6 +29,7 @@ class RETINIFY_API Mat
     [[nodiscard]] auto Download(void *hostData, std::size_t hostStride) const noexcept -> Status;
     [[nodiscard]] auto Wait() const noexcept -> Status;
     [[nodiscard]] auto Data() const noexcept -> void *;
+    [[nodiscard]] auto Empty() const noexcept -> bool;
     [[nodiscard]] auto Rows() const noexcept -> std::size_t;
     [[nodiscard]] auto Cols() const noexcept -> std::size_t;
     [[nodiscard]] auto Channels() const noexcept -> std::size_t;
