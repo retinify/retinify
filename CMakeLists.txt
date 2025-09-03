@@ -12,6 +12,15 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# VERSION
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION_NUMBER)
+string(STRIP "${VERSION_NUMBER}" PROJECT_VERSION)
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_version.hpp.in"
+    "${CMAKE_BINARY_DIR}/include/retinify/retinify_version.hpp"
+    @ONLY
+)
+
 # CONFIG
 install(EXPORT retinifyTargets
     FILE retinifyTargets.cmake
@@ -43,15 +52,6 @@ configure_file(
 install(
     FILES "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
     DESTINATION include/retinify
-)
-
-# VERSION
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION_NUMBER)
-string(STRIP "${VERSION_NUMBER}" PROJECT_VERSION)
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_version.hpp.in"
-    "${CMAKE_BINARY_DIR}/include/retinify/retinify_version.hpp"
-    @ONLY
 )
 
 # ONNX MODEL

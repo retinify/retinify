@@ -1,18 +1,10 @@
 @PACKAGE_INIT@
 
 if(DEFINED RETINIFY_CONFIG_LOADED)
-    return()
-endif()
+
+else()
 set(RETINIFY_CONFIG_LOADED TRUE)
-
-include(CMakeFindDependencyMacro)
-
 include("${CMAKE_CURRENT_LIST_DIR}/retinifyTargets.cmake")
+message(STATUS "Found retinify v@PROJECT_VERSION@")
 
-add_library(retinify INTERFACE)
-target_link_libraries(retinify 
-    INTERFACE
-        retinify::retinify-core
-)
-
-message(STATUS "Found retinify")
+endif()
