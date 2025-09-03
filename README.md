@@ -35,11 +35,9 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 
 ## Basic Usage
 ![pipeline](https://raw.githubusercontent.com/retinify/assets/main/images/pipeline.png)
-
-`retinify::tools` offers OpenCV-compatible utility functions for image and disparity processing.
   
 > [!IMPORTANT]
-> The core `retinify::Pipeline` is independent of OpenCV and supports various image data types.
+> Retinify is independent of OpenCV and supports various image data types.
   
 ```cpp
 #include <retinify/retinify.hpp>
@@ -50,16 +48,16 @@ cv::Mat leftImage = cv::imread("path/to/left.png");
 cv::Mat rightImage = cv::imread("path/to/right.png");
 
 // PREPARE OUTPUT CONTAINER
-cv::Mat disparity;
+cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
 
 // CREATE STEREO MATCHING PIPELINE
-retinify::tools::StereoMatchingPipeline pipeline;
+retinify::Pipeline pipeline;
 
 // INITIALIZE THE PIPELINE
 pipeline.Initialize(leftImage.rows, leftImage.cols);
 
 // EXECUTE STEREO MATCHING
-pipeline.Run(leftImage, rightImage, disparity);
+pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0], rightImage.ptr<uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
 ```
 
 ## Getting Started
