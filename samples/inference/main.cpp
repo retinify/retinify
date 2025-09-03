@@ -19,16 +19,18 @@ int main(int argc, char **argv)
     std::string right_path = argv[2];
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
-    retinify::tools::StereoMatchingPipeline pipeline;
+    retinify::Pipeline pipeline;
 
     cv::Mat leftImage = cv::imread(left_path);
     cv::Mat rightImage = cv::imread(right_path);
-    cv::Mat disparity;
     if (leftImage.empty() || rightImage.empty())
     {
         retinify::LogError("Failed to load input images.");
         return 1;
     }
+
+    cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
+    cv::Mat disparityColored = cv::Mat::zeros(leftImage.size(), CV_8UC3);
 
     auto statusInitialize = pipeline.Initialize(leftImage.rows, leftImage.cols);
     if (!statusInitialize.IsOK())
@@ -37,15 +39,23 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    auto statusRun = pipeline.RunWithLeftRightConsistencyCheck(leftImage, rightImage, disparity, 5.0F);
+    auto statusRun = pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0], rightImage.ptr<uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
     if (!statusRun.IsOK())
     {
         retinify::LogError("Failed to run the pipeline.");
         return 1;
     }
 
-    cv::imshow("disparity", retinify::tools::ColorizeDisparity(disparity, 256));
-    cv::imwrite("disparity.png", retinify::tools::ColorizeDisparity(disparity, 256));
+    auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.rows, disparity.cols, 256.0F);
+    if (!statusColorize.IsOK())
+    {
+        retinify::LogError("Failed to colorize the disparity map.");
+        return 1;
+    }
+
+    cv::cvtColor(disparityColored, disparityColored, cv::COLOR_RGB2BGR);
+    cv::imshow("disparity", disparityColored);
+    cv::imwrite("disparity.png", disparityColored);
     cv::waitKey(0);
 
     return 0;

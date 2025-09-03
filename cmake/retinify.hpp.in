@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "retinify/colormap.hpp"
 #include "retinify/define.hpp"
 #include "retinify/log.hpp"
 #include "retinify/path.hpp"
