@@ -30,15 +30,11 @@ install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
 
 # BUILD OPTIONS
 option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
-option(BUILD_TOOLS "Build tools" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 option(BUILD_TESTS "Build tests" ON)
 
 # ALL IN ONE HEADER
 set(LIBRETINIFY_OPTION_INCLUDES "")
-if(BUILD_TOOLS)
-    string(APPEND LIBRETINIFY_OPTION_INCLUDES "#include \"retinify/tools.hpp\"\n")
-endif()
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
@@ -79,9 +75,6 @@ configure_file(
 # SUBDIRECTORIES
 add_subdirectory(core)
 add_subdirectory(3rdparty)
-if(BUILD_TOOLS)
-    add_subdirectory(tools)
-endif(BUILD_TOOLS)
 if(BUILD_SAMPLES)
     add_subdirectory(samples)
 endif(BUILD_SAMPLES)
@@ -122,7 +115,6 @@ message(STATUS "                           RETINIFY Build Configuration         
 message(STATUS "================================================================================")
 message(STATUS "PROJECT_VERSION        : ${PROJECT_VERSION}")
 message(STATUS "BUILD_WITH_TENSORRT    : ${BUILD_WITH_TENSORRT}")
-message(STATUS "BUILD_TOOLS            : ${BUILD_TOOLS}")
 message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
 message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")
 message(STATUS "STEREO_MODEL_PATH      : ${STEREO_MODEL_PATH}")

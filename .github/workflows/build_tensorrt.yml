@@ -54,5 +54,5 @@ jobs:
             git submodule update --init --recursive
 
             echo '=== Build RETINIFY ==='
-            ./build.sh --install --tensorrt --tools
+            ./build.sh --install --tensorrt
           "

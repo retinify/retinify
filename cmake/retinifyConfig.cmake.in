@@ -15,13 +15,4 @@ target_link_libraries(retinify
         retinify::retinify-core
 )
 
-if(@BUILD_TOOLS@)
-    find_package(OpenCV REQUIRED)
-    
-    target_link_libraries(retinify 
-        INTERFACE
-            retinify::retinify-tools
-    )
-endif()
-
 message(STATUS "Found retinify")
