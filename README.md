@@ -57,7 +57,9 @@ retinify::Pipeline pipeline;
 pipeline.Initialize(leftImage.rows, leftImage.cols);
 
 // EXECUTE STEREO MATCHING
-pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0], rightImage.ptr<uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
+pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
+             rightImage.ptr<uint8_t>(), rightImage.step[0], //
+             disparity.ptr<float>(), disparity.step[0]);
 ```
 
 ## Getting Started
