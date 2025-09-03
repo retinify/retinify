@@ -111,9 +111,9 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
         {
             float d = srcRow[x];
 
-            if (!std::isfinite(d))
+            if (std::isnan(d))
             {
-                LogError("src contains non-finite value.");
+                LogError("src contains NaN value.");
                 return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
             }
 
