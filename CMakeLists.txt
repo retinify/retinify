@@ -73,7 +73,7 @@ configure_file(
 )
 
 # SUBDIRECTORIES
-add_subdirectory(core)
+add_subdirectory(retinify)
 add_subdirectory(3rdparty)
 if(BUILD_SAMPLES)
     add_subdirectory(samples)

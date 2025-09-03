@@ -15,5 +15,5 @@ target_link_libraries(retinify-tests
 # INCLUDES
 target_include_directories(retinify-tests
     PRIVATE 
-        ../src # retinify core source
+        ../src # retinify source
 )
