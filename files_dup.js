@@ -1,5 +1,4 @@
 var files_dup =
 [
-    [ "core", "dir_4270bfced15e0e73154b13468c7c9ad9.html", "dir_4270bfced15e0e73154b13468c7c9ad9" ],
-    [ "tools", "dir_4eeb864c4eec08c7d6b9d3b0352cfdde.html", "dir_4eeb864c4eec08c7d6b9d3b0352cfdde" ]
+    [ "retinify", "dir_15e2f91f1ef0d28f46273c4fbad77c00.html", "dir_15e2f91f1ef0d28f46273c4fbad77c00" ]
 ];

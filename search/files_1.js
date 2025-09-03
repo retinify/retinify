@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['define_2ehpp_0',['define.hpp',['../define_8hpp.html',1,'']]]
+  ['colormap_2ehpp_0',['colormap.hpp',['../colormap_8hpp.html',1,'']]]
 ];

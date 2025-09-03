@@ -1,6 +1,5 @@
 var namespaceretinify =
 [
-    [ "tools", "namespaceretinify_1_1tools.html", "namespaceretinify_1_1tools" ],
     [ "Pipeline", "classretinify_1_1Pipeline.html", "classretinify_1_1Pipeline" ],
     [ "Status", "classretinify_1_1Status.html", "classretinify_1_1Status" ],
     [ "LogLevel", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f", [
@@ -29,6 +28,7 @@ var namespaceretinify =
       [ "INVALID_ARGUMENT", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d", null ]
     ] ],
     [ "CacheDirectoryPath", "namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c", null ],
+    [ "ColorizeDisparity", "namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df", null ],
     [ "ConfigDirectoryPath", "namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1", null ],
     [ "DataDirectoryPath", "namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16", null ],
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],

@@ -99,7 +99,6 @@ $(document).ready(function(){initNavTree('namespaceretinify.html',''); initResiz
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -107,11 +106,6 @@ $(document).ready(function(){initNavTree('namespaceretinify.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespaceretinify_1_1tools" id="r_namespaceretinify_1_1tools"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify_1_1tools.html">tools</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html">Pipeline</a></td></tr>
@@ -161,6 +155,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0aa41e1b018be9d3aef84d815307b7df" id="r_a0aa41e1b018be9d3aef84d815307b7df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df">ColorizeDisparity</a> (const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a0aa41e1b018be9d3aef84d815307b7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the disparity map.  <br /></td></tr>
+<tr class="separator:a0aa41e1b018be9d3aef84d815307b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e9f58f6b0cc01cbe490c9e9819ebf84" id="r_a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84">GetLogLevel</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td></tr>
 <tr class="memdesc:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log level.  <br /></td></tr>
 <tr class="separator:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -369,6 +366,79 @@ Functions</h2></td></tr>
 
 <p>Returns the cache directory path for retinify. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the cache directory path, or nullptr on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a0aa41e1b018be9d3aef84d815307b7df" name="a0aa41e1b018be9d3aef84d815307b7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa41e1b018be9d3aef84d815307b7df">&#9670;&#160;</a></span>ColorizeDisparity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ColorizeDisparity </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>srcStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dstStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxDisp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies the colormap to the disparity map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Input disparity map (32-bit float). </td></tr>
+    <tr><td class="paramname">srcStride</td><td>Stride of the input disparity map in bytes. </td></tr>
+    <tr><td class="paramname">dst</td><td>Output colored disparity map (8-bit 3-channel RGB). </td></tr>
+    <tr><td class="paramname">dstStride</td><td>Stride of the output colored disparity map in bytes. </td></tr>
+    <tr><td class="paramname">height</td><td>Height of the input and output disparity maps. </td></tr>
+    <tr><td class="paramname">width</td><td>Width of the input and output disparity maps. </td></tr>
+    <tr><td class="paramname">maxDisp</td><td>Maximum disparity value for normalization. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating success or failure. </dd></dl>
 
 </div>
 </div>

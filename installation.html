@@ -109,10 +109,7 @@ $(document).ready(function(){initNavTree('installation.html',''); initResizable(
 <ul>
 <li><a href="https://gcc.gnu.org/releases.html"><b>GCC 11 or later</b></a></li>
 <li><a href="https://cmake.org/download/"><b>CMake 3.14 or later</b></a></li>
-<li><a href="https://opencv.org/releases/"><b>OpenCV 4.x</b></a></li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>OpenCV is only required when building <code><a class="el" href="namespaceretinify_1_1tools.html">retinify::tools</a></code> with the <code>--tools</code> option. <br  />
- If you do not use the <code>--tools</code> option, OpenCV is not required.</dd></dl>
 <h1><a class="anchor" id="autotoc_md2"></a>
 2. Clone the retinify repository.</h1>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
@@ -130,7 +127,7 @@ $(document).ready(function(){initNavTree('installation.html',''); initResizable(
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">Versions   </td><td class="markdownTableBodyLeft"><code>12.x</code>   </td><td class="markdownTableBodyLeft"><code>9.x</code>   </td><td class="markdownTableBodyLeft"><code>10.x</code>   </td></tr>
 </table>
-<div class="fragment"><div class="line">./build.sh --install --tensorrt --tools</div>
+<div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 4. Verify Installation</h1>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
