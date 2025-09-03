@@ -1,23 +1,18 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+#include "imgproc.hpp"
+
+#include "retinify/log.hpp"
+
 #ifdef BUILD_WITH_TENSORRT
 #include <npp.h>
 #else
 #endif
 
-#include "mat.hpp"
-
-#include <retinify/log.hpp>
-
 namespace retinify
 {
-[[nodiscard]] auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status;
-[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status;
-[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status;
-[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status;
-
-inline auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
+auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -55,7 +50,7 @@ inline auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
 #endif
 }
 
-inline auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
+auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -102,7 +97,7 @@ inline auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
 #endif
 }
 
-inline auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
+auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -136,7 +131,7 @@ inline auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 #endif
 }
 
-inline auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
+auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {

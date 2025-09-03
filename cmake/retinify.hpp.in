@@ -3,11 +3,10 @@
 
 #pragma once
 
+#include "retinify/colormap.hpp"
 #include "retinify/define.hpp"
 #include "retinify/log.hpp"
 #include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 #include "retinify/version.hpp"
-
-@LIBRETINIFY_OPTION_INCLUDES@

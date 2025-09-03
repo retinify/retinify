@@ -2,10 +2,10 @@
 file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
 
 # LIBRARY
-add_library(retinify-core SHARED ${SRCS_CORE})
+add_library(retinify SHARED ${SRCS_CORE})
 
 # INCLUDES
-target_include_directories(retinify-core
+target_include_directories(retinify
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
@@ -17,7 +17,7 @@ target_include_directories(retinify-core
 
 # COMPILE OPTIONS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-target_compile_options(retinify-core 
+target_compile_options(retinify 
     PRIVATE
         -fvisibility=hidden
         -fvisibility-inlines-hidden
@@ -26,7 +26,7 @@ target_compile_options(retinify-core
         -fno-rtti
 )
 
-target_compile_options(retinify-core
+target_compile_options(retinify
     PRIVATE
         -Wall
         -Wextra
@@ -35,10 +35,10 @@ target_compile_options(retinify-core
 
 # BUILD OPTIONS
 if (BUILD_WITH_TENSORRT)
-    target_compile_definitions(retinify-core PUBLIC BUILD_WITH_TENSORRT)
+    target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
 
-    target_include_directories(retinify-core PUBLIC /usr/local/cuda/include)
-    target_link_libraries(retinify-core
+    target_include_directories(retinify PUBLIC /usr/local/cuda/include)
+    target_link_libraries(retinify
         PUBLIC
             /usr/local/cuda/lib64/libcudart.so
             /usr/local/cuda/lib64/libnppc.so
@@ -76,8 +76,8 @@ if (BUILD_WITH_TENSORRT)
     find_path(TENSORRT_INCLUDE_DIR NAMES NvInfer.h  HINTS ${_TRT_INC_HINTS})
 
     if (NVINFER AND NVONNXPARSER AND TENSORRT_INCLUDE_DIR)
-        target_include_directories(retinify-core PRIVATE ${TENSORRT_INCLUDE_DIR})
-        target_link_libraries(retinify-core PRIVATE
+        target_include_directories(retinify PRIVATE ${TENSORRT_INCLUDE_DIR})
+        target_link_libraries(retinify PRIVATE
             ${NVINFER}
             ${NVONNXPARSER}
         )
@@ -89,7 +89,7 @@ else()
 endif()
 
 # INSTALL
-install(TARGETS retinify-core
+install(TARGETS retinify
     EXPORT retinifyTargets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

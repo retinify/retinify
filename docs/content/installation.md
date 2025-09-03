@@ -6,11 +6,6 @@ This script generates a Debian package, enabling clean installation, easy updati
 # 1. Dependencies
 - [**GCC 11 or later**](https://gcc.gnu.org/releases.html)
 - [**CMake 3.14 or later**](https://cmake.org/download/)
-- [**OpenCV 4.x**](https://opencv.org/releases/)
-  
-@note
-OpenCV is only required when building `retinify::tools` with the `--tools` option.  
-If you do not use the `--tools` option, OpenCV is not required.
   
 # 2. Clone the retinify repository.
 ```bash
@@ -29,7 +24,7 @@ The following additional libraries are required.
 | Versions  | `12.x`                                                    | `9.x`                                               | `10.x`                                            |
   
 ```bash
-./build.sh --install --tensorrt --tools
+./build.sh --install --tensorrt
 ```
 
 # 4. Verify Installation
