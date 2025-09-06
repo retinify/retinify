@@ -138,7 +138,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line"> </div>
 <div class="line">target_link_libraries(${PROJECT_NAME} retinify)</div>
 </div><!-- fragment --><p>In this tutorial, we will use image data in the form of <code>cv::Mat</code>. <br  />
- Stereo matching can be performed using the <code><a class="el" href="classretinify_1_1Pipeline.html" title="This class provides an interface for running a stereo matching pipeline.">retinify::Pipeline</a></code>. <br  />
+ Stereo matching can be performed using the <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code>. <br  />
 </p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;retinify/retinify.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;opencv2/opencv.hpp&gt;</span></div>
@@ -177,7 +177,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line">cv::cvtColor(disparityColored, disparityColored, cv::COLOR_RGB2BGR);</div>
 <div class="line">cv::imshow(<span class="stringliteral">&quot;disparity&quot;</span>, disparityColored);</div>
 <div class="line">cv::waitKey(0);</div>
-<div class="ttc" id="aclassretinify_1_1Pipeline_html"><div class="ttname"><a href="classretinify_1_1Pipeline.html">retinify::Pipeline</a></div><div class="ttdoc">This class provides an interface for running a stereo matching pipeline.</div><div class="ttdef"><b>Definition</b> pipeline.hpp:16</div></div>
+<div class="ttc" id="aclassretinify_1_1Pipeline_html"><div class="ttname"><a href="classretinify_1_1Pipeline.html">retinify::Pipeline</a></div><div class="ttdoc">A retinify::Pipeline provides an interface for running a stereo matching.</div><div class="ttdef"><b>Definition</b> pipeline.hpp:16</div></div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html_a007ea6125af54145eb6730c400fd7d37"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a007ea6125af54145eb6730c400fd7d37">retinify::Pipeline::Initialize</a></div><div class="ttdeci">auto Initialize(std::size_t imageHeight, std::size_t imageWidth, Mode mode=Mode::ACCURATE) noexcept -&gt; Status</div><div class="ttdoc">Initializes the stereo matching pipeline with the given image dimensions.</div></div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html_a63e6a9d44c617fca87fc98e7e20a01fa"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">retinify::Pipeline::Run</a></div><div class="ttdeci">auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; Status</div><div class="ttdoc">Executes the stereo matching pipeline using the given left and right image data.</div></div>
 <div class="ttc" id="anamespaceretinify_html_a0aa41e1b018be9d3aef84d815307b7df"><div class="ttname"><a href="namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df">retinify::ColorizeDisparity</a></div><div class="ttdeci">RETINIFY_API auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -&gt; Status</div><div class="ttdoc">Applies the colormap to the disparity map.</div></div>
