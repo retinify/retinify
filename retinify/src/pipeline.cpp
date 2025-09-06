@@ -181,19 +181,19 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (leftImageStride < matchingWidth_ * sizeof(std::uint8_t))
+        if (leftImageStride < imageWidth_ * 3 * sizeof(std::uint8_t))
         {
             LogError("Left image stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (rightImageStride < matchingWidth_ * sizeof(std::uint8_t))
+        if (rightImageStride < imageWidth_ * 3 * sizeof(std::uint8_t))
         {
             LogError("Right image stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (disparityStride < matchingWidth_ * sizeof(float))
+        if (disparityStride < imageWidth_ * sizeof(float))
         {
             LogError("Disparity stride is too small.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
@@ -313,23 +313,22 @@ class Pipeline::Impl
     }
 
   private:
-    bool initialized_{false};
-
-    size_t imageHeight_{0};     // original input image height
-    size_t imageWidth_{0};      // original input image width
-    size_t matchingHeight_{0};  // image height for stereo matching
-    size_t matchingWidth_{0};   // image width for stereo matching
-    Session session_;           // inference session
-    Mat left8UC3_;              // input rgb image
-    Mat right8UC3_;             // input rgb image
-    Mat disparity32FC1_;        // output disparity map
-    Mat leftResized8UC3_;       // resized rgb image
-    Mat rightResized8UC3_;      // resized rgb image
-    Mat leftResized8UC1_;       // resized gray image
-    Mat rightResized8UC1_;      // resized gray image
-    Mat leftResized32FC1_;      // resized gray image for stereo matching
-    Mat rightResized32FC1_;     // resized gray image for stereo matching
-    Mat disparityResized32FC1_; // resized output disparity map from stereo matching
+    bool initialized_{false};    // whether the pipeline is initialized
+    size_t imageHeight_{0};      // original input image height
+    size_t imageWidth_{0};       // original input image width
+    size_t matchingHeight_{0};   // image height for stereo matching
+    size_t matchingWidth_{0};    // image width for stereo matching
+    Session session_;            // inference session
+    Mat left8UC3_;               // input rgb image
+    Mat right8UC3_;              // input rgb image
+    Mat disparity32FC1_;         // output disparity map
+    Mat leftResized8UC3_;        // resized rgb image
+    Mat rightResized8UC3_;       // resized rgb image
+    Mat leftResized8UC1_;        // resized gray image
+    Mat rightResized8UC1_;       // resized gray image
+    Mat leftResized32FC1_;       // resized gray image for stereo matching
+    Mat rightResized32FC1_;      // resized gray image for stereo matching
+    Mat disparityResized32FC1_;  // resized output disparity map from stereo matching
 };
 
 Pipeline::Pipeline() noexcept

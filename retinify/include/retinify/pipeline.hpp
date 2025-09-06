@@ -11,7 +11,7 @@
 namespace retinify
 {
 /// @brief
-/// This class provides an interface for running a stereo matching pipeline.
+/// A `retinify::Pipeline` provides an interface for running a stereo matching.
 class RETINIFY_API Pipeline
 {
   public:
