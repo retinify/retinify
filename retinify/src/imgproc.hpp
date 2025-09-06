@@ -24,6 +24,24 @@ namespace retinify
 /// @return
 /// Status code indicating success or failure.
 [[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+
+/// @brief
+/// Convert an 8-bit, 3-channel image to an 8-bit, 1-channel grayscale image.
+/// @param src
+/// Input image (8-bit, 3-channel).
+/// @param dst
+/// Output grayscale image (8-bit, 1-channel).
+/// @return
+/// Status code indicating success or failure.
 [[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status;
+
+/// @brief
+/// Convert an 8-bit, 1-channel grayscale image to a 32-bit floating-point, 1-channel image.
+/// @param src
+/// Input grayscale image (8-bit, 1-channel).
+/// @param dst
+/// Output image (32-bit floating-point, 1-channel).
+/// @return
+/// Status code indicating success or failure.
 [[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status;
 } // namespace retinify

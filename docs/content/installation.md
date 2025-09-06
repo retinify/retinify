@@ -21,7 +21,7 @@ The following additional libraries are required.
   
 | Libraries | [CUDA](https://developer.nvidia.com/cuda-toolkit-archive) | [cuDNN](https://developer.nvidia.com/cudnn-archive) | [TensorRT](https://developer.nvidia.com/tensorrt) |
 | :-------- | :-------------------------------------------------------- | :-------------------------------------------------- | :------------------------------------------------ |
-| Versions  | `12.x`                                                    | `9.x`                                               | `10.x`                                            |
+| Versions  | `12.x`, `13.x`                                            | `9.x`                                               | `10.x`                                            |
   
 ```bash
 ./build.sh --install --tensorrt
