@@ -22,6 +22,9 @@ using Point3d = std::array<double, 3>;
 /// @brief 3x3 matrix (double, row-major).
 using Mat3x3d = std::array<std::array<double, 3>, 3>;
 
+/// @brief 3x4 matrix (double, row-major).
+using Mat3x4d = std::array<std::array<double, 4>, 3>;
+
 /// @brief 4x4 matrix (double, row-major).
 using Mat4x4d = std::array<std::array<double, 4>, 4>;
 
@@ -39,6 +42,9 @@ using Point3f = std::array<float, 3>;
 
 /// @brief 3x3 matrix (float, row-major).
 using Mat3x3f = std::array<std::array<float, 3>, 3>;
+
+/// @brief 3x4 matrix (float, row-major).
+using Mat3x4f = std::array<std::array<float, 4>, 3>;
 
 /// @brief 4x4 matrix (float, row-major).
 using Mat4x4f = std::array<std::array<float, 4>, 4>;
