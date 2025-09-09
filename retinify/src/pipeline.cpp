@@ -5,6 +5,10 @@
 #include "mat.hpp"
 #include "session.hpp"
 
+#ifdef BUILD_WITH_TENSORRT
+#include "cuda/lrcheck.h"
+#endif
+
 #include "retinify/log.hpp"
 #include "retinify/path.hpp"
 #include "retinify/pipeline.hpp"
@@ -24,7 +28,7 @@ class Pipeline::Impl
         initialized_ = false;
         (void)left8UC3_.Free();
         (void)right8UC3_.Free();
-        (void)disparity32FC1_.Free();
+        (void)leftDisparity32FC1_.Free();
         (void)leftResized8UC3_.Free();
         (void)rightResized8UC3_.Free();
         (void)leftResized8UC1_.Free();
@@ -32,6 +36,11 @@ class Pipeline::Impl
         (void)leftResized32FC1_.Free();
         (void)rightResized32FC1_.Free();
         (void)disparityResized32FC1_.Free();
+        (void)leftFliped8UC3_.Free();
+        (void)rightFliped8UC3_.Free();
+        (void)disparityFliped32FC1_.Free();
+        (void)rightDisparity32FC1_.Free();
+        (void)lrCheckedDisparity32FC1_.Free();
     }
 
     Impl(const Impl &) = delete;
@@ -39,7 +48,8 @@ class Pipeline::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth, const Mode mode) noexcept -> Status
+    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth, //
+                    const Mode mode) noexcept -> Status
     {
         Status status;
 
@@ -85,7 +95,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = disparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        status = leftDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
         if (!status.IsOK())
         {
             return status;
@@ -157,11 +167,43 @@ class Pipeline::Impl
             return status;
         }
 
+        status = leftFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = disparityFliped32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = lrCheckedDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
         initialized_ = true;
         return status;
     }
 
-    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
+    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride,   //
+                                       const std::uint8_t *rightImageData, const std::size_t rightImageStride, //
+                                       float *disparityData, const std::size_t disparityStride) noexcept -> Status
     {
         if (!leftImageData)
         {
@@ -202,7 +244,10 @@ class Pipeline::Impl
         return Status{};
     }
 
-    auto Run(const std::uint8_t *leftImageData, const std::size_t leftImageStride, const std::uint8_t *rightImageData, const std::size_t rightImageStride, float *disparityData, const std::size_t disparityStride) noexcept -> Status
+    auto Run(const std::uint8_t *leftImageData, const std::size_t leftImageStride,   //
+             const std::uint8_t *rightImageData, const std::size_t rightImageStride, //
+             float *disparityData, const std::size_t disparityStride,                //
+             const float maxDisparityDifference) noexcept -> Status
     {
         Status status;
 
@@ -226,6 +271,18 @@ class Pipeline::Impl
         }
 
         status = right8UC3_.Upload(rightImageData, rightImageStride);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = left8UC3_.Wait();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = right8UC3_.Wait();
         if (!status.IsOK())
         {
             return status;
@@ -267,68 +324,145 @@ class Pipeline::Impl
             return status;
         }
 
-        status = leftResized32FC1_.Wait();
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = rightResized32FC1_.Wait();
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = disparityResized32FC1_.Wait();
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
         status = session_.Run();
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeDisparity32FC1(disparityResized32FC1_, disparity32FC1_);
+        status = ResizeDisparity32FC1(disparityResized32FC1_, leftDisparity32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparity32FC1_.Download(disparityData, disparityStride);
-        if (!status.IsOK())
+        // Left-right consistency check
+        if (maxDisparityDifference > 0.0f)
         {
-            return status;
-        }
+            status = HorizontalFlip8UC3(left8UC3_, leftFliped8UC3_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
 
-        status = disparity32FC1_.Wait();
-        if (!status.IsOK())
+            status = HorizontalFlip8UC3(right8UC3_, rightFliped8UC3_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = ResizeImage8UC3(leftFliped8UC3_, leftResized8UC3_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = ResizeImage8UC3(rightFliped8UC3_, rightResized8UC3_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = Convert8UC1To32FC1(rightResized8UC1_, leftResized32FC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = Convert8UC1To32FC1(leftResized8UC1_, rightResized32FC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = session_.Run();
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = ResizeDisparity32FC1(disparityResized32FC1_, disparityFliped32FC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = HorizontalFlip32FC1(disparityFliped32FC1_, rightDisparity32FC1_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = LRConsistencyCheck32FC1(leftDisparity32FC1_, rightDisparity32FC1_, lrCheckedDisparity32FC1_, 3.0f);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = lrCheckedDisparity32FC1_.Download(disparityData, disparityStride);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = lrCheckedDisparity32FC1_.Wait();
+            if (!status.IsOK())
+            {
+                return status;
+            }
+        }
+        else
         {
-            return status;
+            status = leftDisparity32FC1_.Download(disparityData, disparityStride);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            status = leftDisparity32FC1_.Wait();
+            if (!status.IsOK())
+            {
+                return status;
+            }
         }
 
         return status;
     }
 
   private:
-    bool initialized_{false};    // whether the pipeline is initialized
-    size_t imageHeight_{0};      // original input image height
-    size_t imageWidth_{0};       // original input image width
-    size_t matchingHeight_{0};   // image height for stereo matching
-    size_t matchingWidth_{0};    // image width for stereo matching
-    Session session_;            // inference session
-    Mat left8UC3_;               // input rgb image
-    Mat right8UC3_;              // input rgb image
-    Mat disparity32FC1_;         // output disparity map
-    Mat leftResized8UC3_;        // resized rgb image
-    Mat rightResized8UC3_;       // resized rgb image
-    Mat leftResized8UC1_;        // resized gray image
-    Mat rightResized8UC1_;       // resized gray image
-    Mat leftResized32FC1_;       // resized gray image for stereo matching
-    Mat rightResized32FC1_;      // resized gray image for stereo matching
-    Mat disparityResized32FC1_;  // resized output disparity map from stereo matching
+    bool initialized_{false};     // whether the pipeline is initialized
+    size_t imageHeight_{0};       // original input image height
+    size_t imageWidth_{0};        // original input image width
+    size_t matchingHeight_{0};    // image height for stereo matching
+    size_t matchingWidth_{0};     // image width for stereo matching
+    Session session_;             // inference session
+    Mat left8UC3_;                // input rgb image
+    Mat right8UC3_;               // input rgb image
+    Mat leftDisparity32FC1_;      // output left disparity map
+    Mat leftResized8UC3_;         // resized rgb image
+    Mat rightResized8UC3_;        // resized rgb image
+    Mat leftResized8UC1_;         // resized gray image
+    Mat rightResized8UC1_;        // resized gray image
+    Mat leftResized32FC1_;        // resized gray image for stereo matching
+    Mat rightResized32FC1_;       // resized gray image for stereo matching
+    Mat disparityResized32FC1_;   // resized disparity map from stereo matching
+    Mat leftFliped8UC3_;          // input gray image (fliped)
+    Mat rightFliped8UC3_;         // input gray image (fliped)
+    Mat disparityFliped32FC1_;    // output disparity map (fliped)
+    Mat rightDisparity32FC1_;     // output right disparity map
+    Mat lrCheckedDisparity32FC1_; // output disparity map after left-right consistency check
 };
 
 Pipeline::Pipeline() noexcept
@@ -359,8 +493,23 @@ auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth, Mode 
     return this->impl()->Initialize(imageHeight, imageWidth, mode);
 }
 
-auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -> Status
+auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
+                   const std::uint8_t *rightImageData, std::size_t rightImageStride, //
+                   float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
-    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+    constexpr float kMaxDisparityDifference = -1.0f; // Disable left-right consistency check
+    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride, kMaxDisparityDifference);
+}
+
+auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
+                   const std::uint8_t *rightImageData, std::size_t rightImageStride, //
+                   float *disparityData, std::size_t disparityStride,                //
+                   const float maxDisparityDifference) noexcept -> Status
+{
+    if (maxDisparityDifference < 0.0f)
+    {
+        LogWarn("maxDisparityDifference is negative. Left-right consistency check is disabled.");
+    }
+    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride, maxDisparityDifference);
 }
 } // namespace retinify

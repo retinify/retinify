@@ -1,8 +1,30 @@
-# SOURCES
-file(GLOB_RECURSE SRCS_CORE ./src/*.cpp ./src/*.hpp ./include/*.hpp)
+# CXX SOURCES
+file(GLOB SRCS_CXX
+    ./src/*.cpp
+    ./src/*.hpp
+    ./include/*.hpp
+)
+
+# CUDA SOURCES
+if (BUILD_WITH_TENSORRT)
+    enable_language(CUDA)
+    file(GLOB SRCS_CUDA ./src/cuda/*.cu ./src/cuda/*.h)
+    list(APPEND SRCS_CXX ${SRCS_CUDA})
+endif()
 
 # LIBRARY
-add_library(retinify SHARED ${SRCS_CORE})
+add_library(retinify SHARED ${SRCS_CXX})
+set_target_properties(retinify PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+
+# CUDA ARCH
+if (BUILD_WITH_TENSORRT)
+    set_target_properties(retinify PROPERTIES
+        CUDA_ARCHITECTURES "75;80;86;87;89"
+    )
+endif()
 
 # INCLUDES
 target_include_directories(retinify
@@ -26,12 +48,12 @@ target_compile_options(retinify
         -fno-rtti
 )
 
-target_compile_options(retinify
-    PRIVATE
-        -Wall
-        -Wextra
-        -Werror
-)
+# target_compile_options(retinify
+#     PRIVATE
+#         -Wall
+#         -Wextra
+#         -Werror
+# )
 
 # BUILD OPTIONS
 if (BUILD_WITH_TENSORRT)
