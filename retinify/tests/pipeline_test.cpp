@@ -18,7 +18,7 @@ TEST(PipelineTest, Forward)
 
     Pipeline pipeline;
 
-    Status stInit = pipeline.Initialize(height, width);
+    Status stInit = pipeline.Initialize(width, height);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
     Status stFwd = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
