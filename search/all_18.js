@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['verify_20installation_0',['4. Verify Installation',['../installation.html#autotoc_md5',1,'']]],
-  ['version_1',['Version',['../namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc',1,'retinify']]],
-  ['version_2ehpp_2',['version.hpp',['../version_8hpp.html',1,'']]]
+  ['uninstall_20retinify_0',['5. Uninstall retinify',['../installation.html#autotoc_md6',1,'']]],
+  ['user_1',['USER',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12',1,'retinify']]]
 ];

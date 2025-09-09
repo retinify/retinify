@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('namespaceretinify.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">retinify Namespace Reference</div></div>
@@ -108,12 +109,69 @@ $(document).ready(function(){initNavTree('namespaceretinify.html',''); initResiz
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html">Distortion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brown–Conrady distortion model with 5 coefficients (k1, k2, p1, p2, k3).  <a href="structretinify_1_1Distortion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1DistortionFisheye.html">DistortionFisheye</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fisheye distortion model with 4 coefficients (k1, k2, k3, k4).  <a href="structretinify_1_1DistortionFisheye.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1DistortionRational.html">DistortionRational</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rational distortion model with 8 coefficients (k1, k2, p1, p2, k3, k4, k5, k6).  <a href="structretinify_1_1DistortionRational.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera intrinsic parameters with focal lengths, principal point, and skew.  <a href="structretinify_1_1Intrinsics.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html">Pipeline</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code> provides an interface for running a stereo matching.  <a href="classretinify_1_1Pipeline.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents the status of an operation in the retinify library.  <a href="classretinify_1_1Status.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a00859bf55fe20fbc194d4ecd64ff7002" id="r_a00859bf55fe20fbc194d4ecd64ff7002"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a00859bf55fe20fbc194d4ecd64ff7002">Vec2d</a> = std::array&lt; double, 2 &gt;</td></tr>
+<tr class="memdesc:a00859bf55fe20fbc194d4ecd64ff7002"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D vector (double).  <br /></td></tr>
+<tr class="separator:a00859bf55fe20fbc194d4ecd64ff7002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fc94eca66deaf8e12e2fdeb99fad8dc" id="r_a1fc94eca66deaf8e12e2fdeb99fad8dc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> = std::array&lt; double, 3 &gt;</td></tr>
+<tr class="memdesc:a1fc94eca66deaf8e12e2fdeb99fad8dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D vector (double).  <br /></td></tr>
+<tr class="separator:a1fc94eca66deaf8e12e2fdeb99fad8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a169294bff970ffd298d294886da8d1" id="r_a4a169294bff970ffd298d294886da8d1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a> = std::array&lt; double, 2 &gt;</td></tr>
+<tr class="memdesc:a4a169294bff970ffd298d294886da8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D point (double).  <br /></td></tr>
+<tr class="separator:a4a169294bff970ffd298d294886da8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9255fb8e61a45045c8a7b9c1a819dd95" id="r_a9255fb8e61a45045c8a7b9c1a819dd95"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95">Point3d</a> = std::array&lt; double, 3 &gt;</td></tr>
+<tr class="memdesc:a9255fb8e61a45045c8a7b9c1a819dd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D point (double).  <br /></td></tr>
+<tr class="separator:a9255fb8e61a45045c8a7b9c1a819dd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26282a3f32000d8c29fb89e1dbc4ee4c" id="r_a26282a3f32000d8c29fb89e1dbc4ee4c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> = std::array&lt; std::array&lt; double, 3 &gt;, 3 &gt;</td></tr>
+<tr class="memdesc:a26282a3f32000d8c29fb89e1dbc4ee4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x3 matrix (double, row-major).  <br /></td></tr>
+<tr class="separator:a26282a3f32000d8c29fb89e1dbc4ee4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade3dd12d90b220052362ed254a5a7a21" id="r_ade3dd12d90b220052362ed254a5a7a21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> = std::array&lt; std::array&lt; double, 4 &gt;, 3 &gt;</td></tr>
+<tr class="memdesc:ade3dd12d90b220052362ed254a5a7a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x4 matrix (double, row-major).  <br /></td></tr>
+<tr class="separator:ade3dd12d90b220052362ed254a5a7a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a987220fa41bc49a6b82bdb71dbaf714d" id="r_a987220fa41bc49a6b82bdb71dbaf714d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> = std::array&lt; std::array&lt; double, 4 &gt;, 4 &gt;</td></tr>
+<tr class="memdesc:a987220fa41bc49a6b82bdb71dbaf714d"><td class="mdescLeft">&#160;</td><td class="mdescRight">4x4 matrix (double, row-major).  <br /></td></tr>
+<tr class="separator:a987220fa41bc49a6b82bdb71dbaf714d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d9e65f29123e2250b56f50804533b5" id="r_a60d9e65f29123e2250b56f50804533b5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a60d9e65f29123e2250b56f50804533b5">Vec2f</a> = std::array&lt; float, 2 &gt;</td></tr>
+<tr class="memdesc:a60d9e65f29123e2250b56f50804533b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D vector (float).  <br /></td></tr>
+<tr class="separator:a60d9e65f29123e2250b56f50804533b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc47ce73ec86d4a5e5397d7b10c6a52" id="r_aacc47ce73ec86d4a5e5397d7b10c6a52"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aacc47ce73ec86d4a5e5397d7b10c6a52">Vec3f</a> = std::array&lt; float, 3 &gt;</td></tr>
+<tr class="memdesc:aacc47ce73ec86d4a5e5397d7b10c6a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D vector (float).  <br /></td></tr>
+<tr class="separator:aacc47ce73ec86d4a5e5397d7b10c6a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3be156a64738eb1b5245d2847fe15f" id="r_aeb3be156a64738eb1b5245d2847fe15f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aeb3be156a64738eb1b5245d2847fe15f">Point2f</a> = std::array&lt; float, 2 &gt;</td></tr>
+<tr class="memdesc:aeb3be156a64738eb1b5245d2847fe15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D point (float).  <br /></td></tr>
+<tr class="separator:aeb3be156a64738eb1b5245d2847fe15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7d4959a4eb865a96587b2262b92dc4" id="r_aac7d4959a4eb865a96587b2262b92dc4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aac7d4959a4eb865a96587b2262b92dc4">Point3f</a> = std::array&lt; float, 3 &gt;</td></tr>
+<tr class="memdesc:aac7d4959a4eb865a96587b2262b92dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D point (float).  <br /></td></tr>
+<tr class="separator:aac7d4959a4eb865a96587b2262b92dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c05daf0180307c567b6696252a8fe02" id="r_a5c05daf0180307c567b6696252a8fe02"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a5c05daf0180307c567b6696252a8fe02">Mat3x3f</a> = std::array&lt; std::array&lt; float, 3 &gt;, 3 &gt;</td></tr>
+<tr class="memdesc:a5c05daf0180307c567b6696252a8fe02"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x3 matrix (float, row-major).  <br /></td></tr>
+<tr class="separator:a5c05daf0180307c567b6696252a8fe02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b774ded4e916e322fc8b4abc3290524" id="r_a4b774ded4e916e322fc8b4abc3290524"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4b774ded4e916e322fc8b4abc3290524">Mat3x4f</a> = std::array&lt; std::array&lt; float, 4 &gt;, 3 &gt;</td></tr>
+<tr class="memdesc:a4b774ded4e916e322fc8b4abc3290524"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x4 matrix (float, row-major).  <br /></td></tr>
+<tr class="separator:a4b774ded4e916e322fc8b4abc3290524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72810dca15f23d6122220110521d9641" id="r_a72810dca15f23d6122220110521d9641"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a72810dca15f23d6122220110521d9641">Mat4x4f</a> = std::array&lt; std::array&lt; float, 4 &gt;, 4 &gt;</td></tr>
+<tr class="memdesc:a72810dca15f23d6122220110521d9641"><td class="mdescLeft">&#160;</td><td class="mdescRight">4x4 matrix (float, row-major).  <br /></td></tr>
+<tr class="separator:a72810dca15f23d6122220110521d9641"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -201,6 +259,231 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9111632655e1df2bfedea024ce2457cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the retinify library version in semantic versioning format.  <br /></td></tr>
 <tr class="separator:a9111632655e1df2bfedea024ce2457cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a26282a3f32000d8c29fb89e1dbc4ee4c" name="a26282a3f32000d8c29fb89e1dbc4ee4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26282a3f32000d8c29fb89e1dbc4ee4c">&#9670;&#160;</a></span>Mat3x3d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">retinify::Mat3x3d</a> = typedef std::array&lt;std::array&lt;double, 3&gt;, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3x3 matrix (double, row-major). </p>
+
+</div>
+</div>
+<a id="a5c05daf0180307c567b6696252a8fe02" name="a5c05daf0180307c567b6696252a8fe02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c05daf0180307c567b6696252a8fe02">&#9670;&#160;</a></span>Mat3x3f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a5c05daf0180307c567b6696252a8fe02">retinify::Mat3x3f</a> = typedef std::array&lt;std::array&lt;float, 3&gt;, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3x3 matrix (float, row-major). </p>
+
+</div>
+</div>
+<a id="ade3dd12d90b220052362ed254a5a7a21" name="ade3dd12d90b220052362ed254a5a7a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade3dd12d90b220052362ed254a5a7a21">&#9670;&#160;</a></span>Mat3x4d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">retinify::Mat3x4d</a> = typedef std::array&lt;std::array&lt;double, 4&gt;, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3x4 matrix (double, row-major). </p>
+
+</div>
+</div>
+<a id="a4b774ded4e916e322fc8b4abc3290524" name="a4b774ded4e916e322fc8b4abc3290524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b774ded4e916e322fc8b4abc3290524">&#9670;&#160;</a></span>Mat3x4f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a4b774ded4e916e322fc8b4abc3290524">retinify::Mat3x4f</a> = typedef std::array&lt;std::array&lt;float, 4&gt;, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3x4 matrix (float, row-major). </p>
+
+</div>
+</div>
+<a id="a987220fa41bc49a6b82bdb71dbaf714d" name="a987220fa41bc49a6b82bdb71dbaf714d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987220fa41bc49a6b82bdb71dbaf714d">&#9670;&#160;</a></span>Mat4x4d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">retinify::Mat4x4d</a> = typedef std::array&lt;std::array&lt;double, 4&gt;, 4&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4x4 matrix (double, row-major). </p>
+
+</div>
+</div>
+<a id="a72810dca15f23d6122220110521d9641" name="a72810dca15f23d6122220110521d9641"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72810dca15f23d6122220110521d9641">&#9670;&#160;</a></span>Mat4x4f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a72810dca15f23d6122220110521d9641">retinify::Mat4x4f</a> = typedef std::array&lt;std::array&lt;float, 4&gt;, 4&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4x4 matrix (float, row-major). </p>
+
+</div>
+</div>
+<a id="a4a169294bff970ffd298d294886da8d1" name="a4a169294bff970ffd298d294886da8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a169294bff970ffd298d294886da8d1">&#9670;&#160;</a></span>Point2d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">retinify::Point2d</a> = typedef std::array&lt;double, 2&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2D point (double). </p>
+
+</div>
+</div>
+<a id="aeb3be156a64738eb1b5245d2847fe15f" name="aeb3be156a64738eb1b5245d2847fe15f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3be156a64738eb1b5245d2847fe15f">&#9670;&#160;</a></span>Point2f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#aeb3be156a64738eb1b5245d2847fe15f">retinify::Point2f</a> = typedef std::array&lt;float, 2&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2D point (float). </p>
+
+</div>
+</div>
+<a id="a9255fb8e61a45045c8a7b9c1a819dd95" name="a9255fb8e61a45045c8a7b9c1a819dd95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9255fb8e61a45045c8a7b9c1a819dd95">&#9670;&#160;</a></span>Point3d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95">retinify::Point3d</a> = typedef std::array&lt;double, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3D point (double). </p>
+
+</div>
+</div>
+<a id="aac7d4959a4eb865a96587b2262b92dc4" name="aac7d4959a4eb865a96587b2262b92dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7d4959a4eb865a96587b2262b92dc4">&#9670;&#160;</a></span>Point3f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#aac7d4959a4eb865a96587b2262b92dc4">retinify::Point3f</a> = typedef std::array&lt;float, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3D point (float). </p>
+
+</div>
+</div>
+<a id="a00859bf55fe20fbc194d4ecd64ff7002" name="a00859bf55fe20fbc194d4ecd64ff7002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00859bf55fe20fbc194d4ecd64ff7002">&#9670;&#160;</a></span>Vec2d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a00859bf55fe20fbc194d4ecd64ff7002">retinify::Vec2d</a> = typedef std::array&lt;double, 2&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2D vector (double). </p>
+
+</div>
+</div>
+<a id="a60d9e65f29123e2250b56f50804533b5" name="a60d9e65f29123e2250b56f50804533b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d9e65f29123e2250b56f50804533b5">&#9670;&#160;</a></span>Vec2f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a60d9e65f29123e2250b56f50804533b5">retinify::Vec2f</a> = typedef std::array&lt;float, 2&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2D vector (float). </p>
+
+</div>
+</div>
+<a id="a1fc94eca66deaf8e12e2fdeb99fad8dc" name="a1fc94eca66deaf8e12e2fdeb99fad8dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc94eca66deaf8e12e2fdeb99fad8dc">&#9670;&#160;</a></span>Vec3d</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">retinify::Vec3d</a> = typedef std::array&lt;double, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3D vector (double). </p>
+
+</div>
+</div>
+<a id="aacc47ce73ec86d4a5e5397d7b10c6a52" name="aacc47ce73ec86d4a5e5397d7b10c6a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc47ce73ec86d4a5e5397d7b10c6a52">&#9670;&#160;</a></span>Vec3f</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceretinify.html#aacc47ce73ec86d4a5e5397d7b10c6a52">retinify::Vec3f</a> = typedef std::array&lt;float, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3D vector (float). </p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ad7864f6e39ba12c3d9bd53d13c64ac7f" name="ad7864f6e39ba12c3d9bd53d13c64ac7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7864f6e39ba12c3d9bd53d13c64ac7f">&#9670;&#160;</a></span>LogLevel</h2>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['status_0',['Status',['../classretinify_1_1Status.html',1,'retinify']]]
+  ['intrinsics_0',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]]
 ];

@@ -5,5 +5,8 @@ var searchData=
   ['define_2ehpp_2',['define.hpp',['../define_8hpp.html',1,'']]],
   ['demo_3',['3. Quick Demo',['../tutorials.html#autotoc_md9',1,'']]],
   ['dependencies_4',['1. Dependencies',['../installation.html#autotoc_md1',1,'']]],
-  ['documentation_5',['retinify documentation',['../index.html',1,'']]]
+  ['distortion_5',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
+  ['distortionfisheye_6',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]],
+  ['distortionrational_7',['DistortionRational',['../structretinify_1_1DistortionRational.html',1,'retinify']]],
+  ['documentation_8',['retinify documentation',['../index.html',1,'']]]
 ];

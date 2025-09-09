@@ -7,5 +7,6 @@ var classretinify_1_1Pipeline =
     [ "Initialize", "classretinify_1_1Pipeline.html#a007ea6125af54145eb6730c400fd7d37", null ],
     [ "operator=", "classretinify_1_1Pipeline.html#a809c7fe1f191752098716700ab01ba22", null ],
     [ "operator=", "classretinify_1_1Pipeline.html#a33c3b968a968193cbe9bbeab89919e06", null ],
-    [ "Run", "classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa", null ]
+    [ "Run", "classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa", null ],
+    [ "Run", "classretinify_1_1Pipeline.html#a8fde6f8d0c4ae56b0fa198345b3888d3", null ]
 ];
