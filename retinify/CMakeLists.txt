@@ -8,6 +8,8 @@ file(GLOB SRCS_CXX
 # CUDA SOURCES
 if (BUILD_WITH_TENSORRT)
     enable_language(CUDA)
+    set(CMAKE_CUDA_STANDARD 17)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)    
     file(GLOB SRCS_CUDA ./src/cuda/*.cu ./src/cuda/*.h)
     list(APPEND SRCS_CXX ${SRCS_CUDA})
 endif()
