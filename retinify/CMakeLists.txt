@@ -34,6 +34,7 @@ target_include_directories(retinify
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 target_compile_options(retinify
     PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-O3>
