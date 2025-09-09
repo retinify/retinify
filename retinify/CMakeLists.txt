@@ -8,8 +8,6 @@ file(GLOB SRCS_CXX
 # CUDA SOURCES
 if (BUILD_WITH_TENSORRT)
     enable_language(CUDA)
-    set(CMAKE_CUDA_STANDARD 17)
-    set(CMAKE_CUDA_STANDARD_REQUIRED ON)    
     file(GLOB SRCS_CUDA ./src/cuda/*.cu ./src/cuda/*.h)
     list(APPEND SRCS_CXX ${SRCS_CUDA})
 endif()
@@ -44,8 +42,13 @@ target_compile_options(retinify
 )
 
 if(BUILD_WITH_TENSORRT)
+    set_target_properties(retinify PROPERTIES
+        CUDA_ARCHITECTURES "75;80;86;87;89"
+    )
+
     target_compile_options(retinify
         PRIVATE
+            $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
@@ -55,13 +58,7 @@ if(BUILD_WITH_TENSORRT)
             $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
             $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
     )
-    set_target_properties(retinify PROPERTIES
-        CUDA_ARCHITECTURES "75;80;86;87;89"
-    )    
-endif()
 
-# BUILD OPTIONS
-if (BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
 
     target_include_directories(retinify PUBLIC /usr/local/cuda/include)
