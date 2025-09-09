@@ -21,13 +21,6 @@ set_target_properties(retinify PROPERTIES
     SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
-# CUDA ARCH
-if (BUILD_WITH_TENSORRT)
-    set_target_properties(retinify PROPERTIES
-        CUDA_ARCHITECTURES "75;80;86;87;89"
-    )
-endif()
-
 # INCLUDES
 target_include_directories(retinify
     PUBLIC
@@ -62,6 +55,9 @@ if(BUILD_WITH_TENSORRT)
             $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
             $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
     )
+    set_target_properties(retinify PROPERTIES
+        CUDA_ARCHITECTURES "75;80;86;87;89"
+    )    
 endif()
 
 # BUILD OPTIONS

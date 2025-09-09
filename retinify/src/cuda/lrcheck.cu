@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "lrcheck.h"
-#include "retinify/log.hpp"
 
 #include <cmath>
 #include <cstdio>
@@ -75,19 +74,19 @@ cudaError_t cudaLRConsistencyCheck(const float *leftDisparity, std::size_t leftD
 {
     if (leftDisparity == nullptr || rightDisparity == nullptr || outputDisparity == nullptr)
     {
-        LogError("Input pointer is null.");
+        std::printf("Input pointer is null.\n");
         return cudaErrorInvalidValue;
     }
 
     if (disparityWidth <= 0 || disparityHeight <= 0)
     {
-        LogError("Input size must be positive.");
+        std::printf("Input size must be positive.\n");
         return cudaErrorInvalidValue;
     }
 
     if ((leftDisparityStride % sizeof(float)) != 0 || (rightDisparityStride % sizeof(float)) != 0 || (outputDisparityStride % sizeof(float)) != 0)
     {
-        LogError("Stride must be a multiple of sizeof(float).");
+        std::printf("Stride must be a multiple of sizeof(float).\n");
         return cudaErrorInvalidValue;
     }
 
