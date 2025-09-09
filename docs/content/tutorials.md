@@ -71,7 +71,7 @@ cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
 retinify::Pipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-auto statusInitialize = pipeline.Initialize(leftImage.rows, leftImage.cols);
+auto statusInitialize = pipeline.Initialize(leftImage.cols, leftImage.rows);
 if (!statusInitialize.IsOK())
 {
     return 1;

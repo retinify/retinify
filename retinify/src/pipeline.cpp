@@ -48,20 +48,20 @@ class Pipeline::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Initialize(const std::size_t imageHeight, const std::size_t imageWidth, //
+    auto Initialize(const std::size_t imageWidth, const std::size_t imageHeight, //
                     const Mode mode) noexcept -> Status
     {
         Status status;
 
-        if ((imageHeight <= 0) || (imageWidth <= 0))
+        if ((imageWidth <= 0) || (imageHeight <= 0))
         {
             LogError("Image height and width must be greater than zero.");
             status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
             return status;
         }
 
-        imageHeight_ = imageHeight;
         imageWidth_ = imageWidth;
+        imageHeight_ = imageHeight;
 
         switch (mode)
         {
@@ -443,8 +443,8 @@ class Pipeline::Impl
 
   private:
     bool initialized_{false};     // whether the pipeline is initialized
-    size_t imageHeight_{0};       // original input image height
     size_t imageWidth_{0};        // original input image width
+    size_t imageHeight_{0};       // original input image height
     size_t matchingHeight_{0};    // image height for stereo matching
     size_t matchingWidth_{0};     // image width for stereo matching
     Session session_;             // inference session
@@ -488,9 +488,9 @@ auto Pipeline::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Pipeline::Initialize(std::size_t imageHeight, std::size_t imageWidth, Mode mode) noexcept -> Status
+auto Pipeline::Initialize(std::size_t imageWidth, std::size_t imageHeight, Mode mode) noexcept -> Status
 {
-    return this->impl()->Initialize(imageHeight, imageWidth, mode);
+    return this->impl()->Initialize(imageWidth, imageHeight, mode);
 }
 
 auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
