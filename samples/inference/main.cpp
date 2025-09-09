@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
     cv::Mat disparityColored = cv::Mat::zeros(leftImage.size(), CV_8UC3);
 
-    auto statusInitialize = pipeline.Initialize(leftImage.rows, leftImage.cols);
+    auto statusInitialize = pipeline.Initialize(leftImage.cols, leftImage.rows);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Failed to initialize the pipeline.");
