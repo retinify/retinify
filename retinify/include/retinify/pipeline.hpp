@@ -55,6 +55,30 @@ class RETINIFY_API Pipeline
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
+    /// @brief
+    /// Executes the stereo matching pipeline using the given left and right image data with left-right consistency check.
+    /// @param leftImageData
+    /// Pointer to the left image data (8-bit rgb).
+    /// @param leftImageStride
+    /// Stride (in bytes) of a row in the left image.
+    /// @param rightImageData
+    /// Pointer to the right image data (8-bit rgb).
+    /// @param rightImageStride
+    /// Stride (in bytes) of a row in the right image.
+    /// @param disparityData
+    /// Pointer to the output buffer for disparity data (32-bit float).
+    /// @param disparityStride
+    /// Stride (in bytes) of a row in the output disparity data.
+    /// @param maxDisparityDifference
+    /// Maximum allowable disparity difference used in the left-right consistency check.
+    /// A negative value disables the consistency check.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
+                           const std::uint8_t *rightImageData, std::size_t rightImageStride, //
+                           float *disparityData, std::size_t disparityStride,                //
+                           const float maxDisparityDifference) noexcept -> Status;
+
   private:
     class Impl;
     auto impl() noexcept -> Impl *;
