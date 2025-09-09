@@ -39,21 +39,25 @@ target_include_directories(retinify
 
 # COMPILE OPTIONS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-target_compile_options(retinify 
+target_compile_options(retinify
     PRIVATE
-        -fvisibility=hidden
-        -fvisibility-inlines-hidden
-        -O3
-        -funroll-loops
-        -fno-rtti
-)
+        # CXX
+        $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
+        $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
+        $<$<COMPILE_LANGUAGE:CXX>:-O3>
+        $<$<COMPILE_LANGUAGE:CXX>:-funroll-loops>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
 
-# target_compile_options(retinify
-#     PRIVATE
-#         -Wall
-#         -Wextra
-#         -Werror
-# )
+        # CUDA
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fno-rtti>
+        $<$<COMPILE_LANGUAGE:CUDA>:-O3>
+        $<$<COMPILE_LANGUAGE:CUDA>:--use_fast_math>
+        $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
+        $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
+)
 
 # BUILD OPTIONS
 if (BUILD_WITH_TENSORRT)
