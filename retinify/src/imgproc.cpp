@@ -270,7 +270,7 @@ auto Convert8UC3To32FC3(const Mat &src, Mat &dst) noexcept -> Status
 #endif
 }
 
-auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float maxDifference) noexcept -> Status
+auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError) noexcept -> Status
 {
     if (left.Empty() || right.Empty() || output.Empty())
     {
@@ -289,7 +289,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
                                                static_cast<const float *>(right.Data()), right.Stride(),     //
                                                static_cast<float *>(output.Data()), output.Stride(),         //
                                                static_cast<int>(left.Cols()), static_cast<int>(left.Rows()), //
-                                               maxDifference);
+                                               relativeError);
 
     if (error != cudaSuccess)
     {
@@ -302,7 +302,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
     (void)left;
     (void)right;
     (void)output;
-    (void)maxDifference;
+    (void)relativeError;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif

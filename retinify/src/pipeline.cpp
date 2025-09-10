@@ -244,10 +244,10 @@ class Pipeline::Impl
         return Status{};
     }
 
-    auto Run(const std::uint8_t *leftImageData, const std::size_t leftImageStride,   //
-             const std::uint8_t *rightImageData, const std::size_t rightImageStride, //
-             float *disparityData, const std::size_t disparityStride,                //
-             const float maxDisparityDifference) noexcept -> Status
+    auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
+             const std::uint8_t *rightImageData, std::size_t rightImageStride, //
+             float *disparityData, std::size_t disparityStride,                //
+             float maxRelativeDisparityError) noexcept -> Status
     {
         Status status;
 
@@ -337,7 +337,7 @@ class Pipeline::Impl
         }
 
         // Left-right consistency check
-        if (maxDisparityDifference > 0.0f)
+        if (maxRelativeDisparityError > 0.0f && maxRelativeDisparityError < 1.0f)
         {
             status = HorizontalFlip8UC3(left8UC3_, leftFliped8UC3_);
             if (!status.IsOK())
@@ -405,7 +405,7 @@ class Pipeline::Impl
                 return status;
             }
 
-            status = LRConsistencyCheck32FC1(leftDisparity32FC1_, rightDisparity32FC1_, lrCheckedDisparity32FC1_, 3.0f);
+            status = LRConsistencyCheck32FC1(leftDisparity32FC1_, rightDisparity32FC1_, lrCheckedDisparity32FC1_, maxRelativeDisparityError);
             if (!status.IsOK())
             {
                 return status;
@@ -504,12 +504,12 @@ auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStrid
 auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
                    const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                    float *disparityData, std::size_t disparityStride,                //
-                   const float maxDisparityDifference) noexcept -> Status
+                   const float maxRelativeDisparityError) noexcept -> Status
 {
-    if (maxDisparityDifference < 0.0f)
+    if (maxRelativeDisparityError <= 0.0f || maxRelativeDisparityError >= 1.0f)
     {
-        LogWarn("maxDisparityDifference is negative. Left-right consistency check is disabled.");
+        LogWarn("maxRelativeDisparityError should be in the range (0.0, 1.0). Left-right consistency check is disabled.");
     }
-    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride, maxDisparityDifference);
+    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride, maxRelativeDisparityError);
 }
 } // namespace retinify

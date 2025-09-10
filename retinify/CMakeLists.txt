@@ -30,11 +30,12 @@ target_include_directories(retinify
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# COMPILE OPTIONS
+# SETTINGS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 target_compile_options(retinify
-    PRIVATE
+    PUBLIC
         $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>
+    PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-O3>
@@ -59,7 +60,10 @@ if(BUILD_WITH_TENSORRT)
             $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
             $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
     )
+endif()
 
+# DEPENDENCIES
+if(BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
 
     target_include_directories(retinify PUBLIC /usr/local/cuda/include)

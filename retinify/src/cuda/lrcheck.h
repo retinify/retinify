@@ -12,6 +12,6 @@ cudaError_t cudaLRConsistencyCheck(const float *leftDisparity, std::size_t leftD
                                    const float *rightDisparity, std::size_t rightDisparityStride, //
                                    float *outputDisparity, std::size_t outputDisparityStride,     //
                                    int disparityWidth, int disparityHeight,                       //
-                                   float maxDisparityDifference,                                  //
+                                   float maxRelativeDisparityError,                               //
                                    cudaStream_t stream = 0);
 } // namespace retinify
