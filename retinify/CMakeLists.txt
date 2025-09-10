@@ -61,6 +61,7 @@ if(BUILD_WITH_TENSORRT)
 
     target_compile_options(retinify
         PRIVATE
+            $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
