@@ -8,6 +8,10 @@ file(GLOB SRCS_CXX
 # CUDA SOURCES
 if (BUILD_WITH_TENSORRT)
     enable_language(CUDA)
+    set(CMAKE_CUDA_STANDARD 17)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    set(CMAKE_CUDA_EXTENSIONS OFF)
+    set(CMAKE_CUDA_ARCHITECTURES 75 80 86 87 89)
     file(GLOB SRCS_CUDA ./src/cuda/*.cu ./src/cuda/*.h)
     list(APPEND SRCS_CXX ${SRCS_CUDA})
 endif()
@@ -34,13 +38,6 @@ target_include_directories(retinify
 # SETTINGS
 target_compile_features(retinify PUBLIC cxx_std_20)
 
-set_target_properties(retinify PROPERTIES
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    INTERPROCEDURAL_OPTIMIZATION TRUE
-)
-
 target_compile_options(retinify
     PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
@@ -51,17 +48,8 @@ target_compile_options(retinify
 )
 
 if(BUILD_WITH_TENSORRT)
-    set_target_properties(retinify PROPERTIES
-        CUDA_STANDARD 17
-        CUDA_STANDARD_REQUIRED ON
-        CUDA_EXTENSIONS OFF
-        CUDA_ARCHITECTURES "75;80;86;87;89"
-        INTERPROCEDURAL_OPTIMIZATION TRUE
-    )
-
     target_compile_options(retinify
         PRIVATE
-            $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
