@@ -14,6 +14,7 @@ endif()
 
 # LIBRARY
 add_library(retinify SHARED ${SRCS_CXX})
+
 set_target_properties(retinify PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR}
@@ -30,11 +31,18 @@ target_include_directories(retinify
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# COMPILE OPTIONS
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+# SETTINGS
+target_compile_features(retinify PUBLIC cxx_std_20)
+
+set_target_properties(retinify PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+    INTERPROCEDURAL_OPTIMIZATION TRUE
+)
+
 target_compile_options(retinify
     PRIVATE
-        $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-O3>
@@ -44,12 +52,15 @@ target_compile_options(retinify
 
 if(BUILD_WITH_TENSORRT)
     set_target_properties(retinify PROPERTIES
+        CUDA_STANDARD 17
+        CUDA_STANDARD_REQUIRED ON
+        CUDA_EXTENSIONS OFF
         CUDA_ARCHITECTURES "75;80;86;87;89"
+        INTERPROCEDURAL_OPTIMIZATION TRUE
     )
 
     target_compile_options(retinify
         PRIVATE
-            $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
             $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
@@ -59,7 +70,10 @@ if(BUILD_WITH_TENSORRT)
             $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
             $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
     )
+endif()
 
+# DEPENDENCIES
+if(BUILD_WITH_TENSORRT)
     target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
 
     target_include_directories(retinify PUBLIC /usr/local/cuda/include)
