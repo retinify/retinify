@@ -39,7 +39,11 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    auto statusRun = pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0], rightImage.ptr<uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
+    const float kMaxRelativeDisparityError = 0.05F;
+    auto statusRun = pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
+                                  rightImage.ptr<uint8_t>(), rightImage.step[0], //
+                                  disparity.ptr<float>(), disparity.step[0],     //
+                                  kMaxRelativeDisparityError);
     if (!statusRun.IsOK())
     {
         retinify::LogError("Failed to run the pipeline.");
