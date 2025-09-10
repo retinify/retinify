@@ -76,6 +76,9 @@ class RETINIFY_API Pipeline
     /// stricter consistency, while larger values permit more tolerance.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// Runs two inferences (left→right and right→left) for consistency checking,
+    /// making execution about twice as slow as a normal run.
     [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride,                //
