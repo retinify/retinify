@@ -302,7 +302,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
     (void)left;
     (void)right;
     (void)output;
-    (void)maxDifference;
+    (void)relativeError;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
