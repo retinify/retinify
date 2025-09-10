@@ -171,14 +171,42 @@ auto Session::Initialize(const char *model_path) noexcept -> Status
             nvinfer1::Dims optDims{4, {1, 480, 640, 1}};
             nvinfer1::Dims maxDims{4, {1, 720, 1280, 1}};
 
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims);
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims);
-            (void)profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims);
-            (void)profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims);
+            if (!profile->setDimensions("left", nvinfer1::OptProfileSelector::kMIN, minDims))
+            {
+                LogError("Failed to set MIN dimensions for 'left' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
+            if (!profile->setDimensions("left", nvinfer1::OptProfileSelector::kOPT, optDims))
+            {
+                LogError("Failed to set OPT dimensions for 'left' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
+            if (!profile->setDimensions("left", nvinfer1::OptProfileSelector::kMAX, maxDims))
+            {
+                LogError("Failed to set MAX dimensions for 'left' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
+            if (!profile->setDimensions("right", nvinfer1::OptProfileSelector::kMIN, minDims))
+            {
+                LogError("Failed to set MIN dimensions for 'right' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
+            if (!profile->setDimensions("right", nvinfer1::OptProfileSelector::kOPT, optDims))
+            {
+                LogError("Failed to set OPT dimensions for 'right' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
+            if (!profile->setDimensions("right", nvinfer1::OptProfileSelector::kMAX, maxDims))
+            {
+                LogError("Failed to set MAX dimensions for 'right' input");
+                return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+            }
 
-            (void)config->addOptimizationProfile(profile);
+            if (config->addOptimizationProfile(profile) < 0)
+            {
+                LogError("Failed to add optimization profile to TensorRT config");
+                return Status{StatusCategory::CUDA, StatusCode::FAIL};
+            }
 
             // Build engine
             auto serializedEngine = std::unique_ptr<nvinfer1::IHostMemory>(builder->buildSerializedNetwork(*network, *config));

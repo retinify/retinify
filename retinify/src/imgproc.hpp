@@ -83,8 +83,8 @@ namespace retinify
 /// Input right disparity map (32-bit floating-point, 1-channel).
 /// @param output
 /// Output disparity map after consistency check (32-bit floating-point, 1-channel).
-/// @param maxDifference
-/// Maximum allowable difference between left and right disparities for consistency.
+/// @param relativeError
+/// Maximum allowed relative error for consistency check.
 /// @return
-[[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float maxDifference) noexcept -> Status;
+[[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError) noexcept -> Status;
 } // namespace retinify

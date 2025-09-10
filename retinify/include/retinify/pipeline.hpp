@@ -69,15 +69,17 @@ class RETINIFY_API Pipeline
     /// Pointer to the output buffer for disparity data (32-bit float).
     /// @param disparityStride
     /// Stride (in bytes) of a row in the output disparity data.
-    /// @param maxDisparityDifference
-    /// Maximum allowable disparity difference used in the left-right consistency check.
-    /// A negative value disables the consistency check.
+    /// @param maxRelativeDisparityError
+    /// Maximum relative disparity error permitted in the left-right consistency check.
+    /// The value must lie in the range (0.0, 1.0). For example, 0.1 allows up to a 10%
+    /// difference between the left and right disparity values. Smaller values enforce
+    /// stricter consistency, while larger values permit more tolerance.
     /// @return
     /// A Status object indicating whether the operation was successful.
     [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride,                //
-                           const float maxDisparityDifference) noexcept -> Status;
+                           float maxRelativeDisparityError) noexcept -> Status;
 
   private:
     class Impl;
