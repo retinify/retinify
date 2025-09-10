@@ -130,9 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a63e6a9d44c617fca87fc98e7e20a01fa" id="r_a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a> (const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the stereo matching pipeline using the given left and right image data.  <br /></td></tr>
 <tr class="separator:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fde6f8d0c4ae56b0fa198345b3888d3" id="r_a8fde6f8d0c4ae56b0fa198345b3888d3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a8fde6f8d0c4ae56b0fa198345b3888d3">Run</a> (const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride, const float maxDisparityDifference) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a8fde6f8d0c4ae56b0fa198345b3888d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the stereo matching pipeline using the given left and right image data with left-right consistency check.  <br /></td></tr>
-<tr class="separator:a8fde6f8d0c4ae56b0fa198345b3888d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad63120f9ca00b8746e5f4182a1f36e25" id="r_ad63120f9ca00b8746e5f4182a1f36e25"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#ad63120f9ca00b8746e5f4182a1f36e25">Run</a> (const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride, float maxRelativeDisparityError) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:ad63120f9ca00b8746e5f4182a1f36e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the stereo matching pipeline using the given left and right image data with left-right consistency check.  <br /></td></tr>
+<tr class="separator:ad63120f9ca00b8746e5f4182a1f36e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code> provides an interface for running a stereo matching. </p>
@@ -419,8 +419,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8fde6f8d0c4ae56b0fa198345b3888d3" name="a8fde6f8d0c4ae56b0fa198345b3888d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fde6f8d0c4ae56b0fa198345b3888d3">&#9670;&#160;</a></span>Run() <span class="overload">[2/2]</span></h2>
+<a id="ad63120f9ca00b8746e5f4182a1f36e25" name="ad63120f9ca00b8746e5f4182a1f36e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63120f9ca00b8746e5f4182a1f36e25">&#9670;&#160;</a></span>Run() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,8 +467,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>maxDisparityDifference</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxRelativeDisparityError</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -492,11 +492,12 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the right image. </td></tr>
     <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float). </td></tr>
     <tr><td class="paramname">disparityStride</td><td>Stride (in bytes) of a row in the output disparity data. </td></tr>
-    <tr><td class="paramname">maxDisparityDifference</td><td>Maximum allowable disparity difference used in the left-right consistency check. A negative value disables the consistency check. </td></tr>
+    <tr><td class="paramname">maxRelativeDisparityError</td><td>Maximum relative disparity error permitted in the left-right consistency check. The value must lie in the range (0.0, 1.0). For example, 0.1 allows up to a 10% difference between the left and right disparity values. Smaller values enforce stricter consistency, while larger values permit more tolerance. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Runs two inferences (left→right and right→left) for consistency checking, making execution about twice as slow as a normal run. </dd></dl>
 
 </div>
 </div>
