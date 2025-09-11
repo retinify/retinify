@@ -1,0 +1,21 @@
+name: pr-validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_base_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate source branch
+        run: |
+          set -e
+          echo "Base branch: ${{ github.event.pull_request.base.ref }}"
+          echo "Head branch: ${{ github.event.pull_request.head.ref }}"
+
+          if [ "${{ github.event.pull_request.head.ref }}" != "dev" ]; then
+            echo "Error: Only PRs from 'dev' can be merged into 'main'." >&2
+            exit 1
+          fi

@@ -1,4 +1,4 @@
-name: build_jetson
+name: build-jetson
 
 on:
   push:
@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_jetson:
-    if: ${{ github.event_name != 'pull_request' }}
+  build-jetson:
+    if: ${{ github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
     steps:
