@@ -1,4 +1,4 @@
-name: build_cpu
+name: build-cpu
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_cpu:
+  build-cpu:
     runs-on: ubuntu-latest
 
     steps:

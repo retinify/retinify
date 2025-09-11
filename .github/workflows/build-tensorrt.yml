@@ -1,4 +1,4 @@
-name: build_tensorrt
+name: build-tensorrt
 
 on:
   push:
@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_tensorrt:
-    if: ${{ github.event_name != 'pull_request' }}
+  build-tensorrt:
+    if: ${{ github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
     steps:
