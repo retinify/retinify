@@ -1,4 +1,4 @@
-name: build_jetson
+name: build-tensorrt
 
 on:
   push:
@@ -12,24 +12,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_jetson:
-    if: ${{ github.event_name != 'pull_request' }}
+  build-tensorrt:
+    if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-      with:
-        platforms: arm64
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+        submodules: true
 
     - name: Login to NVIDIA NGC
       env:
@@ -37,29 +28,30 @@ jobs:
       run: |
         echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
 
-    - name: Build RETINIFY with Jetson TensorRT
+    - name: Build RETINIFY with TensorRT
       run: |
-        docker run --rm --platform linux/arm64 \
+        docker run --rm \
           -v ${{ github.workspace }}:/workspace \
           -w /workspace \
-          nvcr.io/nvidia/l4t-tensorrt:r10.3.0-devel \
+          nvcr.io/nvidia/tensorrt:24.12-py3 \
           bash -c "
             set -e
 
             echo '=== TensorRT Info ==='
+            python3 -c 'import tensorrt as trt; print(\"TensorRT version:\", trt.__version__)'
             nvcc --version
 
             echo '=== Container Info ==='
             cat /etc/os-release | grep VERSION
 
+            echo '=== Python packages ==='
+            pip list | grep -E '(tensorrt|torch|tensorflow)'
+
             echo '=== Install Dependencies ==='
-            export DEBIAN_FRONTEND=noninteractive
             apt update && apt install -y git cmake build-essential libopencv-dev
 
             echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
-            git config --global --add safe.directory /workspace/3rdparty/googletest
-            git submodule sync --recursive
             git submodule update --init --recursive
 
             echo '=== Build RETINIFY ==='
