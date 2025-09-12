@@ -64,15 +64,15 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
 ```
 
 ## Getting Started
-📖 [retinify documentation](https://docs.retinify.ai/) — Developer guide and API reference.
+📖 [**retinify documentation**](https://docs.retinify.ai/) — Developer guide and API reference.
 
-- 🚀 [Installation Guide](https://docs.retinify.ai/installation.html)  
+- 🚀 [**Installation Guide**](https://docs.retinify.ai/installation.html)  
   Step-by-step guide to build and install retinify.
 
-- 🔨 [Tutorials](https://docs.retinify.ai/tutorials.html)  
+- 🔨 [**Tutorials**](https://docs.retinify.ai/tutorials.html)  
   Hands-on examples to get you started with real-world use cases.
 
-- 🧩 [API Reference](https://docs.retinify.ai/api.html)  
+- 🧩 [**API Reference**](https://docs.retinify.ai/api.html)  
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
