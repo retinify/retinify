@@ -13,7 +13,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics.
 It enables real-time, high-precision 3D perception by offloading compute-intensive tasks to GPUs and NPUs.
   
 > retinify is open source, and the source code is publicly available:  
-> 👉 [View the source on GitHub](https://github.com/retinify/retinify)
+> 👉 [**View the source on GitHub**](https://github.com/retinify/retinify)
   
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
@@ -25,11 +25,11 @@ It enables real-time, high-precision 3D perception by offloading compute-intensi
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 \subsection getting_started ⚡ Getting started
-1. [Install retinify](installation.html)  
+1. [**Install retinify**](installation.html)  
 Step-by-step instructions to build and install retinify.
-2. [Tutorials](tutorials.html)  
+2. [**Tutorials**](tutorials.html)  
 Hands-on examples to get you started with real-world use cases.
-3. [API Reference](api.html)  
+3. [**API Reference**](api.html)  
 Detailed class and function-level documentation for developers.
 
 ---
