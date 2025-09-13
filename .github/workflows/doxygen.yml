@@ -22,7 +22,7 @@ jobs:
       - name: Run Doxygen
         run: |
           cd docs
-          doxygen Doxyfile
+          RETINIFY_VERSION="$(cat ../VERSION)" doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
