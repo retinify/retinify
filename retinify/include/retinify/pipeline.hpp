@@ -7,9 +7,22 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 
 namespace retinify
 {
+/// @brief
+/// The mode options for the stereo matching pipeline.
+enum class Mode : std::uint8_t
+{
+    /// Fastest, with lowest accuracy.
+    FAST,
+    /// Balanced, with moderate accuracy and speed.
+    BALANCED,
+    /// Most accurate, with slowest performance.
+    ACCURATE,
+};
+
 /// @brief
 /// A `retinify::Pipeline` provides an interface for running a stereo matching.
 class RETINIFY_API Pipeline
