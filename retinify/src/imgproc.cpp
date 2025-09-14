@@ -3,7 +3,7 @@
 
 #include "imgproc.hpp"
 
-#include "retinify/log.hpp"
+#include "retinify/logging.hpp"
 
 #ifdef BUILD_WITH_TENSORRT
 #include "cuda/lrcheck.h"

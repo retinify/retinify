@@ -3,11 +3,40 @@
 
 #pragma once
 
-#include "retinify/define.hpp"
-#include "retinify/enum.hpp"
+#include "retinify/attributes.hpp"
+
+#include <cstdint>
 
 namespace retinify
 {
+/// @brief
+/// Status categories used by retinify.
+enum class StatusCategory : std::uint8_t
+{
+    /// No category.
+    NONE,
+    /// Retinify-internal category.
+    RETINIFY,
+    /// System-related category.
+    SYSTEM,
+    /// CUDA-related category.
+    CUDA,
+    /// User-originated category.
+    USER,
+};
+
+/// @brief
+/// Status codes returned by retinify operations.
+enum class StatusCode : std::uint8_t
+{
+    /// Operation succeeded.
+    OK,
+    /// Operation failed.
+    FAIL,
+    /// Invalid argument provided.
+    INVALID_ARGUMENT,
+};
+
 /// @brief
 /// This class represents the status of an operation in the retinify library.
 class RETINIFY_API Status
