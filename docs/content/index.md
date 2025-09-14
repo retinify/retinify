@@ -15,15 +15,13 @@ Retinify is open source, and the source code is publicly available:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
-## Getting started
-1. [**Install retinify**](installation.html)  
+### Getting started
+- [Install retinify](@ref installation)  
 Step-by-step instructions to build and install retinify.
-2. [**Tutorials**](tutorials.html)  
+- [Tutorials](@ref tutorials)  
 Hands-on examples to get you started with real-world use cases.
-3. [**API Reference**](api.html)  
+- [API Reference](@ref api)  
 Detailed class and function-level documentation for developers.
 
----
-
-## Contact
+### Contact
 For commercial inquiries, additional technical support, or any other questions, please feel free to contact us at [contact@retinify.ai](mailto:contact@retinify.ai).  
