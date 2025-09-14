@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "retinify/log.hpp"
+#include "retinify/logging.hpp"
 
 #include <gtest/gtest.h>
 #include <iostream>

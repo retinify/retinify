@@ -4,8 +4,8 @@
 #include "session.hpp"
 #include "mat.hpp"
 
-#include "retinify/log.hpp"
-#include "retinify/path.hpp"
+#include "retinify/logging.hpp"
+#include "retinify/paths.hpp"
 
 #include <filesystem>
 #include <fstream>

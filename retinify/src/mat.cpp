@@ -3,7 +3,7 @@
 
 #include "mat.hpp"
 
-#include "retinify/log.hpp"
+#include "retinify/logging.hpp"
 
 #include <cstdlib>
 #include <cstring>

@@ -9,8 +9,8 @@
 #include "cuda/lrcheck.h"
 #endif
 
-#include "retinify/log.hpp"
-#include "retinify/path.hpp"
+#include "retinify/logging.hpp"
+#include "retinify/paths.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 

@@ -23,11 +23,9 @@ set_target_properties(retinify PROPERTIES
 target_include_directories(retinify
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
         $<INSTALL_INTERFACE:include>
     PRIVATE
         ${CMAKE_BINARY_DIR}/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # SETTINGS

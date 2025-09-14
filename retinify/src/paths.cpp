@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "retinify/path.hpp"
-#include "retinify/log.hpp"
+#include "retinify/paths.hpp"
+#include "retinify/logging.hpp"
 #include "retinify/retinify_onnx.hpp"
 #include "retinify/version.hpp"
 
