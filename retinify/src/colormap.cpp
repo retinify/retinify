@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "retinify/colormap.hpp"
-#include "retinify/log.hpp"
+#include "retinify/logging.hpp"
 
 #include <algorithm>
 #include <cmath>

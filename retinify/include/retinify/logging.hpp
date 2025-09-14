@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "retinify/define.hpp"
+#include "retinify/attributes.hpp"
 #include "retinify/enum.hpp"
 #include "retinify/status.hpp"
 

@@ -3,10 +3,11 @@
 
 #pragma once
 
+#include "retinify/attributes.hpp"
 #include "retinify/colormap.hpp"
-#include "retinify/define.hpp"
-#include "retinify/log.hpp"
-#include "retinify/path.hpp"
+#include "retinify/geometry.hpp"
+#include "retinify/logging.hpp"
+#include "retinify/paths.hpp"
 #include "retinify/pipeline.hpp"
 #include "retinify/status.hpp"
 #include "retinify/version.hpp"
