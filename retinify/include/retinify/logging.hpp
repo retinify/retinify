@@ -4,13 +4,31 @@
 #pragma once
 
 #include "retinify/attributes.hpp"
-#include "retinify/enum.hpp"
 #include "retinify/status.hpp"
 
+#include <cstdint>
 #include <source_location>
 
 namespace retinify
 {
+/// @brief
+/// Logging verbosity levels for retinify.
+enum class LogLevel : std::uint8_t
+{
+    /// Debug messages.
+    DEBUG,
+    /// Informational messages.
+    INFO,
+    /// Warning messages.
+    WARN,
+    /// Error messages.
+    ERROR,
+    /// Fatal Error messages.
+    FATAL,
+    /// Disable all logging.
+    OFF,
+};
+
 /// @brief
 /// Returns the current log level.
 /// @return
