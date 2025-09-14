@@ -1,10 +1,10 @@
-<map id="/home/runner/work/retinify/retinify/retinify/include/retinify/define.hpp" name="/home/runner/work/retinify/retinify/retinify/include/retinify/define.hpp">
+<map id="/home/runner/work/retinify/retinify/retinify/include/retinify/attributes.hpp" name="/home/runner/work/retinify/retinify/retinify/include/retinify/attributes.hpp">
 <area shape="rect" id="Node000001" title=" " alt="" coords="359,5,553,60"/>
 <area shape="rect" id="Node000002" href="$colormap_8hpp.html" title=" " alt="" coords="5,211,200,265"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="345,49,280,59,217,72,164,89,144,99,130,110,115,132,106,159,103,210,97,210,101,158,110,130,126,106,141,95,162,84,216,67,280,54,344,43"/>
-<area shape="rect" id="Node000003" href="$log_8hpp.html" title=" " alt="" coords="468,211,663,265"/>
+<area shape="rect" id="Node000003" href="$logging_8hpp.html" title=" " alt="" coords="468,211,663,265"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="529,65,551,84,568,107,577,133,580,161,575,211,570,210,575,161,572,134,563,109,547,87,525,69"/>
-<area shape="rect" id="Node000004" href="$path_8hpp.html" title=" " alt="" coords="359,108,553,163"/>
+<area shape="rect" id="Node000004" href="$paths_8hpp.html" title=" " alt="" coords="359,108,553,163"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="459,74,459,108,453,108,453,74"/>
 <area shape="rect" id="Node000005" href="$status_8hpp.html" title=" " alt="" coords="140,108,335,163"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="388,68,295,110,293,106,386,63"/>

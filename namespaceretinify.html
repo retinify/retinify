@@ -187,6 +187,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging verbosity levels for retinify.  <a href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">More...</a><br /></td></tr>
 <tr class="separator:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28fa89b14047dfa14d14b015cb396d6" id="r_ad28fa89b14047dfa14d14b015cb396d6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
+, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
+, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
+ }</td></tr>
+<tr class="memdesc:ad28fa89b14047dfa14d14b015cb396d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode options for the stereo matching pipeline.  <a href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">More...</a><br /></td></tr>
+<tr class="separator:ad28fa89b14047dfa14d14b015cb396d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a760ed0e98c342b4af3006ca06c81116d" id="r_a760ed0e98c342b4af3006ca06c81116d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d">StatusCategory</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693">NONE</a>
 , <a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a">RETINIFY</a>
@@ -204,58 +210,52 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status codes returned by retinify operations.  <a href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4">More...</a><br /></td></tr>
 <tr class="separator:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad28fa89b14047dfa14d14b015cb396d6" id="r_ad28fa89b14047dfa14d14b015cb396d6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
-, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
-, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
- }</td></tr>
-<tr class="memdesc:ad28fa89b14047dfa14d14b015cb396d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode options for the stereo matching pipeline.  <a href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">More...</a><br /></td></tr>
-<tr class="separator:ad28fa89b14047dfa14d14b015cb396d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0aa41e1b018be9d3aef84d815307b7df" id="r_a0aa41e1b018be9d3aef84d815307b7df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df">ColorizeDisparity</a> (const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memitem:a0aa41e1b018be9d3aef84d815307b7df" id="r_a0aa41e1b018be9d3aef84d815307b7df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df">ColorizeDisparity</a> (const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a0aa41e1b018be9d3aef84d815307b7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the disparity map.  <br /></td></tr>
 <tr class="separator:a0aa41e1b018be9d3aef84d815307b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e9f58f6b0cc01cbe490c9e9819ebf84" id="r_a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84">GetLogLevel</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td></tr>
+<tr class="memitem:a6e9f58f6b0cc01cbe490c9e9819ebf84" id="r_a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84">GetLogLevel</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td></tr>
 <tr class="memdesc:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log level.  <br /></td></tr>
 <tr class="separator:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4de8520c89a118095ed0ae4426f17177" id="r_a4de8520c89a118095ed0ae4426f17177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177">SetLogLevel</a> (<a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a> level) noexcept</td></tr>
+<tr class="memitem:a4de8520c89a118095ed0ae4426f17177" id="r_a4de8520c89a118095ed0ae4426f17177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177">SetLogLevel</a> (<a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a> level) noexcept</td></tr>
 <tr class="memdesc:a4de8520c89a118095ed0ae4426f17177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the log level.  <br /></td></tr>
 <tr class="separator:a4de8520c89a118095ed0ae4426f17177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2176cf5cf8d8e64c04c8c45365d2c5b" id="r_aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b">LogDebug</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
+<tr class="memitem:aa2176cf5cf8d8e64c04c8c45365d2c5b" id="r_aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b">LogDebug</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a debug message.  <br /></td></tr>
 <tr class="separator:aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bb799c831b65b8471540ae9efe49a83" id="r_a2bb799c831b65b8471540ae9efe49a83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83">LogInfo</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
+<tr class="memitem:a2bb799c831b65b8471540ae9efe49a83" id="r_a2bb799c831b65b8471540ae9efe49a83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83">LogInfo</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:a2bb799c831b65b8471540ae9efe49a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs an informational message.  <br /></td></tr>
 <tr class="separator:a2bb799c831b65b8471540ae9efe49a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a897decd89cb0b5249d4aebb5cbece809" id="r_a897decd89cb0b5249d4aebb5cbece809"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809">LogWarn</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
+<tr class="memitem:a897decd89cb0b5249d4aebb5cbece809" id="r_a897decd89cb0b5249d4aebb5cbece809"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809">LogWarn</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:a897decd89cb0b5249d4aebb5cbece809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a warning message.  <br /></td></tr>
 <tr class="separator:a897decd89cb0b5249d4aebb5cbece809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e027a47f0e6deebacb95503ade809c0" id="r_a7e027a47f0e6deebacb95503ade809c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0">LogError</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
+<tr class="memitem:a7e027a47f0e6deebacb95503ade809c0" id="r_a7e027a47f0e6deebacb95503ade809c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0">LogError</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:a7e027a47f0e6deebacb95503ade809c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs an error message.  <br /></td></tr>
 <tr class="separator:a7e027a47f0e6deebacb95503ade809c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a9b1f6e167926306723c22265f71068" id="r_a9a9b1f6e167926306723c22265f71068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9a9b1f6e167926306723c22265f71068">LogFatal</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
+<tr class="memitem:a9a9b1f6e167926306723c22265f71068" id="r_a9a9b1f6e167926306723c22265f71068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9a9b1f6e167926306723c22265f71068">LogFatal</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:a9a9b1f6e167926306723c22265f71068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a fatal error message.  <br /></td></tr>
 <tr class="separator:a9a9b1f6e167926306723c22265f71068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacffaa83dff370322a2bd10317728f65" id="r_aacffaa83dff370322a2bd10317728f65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aacffaa83dff370322a2bd10317728f65">HomeDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:aacffaa83dff370322a2bd10317728f65" id="r_aacffaa83dff370322a2bd10317728f65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aacffaa83dff370322a2bd10317728f65">HomeDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:aacffaa83dff370322a2bd10317728f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current user’s home directory path.  <br /></td></tr>
 <tr class="separator:aacffaa83dff370322a2bd10317728f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8436647478f9e9c2c9b695e587ca70d1" id="r_a8436647478f9e9c2c9b695e587ca70d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1">ConfigDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:a8436647478f9e9c2c9b695e587ca70d1" id="r_a8436647478f9e9c2c9b695e587ca70d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1">ConfigDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:a8436647478f9e9c2c9b695e587ca70d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the configuration directory path for retinify.  <br /></td></tr>
 <tr class="separator:a8436647478f9e9c2c9b695e587ca70d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5041f8aa65d5d1f0185e72a888d97d2c" id="r_a5041f8aa65d5d1f0185e72a888d97d2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c">CacheDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:a5041f8aa65d5d1f0185e72a888d97d2c" id="r_a5041f8aa65d5d1f0185e72a888d97d2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c">CacheDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:a5041f8aa65d5d1f0185e72a888d97d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cache directory path for retinify.  <br /></td></tr>
 <tr class="separator:a5041f8aa65d5d1f0185e72a888d97d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae27b69290a3fbaef89e92be8d3253a16" id="r_ae27b69290a3fbaef89e92be8d3253a16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16">DataDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:ae27b69290a3fbaef89e92be8d3253a16" id="r_ae27b69290a3fbaef89e92be8d3253a16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16">DataDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:ae27b69290a3fbaef89e92be8d3253a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the data directory path for retinify.  <br /></td></tr>
 <tr class="separator:ae27b69290a3fbaef89e92be8d3253a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0856ceeade3a7fa9f28ed3567bc4ab7" id="r_ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7">StateDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:ae0856ceeade3a7fa9f28ed3567bc4ab7" id="r_ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7">StateDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the state directory path for retinify.  <br /></td></tr>
 <tr class="separator:ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e302dee4bddf30ea2ce84915d77031f" id="r_a4e302dee4bddf30ea2ce84915d77031f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f">ONNXModelFilePath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:a4e302dee4bddf30ea2ce84915d77031f" id="r_a4e302dee4bddf30ea2ce84915d77031f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f">ONNXModelFilePath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:a4e302dee4bddf30ea2ce84915d77031f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the path to the ONNX model file used by retinify.  <br /></td></tr>
 <tr class="separator:a4e302dee4bddf30ea2ce84915d77031f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9111632655e1df2bfedea024ce2457cc" id="r_a9111632655e1df2bfedea024ce2457cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc">Version</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memitem:a9111632655e1df2bfedea024ce2457cc" id="r_a9111632655e1df2bfedea024ce2457cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc">Version</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:a9111632655e1df2bfedea024ce2457cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the retinify library version in semantic versioning format.  <br /></td></tr>
 <tr class="separator:a9111632655e1df2bfedea024ce2457cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -634,7 +634,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::CacheDirectoryPath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::CacheDirectoryPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -659,7 +659,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ColorizeDisparity </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ColorizeDisparity </td>
           <td>(</td>
           <td class="paramtype">const float *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
@@ -735,7 +735,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ConfigDirectoryPath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ConfigDirectoryPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -763,7 +763,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::DataDirectoryPath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::DataDirectoryPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -791,7 +791,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::GetLogLevel </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::GetLogLevel </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td>
@@ -819,7 +819,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::HomeDirectoryPath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::HomeDirectoryPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -847,7 +847,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogDebug </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogDebug </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -892,7 +892,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogError </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogError </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -937,7 +937,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogFatal </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogFatal </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -982,7 +982,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogInfo </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogInfo </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -1027,7 +1027,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogWarn </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::LogWarn </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -1072,7 +1072,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ONNXModelFilePath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ONNXModelFilePath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -1100,7 +1100,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::SetLogLevel </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::SetLogLevel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a>&#160;</td>
           <td class="paramname"><em>level</em></td><td>)</td>
@@ -1134,7 +1134,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::StateDirectoryPath </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::StateDirectoryPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>
@@ -1162,7 +1162,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="define_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Version </td>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Version </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> -&gt;  const char *</td>

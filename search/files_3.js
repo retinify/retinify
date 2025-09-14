@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['enum_2ehpp_0',['enum.hpp',['../enum_8hpp.html',1,'']]]
+  ['index_2emd_0',['index.md',['../index_8md.html',1,'']]],
+  ['installation_2emd_1',['installation.md',['../installation_8md.html',1,'']]]
 ];

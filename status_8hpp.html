@@ -100,24 +100,23 @@ $(document).ready(function(){initNavTree('status_8hpp.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">status.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="define_8hpp_source.html">retinify/define.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="enum_8hpp_source.html">retinify/enum.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="attributes_8hpp_source.html">retinify/attributes.hpp</a>&quot;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for status.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="status_8hpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2status_8hpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2status_8hpp" id="a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2status_8hpp">
-<area shape="rect" title=" " alt="" coords="59,5,254,60"/>
-<area shape="rect" href="define_8hpp.html" title=" " alt="" coords="5,108,145,133"/>
-<area shape="poly" title=" " alt="" coords="134,62,98,100,94,96,130,58"/>
-<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="169,108,307,133"/>
-<area shape="poly" title=" " alt="" coords="183,58,219,96,215,100,180,62"/>
-<area shape="rect" title=" " alt="" coords="205,181,271,207"/>
-<area shape="poly" title=" " alt="" coords="241,134,241,168,235,168,235,134"/>
+<area shape="rect" title=" " alt="" coords="59,5,253,60"/>
+<area shape="rect" href="attributes_8hpp.html" title=" " alt="" coords="5,108,168,133"/>
+<area shape="poly" title=" " alt="" coords="137,62,107,99,103,95,133,58"/>
+<area shape="rect" title=" " alt="" coords="192,108,259,133"/>
+<area shape="poly" title=" " alt="" coords="179,58,209,95,205,99,175,62"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -128,7 +127,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <area shape="rect" title=" " alt="" coords="224,5,419,60"/>
 <area shape="rect" href="colormap_8hpp.html" title=" " alt="" coords="5,108,200,163"/>
 <area shape="poly" title=" " alt="" coords="253,68,161,110,159,106,251,63"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="224,108,419,163"/>
+<area shape="rect" href="logging_8hpp.html" title=" " alt="" coords="224,108,419,163"/>
 <area shape="poly" title=" " alt="" coords="324,74,324,108,319,108,319,74"/>
 <area shape="rect" href="pipeline_8hpp.html" title=" " alt="" coords="443,108,637,163"/>
 <area shape="poly" title=" " alt="" coords="392,63,484,106,482,110,390,68"/>
@@ -147,6 +146,26 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceretinify" id="r_namespaceretinify"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html">retinify</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a760ed0e98c342b4af3006ca06c81116d" id="r_a760ed0e98c342b4af3006ca06c81116d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d">retinify::StatusCategory</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693">retinify::NONE</a>
+, <a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a">retinify::RETINIFY</a>
+, <a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03">retinify::SYSTEM</a>
+, <a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d">retinify::CUDA</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12">retinify::USER</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a760ed0e98c342b4af3006ca06c81116d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status categories used by retinify.  <a href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d">More...</a><br /></td></tr>
+<tr class="separator:a760ed0e98c342b4af3006ca06c81116d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ea92bf239f2bf34c6cd3265f541ea4" id="r_aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4">retinify::StatusCode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ae0aa021e21dddbd6d8cecec71e9cf564">retinify::OK</a>
+, <a class="el" href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ac2759effffc94bb9acc71d69fe3e8a1f">retinify::FAIL</a>
+, <a class="el" href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d">retinify::INVALID_ARGUMENT</a>
+ }</td></tr>
+<tr class="memdesc:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status codes returned by retinify operations.  <a href="namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4">More...</a><br /></td></tr>
+<tr class="separator:aa9ea92bf239f2bf34c6cd3265f541ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

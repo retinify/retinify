@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "12345abcdefghiklmnopqrstuvw~⚡✉🚀",
   1: "dips",
   2: "r",
-  3: "acdeilpstv",
+  3: "acgilpstv",
   4: "cdghiloprsv~",
   5: "cfkps",
   6: "mpv",

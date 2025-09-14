@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="224,5,419,60"/>
 <area shape="rect" id="Node000002" href="$colormap_8hpp.html" title=" " alt="" coords="5,108,200,163"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,68,161,110,159,106,251,63"/>
-<area shape="rect" id="Node000003" href="$log_8hpp.html" title=" " alt="" coords="224,108,419,163"/>
+<area shape="rect" id="Node000003" href="$logging_8hpp.html" title=" " alt="" coords="224,108,419,163"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="324,74,324,108,319,108,319,74"/>
 <area shape="rect" id="Node000004" href="$pipeline_8hpp.html" title=" " alt="" coords="443,108,637,163"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="392,63,484,106,482,110,390,68"/>
