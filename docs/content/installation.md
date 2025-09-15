@@ -9,7 +9,7 @@ Build Toolchain
 - [CMake](https://cmake.org/download/): 3.14 or later
   
 AI Runtime
-- [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive): 12.x, 13.x
+- [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive): 12.x
 - [cuDNN](https://developer.nvidia.com/cudnn-archive): 9.x
 - [TensorRT](https://developer.nvidia.com/tensorrt): 10.x
 
