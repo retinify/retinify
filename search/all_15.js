@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['reference_0',['API Reference',['../api.html',1,'']]],
-  ['repository_1',['2. Clone the retinify repository.',['../installation.html#autotoc_md2',1,'']]],
-  ['retinify_2',['retinify',['../tutorials.html#autotoc_md8',1,'2. Install retinify'],['../installation.html#autotoc_md3',1,'3. Install retinify'],['../installation.html#autotoc_md6',1,'5. Uninstall retinify'],['../namespaceretinify.html',1,'retinify'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a',1,'retinify::RETINIFY'],['../index.html#welcome',1,'Welcome to retinify']]],
-  ['retinify_20documentation_3',['retinify documentation',['../index.html',1,'']]],
-  ['retinify_20project_4',['4. Create a retinify project',['../tutorials.html#autotoc_md10',1,'']]],
-  ['retinify_20repository_5',['2. Clone the retinify repository.',['../installation.html#autotoc_md2',1,'']]],
-  ['retinify_5fapi_6',['RETINIFY_API',['../attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28',1,'attributes.hpp']]],
-  ['retinify_5fdeprecated_7',['RETINIFY_DEPRECATED',['../attributes_8hpp.html#ae4c8bbc2c76704e26f1144806d6f4ccb',1,'attributes.hpp']]],
-  ['run_8',['run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; Status'],['../classretinify_1_1Pipeline.html#ad63120f9ca00b8746e5f4182a1f36e25',1,'retinify::Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride, float maxRelativeDisparityError) noexcept -&gt; Status']]]
+  ['setloglevel_0',['SetLogLevel',['../namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177',1,'retinify']]],
+  ['skew_1',['skew',['../structretinify_1_1Intrinsics.html#af44dd3c97733374f2a953fafc2f533ba',1,'retinify::Intrinsics']]],
+  ['started_2',['Getting started',['../index.html#autotoc_md1',1,'']]],
+  ['statedirectorypath_3',['StateDirectoryPath',['../namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7',1,'retinify']]],
+  ['status_4',['status',['../classretinify_1_1Status.html',1,'retinify::Status'],['../classretinify_1_1Status.html#a6ce624fbd2239802e14bbaf1079b3bd5',1,'retinify::Status::Status() noexcept=default'],['../classretinify_1_1Status.html#a17ebabbd700e537fbf081959fda8fb85',1,'retinify::Status::Status(StatusCategory category, StatusCode code) noexcept'],['../classretinify_1_1Status.html#a09e8f981bb2e2631353b407a7b5b9955',1,'retinify::Status::Status(const Status &amp;) noexcept=default'],['../classretinify_1_1Status.html#ac89b5383d6f3bcb3b2c7c8db8b5a2534',1,'retinify::Status::Status(Status &amp;&amp;) noexcept=default']]],
+  ['status_2ehpp_5',['status.hpp',['../status_8hpp.html',1,'']]],
+  ['statuscategory_6',['StatusCategory',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d',1,'retinify']]],
+  ['statuscode_7',['StatusCode',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4',1,'retinify']]],
+  ['system_8',['SYSTEM',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03',1,'retinify']]]
 ];

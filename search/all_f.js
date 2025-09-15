@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['logdebug_0',['LogDebug',['../namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b',1,'retinify']]],
-  ['logerror_1',['LogError',['../namespaceretinify.html#a7e027a47f0e6deebacb95503ade809c0',1,'retinify']]],
-  ['logfatal_2',['LogFatal',['../namespaceretinify.html#a9a9b1f6e167926306723c22265f71068',1,'retinify']]],
-  ['logging_2ehpp_3',['logging.hpp',['../logging_8hpp.html',1,'']]],
-  ['loginfo_4',['LogInfo',['../namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83',1,'retinify']]],
-  ['loglevel_5',['LogLevel',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f',1,'retinify']]],
-  ['logwarn_6',['LogWarn',['../namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809',1,'retinify']]]
+  ['mat3x3d_0',['Mat3x3d',['../namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c',1,'retinify']]],
+  ['mat3x3f_1',['Mat3x3f',['../namespaceretinify.html#a5c05daf0180307c567b6696252a8fe02',1,'retinify']]],
+  ['mat3x4d_2',['Mat3x4d',['../namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21',1,'retinify']]],
+  ['mat3x4f_3',['Mat3x4f',['../namespaceretinify.html#a4b774ded4e916e322fc8b4abc3290524',1,'retinify']]],
+  ['mat4x4d_4',['Mat4x4d',['../namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d',1,'retinify']]],
+  ['mat4x4f_5',['Mat4x4f',['../namespaceretinify.html#a72810dca15f23d6122220110521d9641',1,'retinify']]],
+  ['mode_6',['Mode',['../namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6',1,'retinify']]]
 ];

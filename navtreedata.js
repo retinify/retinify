@@ -25,20 +25,8 @@
 var NAVTREE =
 [
   [ "retinify documentation", "index.html", [
-    [ "Welcome to retinify", "index.html#welcome", [
-      [ "🚀 Introduction", "index.html#introduction", null ],
-      [ "⚡ Getting started", "index.html#getting_started", null ],
-      [ "✉️ Contact", "index.html#contact", null ]
-    ] ],
-    [ "Installation", "installation.html", [
-      [ "1. Dependencies", "installation.html#autotoc_md1", null ],
-      [ "2. Clone the retinify repository.", "installation.html#autotoc_md2", null ],
-      [ "3. Install retinify", "installation.html#autotoc_md3", [
-        [ "3.1 with TensorRT", "installation.html#autotoc_md4", null ]
-      ] ],
-      [ "4. Verify Installation", "installation.html#autotoc_md5", null ],
-      [ "5. Uninstall retinify", "installation.html#autotoc_md6", null ]
-    ] ],
+    [ "Overview", "index.html", null ],
+    [ "Installation", "installation.html", null ],
     [ "Tutorials", "tutorials.html", null ],
     [ "API Reference", "api.html", null ],
     [ "Namespaces", "namespaces.html", [

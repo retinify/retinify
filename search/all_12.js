@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['off_0',['OFF',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4',1,'retinify']]],
-  ['ok_1',['OK',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4ae0aa021e21dddbd6d8cecec71e9cf564',1,'retinify']]],
-  ['onnxmodelfilepath_2',['ONNXModelFilePath',['../namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f',1,'retinify']]],
-  ['opencv_3',['1. Install OpenCV',['../tutorials.html#autotoc_md7',1,'']]],
-  ['operator_3d_4',['operator=',['../classretinify_1_1Pipeline.html#a809c7fe1f191752098716700ab01ba22',1,'retinify::Pipeline::operator=(const Pipeline &amp;) noexcept -&gt; Pipeline &amp;=delete'],['../classretinify_1_1Pipeline.html#a33c3b968a968193cbe9bbeab89919e06',1,'retinify::Pipeline::operator=(Pipeline &amp;&amp;) noexcept -&gt; Pipeline &amp;=delete'],['../classretinify_1_1Status.html#a6f70f71fb3cbbe7a6d69a5a9bef277eb',1,'retinify::Status::operator=(const Status &amp;) noexcept -&gt; Status &amp;=default'],['../classretinify_1_1Status.html#a147223f4be31bd1099fb12baba6372ef',1,'retinify::Status::operator=(Status &amp;&amp;) noexcept -&gt; Status &amp;=default']]]
+  ['p1_0',['p1',['../structretinify_1_1Distortion.html#a0cdc8c177c5c55378553df0e085fbc73',1,'retinify::Distortion::p1'],['../structretinify_1_1DistortionRational.html#ad6bd7414d4e08c99c07162ba4bb557ec',1,'retinify::DistortionRational::p1']]],
+  ['p2_1',['p2',['../structretinify_1_1Distortion.html#aed816a6da7ba3baed94931791738b514',1,'retinify::Distortion::p2'],['../structretinify_1_1DistortionRational.html#a1cdf5cb79f93404b20fa89b280330386',1,'retinify::DistortionRational::p2']]],
+  ['paths_2ehpp_2',['paths.hpp',['../paths_8hpp.html',1,'']]],
+  ['pipeline_3',['pipeline',['../classretinify_1_1Pipeline.html',1,'retinify::Pipeline'],['../classretinify_1_1Pipeline.html#aff420a8fba6a6584f4ef975dd2eed698',1,'retinify::Pipeline::Pipeline() noexcept'],['../classretinify_1_1Pipeline.html#ab25709bd44d66d886c56657553fd25c1',1,'retinify::Pipeline::Pipeline(const Pipeline &amp;)=delete'],['../classretinify_1_1Pipeline.html#a98b1af42c11f725a00e73b93a135e182',1,'retinify::Pipeline::Pipeline(Pipeline &amp;&amp;) noexcept=delete']]],
+  ['pipeline_2ehpp_4',['pipeline.hpp',['../pipeline_8hpp.html',1,'']]],
+  ['point2d_5',['Point2d',['../namespaceretinify.html#a4a169294bff970ffd298d294886da8d1',1,'retinify']]],
+  ['point2f_6',['Point2f',['../namespaceretinify.html#aeb3be156a64738eb1b5245d2847fe15f',1,'retinify']]],
+  ['point3d_7',['Point3d',['../namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95',1,'retinify']]],
+  ['point3f_8',['Point3f',['../namespaceretinify.html#aac7d4959a4eb865a96587b2262b92dc4',1,'retinify']]],
+  ['project_9',['4. Create a retinify project',['../tutorials.html#autotoc_md11',1,'']]]
 ];

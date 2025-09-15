@@ -104,35 +104,29 @@ $(document).ready(function(){initNavTree('installation.html',''); initResizable(
 <div class="textblock"><p>retinify supports Linux (Ubuntu) and can be easily installed using the provided <code>build.sh</code> script. <br  />
  This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools. <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-1. Dependencies</h1>
-<ul>
-<li><a href="https://gcc.gnu.org/releases.html"><b>GCC 11 or later</b></a></li>
-<li><a href="https://cmake.org/download/"><b>CMake 3.14 or later</b></a></li>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Dependencies</h2>
+<p>Build Toolchain</p><ul>
+<li><a href="https://gcc.gnu.org/releases.html">GCC</a>: 11 or later</li>
+<li><a href="https://cmake.org/download/">CMake</a>: 3.14 or later</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-2. Clone the retinify repository.</h1>
+<p>AI Runtime</p><ul>
+<li><a href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA Toolkit</a>: 12.x, 13.x</li>
+<li><a href="https://developer.nvidia.com/cudnn-archive">cuDNN</a>: 9.x</li>
+<li><a href="https://developer.nvidia.com/tensorrt">TensorRT</a>: 10.x</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Clone the retinify repository.</h2>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
 <div class="line">cd retinify</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
-3. Install retinify</h1>
-<p>Build retinify and install its Debian package. <br  />
-</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-3.1 with TensorRT</h2>
-<p>The following additional libraries are required.</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">Libraries   </th><th class="markdownTableHeadLeft"><a href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA</a>   </th><th class="markdownTableHeadLeft"><a href="https://developer.nvidia.com/cudnn-archive">cuDNN</a>   </th><th class="markdownTableHeadLeft"><a href="https://developer.nvidia.com/tensorrt">TensorRT</a>    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Versions   </td><td class="markdownTableBodyLeft"><code>12.x</code>, <code>13.x</code>   </td><td class="markdownTableBodyLeft"><code>9.x</code>   </td><td class="markdownTableBodyLeft"><code>10.x</code>   </td></tr>
-</table>
-<div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
-4. Verify Installation</h1>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+Install retinify</h2>
+<p>Build retinify and install its Debian package. </p><div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Verify Installation</h2>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
-5. Uninstall retinify</h1>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+Uninstall retinify</h2>
 <p>To uninstall the Debian package, use the following script. </p><div class="fragment"><div class="line">sudo apt remove libretinify-dev</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

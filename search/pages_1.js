@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['documentation_0',['retinify documentation',['../index.html',1,'']]]
+  ['installation_0',['Installation',['../installation.html',1,'']]]
 ];
