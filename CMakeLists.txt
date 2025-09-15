@@ -53,16 +53,31 @@ install(
 )
 
 # ONNX MODEL
-set(STEREO_MODEL_URL "https://github.com/retinify/retinify-models/releases/download/v${PROJECT_VERSION}/model.onnx")
-set(STEREO_MODEL_HASH "SHA256=563b9bc4ba21aa9b13d8e5dd20990f7498214fb950c693efa3485a8b199c2494")
+set(STEREO_MODEL_URL  "https://github.com/retinify/retinify-models/releases/download/v${PROJECT_VERSION}/model.onnx")
 set(STEREO_MODEL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
+set(STEREO_MODEL_HASH_URL  "${STEREO_MODEL_URL}.sha256")
+set(STEREO_MODEL_HASH_PATH  "${STEREO_MODEL_PATH}.sha256")
+
 file(DOWNLOAD
-    ${STEREO_MODEL_URL}
-    ${STEREO_MODEL_PATH}
-    EXPECTED_HASH ${STEREO_MODEL_HASH}
-    SHOW_PROGRESS
+    "${STEREO_MODEL_HASH_URL}"
+    "${STEREO_MODEL_HASH_PATH}"
+    TLS_VERIFY ON
     STATUS status
 )
+
+file(READ "${STEREO_MODEL_HASH_PATH}" STEREO_MODEL_HASH_RAW)
+string(REGEX MATCH "^[0-9a-fA-F]+" STEREO_MODEL_HASH_HEX "${STEREO_MODEL_HASH_RAW}")
+set(STEREO_MODEL_HASH_EXPECTED "SHA256=${STEREO_MODEL_HASH_HEX}")
+
+file(DOWNLOAD
+    "${STEREO_MODEL_URL}"
+    "${STEREO_MODEL_PATH}"
+    EXPECTED_HASH "${STEREO_MODEL_HASH_EXPECTED}"
+    SHOW_PROGRESS
+    TLS_VERIFY ON
+    STATUS status
+)
+
 set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/model.onnx")
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_onnx.hpp.in"

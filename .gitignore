@@ -2,6 +2,9 @@
 *.onnx
 *.pth
 
+# SHA256
+*.sha256
+
 # Debian binary package
 *.deb
 
