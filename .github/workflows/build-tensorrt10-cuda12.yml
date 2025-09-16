@@ -1,4 +1,4 @@
-name: build-tensorrt
+name: build-tensorrt10-cuda12
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-tensorrt:
+  build-tensorrt10-cuda12:
     if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
@@ -37,23 +37,14 @@ jobs:
           bash -c "
             set -e
 
-            echo '=== TensorRT Info ==='
-            python3 -c 'import tensorrt as trt; print(\"TensorRT version:\", trt.__version__)'
             nvcc --version
 
-            echo '=== Container Info ==='
             cat /etc/os-release | grep VERSION
 
-            echo '=== Python packages ==='
-            pip list | grep -E '(tensorrt|torch|tensorflow)'
+            apt update && apt install -y git cmake build-essential
 
-            echo '=== Install Dependencies ==='
-            apt update && apt install -y git cmake build-essential libopencv-dev
-
-            echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
             git submodule update --init --recursive
 
-            echo '=== Build RETINIFY ==='
             ./build.sh --install --tensorrt
           "

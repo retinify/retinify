@@ -1,0 +1,50 @@
+name: build-tensorrt10-cuda13
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build-tensorrt10-cuda13:
+    if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Login to NVIDIA NGC
+      env:
+        NGC_API_KEY: ${{ secrets.NGC_API_KEY }}
+      run: |
+        echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
+
+    - name: Build RETINIFY with TensorRT
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          nvcr.io/nvidia/tensorrt:25.08-py3 \
+          bash -c "
+            set -e
+
+            nvcc --version
+
+            cat /etc/os-release | grep VERSION
+
+            apt update && apt install -y git cmake build-essential
+
+            git config --global --add safe.directory /workspace
+            git submodule update --init --recursive
+
+            ./build.sh --install --tensorrt
+          "
