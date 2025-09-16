@@ -147,19 +147,8 @@ struct Intrinsics
 };
 
 /// @brief
-/// Brown–Conrady distortion model with 5 coefficients (k1, k2, p1, p2, k3).
+/// Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).
 struct Distortion
-{
-    double k1{0};
-    double k2{0};
-    double p1{0};
-    double p2{0};
-    double k3{0};
-};
-
-/// @brief
-/// Rational distortion model with 8 coefficients (k1, k2, p1, p2, k3, k4, k5, k6).
-struct DistortionRational
 {
     double k1{0};
     double k2{0};
@@ -181,4 +170,15 @@ struct DistortionFisheye
     double k4{0};
 };
 
+/// @brief
+/// Undistort a 2D point using the given camera intrinsics and distortion parameters.
+/// @param intrinsics
+/// Camera intrinsic parameters.
+/// @param distortion
+/// Distortion parameters.
+/// @param pixel
+/// Distorted 2D point in pixel coordinates.
+/// @return
+/// Undistorted 2D point in pixel coordinates.
+RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &pixel) noexcept -> Point2d;
 } // namespace retinify

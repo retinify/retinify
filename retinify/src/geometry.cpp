@@ -9,10 +9,10 @@
 namespace retinify
 {
 /// @brief Small epsilon constant for numerical stability.
-constexpr double EPS = 1e-12;
+constexpr double kEPS = 1e-12;
 
 /// @brief Mathematical constant π (pi).
-constexpr double PI = 3.14159265358979323846264338327950288;
+constexpr double kPI = 3.14159265358979323846264338327950288;
 
 /// @brief Clamp value into [lower, upper] (constexpr).
 constexpr double Clamp(double value, double lower, double upper) noexcept
@@ -84,7 +84,7 @@ auto Normalize(const Vec3d &vec) noexcept -> Vec3d
 {
     // v / ||v||  (return zero if degenerate)
     const double n = Length(vec);
-    if (n < EPS)
+    if (n < kEPS)
     {
         return {0.0, 0.0, 0.0};
     }
@@ -113,7 +113,7 @@ auto Exp(const Vec3d &omega) noexcept -> Mat3x3d
     double coefA = 0.0;
     double coefB = 0.0;
 
-    if (thetaSquared <= EPS)
+    if (thetaSquared <= kEPS)
     {
         // coefA = 1 − θ^2/6 + θ^4/120
         // coefB = 1/2 − θ^2/24 + θ^4/720
@@ -174,13 +174,13 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
     const double vz = rotation[1][0] - rotation[0][1];
 
     // Small angle: ω ≈ 1/2 v (since sinθ ≈ θ)
-    if (theta < EPS)
+    if (theta < kEPS)
     {
         return {0.5 * vx, 0.5 * vy, 0.5 * vz};
     }
 
     // Near π: sinθ ~ 0, use diagonal-based axis extraction.
-    if (std::fabs(PI - theta) < 1e-6)
+    if (std::fabs(kPI - theta) < 1e-6)
     {
         // n^2 from diagonal: n_x^2 = (R_xx + 1)/2, etc., clamped to [0,1].
         double ax = std::sqrt(std::max(0.0, (rotation[0][0] + 1.0) * 0.5));
@@ -190,19 +190,19 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
         // Recover remaining components from off-diagonals using the largest axis to stabilize.
         if (ax >= ay && ax >= az)
         {
-            const double denom = 4.0 * std::max(ax, EPS);
+            const double denom = 4.0 * std::max(ax, kEPS);
             ay = (rotation[0][1] + rotation[1][0]) / denom;
             az = (rotation[0][2] + rotation[2][0]) / denom;
         }
         else if (ay >= ax && ay >= az)
         {
-            const double denom = 4.0 * std::max(ay, EPS);
+            const double denom = 4.0 * std::max(ay, kEPS);
             ax = (rotation[0][1] + rotation[1][0]) / denom;
             az = (rotation[1][2] + rotation[2][1]) / denom;
         }
         else
         {
-            const double denom = 4.0 * std::max(az, EPS);
+            const double denom = 4.0 * std::max(az, kEPS);
             ax = (rotation[0][2] + rotation[2][0]) / denom;
             ay = (rotation[1][2] + rotation[2][1]) / denom;
         }
@@ -215,11 +215,59 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
     // General case: n = v / ||v||, ω = θ n
     const double vnormSquared = vx * vx + vy * vy + vz * vz;
     const double vnorm = std::sqrt(std::max(0.0, vnormSquared));
-    if (vnorm < EPS)
+    if (vnorm < kEPS)
     {
         return {0.0, 0.0, 0.0};
     }
     const double scale = theta / vnorm;
     return {scale * vx, scale * vy, scale * vz};
+}
+
+auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &pixel) noexcept -> Point2d
+{
+    const double invFocalX = (intrinsics.fx != 0.0 ? 1.0 / intrinsics.fx : 1.0);
+    const double invFocalY = (intrinsics.fy != 0.0 ? 1.0 / intrinsics.fy : 1.0);
+
+    const double normX = (pixel[0] - intrinsics.cx) * invFocalX;
+    const double normY = (pixel[1] - intrinsics.cy) * invFocalY;
+
+    double undistX = normX;
+    double undistY = normY;
+
+    std::array<double, 14> distCoeffs = {};
+    distCoeffs[0] = distortion.k1; // k1
+    distCoeffs[1] = distortion.k2; // k2
+    distCoeffs[2] = distortion.p1; // p1
+    distCoeffs[3] = distortion.p2; // p2
+    distCoeffs[4] = distortion.k3; // k3
+    distCoeffs[5] = distortion.k4; // k4
+    distCoeffs[6] = distortion.k5; // k5
+    distCoeffs[7] = distortion.k6; // k6
+    distCoeffs[8] = 0.0;           // s1
+    distCoeffs[9] = 0.0;           // s2
+    distCoeffs[10] = 0.0;          // s3
+    distCoeffs[11] = 0.0;          // s4
+    distCoeffs[12] = 0.0;          // tau1
+    distCoeffs[13] = 0.0;          // tau2
+
+    constexpr int kIterationCount = 5;
+    for (int iter = 0; iter < kIterationCount; ++iter)
+    {
+        double rSquared = undistX * undistX + undistY * undistY;
+        double radialNum = 1.0 + ((distCoeffs[7] * rSquared + distCoeffs[6]) * rSquared + distCoeffs[5]) * rSquared;
+        double radialDen = 1.0 + ((distCoeffs[4] * rSquared + distCoeffs[1]) * rSquared + distCoeffs[0]) * rSquared;
+        double distScale = (std::fabs(radialDen) > kEPS) ? (radialNum / radialDen) : 1.0;
+        if (distScale < 0)
+        {
+            undistX = normX;
+            undistY = normY;
+            break;
+        }
+        double deltaX = 2 * distCoeffs[2] * undistX * undistY + distCoeffs[3] * (rSquared + 2 * undistX * undistX) + distCoeffs[8] * rSquared + distCoeffs[9] * rSquared * rSquared;
+        double deltaY = distCoeffs[2] * (rSquared + 2 * undistY * undistY) + 2 * distCoeffs[3] * undistX * undistY + distCoeffs[10] * rSquared + distCoeffs[11] * rSquared * rSquared;
+        undistX = (normX - deltaX) * distScale;
+        undistY = (normY - deltaY) * distScale;
+    }
+    return {undistX, undistY};
 }
 } // namespace retinify
