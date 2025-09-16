@@ -129,11 +129,11 @@ RETINIFY_API auto Exp(const Vec3d &omega) noexcept -> Mat3x3d;
 
 /// @brief
 /// Compute the matrix logarithm of a 3x3 rotation matrix.
-/// @param R
+/// @param rotation
 /// 3x3 rotation matrix.
 /// @return
 /// 3D rotation vector.
-RETINIFY_API auto Log(const Mat3x3d &R) noexcept -> Vec3d;
+RETINIFY_API auto Log(const Mat3x3d &rotation) noexcept -> Vec3d;
 
 /// @brief
 /// Camera intrinsic parameters with focal lengths, principal point, and skew.
