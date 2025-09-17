@@ -9,10 +9,7 @@
 
 namespace retinify
 {
-constexpr double kTol = 1e-9;
-constexpr double kOrthonormalTol = 1e-7;
-constexpr double kRectifyTol = 1e-8;
-constexpr double kMinTranslationTol = 1e-12;
+constexpr double kTol = 1e-12;
 
 void ExpectMatrixNear(const retinify::Mat3x3d &lhs, const retinify::Mat3x3d &rhs, double tol)
 {
@@ -20,8 +17,7 @@ void ExpectMatrixNear(const retinify::Mat3x3d &lhs, const retinify::Mat3x3d &rhs
     {
         for (int columnIndex = 0; columnIndex < 3; ++columnIndex)
         {
-            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol)
-                << "entry(" << rowIndex << "," << columnIndex << ")";
+            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol) << "entry(" << rowIndex << "," << columnIndex << ")";
         }
     }
 }
@@ -30,8 +26,7 @@ void ExpectVectorNear(const retinify::Vec3d &lhs, const retinify::Vec3d &rhs, do
 {
     for (int componentIndex = 0; componentIndex < 3; ++componentIndex)
     {
-        EXPECT_NEAR(lhs[componentIndex], rhs[componentIndex], tol)
-            << "entry(" << componentIndex << ")";
+        EXPECT_NEAR(lhs[componentIndex], rhs[componentIndex], tol) << "entry(" << componentIndex << ")";
     }
 }
 
@@ -49,8 +44,7 @@ void ExpectMatrix34Near(const retinify::Mat3x4d &lhs, const retinify::Mat3x4d &r
     {
         for (int columnIndex = 0; columnIndex < 4; ++columnIndex)
         {
-            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol)
-                << "entry(" << rowIndex << "," << columnIndex << ")";
+            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol) << "entry(" << rowIndex << "," << columnIndex << ")";
         }
     }
 }
@@ -61,8 +55,7 @@ void ExpectMatrix44Near(const retinify::Mat4x4d &lhs, const retinify::Mat4x4d &r
     {
         for (int columnIndex = 0; columnIndex < 4; ++columnIndex)
         {
-            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol)
-                << "entry(" << rowIndex << "," << columnIndex << ")";
+            EXPECT_NEAR(lhs[rowIndex][columnIndex], rhs[rowIndex][columnIndex], tol) << "entry(" << rowIndex << "," << columnIndex << ")";
         }
     }
 }
@@ -247,19 +240,7 @@ TEST(GeometryTest, StereoRectifyIdealRig)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(primaryIntrinsics,
-                  noDistortion,
-                  secondaryIntrinsics,
-                  noDistortion,
-                  640,
-                  480,
-                  rotationMatrix,
-                  translationVector,
-                  rectifiedRotationFirst,
-                  rectifiedRotationSecond,
-                  projectionFirst,
-                  projectionSecond,
-                  reprojectionMatrix);
+    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, 640, 480, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
     ExpectMatrixNear(rectifiedRotationFirst, Identity(), kTol);
     ExpectMatrixNear(rectifiedRotationSecond, Identity(), kTol);
@@ -303,22 +284,10 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1,
-                  D1,
-                  K2,
-                  D2,
-                  800,
-                  600,
-                  rotationMatrix,
-                  translationVector,
-                  rectifiedRotationFirst,
-                  rectifiedRotationSecond,
-                  projectionFirst,
-                  projectionSecond,
-                  reprojectionMatrix);
+    StereoRectify(K1, D1, K2, D2, 800, 600, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
-    ExpectOrthonormal(rectifiedRotationFirst, kOrthonormalTol);
-    ExpectOrthonormal(rectifiedRotationSecond, kOrthonormalTol);
+    ExpectOrthonormal(rectifiedRotationFirst, kTol);
+    ExpectOrthonormal(rectifiedRotationSecond, kTol);
 
     const double offsetX = projectionSecond[0][3];
     const double offsetY = projectionSecond[1][3];
@@ -338,14 +307,14 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
     EXPECT_NEAR(reprojectionMatrix[2][3], expectedFocal, kTol);
 
     const double translationOffset = offsetX;
-    ASSERT_GT(std::fabs(translationOffset), kMinTranslationTol);
+    ASSERT_GT(std::fabs(translationOffset), kTol);
     const double baselineComponent = translationOffset / expectedFocal;
     const retinify::Vec3d rectifiedTranslation = retinify::Multiply(rectifiedRotationSecond, translationVector);
-    EXPECT_NEAR(rectifiedTranslation[0], baselineComponent, kRectifyTol);
-    EXPECT_NEAR(rectifiedTranslation[1], 0.0, kRectifyTol);
-    EXPECT_NEAR(rectifiedTranslation[2], 0.0, kRectifyTol);
+    EXPECT_NEAR(rectifiedTranslation[0], baselineComponent, kTol);
+    EXPECT_NEAR(rectifiedTranslation[1], 0.0, kTol);
+    EXPECT_NEAR(rectifiedTranslation[2], 0.0, kTol);
 
-    EXPECT_NEAR(reprojectionMatrix[3][2], -1.0 / baselineComponent, kRectifyTol);
+    EXPECT_NEAR(reprojectionMatrix[3][2], -1.0 / baselineComponent, kTol);
 }
 
 TEST(GeometryTest, StereoRectifyVerticalBaseline)
@@ -364,22 +333,10 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1,
-                  D1,
-                  K2,
-                  D2,
-                  1024,
-                  768,
-                  rotationMatrix,
-                  translationVector,
-                  rectifiedRotationFirst,
-                  rectifiedRotationSecond,
-                  projectionFirst,
-                  projectionSecond,
-                  reprojectionMatrix);
+    StereoRectify(K1, D1, K2, D2, 1024, 768, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
-    ExpectOrthonormal(rectifiedRotationFirst, kOrthonormalTol);
-    ExpectOrthonormal(rectifiedRotationSecond, kOrthonormalTol);
+    ExpectOrthonormal(rectifiedRotationFirst, kTol);
+    ExpectOrthonormal(rectifiedRotationSecond, kTol);
 
     const double offsetX = projectionSecond[0][3];
     const double offsetY = projectionSecond[1][3];
@@ -399,13 +356,127 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
     EXPECT_NEAR(reprojectionMatrix[2][3], expectedFocal, kTol);
 
     const double translationOffset = offsetY;
-    ASSERT_GT(std::fabs(translationOffset), kMinTranslationTol);
+    ASSERT_GT(std::fabs(translationOffset), kTol);
     const double baselineComponent = translationOffset / expectedFocal;
     const retinify::Vec3d rectifiedTranslation = retinify::Multiply(rectifiedRotationSecond, translationVector);
-    EXPECT_NEAR(rectifiedTranslation[1], baselineComponent, kRectifyTol);
-    EXPECT_NEAR(rectifiedTranslation[0], 0.0, kRectifyTol);
-    EXPECT_NEAR(rectifiedTranslation[2], 0.0, kRectifyTol);
+    EXPECT_NEAR(rectifiedTranslation[1], baselineComponent, kTol);
+    EXPECT_NEAR(rectifiedTranslation[0], 0.0, kTol);
+    EXPECT_NEAR(rectifiedTranslation[2], 0.0, kTol);
 
-    EXPECT_NEAR(reprojectionMatrix[3][2], -1.0 / baselineComponent, kRectifyTol);
+    EXPECT_NEAR(reprojectionMatrix[3][2], -1.0 / baselineComponent, kTol);
+}
+
+TEST(GeometryTest, InitUndistortRectifyMapIdentity)
+{
+    const Intrinsics intrinsics{1.0, 1.0, 0.0, 0.0, 0.0};
+    const Distortion distortion{};
+    const Mat3x3d rectificationRotation = Identity();
+
+    Mat3x4d projection{};
+    projection[0][0] = 1.0;
+    projection[1][1] = 1.0;
+    projection[2][2] = 1.0;
+
+    constexpr int kWidth = 3;
+    constexpr int kHeight = 2;
+
+    std::vector<float> mapX;
+    std::vector<float> mapY;
+
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+
+    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
+    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
+
+    for (int v = 0; v < kHeight; ++v)
+    {
+        for (int u = 0; u < kWidth; ++u)
+        {
+            const std::size_t index = static_cast<std::size_t>(v * kWidth + u);
+            EXPECT_NEAR(mapX[index], static_cast<float>(u), kTol);
+            EXPECT_NEAR(mapY[index], static_cast<float>(v), kTol);
+        }
+    }
+}
+
+TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
+{
+    const Intrinsics intrinsics{4.0, 5.0, 3.0, 2.0, 0.1};
+    const Distortion distortion{};
+    const Mat3x3d rectificationRotation{{{0.0, -1.0, 0.0}, {1.0, 0.0, 0.0}, {0.0, 0.0, 1.0}}};
+
+    Mat3x4d projection{};
+    projection[0] = {2.0, 0.0, 1.5, 0.0};
+    projection[1] = {0.0, 2.0, 0.5, 0.0};
+    projection[2] = {0.0, 0.0, 1.0, 0.0};
+
+    constexpr int kWidth = 4;
+    constexpr int kHeight = 3;
+
+    std::vector<float> mapX;
+    std::vector<float> mapY;
+
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+
+    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
+    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
+
+    for (int v = 0; v < kHeight; ++v)
+    {
+        const double rectifiedY = (static_cast<double>(v) - projection[1][2]) / projection[1][1];
+        for (int u = 0; u < kWidth; ++u)
+        {
+            const std::size_t idx = static_cast<std::size_t>(v) * kWidth + static_cast<std::size_t>(u);
+            const double rectifiedX = (static_cast<double>(u) - projection[0][2]) / projection[0][0];
+
+            const double normalizedX = rectifiedY;
+            const double normalizedY = -rectifiedX;
+
+            const double expectedX = intrinsics.fx * normalizedX + intrinsics.skew * normalizedY + intrinsics.cx;
+            const double expectedY = intrinsics.fy * normalizedY + intrinsics.cy;
+
+            EXPECT_NEAR(mapX[idx], static_cast<float>(expectedX), kTol);
+            EXPECT_NEAR(mapY[idx], static_cast<float>(expectedY), kTol);
+        }
+    }
+}
+
+TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
+{
+    const Intrinsics intrinsics{500.0, 520.0, 320.0, 240.0, 0.0};
+    const Distortion distortion{0.05, -0.01, 0.001, -0.0004, 0.0005, -0.0002, 0.0001, -5e-5};
+    const Mat3x3d rectificationRotation = Identity();
+
+    Mat3x4d projection{};
+    projection[0] = {450.0, 0.0, 300.0, 0.0};
+    projection[1] = {0.0, 460.0, 200.0, 0.0};
+    projection[2] = {0.0, 0.0, 1.0, 0.0};
+
+    constexpr int kWidth = 2;
+    constexpr int kHeight = 2;
+
+    std::vector<float> mapX;
+    std::vector<float> mapY;
+
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+
+    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
+    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
+
+    for (int v = 0; v < kHeight; ++v)
+    {
+        for (int u = 0; u < kWidth; ++u)
+        {
+            const std::size_t idx = static_cast<std::size_t>(v) * kWidth + static_cast<std::size_t>(u);
+            const double rectifiedX = (static_cast<double>(u) - projection[0][2]) / projection[0][0];
+            const double rectifiedY = (static_cast<double>(v) - projection[1][2]) / projection[1][1];
+
+            const Point2d idealPixel{rectifiedX, rectifiedY};
+            const Point2d distortedPixel = DistortPoint(intrinsics, distortion, idealPixel);
+
+            EXPECT_NEAR(mapX[idx], static_cast<float>(distortedPixel[0]), kTol);
+            EXPECT_NEAR(mapY[idx], static_cast<float>(distortedPixel[1]), kTol);
+        }
+    }
 }
 } // namespace retinify

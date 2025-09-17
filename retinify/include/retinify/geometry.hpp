@@ -6,6 +6,7 @@
 #include "attributes.hpp"
 
 #include <array>
+#include <vector>
 
 namespace retinify
 {
@@ -227,4 +228,30 @@ RETINIFY_API auto StereoRectify(const Intrinsics &K1, const Distortion &D1, //
                                 Mat3x3d &R1, Mat3x3d &R2,                   //
                                 Mat3x4d &P1, Mat3x4d &P2,                   //
                                 Mat4x4d &Q) noexcept -> void;
+
+/// @brief
+/// Initialize undistort and rectify maps for image remapping.
+/// @param K
+/// Camera intrinsics
+/// @param D
+/// Distortion parameters
+/// @param R
+/// Rectification rotation
+/// @param P
+/// Projection matrix
+/// @param width
+/// Image width
+/// @param height
+/// Image height
+/// @param mapx
+/// Output map for x-coordinates
+/// @param mapy
+/// Output map for y-coordinates
+/// @return
+RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
+                                          const Mat3x3d &R,                         //
+                                          const Mat3x4d &P,                         //
+                                          int width, int height,                    //
+                                          std::vector<float> &mapx,                 //
+                                          std::vector<float> &mapy) -> void;
 } // namespace retinify
