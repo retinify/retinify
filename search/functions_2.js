@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getloglevel_0',['GetLogLevel',['../namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84',1,'retinify']]]
+  ['exp_0',['Exp',['../namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1',1,'retinify']]]
 ];

@@ -33,7 +33,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">retinify<span id="projectnumber">&#160;0.1.6</span>
+   <div id="projectname">retinify<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">Real-Time AI Stereo Vision Library</div>
   </td>
@@ -110,13 +110,10 @@ $(document).ready(function(){initNavTree('namespaceretinify.html',''); initResiz
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html">Distortion</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brown–Conrady distortion model with 5 coefficients (k1, k2, p1, p2, k3).  <a href="structretinify_1_1Distortion.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).  <a href="structretinify_1_1Distortion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1DistortionFisheye.html">DistortionFisheye</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fisheye distortion model with 4 coefficients (k1, k2, k3, k4).  <a href="structretinify_1_1DistortionFisheye.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1DistortionRational.html">DistortionRational</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rational distortion model with 8 coefficients (k1, k2, p1, p2, k3, k4, k5, k6).  <a href="structretinify_1_1DistortionRational.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera intrinsic parameters with focal lengths, principal point, and skew.  <a href="structretinify_1_1Intrinsics.html#details">More...</a><br /></td></tr>
@@ -216,6 +213,45 @@ Functions</h2></td></tr>
 <tr class="memitem:a0aa41e1b018be9d3aef84d815307b7df" id="r_a0aa41e1b018be9d3aef84d815307b7df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0aa41e1b018be9d3aef84d815307b7df">ColorizeDisparity</a> (const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a0aa41e1b018be9d3aef84d815307b7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the disparity map.  <br /></td></tr>
 <tr class="separator:a0aa41e1b018be9d3aef84d815307b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a669c1552f239769d07d686d871db5ba8" id="r_a669c1552f239769d07d686d871db5ba8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a669c1552f239769d07d686d871db5ba8">Identity</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
+<tr class="memdesc:a669c1552f239769d07d686d871db5ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a 3x3 identity matrix.  <br /></td></tr>
+<tr class="separator:a669c1552f239769d07d686d871db5ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeecaff667d115ee519e88c231d6e47d1" id="r_aeecaff667d115ee519e88c231d6e47d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1">Determinant</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;mat) noexcept -&gt; double</td></tr>
+<tr class="memdesc:aeecaff667d115ee519e88c231d6e47d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the determinant of a 3x3 matrix.  <br /></td></tr>
+<tr class="separator:aeecaff667d115ee519e88c231d6e47d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf4159d2fa6f7190b95c0259806f0a8" id="r_a0cf4159d2fa6f7190b95c0259806f0a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8">Transpose</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;mat) noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
+<tr class="memdesc:a0cf4159d2fa6f7190b95c0259806f0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose a 3x3 matrix.  <br /></td></tr>
+<tr class="separator:a0cf4159d2fa6f7190b95c0259806f0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbcc293528213d2a5ed9275f9299ae76" id="r_acbcc293528213d2a5ed9275f9299ae76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#acbcc293528213d2a5ed9275f9299ae76">Multiply</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;mat1, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;mat2) noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
+<tr class="memdesc:acbcc293528213d2a5ed9275f9299ae76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two 3x3 matrices.  <br /></td></tr>
+<tr class="separator:acbcc293528213d2a5ed9275f9299ae76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118ccc5f4dd0948582f4a69cbc5deac6" id="r_a118ccc5f4dd0948582f4a69cbc5deac6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a118ccc5f4dd0948582f4a69cbc5deac6">Multiply</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;mat, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a118ccc5f4dd0948582f4a69cbc5deac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a 3x3 matrix and a 3D vector.  <br /></td></tr>
+<tr class="separator:a118ccc5f4dd0948582f4a69cbc5deac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30094f60b2a1571364e29d396f7ac0c9" id="r_a30094f60b2a1571364e29d396f7ac0c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a30094f60b2a1571364e29d396f7ac0c9">Scale</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec, double scale) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a30094f60b2a1571364e29d396f7ac0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a 3D vector by a scalar value.  <br /></td></tr>
+<tr class="separator:a30094f60b2a1571364e29d396f7ac0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82f844ae09b5d007f9d65bb4ac756d94" id="r_a82f844ae09b5d007f9d65bb4ac756d94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94">Length</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec) noexcept -&gt; double</td></tr>
+<tr class="memdesc:a82f844ae09b5d007f9d65bb4ac756d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the length (magnitude) of a 3D vector.  <br /></td></tr>
+<tr class="separator:a82f844ae09b5d007f9d65bb4ac756d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b23a0163170bedf04b2dad526abcc9b" id="r_a9b23a0163170bedf04b2dad526abcc9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b">Normalize</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a9b23a0163170bedf04b2dad526abcc9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize a 3D vector to unit length.  <br /></td></tr>
+<tr class="separator:a9b23a0163170bedf04b2dad526abcc9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a75b80725830180fede17e93d91c4c8" id="r_a6a75b80725830180fede17e93d91c4c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8">Cross</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec1, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec2) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a6a75b80725830180fede17e93d91c4c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the cross product of two 3D vectors.  <br /></td></tr>
+<tr class="separator:a6a75b80725830180fede17e93d91c4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4003e306f6238bce758b4b07fc7be1" id="r_afe4003e306f6238bce758b4b07fc7be1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1">Exp</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;omega) noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
+<tr class="memdesc:afe4003e306f6238bce758b4b07fc7be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix exponential of a 3D rotation vector.  <br /></td></tr>
+<tr class="separator:afe4003e306f6238bce758b4b07fc7be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec49c63749300eb0040e25312c641a7" id="r_a5ec49c63749300eb0040e25312c641a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a5ec49c63749300eb0040e25312c641a7">Log</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a5ec49c63749300eb0040e25312c641a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix logarithm of a 3x3 rotation matrix.  <br /></td></tr>
+<tr class="separator:a5ec49c63749300eb0040e25312c641a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8876f0e2847382702e20d5af46ef6fe9" id="r_a8876f0e2847382702e20d5af46ef6fe9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9">UndistortPoint</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion, const <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a> &amp;pixel) noexcept -&gt; <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a></td></tr>
+<tr class="memdesc:a8876f0e2847382702e20d5af46ef6fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Undistort a 2D point using the given camera intrinsics and distortion parameters.  <br /></td></tr>
+<tr class="separator:a8876f0e2847382702e20d5af46ef6fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dac93241a406a4c58f81be0121f33f4" id="r_a3dac93241a406a4c58f81be0121f33f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a3dac93241a406a4c58f81be0121f33f4">StereoRectify</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K1, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D1, const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K2, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D2, int width, int height, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;T, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R1, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R2, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P1, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P2, <a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;Q) noexcept -&gt; void</td></tr>
+<tr class="memdesc:a3dac93241a406a4c58f81be0121f33f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform stereo rectification for a pair of cameras.  <br /></td></tr>
+<tr class="separator:a3dac93241a406a4c58f81be0121f33f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e9f58f6b0cc01cbe490c9e9819ebf84" id="r_a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84">GetLogLevel</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td></tr>
 <tr class="memdesc:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log level.  <br /></td></tr>
 <tr class="separator:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -753,6 +789,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6a75b80725830180fede17e93d91c4c8" name="a6a75b80725830180fede17e93d91c4c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a75b80725830180fede17e93d91c4c8">&#9670;&#160;</a></span>Cross()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Cross </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the cross product of two 3D vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec1</td><td>First 3D vector. </td></tr>
+    <tr><td class="paramname">vec2</td><td>Second 3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3D vector. </dd></dl>
+
+</div>
+</div>
 <a id="ae27b69290a3fbaef89e92be8d3253a16" name="ae27b69290a3fbaef89e92be8d3253a16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae27b69290a3fbaef89e92be8d3253a16">&#9670;&#160;</a></span>DataDirectoryPath()</h2>
 
@@ -778,6 +860,76 @@ Functions</h2></td></tr>
 
 <p>Returns the data directory path for retinify. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the data directory path, or nullptr on failure. </dd></dl>
+
+</div>
+</div>
+<a id="aeecaff667d115ee519e88c231d6e47d1" name="aeecaff667d115ee519e88c231d6e47d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeecaff667d115ee519e88c231d6e47d1">&#9670;&#160;</a></span>Determinant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Determinant </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat</em></td><td>)</td>
+          <td> -&gt;  double</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the determinant of a 3x3 matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>3x3 matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Determinant value. </dd></dl>
+
+</div>
+</div>
+<a id="afe4003e306f6238bce758b4b07fc7be1" name="afe4003e306f6238bce758b4b07fc7be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe4003e306f6238bce758b4b07fc7be1">&#9670;&#160;</a></span>Exp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Exp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>omega</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the matrix exponential of a 3D rotation vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">omega</td><td>3D rotation vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3x3 rotation matrix. </dd></dl>
 
 </div>
 </div>
@@ -834,6 +986,104 @@ Functions</h2></td></tr>
 
 <p>Returns the current user’s home directory path. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the home directory path, or nullptr on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a669c1552f239769d07d686d871db5ba8" name="a669c1552f239769d07d686d871db5ba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a669c1552f239769d07d686d871db5ba8">&#9670;&#160;</a></span>Identity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Identity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a 3x3 identity matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>3x3 identity matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a82f844ae09b5d007f9d65bb4ac756d94" name="a82f844ae09b5d007f9d65bb4ac756d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82f844ae09b5d007f9d65bb4ac756d94">&#9670;&#160;</a></span>Length()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Length </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td> -&gt;  double</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the length (magnitude) of a 3D vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Length value. </dd></dl>
+
+</div>
+</div>
+<a id="a5ec49c63749300eb0040e25312c641a7" name="a5ec49c63749300eb0040e25312c641a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ec49c63749300eb0040e25312c641a7">&#9670;&#160;</a></span>Log()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Log </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>rotation</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the matrix logarithm of a 3x3 rotation matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rotation</td><td>3x3 rotation matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3D rotation vector. </dd></dl>
 
 </div>
 </div>
@@ -1062,6 +1312,133 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a118ccc5f4dd0948582f4a69cbc5deac6" name="a118ccc5f4dd0948582f4a69cbc5deac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a118ccc5f4dd0948582f4a69cbc5deac6">&#9670;&#160;</a></span>Multiply() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Multiply </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiply a 3x3 matrix and a 3D vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>3x3 matrix. </td></tr>
+    <tr><td class="paramname">vec</td><td>3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3D vector. </dd></dl>
+
+</div>
+</div>
+<a id="acbcc293528213d2a5ed9275f9299ae76" name="acbcc293528213d2a5ed9275f9299ae76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbcc293528213d2a5ed9275f9299ae76">&#9670;&#160;</a></span>Multiply() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Multiply </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiply two 3x3 matrices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat1</td><td>First 3x3 matrix. </td></tr>
+    <tr><td class="paramname">mat2</td><td>Second 3x3 matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3x3 matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a9b23a0163170bedf04b2dad526abcc9b" name="a9b23a0163170bedf04b2dad526abcc9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b23a0163170bedf04b2dad526abcc9b">&#9670;&#160;</a></span>Normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Normalize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Normalize a 3D vector to unit length. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Normalized 3D vector. </dd></dl>
+
+</div>
+</div>
 <a id="a4e302dee4bddf30ea2ce84915d77031f" name="a4e302dee4bddf30ea2ce84915d77031f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e302dee4bddf30ea2ce84915d77031f">&#9670;&#160;</a></span>ONNXModelFilePath()</h2>
 
@@ -1087,6 +1464,52 @@ Functions</h2></td></tr>
 
 <p>Returns the path to the ONNX model file used by retinify. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the ONNX model file path. </dd></dl>
+
+</div>
+</div>
+<a id="a30094f60b2a1571364e29d396f7ac0c9" name="a30094f60b2a1571364e29d396f7ac0c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30094f60b2a1571364e29d396f7ac0c9">&#9670;&#160;</a></span>Scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Scale </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>scale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Scale a 3D vector by a scalar value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>3D vector </td></tr>
+    <tr><td class="paramname">scale</td><td>Scalar value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Scaled 3D vector. </dd></dl>
 
 </div>
 </div>
@@ -1149,6 +1572,216 @@ Functions</h2></td></tr>
 
 <p>Returns the state directory path for retinify. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the state directory path, or nullptr on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a3dac93241a406a4c58f81be0121f33f4" name="a3dac93241a406a4c58f81be0121f33f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dac93241a406a4c58f81be0121f33f4">&#9670;&#160;</a></span>StereoRectify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::StereoRectify </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
+          <td class="paramname"><em>K1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
+          <td class="paramname"><em>D1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
+          <td class="paramname"><em>K2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
+          <td class="paramname"><em>D2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>R1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>R2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;&#160;</td>
+          <td class="paramname"><em>P1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;&#160;</td>
+          <td class="paramname"><em>P2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;&#160;</td>
+          <td class="paramname"><em>Q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  void</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Perform stereo rectification for a pair of cameras. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">K1</td><td>First camera intrinsics. </td></tr>
+    <tr><td class="paramname">D1</td><td>First camera distortion. </td></tr>
+    <tr><td class="paramname">K2</td><td>Second camera intrinsics. </td></tr>
+    <tr><td class="paramname">D2</td><td>Second camera distortion. </td></tr>
+    <tr><td class="paramname">width</td><td>Image width in pixels. </td></tr>
+    <tr><td class="paramname">height</td><td>Image height in pixels. </td></tr>
+    <tr><td class="paramname">R</td><td>Rotation from the first to the second camera. </td></tr>
+    <tr><td class="paramname">T</td><td>Translation from the first to the second camera. </td></tr>
+    <tr><td class="paramname">R1</td><td>Output rectification rotation for the first camera. </td></tr>
+    <tr><td class="paramname">R2</td><td>Output rectification rotation for the second camera. </td></tr>
+    <tr><td class="paramname">P1</td><td>Output projection matrix for the first camera. </td></tr>
+    <tr><td class="paramname">P2</td><td>Output projection matrix for the second camera. </td></tr>
+    <tr><td class="paramname">Q</td><td>Output mapping matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0cf4159d2fa6f7190b95c0259806f0a8" name="a0cf4159d2fa6f7190b95c0259806f0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf4159d2fa6f7190b95c0259806f0a8">&#9670;&#160;</a></span>Transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Transpose </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transpose a 3x3 matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>3x3 matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Transposed 3x3 matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a8876f0e2847382702e20d5af46ef6fe9" name="a8876f0e2847382702e20d5af46ef6fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8876f0e2847382702e20d5af46ef6fe9">&#9670;&#160;</a></span>UndistortPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::UndistortPoint </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
+          <td class="paramname"><em>intrinsics</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
+          <td class="paramname"><em>distortion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a> &amp;&#160;</td>
+          <td class="paramname"><em>pixel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Undistort a 2D point using the given camera intrinsics and distortion parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">intrinsics</td><td>Camera intrinsic parameters. </td></tr>
+    <tr><td class="paramname">distortion</td><td><a class="el" href="structretinify_1_1Distortion.html" title="Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).">Distortion</a> parameters. </td></tr>
+    <tr><td class="paramname">pixel</td><td>Distorted 2D point in pixel coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Undistorted 2D point in pixel coordinates. </dd></dl>
 
 </div>
 </div>

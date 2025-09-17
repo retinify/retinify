@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['setloglevel_0',['SetLogLevel',['../namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177',1,'retinify']]],
-  ['statedirectorypath_1',['StateDirectoryPath',['../namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7',1,'retinify']]],
-  ['status_2',['status',['../classretinify_1_1Status.html#a6ce624fbd2239802e14bbaf1079b3bd5',1,'retinify::Status::Status() noexcept=default'],['../classretinify_1_1Status.html#a17ebabbd700e537fbf081959fda8fb85',1,'retinify::Status::Status(StatusCategory category, StatusCode code) noexcept'],['../classretinify_1_1Status.html#a09e8f981bb2e2631353b407a7b5b9955',1,'retinify::Status::Status(const Status &amp;) noexcept=default'],['../classretinify_1_1Status.html#ac89b5383d6f3bcb3b2c7c8db8b5a2534',1,'retinify::Status::Status(Status &amp;&amp;) noexcept=default']]]
+  ['onnxmodelfilepath_0',['ONNXModelFilePath',['../namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f',1,'retinify']]],
+  ['operator_3d_1',['operator=',['../classretinify_1_1Pipeline.html#a809c7fe1f191752098716700ab01ba22',1,'retinify::Pipeline::operator=(const Pipeline &amp;) noexcept -&gt; Pipeline &amp;=delete'],['../classretinify_1_1Pipeline.html#a33c3b968a968193cbe9bbeab89919e06',1,'retinify::Pipeline::operator=(Pipeline &amp;&amp;) noexcept -&gt; Pipeline &amp;=delete'],['../classretinify_1_1Status.html#a6f70f71fb3cbbe7a6d69a5a9bef277eb',1,'retinify::Status::operator=(const Status &amp;) noexcept -&gt; Status &amp;=default'],['../classretinify_1_1Status.html#a147223f4be31bd1099fb12baba6372ef',1,'retinify::Status::operator=(Status &amp;&amp;) noexcept -&gt; Status &amp;=default']]]
 ];

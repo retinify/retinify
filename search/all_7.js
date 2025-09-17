@@ -4,7 +4,7 @@ var searchData=
   ['debug_1',['DEBUG',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15',1,'retinify']]],
   ['demo_2',['3. Quick Demo',['../tutorials.html#autotoc_md10',1,'']]],
   ['dependencies_3',['Dependencies',['../installation.html#autotoc_md3',1,'']]],
-  ['distortion_4',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
-  ['distortionfisheye_5',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]],
-  ['distortionrational_6',['DistortionRational',['../structretinify_1_1DistortionRational.html',1,'retinify']]]
+  ['determinant_4',['Determinant',['../namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1',1,'retinify']]],
+  ['distortion_5',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
+  ['distortionfisheye_6',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]]
 ];

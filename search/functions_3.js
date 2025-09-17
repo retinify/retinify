@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['homedirectorypath_0',['HomeDirectoryPath',['../namespaceretinify.html#aacffaa83dff370322a2bd10317728f65',1,'retinify']]]
+  ['getloglevel_0',['GetLogLevel',['../namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84',1,'retinify']]]
 ];

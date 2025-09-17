@@ -33,7 +33,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">retinify<span id="projectnumber">&#160;0.1.6</span>
+   <div id="projectname">retinify<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">Real-Time AI Stereo Vision Library</div>
   </td>
@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('structretinify_1_1Distortion.html','')
 </div><!--header-->
 <div class="contents">
 
-<p>Brown–Conrady distortion model with 5 coefficients (k1, k2, p1, p2, k3).  
+<p>Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).  
  <a href="structretinify_1_1Distortion.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="geometry_8hpp_source.html">geometry.hpp</a>&gt;</code></p>
@@ -122,9 +122,15 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aed816a6da7ba3baed94931791738b514"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3d884d83d5efbc0a53690040908d25f" id="r_af3d884d83d5efbc0a53690040908d25f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html#af3d884d83d5efbc0a53690040908d25f">k3</a> {0}</td></tr>
 <tr class="separator:af3d884d83d5efbc0a53690040908d25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b6411f9b5c803dcf74b501dc09ce743" id="r_a9b6411f9b5c803dcf74b501dc09ce743"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html#a9b6411f9b5c803dcf74b501dc09ce743">k4</a> {0}</td></tr>
+<tr class="separator:a9b6411f9b5c803dcf74b501dc09ce743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb1cbbf51f2ce30f5a038ab3ab87fa48" id="r_afb1cbbf51f2ce30f5a038ab3ab87fa48"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html#afb1cbbf51f2ce30f5a038ab3ab87fa48">k5</a> {0}</td></tr>
+<tr class="separator:afb1cbbf51f2ce30f5a038ab3ab87fa48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7940de1b1c342ff302b00faa79132112" id="r_a7940de1b1c342ff302b00faa79132112"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Distortion.html#a7940de1b1c342ff302b00faa79132112">k6</a> {0}</td></tr>
+<tr class="separator:a7940de1b1c342ff302b00faa79132112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Brown–Conrady distortion model with 5 coefficients (k1, k2, p1, p2, k3). </p>
+<div class="textblock"><p>Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6). </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="aa22294b2b355f533ed26acc55a526213" name="aa22294b2b355f533ed26acc55a526213"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa22294b2b355f533ed26acc55a526213">&#9670;&#160;</a></span>k1</h2>
@@ -162,6 +168,48 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">double retinify::Distortion::k3 {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b6411f9b5c803dcf74b501dc09ce743" name="a9b6411f9b5c803dcf74b501dc09ce743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6411f9b5c803dcf74b501dc09ce743">&#9670;&#160;</a></span>k4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double retinify::Distortion::k4 {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb1cbbf51f2ce30f5a038ab3ab87fa48" name="afb1cbbf51f2ce30f5a038ab3ab87fa48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb1cbbf51f2ce30f5a038ab3ab87fa48">&#9670;&#160;</a></span>k5</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double retinify::Distortion::k5 {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7940de1b1c342ff302b00faa79132112" name="a7940de1b1c342ff302b00faa79132112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7940de1b1c342ff302b00faa79132112">&#9670;&#160;</a></span>k6</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double retinify::Distortion::k6 {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">

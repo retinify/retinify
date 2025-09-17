@@ -2,7 +2,6 @@ var geometry_8hpp =
 [
     [ "retinify::Intrinsics", "structretinify_1_1Intrinsics.html", "structretinify_1_1Intrinsics" ],
     [ "retinify::Distortion", "structretinify_1_1Distortion.html", "structretinify_1_1Distortion" ],
-    [ "retinify::DistortionRational", "structretinify_1_1DistortionRational.html", "structretinify_1_1DistortionRational" ],
     [ "retinify::DistortionFisheye", "structretinify_1_1DistortionFisheye.html", "structretinify_1_1DistortionFisheye" ],
     [ "Mat3x3d", "geometry_8hpp.html#a26282a3f32000d8c29fb89e1dbc4ee4c", null ],
     [ "Mat3x3f", "geometry_8hpp.html#a5c05daf0180307c567b6696252a8fe02", null ],
@@ -17,5 +16,18 @@ var geometry_8hpp =
     [ "Vec2d", "geometry_8hpp.html#a00859bf55fe20fbc194d4ecd64ff7002", null ],
     [ "Vec2f", "geometry_8hpp.html#a60d9e65f29123e2250b56f50804533b5", null ],
     [ "Vec3d", "geometry_8hpp.html#a1fc94eca66deaf8e12e2fdeb99fad8dc", null ],
-    [ "Vec3f", "geometry_8hpp.html#aacc47ce73ec86d4a5e5397d7b10c6a52", null ]
+    [ "Vec3f", "geometry_8hpp.html#aacc47ce73ec86d4a5e5397d7b10c6a52", null ],
+    [ "Cross", "geometry_8hpp.html#a6a75b80725830180fede17e93d91c4c8", null ],
+    [ "Determinant", "geometry_8hpp.html#aeecaff667d115ee519e88c231d6e47d1", null ],
+    [ "Exp", "geometry_8hpp.html#afe4003e306f6238bce758b4b07fc7be1", null ],
+    [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
+    [ "Length", "geometry_8hpp.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
+    [ "Log", "geometry_8hpp.html#a5ec49c63749300eb0040e25312c641a7", null ],
+    [ "Multiply", "geometry_8hpp.html#a118ccc5f4dd0948582f4a69cbc5deac6", null ],
+    [ "Multiply", "geometry_8hpp.html#acbcc293528213d2a5ed9275f9299ae76", null ],
+    [ "Normalize", "geometry_8hpp.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
+    [ "Scale", "geometry_8hpp.html#a30094f60b2a1571364e29d396f7ac0c9", null ],
+    [ "StereoRectify", "geometry_8hpp.html#a3dac93241a406a4c58f81be0121f33f4", null ],
+    [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
+    [ "UndistortPoint", "geometry_8hpp.html#a8876f0e2847382702e20d5af46ef6fe9", null ]
 ];

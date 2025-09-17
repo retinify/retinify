@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pipeline_0',['pipeline',['../classretinify_1_1Pipeline.html#aff420a8fba6a6584f4ef975dd2eed698',1,'retinify::Pipeline::Pipeline() noexcept'],['../classretinify_1_1Pipeline.html#ab25709bd44d66d886c56657553fd25c1',1,'retinify::Pipeline::Pipeline(const Pipeline &amp;)=delete'],['../classretinify_1_1Pipeline.html#a98b1af42c11f725a00e73b93a135e182',1,'retinify::Pipeline::Pipeline(Pipeline &amp;&amp;) noexcept=delete']]]
+  ['multiply_0',['multiply',['../namespaceretinify.html#acbcc293528213d2a5ed9275f9299ae76',1,'retinify::Multiply(const Mat3x3d &amp;mat1, const Mat3x3d &amp;mat2) noexcept -&gt; Mat3x3d'],['../namespaceretinify.html#a118ccc5f4dd0948582f4a69cbc5deac6',1,'retinify::Multiply(const Mat3x3d &amp;mat, const Vec3d &amp;vec) noexcept -&gt; Vec3d']]]
 ];

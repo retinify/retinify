@@ -9,7 +9,8 @@ var searchData=
   ['configdirectorypath_6',['ConfigDirectoryPath',['../namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1',1,'retinify']]],
   ['contact_7',['Contact',['../index.html#autotoc_md2',1,'']]],
   ['create_20a_20retinify_20project_8',['4. Create a retinify project',['../tutorials.html#autotoc_md11',1,'']]],
-  ['cuda_9',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
-  ['cx_10',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],
-  ['cy_11',['cy',['../structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd',1,'retinify::Intrinsics']]]
+  ['cross_9',['Cross',['../namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8',1,'retinify']]],
+  ['cuda_10',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
+  ['cx_11',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],
+  ['cy_12',['cy',['../structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd',1,'retinify::Intrinsics']]]
 ];
