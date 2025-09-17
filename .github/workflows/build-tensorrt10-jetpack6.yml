@@ -1,4 +1,4 @@
-name: build-jetson
+name: build-tensorrt10-jetpack6
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-jetson:
+  build-tensorrt10-jetpack6:
     if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
@@ -45,23 +45,18 @@ jobs:
           nvcr.io/nvidia/l4t-tensorrt:r10.3.0-devel \
           bash -c "
             set -e
-
-            echo '=== TensorRT Info ==='
+            
             nvcc --version
-
-            echo '=== Container Info ==='
+            
             cat /etc/os-release | grep VERSION
 
-            echo '=== Install Dependencies ==='
             export DEBIAN_FRONTEND=noninteractive
-            apt update && apt install -y git cmake build-essential libopencv-dev
+            apt update && apt install -y git cmake build-essential
 
-            echo '=== Initialize Submodules ==='
             git config --global --add safe.directory /workspace
             git config --global --add safe.directory /workspace/3rdparty/googletest
             git submodule sync --recursive
             git submodule update --init --recursive
 
-            echo '=== Build RETINIFY ==='
             ./build.sh --install --tensorrt
           "

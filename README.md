@@ -10,6 +10,7 @@
   
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
+[![JETPACK 6](https://img.shields.io/badge/-JETPACK%206-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://docs.nvidia.com/jetson/jetpack/index.html)
 [![Release](https://img.shields.io/github/v/release/retinify/retinify?sort=semver&style=flat-square&color=blue&label=Release)](https://github.com/retinify/retinify/releases/latest)
 [![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
 ![Language](https://img.shields.io/github/languages/top/retinify/retinify?style=flat-square&color=yellow)  
@@ -35,8 +36,6 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - 🪶 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
 
 ## Basic Usage
-![pipeline](https://raw.githubusercontent.com/retinify/assets/main/images/pipeline.png)
-  
 > [!IMPORTANT]
 > Retinify is independent of OpenCV and supports various image data types.
   
@@ -76,26 +75,27 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
-| 🎯 Target                                            | Status                                             |
-| --------------------------------------------------- | -------------------------------------------------- |
-| [![target-tensorrt-badge][]][build-tensorrt-status] | [![build-tensorrt-badge][]][build-tensorrt-status] |
-| [![target-jetson-badge][]][build-jetson-status]     | [![build-jetson-badge][]][build-jetson-status]     |
-| ![target-hailort-badge]                             | Coming soon                                        |
-| ![target-openvino-badge]                            | Coming soon                                        |
+| 🎯 Target                            | Status                                                                 |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| ![target-tensorrt10-cuda12-badge]   | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
+| ![target-tensorrt10-cuda13-badge]   | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
+| ![target-tensorrt10-jetpack6-badge] | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
+| ![target-hailort-badge]             | Coming soon                                                            |
+| ![target-openvino-badge]            | Coming soon                                                            |
 
-<!-- TARGET BADGES -->
-[target-tensorrt-badge]: https://img.shields.io/badge/TensorRT-gray?style=flat-square
-[target-jetson-badge]: https://img.shields.io/badge/TensorRT(Jetson)-gray?style=flat-square
+[target-tensorrt10-cuda12-badge]: https://img.shields.io/badge/TensorRT(CUDA12.X)-gray?style=flat-square
+[target-tensorrt10-cuda13-badge]: https://img.shields.io/badge/TensorRT(CUDA13.X)-gray?style=flat-square
+[target-tensorrt10-jetpack6-badge]: https://img.shields.io/badge/TensorRT(JetPack6)-gray?style=flat-square
 [target-hailort-badge]: https://img.shields.io/badge/HailoRT-gray?style=flat-square
 [target-openvino-badge]: https://img.shields.io/badge/OpenVINO-gray?style=flat-square
 
-<!-- BUILD STATUS BADGES -->
-[build-tensorrt-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt.yml?style=flat-square&label=build
-[build-jetson-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-jetson.yml?style=flat-square&label=build
+[build-tensorrt10-cuda12-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-cuda12.yml?style=flat-square&label=build
+[build-tensorrt10-cuda13-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-cuda13.yml?style=flat-square&label=build
+[build-tensorrt10-jetpack6-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-jetpack6.yml?style=flat-square&label=build
 
-<!-- STATUS LINKS -->
-[build-tensorrt-status]: https://github.com/retinify/retinify/actions/workflows/build-tensorrt.yml?query=branch%3Amain
-[build-jetson-status]: https://github.com/retinify/retinify/actions/workflows/build-jetson.yml?query=branch%3Amain
+[build-tensorrt10-cuda12-status]: https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-cuda12.yml?query=branch%3Amain
+[build-tensorrt10-cuda13-status]: https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-cuda13.yml?query=branch%3Amain
+[build-tensorrt10-jetpack6-status]: https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-jetpack6.yml?query=branch%3Amain
 
 ## Pipeline Latencies
 Latency includes the time for image upload, inference, and disparity download, reported as the median over 10,000 iterations (measured with `retinify::Pipeline`).  
