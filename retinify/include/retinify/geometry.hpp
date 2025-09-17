@@ -94,6 +94,16 @@ RETINIFY_API auto Multiply(const Mat3x3d &mat1, const Mat3x3d &mat2) noexcept ->
 RETINIFY_API auto Multiply(const Mat3x3d &mat, const Vec3d &vec) noexcept -> Vec3d;
 
 /// @brief
+/// Scale a 3D vector by a scalar value.
+/// @param vec
+/// 3D vector
+/// @param scale
+/// Scalar value
+/// @return
+/// Scaled 3D vector.
+RETINIFY_API auto Scale(const Vec3d &vec, double scale) noexcept -> Vec3d;
+
+/// @brief
 /// Compute the length (magnitude) of a 3D vector.
 /// @param vec
 /// 3D vector.
@@ -181,4 +191,40 @@ struct DistortionFisheye
 /// @return
 /// Undistorted 2D point in pixel coordinates.
 RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &pixel) noexcept -> Point2d;
+
+/// @brief
+/// Perform stereo rectification for a pair of cameras.
+/// @param K1
+/// First camera intrinsics.
+/// @param D1
+/// First camera distortion.
+/// @param K2
+/// Second camera intrinsics.
+/// @param D2
+/// Second camera distortion.
+/// @param width
+/// Image width in pixels.
+/// @param height
+/// Image height in pixels.
+/// @param R
+/// Rotation from the first to the second camera.
+/// @param T
+/// Translation from the first to the second camera.
+/// @param R1
+/// Output rectification rotation for the first camera.
+/// @param R2
+/// Output rectification rotation for the second camera.
+/// @param P1
+/// Output projection matrix for the first camera.
+/// @param P2
+/// Output projection matrix for the second camera.
+/// @param Q
+/// Output mapping matrix.
+RETINIFY_API auto StereoRectify(const Intrinsics &K1, const Distortion &D1, //
+                                const Intrinsics &K2, const Distortion &D2, //
+                                int width, int height,                      //
+                                const Mat3x3d &R, const Vec3d &T,           //
+                                Mat3x3d &R1, Mat3x3d &R2,                   //
+                                Mat3x4d &P1, Mat3x4d &P2,                   //
+                                Mat4x4d &Q) noexcept -> void;
 } // namespace retinify
