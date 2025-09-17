@@ -9,10 +9,10 @@
 namespace retinify
 {
 /// @brief Small epsilon constant for numerical stability.
-constexpr double EPS = 1e-12;
+constexpr double kEPS = 1e-12;
 
 /// @brief Mathematical constant π (pi).
-constexpr double PI = 3.14159265358979323846264338327950288;
+constexpr double kPI = 3.14159265358979323846;
 
 /// @brief Clamp value into [lower, upper] (constexpr).
 constexpr double Clamp(double value, double lower, double upper) noexcept
@@ -74,6 +74,11 @@ auto Multiply(const Mat3x3d &mat1, const Mat3x3d &mat2) noexcept -> Mat3x3d
     return matOut;
 }
 
+auto Scale(const Vec3d &vec, double scale) noexcept -> Vec3d
+{
+    return {vec[0] * scale, vec[1] * scale, vec[2] * scale};
+}
+
 auto Length(const Vec3d &vec) noexcept -> double
 {
     // ||v|| = sqrt(v·v)
@@ -84,7 +89,7 @@ auto Normalize(const Vec3d &vec) noexcept -> Vec3d
 {
     // v / ||v||  (return zero if degenerate)
     const double n = Length(vec);
-    if (n < EPS)
+    if (n < kEPS)
     {
         return {0.0, 0.0, 0.0};
     }
@@ -113,7 +118,7 @@ auto Exp(const Vec3d &omega) noexcept -> Mat3x3d
     double coefA = 0.0;
     double coefB = 0.0;
 
-    if (thetaSquared <= EPS)
+    if (thetaSquared <= kEPS)
     {
         // coefA = 1 − θ^2/6 + θ^4/120
         // coefB = 1/2 − θ^2/24 + θ^4/720
@@ -174,13 +179,13 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
     const double vz = rotation[1][0] - rotation[0][1];
 
     // Small angle: ω ≈ 1/2 v (since sinθ ≈ θ)
-    if (theta < EPS)
+    if (theta < kEPS)
     {
         return {0.5 * vx, 0.5 * vy, 0.5 * vz};
     }
 
     // Near π: sinθ ~ 0, use diagonal-based axis extraction.
-    if (std::fabs(PI - theta) < 1e-6)
+    if (std::fabs(kPI - theta) < 1e-6)
     {
         // n^2 from diagonal: n_x^2 = (R_xx + 1)/2, etc., clamped to [0,1].
         double ax = std::sqrt(std::max(0.0, (rotation[0][0] + 1.0) * 0.5));
@@ -190,19 +195,19 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
         // Recover remaining components from off-diagonals using the largest axis to stabilize.
         if (ax >= ay && ax >= az)
         {
-            const double denom = 4.0 * std::max(ax, EPS);
+            const double denom = 4.0 * std::max(ax, kEPS);
             ay = (rotation[0][1] + rotation[1][0]) / denom;
             az = (rotation[0][2] + rotation[2][0]) / denom;
         }
         else if (ay >= ax && ay >= az)
         {
-            const double denom = 4.0 * std::max(ay, EPS);
+            const double denom = 4.0 * std::max(ay, kEPS);
             ax = (rotation[0][1] + rotation[1][0]) / denom;
             az = (rotation[1][2] + rotation[2][1]) / denom;
         }
         else
         {
-            const double denom = 4.0 * std::max(az, EPS);
+            const double denom = 4.0 * std::max(az, kEPS);
             ax = (rotation[0][2] + rotation[2][0]) / denom;
             ay = (rotation[1][2] + rotation[2][1]) / denom;
         }
@@ -215,11 +220,183 @@ auto Log(const Mat3x3d &rotation) noexcept -> Vec3d
     // General case: n = v / ||v||, ω = θ n
     const double vnormSquared = vx * vx + vy * vy + vz * vz;
     const double vnorm = std::sqrt(std::max(0.0, vnormSquared));
-    if (vnorm < EPS)
+    if (vnorm < kEPS)
     {
         return {0.0, 0.0, 0.0};
     }
     const double scale = theta / vnorm;
     return {scale * vx, scale * vy, scale * vz};
+}
+
+auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &pixel) noexcept -> Point2d
+{
+    const double invFocalX = (intrinsics.fx != 0.0 ? 1.0 / intrinsics.fx : 1.0);
+    const double invFocalY = (intrinsics.fy != 0.0 ? 1.0 / intrinsics.fy : 1.0);
+
+    const double normX = (pixel[0] - intrinsics.cx) * invFocalX;
+    const double normY = (pixel[1] - intrinsics.cy) * invFocalY;
+
+    double undistX = normX;
+    double undistY = normY;
+
+    std::array<double, 14> distCoeffs = {};
+    distCoeffs[0] = distortion.k1; // k1
+    distCoeffs[1] = distortion.k2; // k2
+    distCoeffs[2] = distortion.p1; // p1
+    distCoeffs[3] = distortion.p2; // p2
+    distCoeffs[4] = distortion.k3; // k3
+    distCoeffs[5] = distortion.k4; // k4
+    distCoeffs[6] = distortion.k5; // k5
+    distCoeffs[7] = distortion.k6; // k6
+    distCoeffs[8] = 0.0;           // s1
+    distCoeffs[9] = 0.0;           // s2
+    distCoeffs[10] = 0.0;          // s3
+    distCoeffs[11] = 0.0;          // s4
+    distCoeffs[12] = 0.0;          // tau1
+    distCoeffs[13] = 0.0;          // tau2
+
+    constexpr int kIterationCount = 5;
+    for (int iter = 0; iter < kIterationCount; ++iter)
+    {
+        double rSquared = undistX * undistX + undistY * undistY;
+        double radialNum = 1.0 + ((distCoeffs[7] * rSquared + distCoeffs[6]) * rSquared + distCoeffs[5]) * rSquared;
+        double radialDen = 1.0 + ((distCoeffs[4] * rSquared + distCoeffs[1]) * rSquared + distCoeffs[0]) * rSquared;
+        double distScale = (std::fabs(radialDen) > kEPS) ? (radialNum / radialDen) : 1.0;
+        if (distScale < 0)
+        {
+            undistX = normX;
+            undistY = normY;
+            break;
+        }
+        double deltaX = 2 * distCoeffs[2] * undistX * undistY + distCoeffs[3] * (rSquared + 2 * undistX * undistX) + distCoeffs[8] * rSquared + distCoeffs[9] * rSquared * rSquared;
+        double deltaY = distCoeffs[2] * (rSquared + 2 * undistY * undistY) + 2 * distCoeffs[3] * undistX * undistY + distCoeffs[10] * rSquared + distCoeffs[11] * rSquared * rSquared;
+        undistX = (normX - deltaX) * distScale;
+        undistY = (normY - deltaY) * distScale;
+    }
+    return {undistX, undistY};
+}
+
+namespace impl
+{
+static auto ComputeRectifyingRotation(const Mat3x3d &rotation) noexcept -> Mat3x3d
+{
+    Vec3d omega = Log(rotation);
+    for (double &component : omega)
+    {
+        component *= -0.5;
+    }
+    return Exp(omega);
+}
+
+static auto DetermineDominantAxis(const Vec3d &translation) noexcept -> int
+{
+    return (std::fabs(translation[0]) > std::fabs(translation[1])) ? 0 : 1;
+}
+
+static auto BuildAxisVector(int idx, double direction) noexcept -> Vec3d
+{
+    Vec3d axis{0.0, 0.0, 0.0};
+    axis[idx] = direction;
+    return axis;
+}
+
+static auto ComputeBaselineAlignment(const Vec3d &translation, int axisIdx) noexcept -> Mat3x3d
+{
+    const double component = translation[axisIdx];
+    const double length = Length(translation);
+    const Vec3d target = BuildAxisVector(axisIdx, component > 0.0 ? 1.0 : -1.0);
+    const Vec3d cross = Cross(translation, target);
+    const double crossLength = Length(cross);
+    if (crossLength <= 0.0 || length <= 0.0)
+    {
+        return Identity();
+    }
+    const double arg = Clamp(std::fabs(component) / length, -1.0, 1.0);
+    const double angle = std::acos(arg);
+    const double scale = angle / crossLength;
+    return Exp(Scale(cross, scale));
+}
+
+static auto ComputePrincipalPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Mat3x3d &rectifiedRotation, //
+                                  double newFocalLength, double width, double height) noexcept -> Point2d
+{
+    const Point2d corners[4] = {{0.0, 0.0}, {width - 1.0, 0.0}, {0.0, height - 1.0}, {width - 1.0, height - 1.0}};
+    double accumulatedX = 0.0;
+    double accumulatedY = 0.0;
+    for (const auto &corner : corners)
+    {
+        const Point2d undistortedPoint2D = UndistortPoint(intrinsics, distortion, corner);
+        const Vec3d undistortedPoint3D{undistortedPoint2D[0], undistortedPoint2D[1], 1.0};
+        const Vec3d rectifiedPoint3D = Multiply(rectifiedRotation, undistortedPoint3D);
+        const double inverseDepth = (std::fabs(rectifiedPoint3D[2]) > kEPS) ? (1.0 / rectifiedPoint3D[2]) : 1.0;
+        accumulatedX += newFocalLength * (rectifiedPoint3D[0] * inverseDepth);
+        accumulatedY += newFocalLength * (rectifiedPoint3D[1] * inverseDepth);
+    }
+    const double halfWidth = (width - 1.0) * 0.5;
+    const double halfHeight = (height - 1.0) * 0.5;
+    return {halfWidth - accumulatedX * 0.25, halfHeight - accumulatedY * 0.25};
+}
+
+static auto BuildProjectionMatrix(double focal, const Point2d &principal) noexcept -> Mat3x4d
+{
+    Mat3x4d projection = Mat3x4d{};
+    projection[0][0] = focal;
+    projection[1][1] = focal;
+    projection[0][2] = principal[0];
+    projection[1][2] = principal[1];
+    projection[2][2] = 1.0;
+    return projection;
+}
+} // namespace impl
+
+auto StereoRectify(const Intrinsics &K1, const Distortion &D1, //
+                   const Intrinsics &K2, const Distortion &D2, //
+                   int width, int height,                      //
+                   const Mat3x3d &R, const Vec3d &T,           //
+                   Mat3x3d &R1, Mat3x3d &R2,                   //
+                   Mat3x4d &P1, Mat3x4d &P2,                   //
+                   Mat4x4d &Q) noexcept -> void
+{
+    const Mat3x3d rectifyingRotation = impl::ComputeRectifyingRotation(R);
+    const Vec3d rotatedTranslation = Multiply(rectifyingRotation, T);
+    const int axisIdx = impl::DetermineDominantAxis(rotatedTranslation);
+    const Mat3x3d baselineAlignment = impl::ComputeBaselineAlignment(rotatedTranslation, axisIdx);
+
+    const Mat3x3d rotationTranspose = Transpose(rectifyingRotation);
+    R1 = Multiply(baselineAlignment, rotationTranspose);
+    R2 = Multiply(baselineAlignment, rectifyingRotation);
+
+    const Vec3d rectifiedTranslation = Multiply(R2, T);
+    const double newFocalScale = 0.5; // newImgSize defaults to imageSize -> ratio = 0.5
+    const double newFocalLength = (axisIdx == 0) ? (K1.fy + K2.fy) * newFocalScale : (K1.fx + K2.fx) * newFocalScale;
+
+    const Point2d principal0 = impl::ComputePrincipalPoint(K1, D1, R1, newFocalLength, static_cast<double>(width), static_cast<double>(height));
+    const Point2d principal1 = impl::ComputePrincipalPoint(K2, D2, R2, newFocalLength, static_cast<double>(width), static_cast<double>(height));
+    const double ccx = 0.5 * (principal0[0] + principal1[0]);
+    const double ccy = 0.5 * (principal0[1] + principal1[1]);
+    const Point2d principalAvg{ccx, ccy};
+
+    P1 = impl::BuildProjectionMatrix(newFocalLength, principalAvg);
+    P2 = impl::BuildProjectionMatrix(newFocalLength, principalAvg);
+
+    const double baselineComponent = (axisIdx == 0) ? rectifiedTranslation[0] : rectifiedTranslation[1];
+    const double translationOffset = baselineComponent * newFocalLength;
+    if (axisIdx == 0)
+    {
+        P2[0][3] = translationOffset;
+    }
+    else
+    {
+        P2[1][3] = translationOffset;
+    }
+
+    Q = Mat4x4d{};
+    Q[0][0] = 1.0;
+    Q[1][1] = 1.0;
+    Q[0][3] = -principalAvg[0];
+    Q[1][3] = -principalAvg[1];
+    Q[2][3] = newFocalLength;
+    Q[3][2] = (std::fabs(baselineComponent) > kEPS) ? (-1.0 / baselineComponent) : 0.0;
+    Q[3][3] = 0.0;
 }
 } // namespace retinify
