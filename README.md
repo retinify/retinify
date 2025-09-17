@@ -36,8 +36,6 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - 🪶 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
 
 ## Basic Usage
-![pipeline](https://raw.githubusercontent.com/retinify/assets/main/images/pipeline.png)
-  
 > [!IMPORTANT]
 > Retinify is independent of OpenCV and supports various image data types.
   
