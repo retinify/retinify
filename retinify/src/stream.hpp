@@ -36,7 +36,7 @@ class RETINIFY_API Stream
   private:
 #ifdef BUILD_WITH_TENSORRT
     cudaStream_t stream_{nullptr};
-    NppStreamContext ctx_{nullptr};
+    NppStreamContext ctx_{};
 #endif
 };
 } // namespace retinify
