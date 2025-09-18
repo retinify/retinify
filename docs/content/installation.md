@@ -1,6 +1,6 @@
 @page installation Installation
 
-retinify supports Linux (Ubuntu) and can be easily installed using the provided `build.sh` script.  
+Retinify supports Linux (Ubuntu) and can be easily installed using the provided `build.sh` script.  
 This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools.  
 
 ## Dependencies
@@ -9,7 +9,7 @@ Build Toolchain
 - [CMake](https://cmake.org/download/): 3.14 or later
   
 AI Runtime
-- [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive): 12.x
+- [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive): 12.x, 13.x
 - [cuDNN](https://developer.nvidia.com/cudnn-archive): 9.x
 - [TensorRT](https://developer.nvidia.com/tensorrt): 10.x
 
