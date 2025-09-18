@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "stream.hpp"
+
 #include "retinify/attributes.hpp"
 #include "retinify/status.hpp"
 
@@ -23,11 +25,10 @@ class RETINIFY_API Mat
     auto operator=(const Mat &) -> Mat & = delete;
     Mat(Mat &&other) noexcept = delete;
     auto operator=(Mat &&other) noexcept -> Mat & = delete;
-    [[nodiscard]] auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement = sizeof(float)) noexcept -> Status;
+    [[nodiscard]] auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status;
     [[nodiscard]] auto Free() noexcept -> Status;
-    [[nodiscard]] auto Upload(const void *hostData, std::size_t hostStride) const noexcept -> Status;
-    [[nodiscard]] auto Download(void *hostData, std::size_t hostStride) const noexcept -> Status;
-    [[nodiscard]] auto Wait() const noexcept -> Status;
+    [[nodiscard]] auto Upload(const void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status;
+    [[nodiscard]] auto Download(void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status;
     [[nodiscard]] auto Data() const noexcept -> void *;
     [[nodiscard]] auto Empty() const noexcept -> bool;
     [[nodiscard]] auto Rows() const noexcept -> std::size_t;
@@ -39,9 +40,6 @@ class RETINIFY_API Mat
     [[nodiscard]] auto Shape() const noexcept -> std::array<int64_t, 4>;
 
   private:
-#ifdef BUILD_WITH_TENSORRT
-    cudaStream_t stream_{nullptr};
-#endif
     std::size_t rows_{0};
     std::size_t cols_{0};
     std::size_t channels_{0};

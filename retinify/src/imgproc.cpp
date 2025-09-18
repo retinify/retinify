@@ -13,7 +13,7 @@
 
 namespace retinify
 {
-auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
+auto ResizeImage8UC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -28,13 +28,13 @@ auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiResize_8u_C3R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
-                                         {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
-                                         {0, 0, static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},     //
-                                         static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
-                                         {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},           //
-                                         {0, 0, static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},     //
-                                         NPPI_INTER_LINEAR);
+    NppStatus status = nppiResize_8u_C3R_Ctx(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                             {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                             {0, 0, static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},     //
+                                             static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                             {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},           //
+                                             {0, 0, static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},     //
+                                             NPPI_INTER_LINEAR, stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -46,12 +46,13 @@ auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
+auto ResizeDisparity32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -66,13 +67,13 @@ auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiResize_32f_C1R(static_cast<const Npp32f *>(src.Data()), static_cast<int>(src.Stride()), //
-                                          {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},            //
-                                          {0, 0, static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},      //
-                                          static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),       //
-                                          {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},            //
-                                          {0, 0, static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},      //
-                                          NPPI_INTER_NN);
+    NppStatus status = nppiResize_32f_C1R_Ctx(static_cast<const Npp32f *>(src.Data()), static_cast<int>(src.Stride()), //
+                                              {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},            //
+                                              {0, 0, static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},      //
+                                              static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                              {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},            //
+                                              {0, 0, static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())},      //
+                                              NPPI_INTER_NN, stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -81,7 +82,7 @@ auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
     }
 
     float value_scale = static_cast<float>(dst.Cols()) / static_cast<float>(src.Cols());
-    status = nppiMulC_32f_C1IR(static_cast<Npp32f>(value_scale), static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()), {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())});
+    status = nppiMulC_32f_C1IR_Ctx(static_cast<Npp32f>(value_scale), static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()), {static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())}, stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -93,12 +94,13 @@ auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto HorizontalFlip8UC3(const Mat &src, Mat &dst) noexcept -> Status
+auto HorizontalFlip8UC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -113,10 +115,10 @@ auto HorizontalFlip8UC3(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiMirror_8u_C3R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
-                                         static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
-                                         {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
-                                         NPP_VERTICAL_AXIS);
+    NppStatus status = nppiMirror_8u_C3R_Ctx(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                             static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                             {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                             NPP_VERTICAL_AXIS, stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -128,12 +130,13 @@ auto HorizontalFlip8UC3(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto HorizontalFlip32FC1(const Mat &src, Mat &dst) noexcept -> Status
+auto HorizontalFlip32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -148,10 +151,10 @@ auto HorizontalFlip32FC1(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiMirror_32f_C1R(static_cast<const Npp32f *>(src.Data()), static_cast<int>(src.Stride()), //
-                                          static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),       //
-                                          {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},            //
-                                          NPP_VERTICAL_AXIS);
+    NppStatus status = nppiMirror_32f_C1R_Ctx(static_cast<const Npp32f *>(src.Data()), static_cast<int>(src.Stride()), //
+                                              static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                              {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},            //
+                                              NPP_VERTICAL_AXIS, stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -163,12 +166,13 @@ auto HorizontalFlip32FC1(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
+auto Convert8UC3To8UC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -183,9 +187,10 @@ auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiRGBToGray_8u_C3C1R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
-                                              static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
-                                              {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())});
+    NppStatus status = nppiRGBToGray_8u_C3C1R_Ctx(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                                  static_cast<Npp8u *>(dst.Data()), static_cast<int>(dst.Stride()),       //
+                                                  {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                                  stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -197,12 +202,13 @@ auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
+auto Convert8UC1To32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -217,9 +223,10 @@ auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiConvert_8u32f_C1R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
-                                             static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),      //
-                                             {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())});
+    NppStatus status = nppiConvert_8u32f_C1R_Ctx(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                                 static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),      //
+                                                 {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                                 stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -231,12 +238,13 @@ auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto Convert8UC3To32FC3(const Mat &src, Mat &dst) noexcept -> Status
+auto Convert8UC3To32FC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
     {
@@ -251,9 +259,10 @@ auto Convert8UC3To32FC3(const Mat &src, Mat &dst) noexcept -> Status
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    NppStatus status = nppiConvert_8u32f_C3R(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
-                                             static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),      //
-                                             {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())});
+    NppStatus status = nppiConvert_8u32f_C3R_Ctx(static_cast<const Npp8u *>(src.Data()), static_cast<int>(src.Stride()), //
+                                                 static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()),      //
+                                                 {static_cast<int>(src.Cols()), static_cast<int>(src.Rows())},           //
+                                                 stream.GetNppStreamContext());
 
     if (status != NPP_SUCCESS)
     {
@@ -265,12 +274,13 @@ auto Convert8UC3To32FC3(const Mat &src, Mat &dst) noexcept -> Status
 #else
     (void)src;
     (void)dst;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
 
-auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError) noexcept -> Status
+auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError, Stream &stream) noexcept -> Status
 {
     if (left.Empty() || right.Empty() || output.Empty())
     {
@@ -289,7 +299,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
                                                static_cast<const float *>(right.Data()), right.Stride(),     //
                                                static_cast<float *>(output.Data()), output.Stride(),         //
                                                static_cast<int>(left.Cols()), static_cast<int>(left.Rows()), //
-                                               relativeError);
+                                               relativeError, stream.GetCudaStream());
 
     if (error != cudaSuccess)
     {
@@ -303,6 +313,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
     (void)right;
     (void)output;
     (void)relativeError;
+    (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif

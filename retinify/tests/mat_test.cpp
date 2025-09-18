@@ -17,6 +17,7 @@ class MatTest : public ::testing::Test
     static constexpr std::size_t bytesPerElement = sizeof(float);
 
     Mat mat_;
+    Stream stream_;
     cv::Mat hostSrc_ = cv::Mat::eye(rows, cols *channels, CV_32F);
     cv::Mat hostDst_ = cv::Mat::zeros(rows, cols *channels, CV_32F);
 };
@@ -44,20 +45,17 @@ TEST_F(MatTest, Allocate)
 
 TEST_F(MatTest, UploadDownload)
 {
+    Status stStream = stream_.Create();
+    ASSERT_TRUE(stStream.IsOK());
+
     Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement);
     ASSERT_TRUE(stAlloc.IsOK());
 
-    Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0]);
+    Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], stream_);
     ASSERT_TRUE(stUp.IsOK());
 
-    Status stWaitUp = mat_.Wait();
-    ASSERT_TRUE(stWaitUp.IsOK());
-
-    Status stDown = mat_.Download(hostDst_.ptr(), hostDst_.step[0]);
+    Status stDown = mat_.Download(hostDst_.ptr(), hostDst_.step[0], stream_);
     ASSERT_TRUE(stDown.IsOK());
-
-    Status stWaitDown = mat_.Wait();
-    ASSERT_TRUE(stWaitDown.IsOK());
 
     for (std::size_t i = 0; i < rows; ++i)
     {
@@ -69,10 +67,16 @@ TEST_F(MatTest, UploadDownload)
 
     Status stFree = mat_.Free();
     ASSERT_TRUE(stFree.IsOK());
+
+    Status stDestroy = stream_.Destroy();
+    ASSERT_TRUE(stDestroy.IsOK());
 }
 
 TEST_F(MatTest, UploadDownloadUInt8)
 {
+    Status stStream = stream_.Create();
+    ASSERT_TRUE(stStream.IsOK());
+
     constexpr std::size_t bytesPerElementUint8 = sizeof(std::uint8_t);
 
     cv::Mat hostSrc(rows, cols * channels, CV_8U);
@@ -82,17 +86,11 @@ TEST_F(MatTest, UploadDownloadUInt8)
     Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8);
     ASSERT_TRUE(stAlloc.IsOK());
 
-    Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0]);
+    Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0], stream_);
     ASSERT_TRUE(stUp.IsOK());
 
-    Status stWaitUp = mat_.Wait();
-    ASSERT_TRUE(stWaitUp.IsOK());
-
-    Status stDown = mat_.Download(hostDst.ptr(), hostDst.step[0]);
+    Status stDown = mat_.Download(hostDst.ptr(), hostDst.step[0], stream_);
     ASSERT_TRUE(stDown.IsOK());
-
-    Status stWaitDown = mat_.Wait();
-    ASSERT_TRUE(stWaitDown.IsOK());
 
     for (std::size_t i = 0; i < rows; ++i)
     {
@@ -104,5 +102,8 @@ TEST_F(MatTest, UploadDownloadUInt8)
 
     Status stFree = mat_.Free();
     ASSERT_TRUE(stFree.IsOK());
+
+    Status stDestroy = stream_.Destroy();
+    ASSERT_TRUE(stDestroy.IsOK());
 }
 } // namespace retinify
