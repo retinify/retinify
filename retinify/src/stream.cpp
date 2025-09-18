@@ -22,19 +22,7 @@ auto Stream::Create() noexcept -> Status
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
-    NppStatus nppSt = nppSetStream(stream_);
-    if (nppSt != NPP_SUCCESS)
-    {
-        LogError("Failed to set NPP stream.");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
-    NppStatus nppStreamStatus = nppGetStreamContext(&ctx_);
-    if (nppStreamStatus != NPP_SUCCESS)
-    {
-        LogError("Failed to get NPP stream context.");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
+    ctx_.hStream = stream_;
 
     return Status{};
 #else
