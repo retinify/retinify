@@ -54,6 +54,7 @@ var namespaceretinify =
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
     [ "HomeDirectoryPath", "namespaceretinify.html#aacffaa83dff370322a2bd10317728f65", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
+    [ "InitUndistortRectifyMap", "namespaceretinify.html#aeb10d7f54ee803c2aac16cc5c55c1934", null ],
     [ "Length", "namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "namespaceretinify.html#a5ec49c63749300eb0040e25312c641a7", null ],
     [ "LogDebug", "namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b", null ],

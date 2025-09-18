@@ -108,16 +108,19 @@ $(document).ready(function(){initNavTree('geometry_8hpp.html',''); initResizable
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="attributes_8hpp_source.html">attributes.hpp</a>&quot;</code><br />
 <code>#include &lt;array&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for geometry.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="geometry_8hpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2geometry_8hpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2geometry_8hpp" id="a_2home_2runner_2work_2retinify_2retinify_2retinify_2include_2retinify_2geometry_8hpp">
-<area shape="rect" title=" " alt="" coords="19,5,214,60"/>
+<area shape="rect" title=" " alt="" coords="74,5,269,60"/>
 <area shape="rect" href="attributes_8hpp.html" title=" " alt="" coords="5,108,119,133"/>
-<area shape="poly" title=" " alt="" coords="102,62,79,98,75,95,98,59"/>
+<area shape="poly" title=" " alt="" coords="140,62,89,102,86,97,136,58"/>
 <area shape="rect" title=" " alt="" coords="143,108,199,133"/>
-<area shape="poly" title=" " alt="" coords="136,59,159,95,154,98,131,62"/>
+<area shape="poly" title=" " alt="" coords="174,60,174,94,169,94,169,60"/>
+<area shape="rect" title=" " alt="" coords="224,108,287,133"/>
+<area shape="poly" title=" " alt="" coords="199,58,236,96,232,100,195,62"/>
 </map>
 </div>
 </div>
@@ -226,6 +229,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3dac93241a406a4c58f81be0121f33f4" id="r_a3dac93241a406a4c58f81be0121f33f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a3dac93241a406a4c58f81be0121f33f4">retinify::StereoRectify</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K1, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D1, const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K2, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D2, int width, int height, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;T, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R1, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R2, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P1, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P2, <a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;Q) noexcept -&gt; void</td></tr>
 <tr class="memdesc:a3dac93241a406a4c58f81be0121f33f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform stereo rectification for a pair of cameras.  <br /></td></tr>
 <tr class="separator:a3dac93241a406a4c58f81be0121f33f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb10d7f54ee803c2aac16cc5c55c1934" id="r_aeb10d7f54ee803c2aac16cc5c55c1934"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aeb10d7f54ee803c2aac16cc5c55c1934">retinify::InitUndistortRectifyMap</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R, const <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P, int width, int height, std::vector&lt; float &gt; &amp;mapx, std::vector&lt; float &gt; &amp;mapy) -&gt; void</td></tr>
+<tr class="memdesc:aeb10d7f54ee803c2aac16cc5c55c1934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize undistort and rectify maps for image remapping.  <br /></td></tr>
+<tr class="separator:aeb10d7f54ee803c2aac16cc5c55c1934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

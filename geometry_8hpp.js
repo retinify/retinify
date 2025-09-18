@@ -21,6 +21,7 @@ var geometry_8hpp =
     [ "Determinant", "geometry_8hpp.html#aeecaff667d115ee519e88c231d6e47d1", null ],
     [ "Exp", "geometry_8hpp.html#afe4003e306f6238bce758b4b07fc7be1", null ],
     [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
+    [ "InitUndistortRectifyMap", "geometry_8hpp.html#aeb10d7f54ee803c2aac16cc5c55c1934", null ],
     [ "Length", "geometry_8hpp.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "geometry_8hpp.html#a5ec49c63749300eb0040e25312c641a7", null ],
     [ "Multiply", "geometry_8hpp.html#a118ccc5f4dd0948582f4a69cbc5deac6", null ],
