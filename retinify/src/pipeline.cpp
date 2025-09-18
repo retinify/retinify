@@ -4,10 +4,7 @@
 #include "imgproc.hpp"
 #include "mat.hpp"
 #include "session.hpp"
-
-#ifdef BUILD_WITH_TENSORRT
-#include "cuda/lrcheck.h"
-#endif
+#include "stream.hpp"
 
 #include "retinify/logging.hpp"
 #include "retinify/paths.hpp"
@@ -26,6 +23,7 @@ class Pipeline::Impl
     ~Impl() noexcept
     {
         initialized_ = false;
+        (void)stream_.Destroy();
         (void)left8UC3_.Free();
         (void)right8UC3_.Free();
         (void)leftDisparity32FC1_.Free();
@@ -66,20 +64,26 @@ class Pipeline::Impl
         switch (mode)
         {
         case Mode::FAST:
-            matchingHeight_ = 320;
             matchingWidth_ = 640;
+            matchingHeight_ = 320;
             break;
         case Mode::BALANCED:
-            matchingHeight_ = 480;
             matchingWidth_ = 640;
+            matchingHeight_ = 480;
             break;
         case Mode::ACCURATE:
-            matchingHeight_ = 720;
             matchingWidth_ = 1280;
+            matchingHeight_ = 720;
             break;
         default:
             LogError("Invalid stereo matching mode.");
             status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+            return status;
+        }
+
+        status = stream_.Create();
+        if (!status.IsOK())
+        {
             return status;
         }
 
@@ -264,61 +268,56 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8UC3_.Upload(leftImageData, leftImageStride);
+        status = left8UC3_.Upload(leftImageData, leftImageStride, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8UC3_.Upload(rightImageData, rightImageStride);
+        status = right8UC3_.Upload(rightImageData, rightImageStride, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = left8UC3_.Wait();
+        status = ResizeImage8UC3(left8UC3_, leftResized8UC3_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8UC3_.Wait();
+        status = ResizeImage8UC3(right8UC3_, rightResized8UC3_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8UC3(left8UC3_, leftResized8UC3_);
+        status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8UC3(right8UC3_, rightResized8UC3_);
+        status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
+        status = Convert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
+        status = Convert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = Convert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_);
+        // Ensure all pre-processing has completed before inference
+        status = stream_.Synchronize();
         if (!status.IsOK())
         {
             return status;
@@ -330,7 +329,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = ResizeDisparity32FC1(disparityResized32FC1_, leftDisparity32FC1_);
+        status = ResizeDisparity32FC1(disparityResized32FC1_, leftDisparity32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -339,49 +338,56 @@ class Pipeline::Impl
         // Left-right consistency check
         if (maxRelativeDisparityError > 0.0f && maxRelativeDisparityError < 1.0f)
         {
-            status = HorizontalFlip8UC3(left8UC3_, leftFliped8UC3_);
+            status = HorizontalFlip8UC3(left8UC3_, leftFliped8UC3_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = HorizontalFlip8UC3(right8UC3_, rightFliped8UC3_);
+            status = HorizontalFlip8UC3(right8UC3_, rightFliped8UC3_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = ResizeImage8UC3(leftFliped8UC3_, leftResized8UC3_);
+            status = ResizeImage8UC3(leftFliped8UC3_, leftResized8UC3_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = ResizeImage8UC3(rightFliped8UC3_, rightResized8UC3_);
+            status = ResizeImage8UC3(rightFliped8UC3_, rightResized8UC3_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_);
+            status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_);
+            status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = Convert8UC1To32FC1(rightResized8UC1_, leftResized32FC1_);
+            status = Convert8UC1To32FC1(rightResized8UC1_, leftResized32FC1_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = Convert8UC1To32FC1(leftResized8UC1_, rightResized32FC1_);
+            status = Convert8UC1To32FC1(leftResized8UC1_, rightResized32FC1_, stream_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
+
+            // Ensure all pre-processing has completed before inference
+            status = stream_.Synchronize();
             if (!status.IsOK())
             {
                 return status;
@@ -393,31 +399,25 @@ class Pipeline::Impl
                 return status;
             }
 
-            status = ResizeDisparity32FC1(disparityResized32FC1_, disparityFliped32FC1_);
+            status = ResizeDisparity32FC1(disparityResized32FC1_, disparityFliped32FC1_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = HorizontalFlip32FC1(disparityFliped32FC1_, rightDisparity32FC1_);
+            status = HorizontalFlip32FC1(disparityFliped32FC1_, rightDisparity32FC1_, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = LRConsistencyCheck32FC1(leftDisparity32FC1_, rightDisparity32FC1_, lrCheckedDisparity32FC1_, maxRelativeDisparityError);
+            status = LRConsistencyCheck32FC1(leftDisparity32FC1_, rightDisparity32FC1_, lrCheckedDisparity32FC1_, maxRelativeDisparityError, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
 
-            status = lrCheckedDisparity32FC1_.Download(disparityData, disparityStride);
-            if (!status.IsOK())
-            {
-                return status;
-            }
-
-            status = lrCheckedDisparity32FC1_.Wait();
+            status = lrCheckedDisparity32FC1_.Download(disparityData, disparityStride, stream_);
             if (!status.IsOK())
             {
                 return status;
@@ -425,17 +425,17 @@ class Pipeline::Impl
         }
         else
         {
-            status = leftDisparity32FC1_.Download(disparityData, disparityStride);
+            status = leftDisparity32FC1_.Download(disparityData, disparityStride, stream_);
             if (!status.IsOK())
             {
                 return status;
             }
+        }
 
-            status = leftDisparity32FC1_.Wait();
-            if (!status.IsOK())
-            {
-                return status;
-            }
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
         }
 
         return status;
@@ -443,6 +443,7 @@ class Pipeline::Impl
 
   private:
     bool initialized_{false};     // whether the pipeline is initialized
+    Stream stream_;               // stream for operations
     size_t imageWidth_{0};        // original input image width
     size_t imageHeight_{0};       // original input image height
     size_t matchingHeight_{0};    // image height for stereo matching

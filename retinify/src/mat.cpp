@@ -54,13 +54,6 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     std::size_t newStride = 0;
 
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t streamError = cudaStreamCreate(&stream_);
-    if (streamError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(streamError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
-
     cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
     if (mallocError != cudaSuccess)
     {
@@ -140,20 +133,6 @@ auto Mat::Free() noexcept -> Status
         this->deviceData_ = nullptr;
     }
 
-#ifdef BUILD_WITH_TENSORRT
-    if (stream_ != nullptr)
-    {
-        cudaError_t streamError = cudaStreamDestroy(stream_);
-        if (streamError != cudaSuccess)
-        {
-            LogError(cudaGetErrorString(streamError));
-            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
-        }
-        stream_ = nullptr;
-    }
-
-#endif
-
     this->deviceStride_ = 0;
     this->rows_ = 0;
     this->cols_ = 0;
@@ -165,7 +144,7 @@ auto Mat::Free() noexcept -> Status
     return status;
 }
 
-auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept -> Status
+auto Mat::Upload(const void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status
 {
     if (deviceData_ == nullptr)
     {
@@ -186,7 +165,7 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept ->
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream_);
+    cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream.GetCudaStream());
     if (copyError != cudaSuccess)
     {
         LogError(cudaGetErrorString(copyError));
@@ -205,7 +184,7 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride) const noexcept ->
     return Status{};
 }
 
-auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Status
+auto Mat::Download(void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status
 {
     if (deviceData_ == nullptr)
     {
@@ -226,7 +205,7 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream_);
+    cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream.GetCudaStream());
     if (copyError != cudaSuccess)
     {
         LogError(cudaGetErrorString(copyError));
@@ -239,23 +218,6 @@ auto Mat::Download(void *hostData, std::size_t hostStride) const noexcept -> Sta
     for (std::size_t r = 0; r < deviceRows_; ++r)
     {
         std::memcpy(dst + r * hostStride, src + r * deviceStride_, deviceColumnsInBytes_);
-    }
-#endif
-
-    return Status{};
-}
-
-auto Mat::Wait() const noexcept -> Status
-{
-#ifdef BUILD_WITH_TENSORRT
-    if (stream_ != nullptr)
-    {
-        cudaError_t waitError = cudaStreamSynchronize(stream_);
-        if (waitError != cudaSuccess)
-        {
-            LogError(cudaGetErrorString(waitError));
-            return Status(StatusCategory::CUDA, StatusCode::FAIL);
-        }
     }
 #endif
 

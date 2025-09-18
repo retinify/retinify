@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "mat.hpp"
+#include "stream.hpp"
 
 namespace retinify
 {
@@ -11,9 +12,11 @@ namespace retinify
 /// Input image (8-bit, 3-channel).
 /// @param dst
 /// Output image (8-bit, 3-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto ResizeImage8UC3(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto ResizeImage8UC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Resize a 32-bit floating-point, 1-channel disparity map using nearest-neighbor interpolation.
@@ -21,9 +24,11 @@ namespace retinify
 /// Input disparity map (32-bit floating-point, 1-channel).
 /// @param dst
 /// Output disparity map (32-bit floating-point, 1-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto ResizeDisparity32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Horizontally flip an 8-bit, 1-channel image.
@@ -31,9 +36,11 @@ namespace retinify
 /// Input image (8-bit, 1-channel).
 /// @param dst
 /// Output image (8-bit, 1-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto HorizontalFlip8UC3(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto HorizontalFlip8UC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Horizontally flip a 32-bit floating-point, 1-channel image.
@@ -41,9 +48,11 @@ namespace retinify
 /// Input image (32-bit floating-point, 1-channel).
 /// @param dst
 /// Output image (32-bit floating-point, 1-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto HorizontalFlip32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto HorizontalFlip32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Convert an 8-bit, 3-channel image to an 8-bit, 1-channel grayscale image.
@@ -51,9 +60,11 @@ namespace retinify
 /// Input image (8-bit, 3-channel).
 /// @param dst
 /// Output grayscale image (8-bit, 1-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto Convert8UC3To8UC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Convert an 8-bit, 1-channel grayscale image to a 32-bit floating-point, 1-channel image.
@@ -61,9 +72,11 @@ namespace retinify
 /// Input grayscale image (8-bit, 1-channel).
 /// @param dst
 /// Output image (32-bit floating-point, 1-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto Convert8UC1To32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Convert an 8-bit, 3-channel image to a 32-bit floating-point, 3-channel image.
@@ -71,9 +84,11 @@ namespace retinify
 /// Input image (8-bit, 3-channel).
 /// @param dst
 /// Output image (32-bit floating-point, 3-channel).
+/// @param stream
+/// Execution stream.
 /// @return
-/// Status code indicating success or failure.
-[[nodiscard]] auto Convert8UC3To32FC3(const Mat &src, Mat &dst) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto Convert8UC3To32FC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
 /// Perform left-right consistency check on two 32-bit floating-point, 1-channel disparity maps.
@@ -85,6 +100,9 @@ namespace retinify
 /// Output disparity map after consistency check (32-bit floating-point, 1-channel).
 /// @param relativeError
 /// Maximum allowed relative error for consistency check.
+/// @param stream
+/// Execution stream.
 /// @return
-[[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError) noexcept -> Status;
+/// Status code.
+[[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError, Stream &stream) noexcept -> Status;
 } // namespace retinify
