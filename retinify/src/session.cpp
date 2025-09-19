@@ -54,16 +54,6 @@ Session::~Session() noexcept
     delete context_;
     delete engine_;
     delete runtime_;
-
-    if (cudaStream_ != nullptr)
-    {
-        cudaError_t cudaStreamError = cudaStreamDestroy(cudaStream_);
-        if (cudaStreamError != cudaSuccess)
-        {
-            LogError(cudaGetErrorString(cudaStreamError));
-        }
-        cudaStream_ = nullptr;
-    }
 #else
 #endif
 }
@@ -71,14 +61,6 @@ Session::~Session() noexcept
 auto Session::Initialize(const char *model_path) noexcept -> Status
 {
 #ifdef BUILD_WITH_TENSORRT
-    // Create CUDA stream
-    cudaError_t cudaStreamError = cudaStreamCreate(&cudaStream_);
-    if (cudaStreamError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(cudaStreamError));
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
     // Create TensorRT runtime
     TensorRTLogger logger;
     runtime_ = nvinfer1::createInferRuntime(logger);
@@ -310,7 +292,7 @@ auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Sta
 #endif
 }
 
-auto Session::Run() const noexcept -> Status
+auto Session::Run(Stream &stream) const noexcept -> Status
 {
 #ifdef BUILD_WITH_TENSORRT
     if (!context_->allInputDimensionsSpecified())
@@ -319,16 +301,9 @@ auto Session::Run() const noexcept -> Status
         return Status{StatusCategory::CUDA, StatusCode::INVALID_ARGUMENT};
     }
 
-    if (!context_->enqueueV3(cudaStream_))
+    if (!context_->enqueueV3(stream.GetCudaStream()))
     {
         LogError("Failed to enqueue TensorRT execution context.");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
-    cudaError_t cuda_error = cudaStreamSynchronize(cudaStream_);
-    if (cuda_error != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(cuda_error));
         return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 

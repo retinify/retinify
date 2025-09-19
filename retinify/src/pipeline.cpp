@@ -316,14 +316,7 @@ class Pipeline::Impl
             return status;
         }
 
-        // Ensure all pre-processing has completed before inference
-        status = stream_.Synchronize();
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = session_.Run();
+        status = session_.Run(stream_);
         if (!status.IsOK())
         {
             return status;
@@ -386,14 +379,7 @@ class Pipeline::Impl
                 return status;
             }
 
-            // Ensure all pre-processing has completed before inference
-            status = stream_.Synchronize();
-            if (!status.IsOK())
-            {
-                return status;
-            }
-
-            status = session_.Run();
+            status = session_.Run(stream_);
             if (!status.IsOK())
             {
                 return status;
