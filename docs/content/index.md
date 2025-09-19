@@ -25,4 +25,5 @@ Hands-on examples to get you started with real-world use cases.
 Detailed class and function-level documentation for developers.
 
 ### Contact
-For commercial inquiries, additional technical support, or any other questions, please feel free to contact us at [contact@retinify.ai](mailto:contact@retinify.ai).  
+For support or collaboration, please contact:  
+**[contact@retinify.ai](mailto:contact@retinify.ai)**  
