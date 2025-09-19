@@ -4,6 +4,7 @@
 #pragma once
 
 #include "mat.hpp"
+#include "stream.hpp"
 
 #include "retinify/status.hpp"
 
@@ -31,14 +32,13 @@ class RETINIFY_API Session
     [[nodiscard]] auto Initialize(const char *model_path) noexcept -> Status;
     [[nodiscard]] auto BindInput(const char *name, const Mat &mat) const noexcept -> Status;
     [[nodiscard]] auto BindOutput(const char *name, const Mat &mat) const noexcept -> Status;
-    [[nodiscard]] auto Run() const noexcept -> Status;
+    [[nodiscard]] auto Run(Stream &stream) const noexcept -> Status;
 
   private:
 #ifdef BUILD_WITH_TENSORRT
     nvinfer1::IRuntime *runtime_{nullptr};
     nvinfer1::ICudaEngine *engine_{nullptr};
     nvinfer1::IExecutionContext *context_{nullptr};
-    cudaStream_t cudaStream_{nullptr};
 #else
 #endif
 };
