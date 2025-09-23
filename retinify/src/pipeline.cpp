@@ -87,61 +87,61 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        status = left8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        status = right8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        status = leftDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t));
+        status = leftResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t));
+        status = rightResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t));
+        status = leftResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t));
+        status = rightResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
+        status = leftResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
+        status = rightResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparityResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float));
+        status = disparityResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -171,31 +171,31 @@ class Pipeline::Impl
             return status;
         }
 
-        status = leftFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        status = leftFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t));
+        status = rightFliped8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparityFliped32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        status = disparityFliped32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        status = rightDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = lrCheckedDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float));
+        status = lrCheckedDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;

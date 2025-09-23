@@ -16,6 +16,13 @@
 
 namespace retinify
 {
+enum class MatLocation
+{
+    UNKNOWN,
+    DEVICE,
+    HOST,
+};
+
 class RETINIFY_API Mat
 {
   public:
@@ -25,7 +32,7 @@ class RETINIFY_API Mat
     auto operator=(const Mat &) -> Mat & = delete;
     Mat(Mat &&other) noexcept = delete;
     auto operator=(Mat &&other) noexcept -> Mat & = delete;
-    [[nodiscard]] auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status;
+    [[nodiscard]] auto Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, MatLocation location) noexcept -> Status;
     [[nodiscard]] auto Free() noexcept -> Status;
     [[nodiscard]] auto Upload(const void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status;
     [[nodiscard]] auto Download(void *hostData, std::size_t hostStride, Stream &stream) const noexcept -> Status;
@@ -38,6 +45,7 @@ class RETINIFY_API Mat
     [[nodiscard]] auto ElementCount() const noexcept -> std::size_t;
     [[nodiscard]] auto Stride() const noexcept -> std::size_t;
     [[nodiscard]] auto Shape() const noexcept -> std::array<int64_t, 4>;
+    [[nodiscard]] auto Location() const noexcept -> MatLocation;
 
   private:
     std::size_t rows_{0};
@@ -48,5 +56,6 @@ class RETINIFY_API Mat
     std::size_t deviceColumnsInBytes_{0};
     std::size_t deviceStride_{0};
     void *deviceData_{nullptr};
+    MatLocation location_{MatLocation::UNKNOWN};
 };
 } // namespace retinify

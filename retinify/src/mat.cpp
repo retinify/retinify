@@ -16,7 +16,7 @@ Mat::~Mat() noexcept
     (void)this->Free();
 }
 
-auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement) noexcept -> Status
+auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std::size_t bytesPerElement, MatLocation location) noexcept -> Status
 {
     Status status = this->Free();
     if (!status.IsOK())
@@ -53,54 +53,71 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     void *newDeviceData = nullptr;
     std::size_t newStride = 0;
 
+    switch (location)
+    {
+    case MatLocation::DEVICE: {
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
-    if (mallocError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(mallocError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
-
-    if (rows > std::numeric_limits<std::size_t>::max() / newStride)
-    {
-        if (newDeviceData != nullptr)
+        cudaError_t mallocError = cudaMallocPitch(&newDeviceData, &newStride, columnsInBytes, rows);
+        if (mallocError != cudaSuccess)
         {
-            cudaError_t freeError = cudaFree(newDeviceData);
-            if (freeError != cudaSuccess)
-            {
-                LogError(cudaGetErrorString(freeError));
-            }
-            newDeviceData = nullptr;
+            LogError(cudaGetErrorString(mallocError));
+            return Status(StatusCategory::CUDA, StatusCode::FAIL);
         }
-        LogError("Overflow in rows * newStride.");
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
+
+        if (rows > std::numeric_limits<std::size_t>::max() / newStride)
+        {
+            if (newDeviceData != nullptr)
+            {
+                cudaError_t freeError = cudaFree(newDeviceData);
+                if (freeError != cudaSuccess)
+                {
+                    LogError(cudaGetErrorString(freeError));
+                }
+                newDeviceData = nullptr;
+            }
+            LogError("Overflow in rows * newStride.");
+            return Status(StatusCategory::CUDA, StatusCode::FAIL);
+        }
 #else
-    constexpr std::size_t alignment = 64;
-    if (columnsInBytes > std::numeric_limits<std::size_t>::max() - (alignment - 1))
-    {
-        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-    }
-
-    newStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
-    if (rows > std::numeric_limits<std::size_t>::max() / newStride)
-    {
-        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-    }
-
-    std::size_t allocSize = newStride * rows;
-    if (allocSize > std::numeric_limits<std::size_t>::max() - (alignment - 1))
-    {
-        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-    }
-
-    std::size_t alignedSize = ((allocSize + alignment - 1) / alignment) * alignment;
-    newDeviceData = std::aligned_alloc(alignment, alignedSize);
-    if (newDeviceData == nullptr)
-    {
-        return Status(StatusCategory::SYSTEM, StatusCode::FAIL);
-    }
+        LogError("Not implemented.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
 #endif
+        break;
+    }
+    case MatLocation::HOST: {
+        constexpr std::size_t alignment = 64;
+        if (columnsInBytes > std::numeric_limits<std::size_t>::max() - (alignment - 1))
+        {
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        newStride = ((columnsInBytes + alignment - 1) / alignment) * alignment;
+        if (rows > std::numeric_limits<std::size_t>::max() / newStride)
+        {
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        std::size_t allocSize = newStride * rows;
+        if (allocSize > std::numeric_limits<std::size_t>::max() - (alignment - 1))
+        {
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        std::size_t alignedSize = ((allocSize + alignment - 1) / alignment) * alignment;
+        newDeviceData = std::aligned_alloc(alignment, alignedSize);
+        if (newDeviceData == nullptr)
+        {
+            return Status(StatusCategory::SYSTEM, StatusCode::FAIL);
+        }
+
+        std::memset(newDeviceData, 0, alignedSize);
+        break;
+    }
+    default:
+        LogError("Invalid MatLocation specified.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        break;
+    }
 
     this->deviceData_ = newDeviceData;
     this->deviceStride_ = newStride;
@@ -110,6 +127,7 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
     this->bytesPerElement_ = bytesPerElement;
     this->deviceRows_ = rows;
     this->deviceColumnsInBytes_ = columnsInBytes;
+    this->location_ = location;
 
     return Status{};
 }
@@ -120,16 +138,30 @@ auto Mat::Free() noexcept -> Status
 
     if (deviceData_ != nullptr)
     {
-#ifdef BUILD_WITH_TENSORRT
-        cudaError_t freeError = cudaFree(deviceData_);
-        if (freeError != cudaSuccess)
+        switch (location_)
         {
-            LogError(cudaGetErrorString(freeError));
-            status = Status(StatusCategory::CUDA, StatusCode::FAIL);
-        }
+        case MatLocation::DEVICE: {
+#ifdef BUILD_WITH_TENSORRT
+            cudaError_t freeError = cudaFree(deviceData_);
+            if (freeError != cudaSuccess)
+            {
+                LogError(cudaGetErrorString(freeError));
+                status = Status(StatusCategory::CUDA, StatusCode::FAIL);
+            }
 #else
-        std::free(deviceData_);
+            LogError("Not implemented.");
+            status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
 #endif
+        }
+        break;
+        case MatLocation::HOST:
+            std::free(deviceData_);
+            break;
+        default:
+            LogError("Invalid MatLocation specified.");
+            status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+            break;
+        }
         this->deviceData_ = nullptr;
     }
 
@@ -140,6 +172,7 @@ auto Mat::Free() noexcept -> Status
     this->bytesPerElement_ = 0;
     this->deviceRows_ = 0;
     this->deviceColumnsInBytes_ = 0;
+    this->location_ = MatLocation::UNKNOWN;
 
     return status;
 }
@@ -164,22 +197,35 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride, Stream &stream) c
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
+    switch (location_)
+    {
+    case MatLocation::DEVICE: {
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream.GetCudaStream());
-    if (copyError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(copyError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
-
+        cudaError_t copyError = cudaMemcpy2DAsync(deviceData_, deviceStride_, hostData, hostStride, deviceColumnsInBytes_, deviceRows_, cudaMemcpyHostToDevice, stream.GetCudaStream());
+        if (copyError != cudaSuccess)
+        {
+            LogError(cudaGetErrorString(copyError));
+            return Status(StatusCategory::CUDA, StatusCode::FAIL);
+        }
 #else
-    const unsigned char *src = static_cast<const unsigned char *>(hostData);
-    unsigned char *dst = static_cast<unsigned char *>(deviceData_);
-    for (std::size_t r = 0; r < deviceRows_; ++r)
-    {
-        std::memcpy(dst + r * deviceStride_, src + r * hostStride, deviceColumnsInBytes_);
-    }
+        LogError("Not implemented.");
+        return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
 #endif
+        break;
+    }
+    case MatLocation::HOST: {
+        const unsigned char *src = static_cast<const unsigned char *>(hostData);
+        unsigned char *dst = static_cast<unsigned char *>(deviceData_);
+        for (std::size_t r = 0; r < deviceRows_; ++r)
+        {
+            std::memcpy(dst + r * deviceStride_, src + r * hostStride, deviceColumnsInBytes_);
+        }
+        break;
+    }
+    default:
+        LogError("Invalid MatLocation specified.");
+        return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+    }
 
     return Status{};
 }
@@ -204,22 +250,35 @@ auto Mat::Download(void *hostData, std::size_t hostStride, Stream &stream) const
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
+    switch (location_)
+    {
+    case MatLocation::DEVICE: {
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream.GetCudaStream());
-    if (copyError != cudaSuccess)
-    {
-        LogError(cudaGetErrorString(copyError));
-        return Status(StatusCategory::CUDA, StatusCode::FAIL);
-    }
-
+        cudaError_t copyError = cudaMemcpy2DAsync(hostData, hostStride, deviceData_, deviceStride_, deviceColumnsInBytes_, deviceRows_, cudaMemcpyDeviceToHost, stream.GetCudaStream());
+        if (copyError != cudaSuccess)
+        {
+            LogError(cudaGetErrorString(copyError));
+            return Status(StatusCategory::CUDA, StatusCode::FAIL);
+        }
 #else
-    const unsigned char *src = static_cast<const unsigned char *>(deviceData_);
-    unsigned char *dst = static_cast<unsigned char *>(hostData);
-    for (std::size_t r = 0; r < deviceRows_; ++r)
-    {
-        std::memcpy(dst + r * hostStride, src + r * deviceStride_, deviceColumnsInBytes_);
-    }
+        LogError("Not implemented.");
+        return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
 #endif
+        break;
+    }
+    case MatLocation::HOST: {
+        const unsigned char *src = static_cast<const unsigned char *>(deviceData_);
+        unsigned char *dst = static_cast<unsigned char *>(hostData);
+        for (std::size_t r = 0; r < deviceRows_; ++r)
+        {
+            std::memcpy(dst + r * hostStride, src + r * deviceStride_, deviceColumnsInBytes_);
+        }
+        break;
+    }
+    default:
+        LogError("Invalid MatLocation specified.");
+        return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+    }
 
     return Status{};
 }
@@ -267,5 +326,10 @@ auto Mat::Stride() const noexcept -> std::size_t
 auto Mat::Shape() const noexcept -> std::array<int64_t, 4>
 {
     return {1, static_cast<int64_t>(rows_), static_cast<int64_t>(cols_), static_cast<int64_t>(channels_)};
+}
+
+auto Mat::Location() const noexcept -> MatLocation
+{
+    return location_;
 }
 } // namespace retinify
