@@ -414,14 +414,13 @@ auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
                              const Mat3x3d &R,                         //
                              const Mat3x4d &P,                         //
                              int width, int height,                    //
-                             std::vector<float> &mapx,                 //
-                             std::vector<float> &mapy) -> void
+                             float *mapx, std::size_t mapxStride,      //
+                             float *mapy, std::size_t mapyStride) noexcept -> void
 {
-    const std::size_t mapWidth = static_cast<std::size_t>(width);
-    const std::size_t mapHeight = static_cast<std::size_t>(height);
-    const std::size_t mapSize = mapWidth * mapHeight;
-    mapx.resize(mapSize);
-    mapy.resize(mapSize);
+    if (mapx == nullptr || mapy == nullptr)
+    {
+        return;
+    }
 
     const Mat3x3d rotationInverse = Transpose(R);
     const auto &projRow0 = P[0];
@@ -431,8 +430,15 @@ auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
     const double rectifiedPrincipalX = projRow0[2];
     const double rectifiedPrincipalY = projRow1[2];
 
+    auto *mapxBytes = static_cast<unsigned char *>(static_cast<void *>(mapx));
+    auto *mapyBytes = static_cast<unsigned char *>(static_cast<void *>(mapy));
+
     for (int v = 0; v < height; ++v)
     {
+        const std::size_t offsetX = static_cast<std::size_t>(v) * mapxStride;
+        const std::size_t offsetY = static_cast<std::size_t>(v) * mapyStride;
+        auto *mapxRow = static_cast<float *>(static_cast<void *>(mapxBytes + offsetX));
+        auto *mapyRow = static_cast<float *>(static_cast<void *>(mapyBytes + offsetY));
         const double rectifiedY = (static_cast<double>(v) - rectifiedPrincipalY) * invRectifiedFocalY;
         for (int u = 0; u < width; ++u)
         {
@@ -460,9 +466,8 @@ auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
 
             const double uDistorted = K.fx * distortedNormalizedX + K.skew * distortedNormalizedY + K.cx;
             const double vDistorted = K.fy * distortedNormalizedY + K.cy;
-            const std::size_t idx = static_cast<std::size_t>(v) * mapWidth + static_cast<std::size_t>(u);
-            mapx[idx] = static_cast<float>(uDistorted);
-            mapy[idx] = static_cast<float>(vDistorted);
+            mapxRow[u] = static_cast<float>(uDistorted);
+            mapyRow[u] = static_cast<float>(vDistorted);
         }
     }
 }
