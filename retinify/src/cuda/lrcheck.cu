@@ -35,13 +35,13 @@ __global__ void LRConsistencyCheckKernel(const float *__restrict__ leftDisparity
         return;
     }
 
-    const char *leftRowBase = reinterpret_cast<const char *>(leftDisparity) + static_cast<std::size_t>(y) * leftDisparityStride;
-    const char *rightRowBase = reinterpret_cast<const char *>(rightDisparity) + static_cast<std::size_t>(y) * rightDisparityStride;
-    char *outputRowBase = reinterpret_cast<char *>(outputDisparity) + static_cast<std::size_t>(y) * outputDisparityStride;
+    const std::size_t leftRowOffset = (static_cast<std::size_t>(y) * leftDisparityStride) / sizeof(float);
+    const std::size_t rightRowOffset = (static_cast<std::size_t>(y) * rightDisparityStride) / sizeof(float);
+    const std::size_t outputRowOffset = (static_cast<std::size_t>(y) * outputDisparityStride) / sizeof(float);
 
-    const float *leftRow = reinterpret_cast<const float *>(leftRowBase);
-    const float *rightRow = reinterpret_cast<const float *>(rightRowBase);
-    float *outputRow = reinterpret_cast<float *>(outputRowBase);
+    const float *leftRow = leftDisparity + leftRowOffset;
+    const float *rightRow = rightDisparity + rightRowOffset;
+    float *outputRow = outputDisparity + outputRowOffset;
 
     float outputVal = 0.0f;
     const float ld = leftRow[x];

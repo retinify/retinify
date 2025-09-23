@@ -102,10 +102,19 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
+    if ((srcStride % sizeof(float)) != 0U)
+    {
+        LogError("srcStride is not a multiple of sizeof(float).");
+        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+    }
+
+    const size_t srcStrideInFloats = srcStride / sizeof(float);
+
     for (int y = 0; y < height; ++y)
     {
-        const float *srcRow = reinterpret_cast<const float *>(reinterpret_cast<const uint8_t *>(src) + y * srcStride);
-        uint8_t *dstRow = dst + y * dstStride;
+        const size_t rowIndex = static_cast<size_t>(y);
+        const float *srcRow = src + rowIndex * srcStrideInFloats;
+        uint8_t *dstRow = dst + rowIndex * dstStride;
 
         for (int x = 0; x < width; ++x)
         {
