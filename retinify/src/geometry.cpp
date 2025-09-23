@@ -357,84 +357,89 @@ static auto BuildProjectionMatrix(double focal, const Point2d &principal) noexce
 }
 } // namespace
 
-auto StereoRectify(const Intrinsics &K1, const Distortion &D1, //
-                   const Intrinsics &K2, const Distortion &D2, //
-                   int width, int height,                      //
-                   const Mat3x3d &R, const Vec3d &T,           //
-                   Mat3x3d &R1, Mat3x3d &R2,                   //
-                   Mat3x4d &P1, Mat3x4d &P2,                   //
-                   Mat4x4d &Q) noexcept -> void
+auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
+                   const Intrinsics &intrinsics2, const Distortion &distortion2, //
+                   int imageWidth, int imageHeight,                              //
+                   const Mat3x3d &rotation, const Vec3d &translation,            //
+                   Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
+                   Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
+                   Mat4x4d &mappingMatrix) noexcept -> void
 {
-    // Stereo rectification: R1 = R_align R_rect^T, R2 = R_align R_rect,
+    // Stereo rectification: rotation1 = R_align R_rect^T, rotation2 = R_align R_rect,
     // share focal f = 0.5 * ((fx1+fx2) if axis=y else (fy1+fy2)), and set disparity scale via baseline
-    const Mat3x3d rectifyingRotation = ComputeRectifyingRotation(R);
-    const Vec3d rotatedTranslation = Multiply(rectifyingRotation, T);
+    const Mat3x3d rectifyingRotation = ComputeRectifyingRotation(rotation);
+    const Vec3d rotatedTranslation = Multiply(rectifyingRotation, translation);
     const int axisIdx = DetermineDominantAxis(rotatedTranslation);
     const Mat3x3d baselineAlignment = ComputeBaselineAlignment(rotatedTranslation, axisIdx);
 
     const Mat3x3d rotationTranspose = Transpose(rectifyingRotation);
-    R1 = Multiply(baselineAlignment, rotationTranspose);
-    R2 = Multiply(baselineAlignment, rectifyingRotation);
+    rotation1 = Multiply(baselineAlignment, rotationTranspose);
+    rotation2 = Multiply(baselineAlignment, rectifyingRotation);
 
-    const Vec3d rectifiedTranslation = Multiply(R2, T);
+    const Vec3d rectifiedTranslation = Multiply(rotation2, translation);
     const double newFocalScale = 0.5;
-    const double newFocalLength = (axisIdx == 0) ? (K1.fy + K2.fy) * newFocalScale : (K1.fx + K2.fx) * newFocalScale;
+    const double newFocalLength = (axisIdx == 0) ? (intrinsics1.fy + intrinsics2.fy) * newFocalScale : (intrinsics1.fx + intrinsics2.fx) * newFocalScale;
 
-    const Point2d principal1 = ComputePrincipalPoint(K1, D1, R1, newFocalLength, static_cast<double>(width), static_cast<double>(height));
-    const Point2d principal2 = ComputePrincipalPoint(K2, D2, R2, newFocalLength, static_cast<double>(width), static_cast<double>(height));
+    const Point2d principal1 = ComputePrincipalPoint(intrinsics1, distortion1, rotation1, newFocalLength, static_cast<double>(imageWidth), static_cast<double>(imageHeight));
+    const Point2d principal2 = ComputePrincipalPoint(intrinsics2, distortion2, rotation2, newFocalLength, static_cast<double>(imageWidth), static_cast<double>(imageHeight));
     const double cxAvg = 0.5 * (principal1[0] + principal2[0]);
     const double cyAvg = 0.5 * (principal1[1] + principal2[1]);
     const Point2d principalAvg{cxAvg, cyAvg};
 
-    P1 = BuildProjectionMatrix(newFocalLength, principalAvg);
-    P2 = BuildProjectionMatrix(newFocalLength, principalAvg);
+    projectionMatrix1 = BuildProjectionMatrix(newFocalLength, principalAvg);
+    projectionMatrix2 = BuildProjectionMatrix(newFocalLength, principalAvg);
 
     const double baselineComponent = (axisIdx == 0) ? rectifiedTranslation[0] : rectifiedTranslation[1];
     const double translationOffset = baselineComponent * newFocalLength;
     if (axisIdx == 0)
     {
-        P2[0][3] = translationOffset;
+        projectionMatrix2[0][3] = translationOffset;
     }
     else
     {
-        P2[1][3] = translationOffset;
+        projectionMatrix2[1][3] = translationOffset;
     }
 
-    Q = Mat4x4d{};
-    Q[0][0] = 1.0;
-    Q[1][1] = 1.0;
-    Q[0][3] = -principalAvg[0];
-    Q[1][3] = -principalAvg[1];
-    Q[2][3] = newFocalLength;
-    Q[3][2] = (std::fabs(baselineComponent) > kEpsilon) ? (-1.0 / baselineComponent) : 0.0;
-    Q[3][3] = 0.0;
+    mappingMatrix = Mat4x4d{};
+    mappingMatrix[0][0] = 1.0;
+    mappingMatrix[1][1] = 1.0;
+    mappingMatrix[0][3] = -principalAvg[0];
+    mappingMatrix[1][3] = -principalAvg[1];
+    mappingMatrix[2][3] = newFocalLength;
+    mappingMatrix[3][2] = (std::fabs(baselineComponent) > kEpsilon) ? (-1.0 / baselineComponent) : 0.0;
+    mappingMatrix[3][3] = 0.0;
 }
 
-auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
-                             const Mat3x3d &R,                         //
-                             const Mat3x4d &P,                         //
-                             int width, int height,                    //
-                             std::vector<float> &mapx,                 //
-                             std::vector<float> &mapy) -> void
+auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, //
+                             const Mat3x3d &rotation, const Mat3x4d &projectionMatrix,   //
+                             int imageWidth, int imageHeight,                            //
+                             float *mapx, std::size_t mapxStride,                        //
+                             float *mapy, std::size_t mapyStride) noexcept -> void
 {
-    const std::size_t mapWidth = static_cast<std::size_t>(width);
-    const std::size_t mapHeight = static_cast<std::size_t>(height);
-    const std::size_t mapSize = mapWidth * mapHeight;
-    mapx.resize(mapSize);
-    mapy.resize(mapSize);
+    if (mapx == nullptr || mapy == nullptr)
+    {
+        return;
+    }
 
-    const Mat3x3d rotationInverse = Transpose(R);
-    const auto &projRow0 = P[0];
-    const auto &projRow1 = P[1];
+    const Mat3x3d rotationInverse = Transpose(rotation);
+    const auto &projRow0 = projectionMatrix[0];
+    const auto &projRow1 = projectionMatrix[1];
     const double invRectifiedFocalX = Reciprocal(projRow0[0], 0.0);
     const double invRectifiedFocalY = Reciprocal(projRow1[1], 0.0);
     const double rectifiedPrincipalX = projRow0[2];
     const double rectifiedPrincipalY = projRow1[2];
 
-    for (int v = 0; v < height; ++v)
+    auto *mapxBytes = static_cast<unsigned char *>(static_cast<void *>(mapx));
+    auto *mapyBytes = static_cast<unsigned char *>(static_cast<void *>(mapy));
+
+    for (int v = 0; v < imageHeight; ++v)
     {
+        const std::size_t offsetX = static_cast<std::size_t>(v) * mapxStride;
+        const std::size_t offsetY = static_cast<std::size_t>(v) * mapyStride;
+        auto *mapxRow = static_cast<float *>(static_cast<void *>(mapxBytes + offsetX));
+        auto *mapyRow = static_cast<float *>(static_cast<void *>(mapyBytes + offsetY));
         const double rectifiedY = (static_cast<double>(v) - rectifiedPrincipalY) * invRectifiedFocalY;
-        for (int u = 0; u < width; ++u)
+        for (int u = 0; u < imageWidth; ++u)
         {
             const double rectifiedX = (static_cast<double>(u) - rectifiedPrincipalX) * invRectifiedFocalX;
             const Vec3d rectifiedPoint{rectifiedX, rectifiedY, 1.0};
@@ -447,22 +452,21 @@ auto InitUndistortRectifyMap(const Intrinsics &K, const Distortion &D, //
             const double radiusSquared = Square(normalizedX) + Square(normalizedY);
             const double radiusFourth = radiusSquared * radiusSquared;
             const double radiusSixth = radiusFourth * radiusSquared;
-            const double radialNumerator = 1.0 + D.k1 * radiusSquared + D.k2 * radiusFourth + D.k3 * radiusSixth;
-            const double radialDenominator = 1.0 + D.k4 * radiusSquared + D.k5 * radiusFourth + D.k6 * radiusSixth;
+            const double radialNumerator = 1.0 + distortion.k1 * radiusSquared + distortion.k2 * radiusFourth + distortion.k3 * radiusSixth;
+            const double radialDenominator = 1.0 + distortion.k4 * radiusSquared + distortion.k5 * radiusFourth + distortion.k6 * radiusSixth;
             const double radialScale = (std::fabs(radialDenominator) > kEpsilon) ? (radialNumerator / radialDenominator) : 1.0;
 
             const double twoNormalizedXY = 2.0 * normalizedX * normalizedY;
             const double normalizedXSquared = Square(normalizedX);
             const double normalizedYSquared = Square(normalizedY);
 
-            const double distortedNormalizedX = normalizedX * radialScale + D.p1 * twoNormalizedXY + D.p2 * (radiusSquared + 2.0 * normalizedXSquared);
-            const double distortedNormalizedY = normalizedY * radialScale + D.p1 * (radiusSquared + 2.0 * normalizedYSquared) + D.p2 * twoNormalizedXY;
+            const double distortedNormalizedX = normalizedX * radialScale + distortion.p1 * twoNormalizedXY + distortion.p2 * (radiusSquared + 2.0 * normalizedXSquared);
+            const double distortedNormalizedY = normalizedY * radialScale + distortion.p1 * (radiusSquared + 2.0 * normalizedYSquared) + distortion.p2 * twoNormalizedXY;
 
-            const double uDistorted = K.fx * distortedNormalizedX + K.skew * distortedNormalizedY + K.cx;
-            const double vDistorted = K.fy * distortedNormalizedY + K.cy;
-            const std::size_t idx = static_cast<std::size_t>(v) * mapWidth + static_cast<std::size_t>(u);
-            mapx[idx] = static_cast<float>(uDistorted);
-            mapy[idx] = static_cast<float>(vDistorted);
+            const double uDistorted = intrinsics.fx * distortedNormalizedX + intrinsics.skew * distortedNormalizedY + intrinsics.cx;
+            const double vDistorted = intrinsics.fy * distortedNormalizedY + intrinsics.cy;
+            mapxRow[u] = static_cast<float>(uDistorted);
+            mapyRow[u] = static_cast<float>(vDistorted);
         }
     }
 }
