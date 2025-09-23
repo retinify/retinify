@@ -22,9 +22,9 @@ class MatTest : public ::testing::Test
     cv::Mat hostDst_ = cv::Mat::zeros(rows, cols *channels, CV_32F);
 };
 
-TEST_F(MatTest, Allocate)
+TEST_F(MatTest, AllocateDevice)
 {
-    Status status = mat_.Allocate(rows, cols, channels, bytesPerElement);
+    Status status = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::DEVICE);
     ASSERT_TRUE(status.IsOK());
 
     ASSERT_EQ(mat_.Rows(), rows);
@@ -43,12 +43,12 @@ TEST_F(MatTest, Allocate)
     ASSERT_TRUE(status.IsOK());
 }
 
-TEST_F(MatTest, UploadDownload)
+TEST_F(MatTest, UploadDownloadDevice)
 {
     Status stStream = stream_.Create();
     ASSERT_TRUE(stStream.IsOK());
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::DEVICE);
     ASSERT_TRUE(stAlloc.IsOK());
 
     Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], stream_);
@@ -72,7 +72,33 @@ TEST_F(MatTest, UploadDownload)
     ASSERT_TRUE(stDestroy.IsOK());
 }
 
-TEST_F(MatTest, UploadDownloadUInt8)
+TEST_F(MatTest, UploadDownloadHost)
+{
+    Stream dummyStream;
+
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::HOST);
+    ASSERT_TRUE(stAlloc.IsOK());
+    ASSERT_EQ(mat_.Location(), MatLocation::HOST);
+
+    Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], dummyStream);
+    ASSERT_TRUE(stUp.IsOK());
+
+    Status stDown = mat_.Download(hostDst_.ptr(), hostDst_.step[0], dummyStream);
+    ASSERT_TRUE(stDown.IsOK());
+
+    for (std::size_t i = 0; i < rows; ++i)
+    {
+        for (std::size_t j = 0; j < cols * channels; ++j)
+        {
+            ASSERT_FLOAT_EQ(hostSrc_.at<float>(i, j), hostDst_.at<float>(i, j)) << "Mismatch at (" << i << ", " << j << ")";
+        }
+    }
+
+    Status stFree = mat_.Free();
+    ASSERT_TRUE(stFree.IsOK());
+}
+
+TEST_F(MatTest, UploadDownloadDeviceUInt8)
 {
     Status stStream = stream_.Create();
     ASSERT_TRUE(stStream.IsOK());
@@ -83,7 +109,7 @@ TEST_F(MatTest, UploadDownloadUInt8)
     cv::randu(hostSrc, 0, 255);
     cv::Mat hostDst = cv::Mat::zeros(rows, cols * channels, CV_8U);
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, MatLocation::DEVICE);
     ASSERT_TRUE(stAlloc.IsOK());
 
     Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0], stream_);
@@ -105,5 +131,37 @@ TEST_F(MatTest, UploadDownloadUInt8)
 
     Status stDestroy = stream_.Destroy();
     ASSERT_TRUE(stDestroy.IsOK());
+}
+
+TEST_F(MatTest, UploadDownloadHostUInt8)
+{
+    Stream dummyStream;
+
+    constexpr std::size_t bytesPerElementUint8 = sizeof(std::uint8_t);
+
+    cv::Mat hostSrc(rows, cols * channels, CV_8U);
+    cv::randu(hostSrc, 0, 255);
+    cv::Mat hostDst = cv::Mat::zeros(rows, cols * channels, CV_8U);
+
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, MatLocation::HOST);
+    ASSERT_TRUE(stAlloc.IsOK());
+    ASSERT_EQ(mat_.Location(), MatLocation::HOST);
+
+    Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0], dummyStream);
+    ASSERT_TRUE(stUp.IsOK());
+
+    Status stDown = mat_.Download(hostDst.ptr(), hostDst.step[0], dummyStream);
+    ASSERT_TRUE(stDown.IsOK());
+
+    for (std::size_t i = 0; i < rows; ++i)
+    {
+        for (std::size_t j = 0; j < cols * channels; ++j)
+        {
+            ASSERT_EQ(hostSrc.at<std::uint8_t>(i, j), hostDst.at<std::uint8_t>(i, j)) << "Mismatch at (" << i << ", " << j << ")";
+        }
+    }
+
+    Status stFree = mat_.Free();
+    ASSERT_TRUE(stFree.IsOK());
 }
 } // namespace retinify
