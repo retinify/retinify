@@ -54,7 +54,7 @@ var namespaceretinify =
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
     [ "HomeDirectoryPath", "namespaceretinify.html#aacffaa83dff370322a2bd10317728f65", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
-    [ "InitUndistortRectifyMap", "namespaceretinify.html#aeb10d7f54ee803c2aac16cc5c55c1934", null ],
+    [ "InitUndistortRectifyMap", "namespaceretinify.html#aaf6ebd7f418d594526502c077f8baff6", null ],
     [ "Length", "namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "namespaceretinify.html#a5ec49c63749300eb0040e25312c641a7", null ],
     [ "LogDebug", "namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b", null ],
@@ -69,7 +69,7 @@ var namespaceretinify =
     [ "Scale", "namespaceretinify.html#a30094f60b2a1571364e29d396f7ac0c9", null ],
     [ "SetLogLevel", "namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177", null ],
     [ "StateDirectoryPath", "namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7", null ],
-    [ "StereoRectify", "namespaceretinify.html#a3dac93241a406a4c58f81be0121f33f4", null ],
+    [ "StereoRectify", "namespaceretinify.html#a0cb1dbcace3648c6d1780af26cae223c", null ],
     [ "Transpose", "namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
     [ "UndistortPoint", "namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9", null ],
     [ "Version", "namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc", null ]

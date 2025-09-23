@@ -9,6 +9,6 @@ var searchData=
   ['status_2ehpp_6',['status.hpp',['../status_8hpp.html',1,'']]],
   ['statuscategory_7',['StatusCategory',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d',1,'retinify']]],
   ['statuscode_8',['StatusCode',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4',1,'retinify']]],
-  ['stereorectify_9',['StereoRectify',['../namespaceretinify.html#a3dac93241a406a4c58f81be0121f33f4',1,'retinify']]],
+  ['stereorectify_9',['StereoRectify',['../namespaceretinify.html#a0cb1dbcace3648c6d1780af26cae223c',1,'retinify']]],
   ['system_10',['SYSTEM',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03',1,'retinify']]]
 ];

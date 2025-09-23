@@ -249,12 +249,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a8876f0e2847382702e20d5af46ef6fe9" id="r_a8876f0e2847382702e20d5af46ef6fe9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9">UndistortPoint</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion, const <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a> &amp;pixel) noexcept -&gt; <a class="el" href="namespaceretinify.html#a4a169294bff970ffd298d294886da8d1">Point2d</a></td></tr>
 <tr class="memdesc:a8876f0e2847382702e20d5af46ef6fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Undistort a 2D point using the given camera intrinsics and distortion parameters.  <br /></td></tr>
 <tr class="separator:a8876f0e2847382702e20d5af46ef6fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dac93241a406a4c58f81be0121f33f4" id="r_a3dac93241a406a4c58f81be0121f33f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a3dac93241a406a4c58f81be0121f33f4">StereoRectify</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K1, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D1, const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K2, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D2, int width, int height, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;T, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R1, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R2, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P1, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P2, <a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;Q) noexcept -&gt; void</td></tr>
-<tr class="memdesc:a3dac93241a406a4c58f81be0121f33f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform stereo rectification for a pair of cameras.  <br /></td></tr>
-<tr class="separator:a3dac93241a406a4c58f81be0121f33f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb10d7f54ee803c2aac16cc5c55c1934" id="r_aeb10d7f54ee803c2aac16cc5c55c1934"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aeb10d7f54ee803c2aac16cc5c55c1934">InitUndistortRectifyMap</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;K, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;D, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;R, const <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;P, int width, int height, std::vector&lt; float &gt; &amp;mapx, std::vector&lt; float &gt; &amp;mapy) -&gt; void</td></tr>
-<tr class="memdesc:aeb10d7f54ee803c2aac16cc5c55c1934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize undistort and rectify maps for image remapping.  <br /></td></tr>
-<tr class="separator:aeb10d7f54ee803c2aac16cc5c55c1934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb1dbcace3648c6d1780af26cae223c" id="r_a0cb1dbcace3648c6d1780af26cae223c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0cb1dbcace3648c6d1780af26cae223c">StereoRectify</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics1, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion1, const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics2, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion2, int imageWidth, int imageHeight, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;translation, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation1, <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation2, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;projectionMatrix1, <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;projectionMatrix2, <a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;mappingMatrix) noexcept -&gt; void</td></tr>
+<tr class="memdesc:a0cb1dbcace3648c6d1780af26cae223c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform stereo rectification for a pair of cameras.  <br /></td></tr>
+<tr class="separator:a0cb1dbcace3648c6d1780af26cae223c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf6ebd7f418d594526502c077f8baff6" id="r_aaf6ebd7f418d594526502c077f8baff6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aaf6ebd7f418d594526502c077f8baff6">InitUndistortRectifyMap</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation, const <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;projectionMatrix, int imageWidth, int imageHeight, float *mapx, std::size_t mapxStride, float *mapy, std::size_t mapyStride) noexcept -&gt; void</td></tr>
+<tr class="memdesc:aaf6ebd7f418d594526502c077f8baff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize undistort and rectify maps for image remapping.  <br /></td></tr>
+<tr class="separator:aaf6ebd7f418d594526502c077f8baff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e9f58f6b0cc01cbe490c9e9819ebf84" id="r_a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84">GetLogLevel</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a></td></tr>
 <tr class="memdesc:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log level.  <br /></td></tr>
 <tr class="separator:a6e9f58f6b0cc01cbe490c9e9819ebf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1020,59 +1020,74 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aeb10d7f54ee803c2aac16cc5c55c1934" name="aeb10d7f54ee803c2aac16cc5c55c1934"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb10d7f54ee803c2aac16cc5c55c1934">&#9670;&#160;</a></span>InitUndistortRectifyMap()</h2>
+<a id="aaf6ebd7f418d594526502c077f8baff6" name="aaf6ebd7f418d594526502c077f8baff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6ebd7f418d594526502c077f8baff6">&#9670;&#160;</a></span>InitUndistortRectifyMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::InitUndistortRectifyMap </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
-          <td class="paramname"><em>K</em>, </td>
+          <td class="paramname"><em>intrinsics</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
-          <td class="paramname"><em>D</em>, </td>
+          <td class="paramname"><em>distortion</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
-          <td class="paramname"><em>R</em>, </td>
+          <td class="paramname"><em>rotation</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;&#160;</td>
-          <td class="paramname"><em>P</em>, </td>
+          <td class="paramname"><em>projectionMatrix</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramname"><em>imageWidth</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
+          <td class="paramname"><em>imageHeight</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramtype">float *&#160;</td>
           <td class="paramname"><em>mapx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>mapy</em>&#160;</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapxStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>mapy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapyStride</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1080,19 +1095,26 @@ Functions</h2></td></tr>
           <td></td><td> -&gt;  void</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initialize undistort and rectify maps for image remapping. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">K</td><td>Camera intrinsics </td></tr>
-    <tr><td class="paramname">D</td><td><a class="el" href="structretinify_1_1Distortion.html" title="Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).">Distortion</a> parameters </td></tr>
-    <tr><td class="paramname">R</td><td>Rectification rotation </td></tr>
-    <tr><td class="paramname">P</td><td>Projection matrix </td></tr>
-    <tr><td class="paramname">width</td><td>Image width </td></tr>
-    <tr><td class="paramname">height</td><td>Image height </td></tr>
+    <tr><td class="paramname">intrinsics</td><td>Camera intrinsics </td></tr>
+    <tr><td class="paramname">distortion</td><td><a class="el" href="structretinify_1_1Distortion.html" title="Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6).">Distortion</a> parameters </td></tr>
+    <tr><td class="paramname">rotation</td><td>Rectification rotation </td></tr>
+    <tr><td class="paramname">projectionMatrix</td><td>Projection matrix </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Image width </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Image height </td></tr>
     <tr><td class="paramname">mapx</td><td>Output map for x-coordinates </td></tr>
+    <tr><td class="paramname">mapxStride</td><td>Stride (in bytes) of a row in mapx </td></tr>
     <tr><td class="paramname">mapy</td><td>Output map for y-coordinates </td></tr>
+    <tr><td class="paramname">mapyStride</td><td>Stride (in bytes) of a row in mapy </td></tr>
   </table>
   </dd>
 </dl>
@@ -1658,8 +1680,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3dac93241a406a4c58f81be0121f33f4" name="a3dac93241a406a4c58f81be0121f33f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dac93241a406a4c58f81be0121f33f4">&#9670;&#160;</a></span>StereoRectify()</h2>
+<a id="a0cb1dbcace3648c6d1780af26cae223c" name="a0cb1dbcace3648c6d1780af26cae223c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cb1dbcace3648c6d1780af26cae223c">&#9670;&#160;</a></span>StereoRectify()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1671,79 +1693,79 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::StereoRectify </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
-          <td class="paramname"><em>K1</em>, </td>
+          <td class="paramname"><em>intrinsics1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
-          <td class="paramname"><em>D1</em>, </td>
+          <td class="paramname"><em>distortion1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
-          <td class="paramname"><em>K2</em>, </td>
+          <td class="paramname"><em>intrinsics2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;&#160;</td>
-          <td class="paramname"><em>D2</em>, </td>
+          <td class="paramname"><em>distortion2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramname"><em>imageWidth</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
+          <td class="paramname"><em>imageHeight</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
-          <td class="paramname"><em>R</em>, </td>
+          <td class="paramname"><em>rotation</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
-          <td class="paramname"><em>T</em>, </td>
+          <td class="paramname"><em>translation</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
-          <td class="paramname"><em>R1</em>, </td>
+          <td class="paramname"><em>rotation1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
-          <td class="paramname"><em>R2</em>, </td>
+          <td class="paramname"><em>rotation2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;&#160;</td>
-          <td class="paramname"><em>P1</em>, </td>
+          <td class="paramname"><em>projectionMatrix1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;&#160;</td>
-          <td class="paramname"><em>P2</em>, </td>
+          <td class="paramname"><em>projectionMatrix2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceretinify.html#a987220fa41bc49a6b82bdb71dbaf714d">Mat4x4d</a> &amp;&#160;</td>
-          <td class="paramname"><em>Q</em>&#160;</td>
+          <td class="paramname"><em>mappingMatrix</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1761,19 +1783,19 @@ Functions</h2></td></tr>
 <p>Perform stereo rectification for a pair of cameras. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">K1</td><td>First camera intrinsics. </td></tr>
-    <tr><td class="paramname">D1</td><td>First camera distortion. </td></tr>
-    <tr><td class="paramname">K2</td><td>Second camera intrinsics. </td></tr>
-    <tr><td class="paramname">D2</td><td>Second camera distortion. </td></tr>
-    <tr><td class="paramname">width</td><td>Image width in pixels. </td></tr>
-    <tr><td class="paramname">height</td><td>Image height in pixels. </td></tr>
-    <tr><td class="paramname">R</td><td>Rotation from the first to the second camera. </td></tr>
-    <tr><td class="paramname">T</td><td>Translation from the first to the second camera. </td></tr>
-    <tr><td class="paramname">R1</td><td>Output rectification rotation for the first camera. </td></tr>
-    <tr><td class="paramname">R2</td><td>Output rectification rotation for the second camera. </td></tr>
-    <tr><td class="paramname">P1</td><td>Output projection matrix for the first camera. </td></tr>
-    <tr><td class="paramname">P2</td><td>Output projection matrix for the second camera. </td></tr>
-    <tr><td class="paramname">Q</td><td>Output mapping matrix. </td></tr>
+    <tr><td class="paramname">intrinsics1</td><td>First camera intrinsics. </td></tr>
+    <tr><td class="paramname">distortion1</td><td>First camera distortion. </td></tr>
+    <tr><td class="paramname">intrinsics2</td><td>Second camera intrinsics. </td></tr>
+    <tr><td class="paramname">distortion2</td><td>Second camera distortion. </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Image width in pixels. </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Image height in pixels. </td></tr>
+    <tr><td class="paramname">rotation</td><td>Rotation from the first to the second camera. </td></tr>
+    <tr><td class="paramname">translation</td><td>Translation from the first to the second camera. </td></tr>
+    <tr><td class="paramname">rotation1</td><td>Output rectification rotation for the first camera. </td></tr>
+    <tr><td class="paramname">rotation2</td><td>Output rectification rotation for the second camera. </td></tr>
+    <tr><td class="paramname">projectionMatrix1</td><td>Output projection matrix for the first camera. </td></tr>
+    <tr><td class="paramname">projectionMatrix2</td><td>Output projection matrix for the second camera. </td></tr>
+    <tr><td class="paramname">mappingMatrix</td><td>Output mapping matrix. </td></tr>
   </table>
   </dd>
 </dl>

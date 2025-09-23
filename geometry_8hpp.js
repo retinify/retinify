@@ -21,14 +21,14 @@ var geometry_8hpp =
     [ "Determinant", "geometry_8hpp.html#aeecaff667d115ee519e88c231d6e47d1", null ],
     [ "Exp", "geometry_8hpp.html#afe4003e306f6238bce758b4b07fc7be1", null ],
     [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
-    [ "InitUndistortRectifyMap", "geometry_8hpp.html#aeb10d7f54ee803c2aac16cc5c55c1934", null ],
+    [ "InitUndistortRectifyMap", "geometry_8hpp.html#aaf6ebd7f418d594526502c077f8baff6", null ],
     [ "Length", "geometry_8hpp.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "geometry_8hpp.html#a5ec49c63749300eb0040e25312c641a7", null ],
     [ "Multiply", "geometry_8hpp.html#a118ccc5f4dd0948582f4a69cbc5deac6", null ],
     [ "Multiply", "geometry_8hpp.html#acbcc293528213d2a5ed9275f9299ae76", null ],
     [ "Normalize", "geometry_8hpp.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
     [ "Scale", "geometry_8hpp.html#a30094f60b2a1571364e29d396f7ac0c9", null ],
-    [ "StereoRectify", "geometry_8hpp.html#a3dac93241a406a4c58f81be0121f33f4", null ],
+    [ "StereoRectify", "geometry_8hpp.html#a0cb1dbcace3648c6d1780af26cae223c", null ],
     [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
     [ "UndistortPoint", "geometry_8hpp.html#a8876f0e2847382702e20d5af46ef6fe9", null ]
 ];
