@@ -3,7 +3,10 @@
 
 #include "retinify/geometry.hpp"
 
+#include "mat.hpp"
+
 #include <cmath>
+#include <cstddef>
 
 #include <gtest/gtest.h>
 
@@ -380,21 +383,31 @@ TEST(GeometryTest, InitUndistortRectifyMapIdentity)
     constexpr int kWidth = 3;
     constexpr int kHeight = 2;
 
-    std::vector<float> mapX;
-    std::vector<float> mapY;
+    Mat mapX;
+    Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusX.IsOK());
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                            static_cast<float *>(mapY.Data()), mapY.Stride());
 
-    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
-    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
-
+    const void *mapXVoid = mapX.Data();
+    const void *mapYVoid = mapY.Data();
+    const auto *mapXBytes = static_cast<const std::byte *>(mapXVoid);
+    const auto *mapYBytes = static_cast<const std::byte *>(mapYVoid);
     for (int v = 0; v < kHeight; ++v)
     {
+        const std::size_t offsetX = static_cast<std::size_t>(v) * mapX.Stride();
+        const std::size_t offsetY = static_cast<std::size_t>(v) * mapY.Stride();
+        const auto *mapXRow = static_cast<const float *>(static_cast<const void *>(mapXBytes + offsetX));
+        const auto *mapYRow = static_cast<const float *>(static_cast<const void *>(mapYBytes + offsetY));
         for (int u = 0; u < kWidth; ++u)
         {
-            const std::size_t index = static_cast<std::size_t>(v * kWidth + u);
-            EXPECT_NEAR(mapX[index], static_cast<float>(u), kTol);
-            EXPECT_NEAR(mapY[index], static_cast<float>(v), kTol);
+            EXPECT_NEAR(mapXRow[u], static_cast<float>(u), kTol);
+            EXPECT_NEAR(mapYRow[u], static_cast<float>(v), kTol);
         }
     }
 }
@@ -413,20 +426,30 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
     constexpr int kWidth = 4;
     constexpr int kHeight = 3;
 
-    std::vector<float> mapX;
-    std::vector<float> mapY;
+    Mat mapX;
+    Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusX.IsOK());
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                            static_cast<float *>(mapY.Data()), mapY.Stride());
 
-    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
-    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
-
+    const void *mapXVoid = mapX.Data();
+    const void *mapYVoid = mapY.Data();
+    const auto *mapXBytes = static_cast<const std::byte *>(mapXVoid);
+    const auto *mapYBytes = static_cast<const std::byte *>(mapYVoid);
     for (int v = 0; v < kHeight; ++v)
     {
+        const std::size_t offsetX = static_cast<std::size_t>(v) * mapX.Stride();
+        const std::size_t offsetY = static_cast<std::size_t>(v) * mapY.Stride();
+        const auto *mapXRow = static_cast<const float *>(static_cast<const void *>(mapXBytes + offsetX));
+        const auto *mapYRow = static_cast<const float *>(static_cast<const void *>(mapYBytes + offsetY));
         const double rectifiedY = (static_cast<double>(v) - projection[1][2]) / projection[1][1];
         for (int u = 0; u < kWidth; ++u)
         {
-            const std::size_t idx = static_cast<std::size_t>(v) * kWidth + static_cast<std::size_t>(u);
             const double rectifiedX = (static_cast<double>(u) - projection[0][2]) / projection[0][0];
 
             const double normalizedX = rectifiedY;
@@ -435,8 +458,8 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
             const double expectedX = intrinsics.fx * normalizedX + intrinsics.skew * normalizedY + intrinsics.cx;
             const double expectedY = intrinsics.fy * normalizedY + intrinsics.cy;
 
-            EXPECT_NEAR(mapX[idx], static_cast<float>(expectedX), kTol);
-            EXPECT_NEAR(mapY[idx], static_cast<float>(expectedY), kTol);
+            EXPECT_NEAR(mapXRow[u], static_cast<float>(expectedX), kTol);
+            EXPECT_NEAR(mapYRow[u], static_cast<float>(expectedY), kTol);
         }
     }
 }
@@ -455,27 +478,37 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
     constexpr int kWidth = 2;
     constexpr int kHeight = 2;
 
-    std::vector<float> mapX;
-    std::vector<float> mapY;
+    Mat mapX;
+    Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusX.IsOK());
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, mapX, mapY);
+    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                            static_cast<float *>(mapY.Data()), mapY.Stride());
 
-    ASSERT_EQ(mapX.size(), static_cast<std::size_t>(kWidth * kHeight));
-    ASSERT_EQ(mapY.size(), static_cast<std::size_t>(kWidth * kHeight));
-
+    const void *mapXVoid = mapX.Data();
+    const void *mapYVoid = mapY.Data();
+    const auto *mapXBytes = static_cast<const std::byte *>(mapXVoid);
+    const auto *mapYBytes = static_cast<const std::byte *>(mapYVoid);
     for (int v = 0; v < kHeight; ++v)
     {
+        const std::size_t offsetX = static_cast<std::size_t>(v) * mapX.Stride();
+        const std::size_t offsetY = static_cast<std::size_t>(v) * mapY.Stride();
+        const auto *mapXRow = static_cast<const float *>(static_cast<const void *>(mapXBytes + offsetX));
+        const auto *mapYRow = static_cast<const float *>(static_cast<const void *>(mapYBytes + offsetY));
         for (int u = 0; u < kWidth; ++u)
         {
-            const std::size_t idx = static_cast<std::size_t>(v) * kWidth + static_cast<std::size_t>(u);
             const double rectifiedX = (static_cast<double>(u) - projection[0][2]) / projection[0][0];
             const double rectifiedY = (static_cast<double>(v) - projection[1][2]) / projection[1][1];
 
             const Point2d idealPixel{rectifiedX, rectifiedY};
             const Point2d distortedPixel = DistortPoint(intrinsics, distortion, idealPixel);
 
-            EXPECT_NEAR(mapX[idx], static_cast<float>(distortedPixel[0]), kTol);
-            EXPECT_NEAR(mapY[idx], static_cast<float>(distortedPixel[1]), kTol);
+            EXPECT_NEAR(mapXRow[u], static_cast<float>(distortedPixel[0]), kTol);
+            EXPECT_NEAR(mapYRow[u], static_cast<float>(distortedPixel[1]), kTol);
         }
     }
 }
