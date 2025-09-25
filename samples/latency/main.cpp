@@ -30,7 +30,7 @@ double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat
     for (int i = 0; i < num_iters; ++i)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        retinify::Status statusRun = pipeline.Run(img0.ptr(), img0.step[0], img1.ptr(), img1.step[0], reinterpret_cast<float *>(disp.ptr()), disp.step[0]);
+        retinify::Status statusRun = pipeline.Run(img0.ptr<std::uint8_t>(), img0.step[0], img1.ptr<std::uint8_t>(), img1.step[0], disp.ptr<float>(), disp.step[0]);
         if (!statusRun.IsOK())
         {
             retinify::LogError("Pipeline run failed for mode.");
