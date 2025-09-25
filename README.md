@@ -84,8 +84,8 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
 | ![target-openvino]   | ![env-na]       | ![status-planned]                                                      |
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
-[target-hailort]:    https://img.shields.io/badge/-HailoRT-gray?style=flat-square
-[target-openvino]:   https://img.shields.io/badge/-OpenVINO-gray?style=flat-square
+[target-hailort]:    https://img.shields.io/badge/-HailoRT-lightgray?style=flat-square
+[target-openvino]:   https://img.shields.io/badge/-OpenVINO-lightgray?style=flat-square
 
 [env-cuda12]:   https://img.shields.io/badge/-CUDA%2012.x-76B900?style=flat-square&logo=nvidia&logoColor=white
 [env-cuda13]:   https://img.shields.io/badge/-CUDA%2013.x-76B900?style=flat-square&logo=nvidia&logoColor=white
