@@ -1,0 +1,7 @@
+<map id="retinify::CalibrationParameters" name="retinify::CalibrationParameters">
+<area shape="rect" id="Node000001" title="Stereo camera calibration parameters." alt="" coords="43,108,263,133"/>
+<area shape="rect" id="Node000002" href="$structretinify_1_1Intrinsics.html" title="Camera intrinsic parameters with focal lengths, principal point, and skew." alt="" coords="5,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,41,117,82,141,106,137,110,113,86,84,44"/>
+<area shape="rect" id="Node000003" href="$structretinify_1_1Distortion.html" title="Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6)." alt="" coords="165,5,303,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,45,220,66,207,86,177,110,173,106,203,82,215,63,224,43"/>
+</map>

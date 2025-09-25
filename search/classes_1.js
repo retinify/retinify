@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['intrinsics_0',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]]
+  ['distortion_0',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
+  ['distortionfisheye_1',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]]
 ];
