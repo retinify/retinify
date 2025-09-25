@@ -54,7 +54,7 @@ cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
 retinify::Pipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-pipeline.Initialize(leftImage.cols, leftImage.rows);
+pipeline.Initialize(static_cast<std::uint32_t>(leftImage.cols), static_cast<std::uint32_t>(leftImage.rows));
 
 // EXECUTE STEREO MATCHING
 pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //

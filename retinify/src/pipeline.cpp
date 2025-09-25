@@ -46,7 +46,7 @@ class Pipeline::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Initialize(const std::size_t imageWidth, const std::size_t imageHeight, //
+    auto Initialize(const std::uint32_t imageWidth, const std::uint32_t imageHeight, //
                     const Mode mode) noexcept -> Status
     {
         Status status;
@@ -58,8 +58,8 @@ class Pipeline::Impl
             return status;
         }
 
-        imageWidth_ = imageWidth;
-        imageHeight_ = imageHeight;
+        imageWidth_ = static_cast<std::size_t>(imageWidth);
+        imageHeight_ = static_cast<std::size_t>(imageHeight);
 
         switch (mode)
         {
@@ -475,7 +475,7 @@ auto Pipeline::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Pipeline::Initialize(std::size_t imageWidth, std::size_t imageHeight, Mode mode) noexcept -> Status
+auto Pipeline::Initialize(const std::uint32_t imageWidth, const std::uint32_t imageHeight, Mode mode) noexcept -> Status
 {
     return this->impl()->Initialize(imageWidth, imageHeight, mode);
 }

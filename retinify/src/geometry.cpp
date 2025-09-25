@@ -359,8 +359,8 @@ static auto BuildProjectionMatrix(double focal, const Point2d &principal) noexce
 
 auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
                    const Intrinsics &intrinsics2, const Distortion &distortion2, //
-                   int imageWidth, int imageHeight,                              //
                    const Mat3x3d &rotation, const Vec3d &translation,            //
+                   std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                    Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                    Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
                    Mat4x4d &mappingMatrix) noexcept -> void
@@ -412,7 +412,7 @@ auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1,
 
 auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, //
                              const Mat3x3d &rotation, const Mat3x4d &projectionMatrix,   //
-                             int imageWidth, int imageHeight,                            //
+                             std::uint32_t imageWidth, std::uint32_t imageHeight,        //
                              float *mapx, std::size_t mapxStride,                        //
                              float *mapy, std::size_t mapyStride) noexcept -> void
 {
@@ -432,14 +432,14 @@ auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &dis
     auto *mapxBytes = static_cast<unsigned char *>(static_cast<void *>(mapx));
     auto *mapyBytes = static_cast<unsigned char *>(static_cast<void *>(mapy));
 
-    for (int v = 0; v < imageHeight; ++v)
+    for (std::uint32_t v = 0; v < imageHeight; ++v)
     {
         const std::size_t offsetX = static_cast<std::size_t>(v) * mapxStride;
         const std::size_t offsetY = static_cast<std::size_t>(v) * mapyStride;
         auto *mapxRow = static_cast<float *>(static_cast<void *>(mapxBytes + offsetX));
         auto *mapyRow = static_cast<float *>(static_cast<void *>(mapyBytes + offsetY));
         const double rectifiedY = (static_cast<double>(v) - rectifiedPrincipalY) * invRectifiedFocalY;
-        for (int u = 0; u < imageWidth; ++u)
+        for (std::uint32_t u = 0; u < imageWidth; ++u)
         {
             const double rectifiedX = (static_cast<double>(u) - rectifiedPrincipalX) * invRectifiedFocalX;
             const Vec3d rectifiedPoint{rectifiedX, rectifiedY, 1.0};

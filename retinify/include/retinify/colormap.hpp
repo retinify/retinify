@@ -21,15 +21,14 @@ namespace retinify
 /// Output colored disparity map (8-bit 3-channel RGB).
 /// @param dstStride
 /// Stride of the output colored disparity map in bytes.
-/// @param height
-/// Height of the input and output disparity maps.
-/// @param width
+/// @param imageWidth
 /// Width of the input and output disparity maps.
-/// @param maxDisp
+/// @param imageHeight
+/// Height of the input and output disparity maps.
+/// @param maxDisparity
 /// Maximum disparity value for normalization.
 /// @return
 /// Status object indicating success or failure.
-RETINIFY_API auto ColorizeDisparity(const float *src, size_t srcStride, //
-                                    uint8_t *dst, size_t dstStride,     //
-                                    int height, int width, float maxDisp) -> Status;
+RETINIFY_API auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, //
+                                    std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -> Status;
 } // namespace retinify
