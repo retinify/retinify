@@ -5,7 +5,7 @@ var searchData=
   ['category_2',['Category',['../classretinify_1_1Status.html#aa3b1b3edf09c19cfeab7151237946849',1,'retinify::Status']]],
   ['clone_20the_20retinify_20repository_3',['Clone the retinify repository.',['../installation.html#autotoc_md4',1,'']]],
   ['code_4',['Code',['../classretinify_1_1Status.html#a2b78d61f4f0fd7ccfe7e5153b17a2630',1,'retinify::Status']]],
-  ['colorizedisparity_5',['ColorizeDisparity',['../namespaceretinify.html#a0f05670de9855df789556ce0a9dc0434',1,'retinify']]],
+  ['colorizedisparity_5',['ColorizeDisparity',['../namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b',1,'retinify']]],
   ['colormap_2ehpp_6',['colormap.hpp',['../colormap_8hpp.html',1,'']]],
   ['configdirectorypath_7',['ConfigDirectoryPath',['../namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1',1,'retinify']]],
   ['contact_8',['Contact',['../index.html#autotoc_md2',1,'']]],

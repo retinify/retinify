@@ -46,7 +46,7 @@ var namespaceretinify =
       [ "INVALID_ARGUMENT", "namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d", null ]
     ] ],
     [ "CacheDirectoryPath", "namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c", null ],
-    [ "ColorizeDisparity", "namespaceretinify.html#a0f05670de9855df789556ce0a9dc0434", null ],
+    [ "ColorizeDisparity", "namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b", null ],
     [ "ConfigDirectoryPath", "namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1", null ],
     [ "Cross", "namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8", null ],
     [ "DataDirectoryPath", "namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16", null ],

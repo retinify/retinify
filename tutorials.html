@@ -161,14 +161,14 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// EXECUTE STEREO MATCHING</span></div>
-<div class="line"><span class="keyword">auto</span> statusRun = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a>(leftImage.ptr&lt;uint8_t&gt;(), leftImage.step[0], rightImage.ptr&lt;uint8_t&gt;(), rightImage.step[0], disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0]);</div>
+<div class="line"><span class="keyword">auto</span> statusRun = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a>(leftImage.ptr&lt;std::uint8_t&gt;(), leftImage.step[0], rightImage.ptr&lt;std::uint8_t&gt;(), rightImage.step[0], disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0]);</div>
 <div class="line"><span class="keywordflow">if</span> (!statusRun.IsOK())</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// SHOW DISPARITY</span></div>
-<div class="line"><span class="keyword">auto</span> statusColorize = <a class="code hl_function" href="namespaceretinify.html#a0f05670de9855df789556ce0a9dc0434">retinify::ColorizeDisparity</a>(disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0], disparityColored.ptr&lt;uint8_t&gt;(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);</div>
+<div class="line"><span class="keyword">auto</span> statusColorize = <a class="code hl_function" href="namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b">retinify::ColorizeDisparity</a>(disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0], disparityColored.ptr&lt;std::uint8_t&gt;(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);</div>
 <div class="line"><span class="keywordflow">if</span> (!statusColorize.IsOK())</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="ttc" id="aclassretinify_1_1Pipeline_html"><div class="ttname"><a href="classretinify_1_1Pipeline.html">retinify::Pipeline</a></div><div class="ttdoc">A retinify::Pipeline provides an interface for running a stereo matching.</div><div class="ttdef"><b>Definition</b> pipeline.hpp:29</div></div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html_a3dc5baa48a2b456c6ce0558b3ce09c7e"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a3dc5baa48a2b456c6ce0558b3ce09c7e">retinify::Pipeline::Initialize</a></div><div class="ttdeci">auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, Mode mode=Mode::ACCURATE) noexcept -&gt; Status</div><div class="ttdoc">Initializes the stereo matching pipeline with the given image dimensions.</div></div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html_a63e6a9d44c617fca87fc98e7e20a01fa"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">retinify::Pipeline::Run</a></div><div class="ttdeci">auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; Status</div><div class="ttdoc">Executes the stereo matching pipeline using the given left and right image data.</div></div>
-<div class="ttc" id="anamespaceretinify_html_a0f05670de9855df789556ce0a9dc0434"><div class="ttname"><a href="namespaceretinify.html#a0f05670de9855df789556ce0a9dc0434">retinify::ColorizeDisparity</a></div><div class="ttdeci">RETINIFY_API auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -&gt; Status</div><div class="ttdoc">Applies the colormap to the disparity map.</div></div>
+<div class="ttc" id="anamespaceretinify_html_a0c249c755e7a264d7c677887ff7b4c6b"><div class="ttname"><a href="namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b">retinify::ColorizeDisparity</a></div><div class="ttdeci">RETINIFY_API auto ColorizeDisparity(const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -&gt; Status</div><div class="ttdoc">Applies the colormap to the disparity map.</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
