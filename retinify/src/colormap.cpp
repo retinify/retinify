@@ -9,7 +9,7 @@
 
 namespace retinify
 {
-static constexpr uint8_t TURBO_LUT[256][3] = {
+static constexpr std::uint8_t TURBO_LUT[256][3] = {
     {48, 18, 59},   {50, 21, 67},   {51, 24, 74},    {52, 27, 81},    //
     {53, 30, 88},   {54, 33, 95},   {55, 36, 102},   {56, 39, 109},   //
     {57, 42, 115},  {58, 45, 121},  {59, 47, 128},   {60, 50, 134},   //
@@ -76,7 +76,7 @@ static constexpr uint8_t TURBO_LUT[256][3] = {
     {133, 7, 2},    {129, 6, 2},    {126, 5, 2},     {122, 4, 3}      //
 };
 
-auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -> Status
+auto ColorizeDisparity(const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -> Status
 {
     if (src == nullptr || dst == nullptr)
     {
@@ -96,8 +96,8 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    const auto requiredSrcStride = static_cast<size_t>(imageWidth) * sizeof(float);
-    const auto requiredDstStride = static_cast<size_t>(imageWidth) * 3 * sizeof(std::uint8_t);
+    const auto requiredSrcStride = static_cast<std::size_t>(imageWidth) * sizeof(float);
+    const auto requiredDstStride = static_cast<std::size_t>(imageWidth) * 3 * sizeof(std::uint8_t);
 
     if ((srcStride < requiredSrcStride) || (dstStride < requiredDstStride))
     {
@@ -111,13 +111,13 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    const size_t srcStrideInFloats = srcStride / sizeof(float);
+    const std::size_t srcStrideInFloats = srcStride / sizeof(float);
 
     for (std::uint32_t y = 0; y < imageHeight; ++y)
     {
-        const size_t rowIndex = static_cast<size_t>(y);
+        const std::size_t rowIndex = static_cast<std::size_t>(y);
         const float *srcRow = src + rowIndex * srcStrideInFloats;
-        uint8_t *dstRow = dst + rowIndex * dstStride;
+        std::uint8_t *dstRow = dst + rowIndex * dstStride;
 
         for (std::uint32_t x = 0; x < imageWidth; ++x)
         {

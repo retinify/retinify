@@ -428,28 +428,28 @@ class Pipeline::Impl
     }
 
   private:
-    bool initialized_{false};     // whether the pipeline is initialized
-    Stream stream_;               // stream for operations
-    size_t imageWidth_{0};        // original input image width
-    size_t imageHeight_{0};       // original input image height
-    size_t matchingHeight_{0};    // image height for stereo matching
-    size_t matchingWidth_{0};     // image width for stereo matching
-    Session session_;             // inference session
-    Mat left8UC3_;                // input rgb image
-    Mat right8UC3_;               // input rgb image
-    Mat leftDisparity32FC1_;      // output left disparity map
-    Mat leftResized8UC3_;         // resized rgb image
-    Mat rightResized8UC3_;        // resized rgb image
-    Mat leftResized8UC1_;         // resized gray image
-    Mat rightResized8UC1_;        // resized gray image
-    Mat leftResized32FC1_;        // resized gray image for stereo matching
-    Mat rightResized32FC1_;       // resized gray image for stereo matching
-    Mat disparityResized32FC1_;   // resized disparity map from stereo matching
-    Mat leftFliped8UC3_;          // input gray image (fliped)
-    Mat rightFliped8UC3_;         // input gray image (fliped)
-    Mat disparityFliped32FC1_;    // output disparity map (fliped)
-    Mat rightDisparity32FC1_;     // output right disparity map
-    Mat lrCheckedDisparity32FC1_; // output disparity map after left-right consistency check
+    bool initialized_{false};       // whether the pipeline is initialized
+    Stream stream_;                 // stream for operations
+    std::size_t imageWidth_{0};     // original input image width
+    std::size_t imageHeight_{0};    // original input image height
+    std::size_t matchingHeight_{0}; // image height for stereo matching
+    std::size_t matchingWidth_{0};  // image width for stereo matching
+    Session session_;               // inference session
+    Mat left8UC3_;                  // input rgb image
+    Mat right8UC3_;                 // input rgb image
+    Mat leftDisparity32FC1_;        // output left disparity map
+    Mat leftResized8UC3_;           // resized rgb image
+    Mat rightResized8UC3_;          // resized rgb image
+    Mat leftResized8UC1_;           // resized gray image
+    Mat rightResized8UC1_;          // resized gray image
+    Mat leftResized32FC1_;          // resized gray image for stereo matching
+    Mat rightResized32FC1_;         // resized gray image for stereo matching
+    Mat disparityResized32FC1_;     // resized disparity map from stereo matching
+    Mat leftFliped8UC3_;            // input gray image (fliped)
+    Mat rightFliped8UC3_;           // input gray image (fliped)
+    Mat disparityFliped32FC1_;      // output disparity map (fliped)
+    Mat rightDisparity32FC1_;       // output right disparity map
+    Mat lrCheckedDisparity32FC1_;   // output disparity map after left-right consistency check
 };
 
 Pipeline::Pipeline() noexcept
