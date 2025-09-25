@@ -17,7 +17,7 @@ static constexpr int kBenchmarkNumIters = 10000;
 double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
 {
     retinify::Pipeline pipeline;
-    retinify::Status statusInitialize = pipeline.Initialize(kBenchmarkImageWidth, kBenchmarkImageHeight, mode);
+    retinify::Status statusInitialize = pipeline.Initialize(static_cast<std::uint32_t>(kBenchmarkImageWidth), static_cast<std::uint32_t>(kBenchmarkImageHeight), mode);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Pipeline initialization failed for mode.");

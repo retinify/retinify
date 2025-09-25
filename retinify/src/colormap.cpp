@@ -76,7 +76,7 @@ static constexpr uint8_t TURBO_LUT[256][3] = {
     {133, 7, 2},    {129, 6, 2},    {126, 5, 2},     {122, 4, 3}      //
 };
 
-auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, int height, int width, float maxDisp) -> Status
+auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -> Status
 {
     if (src == nullptr || dst == nullptr)
     {
@@ -84,19 +84,22 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    if (width <= 0 || height <= 0)
+    if ((imageWidth == 0U) || (imageHeight == 0U))
     {
-        LogError("width or height is non-positive.");
+        LogError("imageWidth or imageHeight is zero.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    if (maxDisp <= 0.0F)
+    if (maxDisparity <= 0.0F)
     {
-        LogError("maxDisp is non-positive.");
+        LogError("maxDisparity is non-positive.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
-    if (srcStride < static_cast<size_t>(width * sizeof(float)) || dstStride < static_cast<size_t>(width * 3 * sizeof(uint8_t)))
+    const auto requiredSrcStride = static_cast<size_t>(imageWidth) * sizeof(float);
+    const auto requiredDstStride = static_cast<size_t>(imageWidth) * 3 * sizeof(std::uint8_t);
+
+    if ((srcStride < requiredSrcStride) || (dstStride < requiredDstStride))
     {
         LogError("srcStride or dstStride is too small.");
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
@@ -110,13 +113,13 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
 
     const size_t srcStrideInFloats = srcStride / sizeof(float);
 
-    for (int y = 0; y < height; ++y)
+    for (std::uint32_t y = 0; y < imageHeight; ++y)
     {
         const size_t rowIndex = static_cast<size_t>(y);
         const float *srcRow = src + rowIndex * srcStrideInFloats;
         uint8_t *dstRow = dst + rowIndex * dstStride;
 
-        for (int x = 0; x < width; ++x)
+        for (std::uint32_t x = 0; x < imageWidth; ++x)
         {
             float d = srcRow[x];
 
@@ -126,7 +129,7 @@ auto ColorizeDisparity(const float *src, size_t srcStride, uint8_t *dst, size_t 
                 return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
             }
 
-            d = std::min(std::max(d, 0.0f), maxDisp) / maxDisp;
+            d = std::min(std::max(d, 0.0f), maxDisparity) / maxDisparity;
 
             constexpr float kRoundOffset = 0.5f;
             int idx = static_cast<int>(d * 255.0f + kRoundOffset);

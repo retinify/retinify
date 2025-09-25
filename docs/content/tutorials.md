@@ -71,7 +71,7 @@ cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
 retinify::Pipeline pipeline;
 
 // INITIALIZE THE PIPELINE
-auto statusInitialize = pipeline.Initialize(leftImage.cols, leftImage.rows);
+auto statusInitialize = pipeline.Initialize(static_cast<std::uint32_t>(leftImage.cols), static_cast<std::uint32_t>(leftImage.rows));
 if (!statusInitialize.IsOK())
 {
     return 1;
@@ -85,7 +85,7 @@ if (!statusRun.IsOK())
 }
 
 // SHOW DISPARITY
-auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.rows, disparity.cols, 256.0F);
+auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
 if (!statusColorize.IsOK())
 {
     return 1;

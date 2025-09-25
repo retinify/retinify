@@ -10,8 +10,8 @@ namespace retinify
 {
 TEST(PipelineTest, Forward)
 {
-    const int height = 720;
-    const int width = 1280;
+    const std::uint32_t width = 1280;
+    const std::uint32_t height = 720;
     cv::Mat left = cv::Mat::zeros(height, width, CV_8UC3);
     cv::Mat right = cv::Mat::zeros(height, width, CV_8UC3);
     cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);

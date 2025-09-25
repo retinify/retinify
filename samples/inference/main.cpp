@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     cv::Mat disparity = cv::Mat::zeros(leftImage.size(), CV_32FC1);
     cv::Mat disparityColored = cv::Mat::zeros(leftImage.size(), CV_8UC3);
 
-    auto statusInitialize = pipeline.Initialize(leftImage.cols, leftImage.rows);
+    auto statusInitialize = pipeline.Initialize(static_cast<std::uint32_t>(leftImage.cols), static_cast<std::uint32_t>(leftImage.rows));
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Failed to initialize the pipeline.");
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.rows, disparity.cols, 256.0F);
+    auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
     if (!statusColorize.IsOK())
     {
         retinify::LogError("Failed to colorize the disparity map.");

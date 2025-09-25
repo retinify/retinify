@@ -7,6 +7,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 
 namespace retinify
 {
@@ -181,6 +182,19 @@ struct DistortionFisheye
     double k4{0};
 };
 
+/// @brief Stereo camera calibration parameters.
+struct CalibrationParameters
+{
+    Intrinsics leftIntrinsics;    // Intrinsics for the left camera
+    Distortion leftDistortion;    // Distortion for the left camera
+    Intrinsics rightIntrinsics;   // Intrinsics for the right camera
+    Distortion rightDistortion;   // Distortion for the right camera
+    Mat3x3d rotation;             // Rotation from the left to the right camera
+    Vec3d translation;            // Translation from the left to the right camera
+    std::uint32_t imageWidth{0};  // Image width in pixels
+    std::uint32_t imageHeight{0}; // Image height in pixels
+};
+
 /// @brief
 /// Undistort a 2D point using the given camera intrinsics and distortion parameters.
 /// @param intrinsics
@@ -203,14 +217,14 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// Second camera intrinsics.
 /// @param distortion2
 /// Second camera distortion.
-/// @param imageWidth
-/// Image width in pixels.
-/// @param imageHeight
-/// Image height in pixels.
 /// @param rotation
 /// Rotation from the first to the second camera.
 /// @param translation
 /// Translation from the first to the second camera.
+/// @param imageWidth
+/// Image width in pixels.
+/// @param imageHeight
+/// Image height in pixels.
 /// @param rotation1
 /// Output rectification rotation for the first camera.
 /// @param rotation2
@@ -223,8 +237,8 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// Output mapping matrix.
 RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
                                 const Intrinsics &intrinsics2, const Distortion &distortion2, //
-                                int imageWidth, int imageHeight,                              //
                                 const Mat3x3d &rotation, const Vec3d &translation,            //
+                                std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                                 Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                                 Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
                                 Mat4x4d &mappingMatrix) noexcept -> void;
@@ -240,9 +254,9 @@ RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion 
 /// @param projectionMatrix
 /// Projection matrix
 /// @param imageWidth
-/// Image width
+/// Image width in pixels.
 /// @param imageHeight
-/// Image height
+/// Image height in pixels.
 /// @param mapx
 /// Output map for x-coordinates
 /// @param mapxStride
@@ -254,7 +268,7 @@ RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion 
 /// @return
 RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, //
                                           const Mat3x3d &rotation, const Mat3x4d &projectionMatrix,   //
-                                          int imageWidth, int imageHeight,                            //
+                                          std::uint32_t imageWidth, std::uint32_t imageHeight,        //
                                           float *mapx, std::size_t mapxStride,                        //
                                           float *mapy, std::size_t mapyStride) noexcept -> void;
 } // namespace retinify
