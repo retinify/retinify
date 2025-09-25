@@ -40,9 +40,9 @@ int main(int argc, char **argv)
     }
 
     const float kMaxRelativeDisparityError = 0.05F;
-    auto statusRun = pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
-                                  rightImage.ptr<uint8_t>(), rightImage.step[0], //
-                                  disparity.ptr<float>(), disparity.step[0],     //
+    auto statusRun = pipeline.Run(leftImage.ptr<std::uint8_t>(), leftImage.step[0],   //
+                                  rightImage.ptr<std::uint8_t>(), rightImage.step[0], //
+                                  disparity.ptr<float>(), disparity.step[0],          //
                                   kMaxRelativeDisparityError);
     if (!statusRun.IsOK())
     {
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
+    auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<std::uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
     if (!statusColorize.IsOK())
     {
         retinify::LogError("Failed to colorize the disparity map.");

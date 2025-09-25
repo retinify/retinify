@@ -78,14 +78,14 @@ if (!statusInitialize.IsOK())
 }
 
 // EXECUTE STEREO MATCHING
-auto statusRun = pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0], rightImage.ptr<uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
+auto statusRun = pipeline.Run(leftImage.ptr<std::uint8_t>(), leftImage.step[0], rightImage.ptr<std::uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
 if (!statusRun.IsOK())
 {
     return 1;
 }
 
 // SHOW DISPARITY
-auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
+auto statusColorize = retinify::ColorizeDisparity(disparity.ptr<float>(), disparity.step[0], disparityColored.ptr<std::uint8_t>(), disparityColored.step[0], disparity.cols, disparity.rows, 256.0F);
 if (!statusColorize.IsOK())
 {
     return 1;
