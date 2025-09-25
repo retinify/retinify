@@ -45,7 +45,7 @@ class RETINIFY_API Pipeline
     /// The mode option for the stereo matching.
     /// @return
     /// A Status object indicating whether the initialization was successful.
-    [[nodiscard]] auto Initialize(std::size_t imageWidth, std::size_t imageHeight, //
+    [[nodiscard]] auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, //
                                   Mode mode = Mode::ACCURATE) noexcept -> Status;
 
     /// @brief

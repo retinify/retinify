@@ -250,7 +250,7 @@ TEST(GeometryTest, StereoRectifyIdealRig)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, 640, 480, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, rotationMatrix, translationVector, 640, 480, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
     ExpectMatrixNear(rectifiedRotationFirst, Identity(), kTolStrict);
     ExpectMatrixNear(rectifiedRotationSecond, Identity(), kTolStrict);
@@ -294,7 +294,7 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1, D1, K2, D2, 800, 600, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 800, 600, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -343,7 +343,7 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1, D1, K2, D2, 1024, 768, rotationMatrix, translationVector, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 1024, 768, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -626,7 +626,7 @@ TEST(GeometryTest, StereoRectifyMatchesOpenCV)
     Mat3x4d projectionMatrix2{};
     Mat4x4d mappingMatrix{};
 
-    StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, 960, 720, rotation, translation, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix);
+    StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, rotation, translation, 960, 720, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix);
 
     const cv::Mat cameraMatrix1 = ToCvCameraMatrix(intrinsics1);
     const cv::Mat cameraMatrix2 = ToCvCameraMatrix(intrinsics2);
