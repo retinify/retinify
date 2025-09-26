@@ -53,6 +53,7 @@ if(BUILD_WITH_TENSORRT)
     target_link_libraries(retinify
         PRIVATE
             CUDA::cudart
+            CUDA::cuda_driver
             CUDA::nppc
             CUDA::nppidei
             CUDA::nppicc
