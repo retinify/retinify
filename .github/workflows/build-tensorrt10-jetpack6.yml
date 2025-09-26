@@ -53,6 +53,10 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             apt update && apt install -y git cmake build-essential
 
+            export PATH=/usr/bin:$PATH
+            hash -r
+            cmake --version
+
             git config --global --add safe.directory /workspace
             git config --global --add safe.directory /workspace/3rdparty/googletest
             git submodule sync --recursive
