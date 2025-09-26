@@ -44,13 +44,10 @@ Upon successful execution, the result will be displayed and a file named `dispar
   
 ## 4. Create a retinify project
 We recommend using a CMake-based project when integrating retinify.  
-Retinify requires **C++20** and **GCC 11 or later**.  
+Retinify requires **GCC 11 or later**.  
 ```cmake
-set(CMAKE_CXX_STANDARD 20)
-
 find_package(retinify REQUIRED)
-
-target_link_libraries(${PROJECT_NAME} retinify)
+target_link_libraries(${PROJECT_NAME} retinify::retinify)
 ```
 
 In this tutorial, we will use image data in the form of `cv::Mat`.  

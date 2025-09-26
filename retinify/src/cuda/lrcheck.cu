@@ -4,6 +4,7 @@
 #include "lrcheck.h"
 
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cuda_runtime.h>
 
@@ -16,7 +17,7 @@
 
 namespace retinify
 {
-static inline int DivUpInt(int a, int b)
+static inline std::uint32_t DivUpUint32(std::uint32_t a, std::uint32_t b)
 {
     return (a + b - 1) / b;
 }
@@ -24,11 +25,11 @@ static inline int DivUpInt(int a, int b)
 __global__ void LRConsistencyCheckKernel(const float *__restrict__ leftDisparity, std::size_t leftDisparityStride,   //
                                          const float *__restrict__ rightDisparity, std::size_t rightDisparityStride, //
                                          float *__restrict__ outputDisparity, std::size_t outputDisparityStride,     //
-                                         int disparityWidth, int disparityHeight,                                    //
+                                         std::uint32_t disparityWidth, std::uint32_t disparityHeight,                //
                                          float maxRelativeDisparityError)
 {
-    const int x = blockIdx.x * blockDim.x + threadIdx.x;
-    const int y = blockIdx.y * blockDim.y + threadIdx.y;
+    const std::uint32_t x = static_cast<std::uint32_t>(blockIdx.x) * static_cast<std::uint32_t>(blockDim.x) + static_cast<std::uint32_t>(threadIdx.x);
+    const std::uint32_t y = static_cast<std::uint32_t>(blockIdx.y) * static_cast<std::uint32_t>(blockDim.y) + static_cast<std::uint32_t>(threadIdx.y);
 
     if (x >= disparityWidth || y >= disparityHeight)
     {
@@ -47,18 +48,22 @@ __global__ void LRConsistencyCheckKernel(const float *__restrict__ leftDisparity
     const float ld = leftRow[x];
     if (ld > 0.0f && isfinite(ld))
     {
-        const int rx = x - static_cast<int>(ld + 0.5f);
-        if (rx >= 0 && rx < disparityWidth)
+        const std::uint32_t roundedLd = static_cast<std::uint32_t>(ld + 0.5f);
+        if (roundedLd <= x)
         {
-            const float rd = rightRow[rx];
-            if (isfinite(rd))
+            const std::uint32_t rx = x - roundedLd;
+            if (rx < disparityWidth)
             {
-                const float absDiff = fabsf(ld - rd);
-                const float avgd = 0.5f * (fabsf(ld) + fabsf(rd));
-                const float relativeDiff = absDiff / avgd;
-                if (relativeDiff <= maxRelativeDisparityError)
+                const float rd = rightRow[rx];
+                if (isfinite(rd))
                 {
-                    outputVal = ld;
+                    const float absDiff = fabsf(ld - rd);
+                    const float avgd = 0.5f * (fabsf(ld) + fabsf(rd));
+                    const float relativeDiff = absDiff / avgd;
+                    if (relativeDiff <= maxRelativeDisparityError)
+                    {
+                        outputVal = ld;
+                    }
                 }
             }
         }
@@ -70,7 +75,7 @@ __global__ void LRConsistencyCheckKernel(const float *__restrict__ leftDisparity
 cudaError_t cudaLRConsistencyCheck(const float *leftDisparity, std::size_t leftDisparityStride,   //
                                    const float *rightDisparity, std::size_t rightDisparityStride, //
                                    float *outputDisparity, std::size_t outputDisparityStride,     //
-                                   int disparityWidth, int disparityHeight,                       //
+                                   std::uint32_t disparityWidth, std::uint32_t disparityHeight,   //
                                    float maxRelativeDisparityError,                               //
                                    cudaStream_t stream)
 {
@@ -80,7 +85,7 @@ cudaError_t cudaLRConsistencyCheck(const float *leftDisparity, std::size_t leftD
         return cudaErrorInvalidValue;
     }
 
-    if (disparityWidth <= 0 || disparityHeight <= 0)
+    if (disparityWidth == 0 || disparityHeight == 0)
     {
         std::printf("Input size must be positive.\n");
         return cudaErrorInvalidValue;
@@ -99,7 +104,9 @@ cudaError_t cudaLRConsistencyCheck(const float *leftDisparity, std::size_t leftD
     }
 
     dim3 block(LRCC_BLOCK_W, LRCC_BLOCK_H, 1);
-    dim3 grid(DivUpInt(disparityWidth, block.x), DivUpInt(disparityHeight, block.y), 1);
+    const std::uint32_t gridX = DivUpUint32(disparityWidth, static_cast<std::uint32_t>(block.x));
+    const std::uint32_t gridY = DivUpUint32(disparityHeight, static_cast<std::uint32_t>(block.y));
+    dim3 grid(gridX, gridY, 1);
 
     LRConsistencyCheckKernel<<<grid, block, 0, stream>>>(leftDisparity, leftDisparityStride,     //
                                                          rightDisparity, rightDisparityStride,   //
