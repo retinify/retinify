@@ -74,16 +74,17 @@ TEST_F(MatTest, UploadDownloadDevice)
 
 TEST_F(MatTest, UploadDownloadHost)
 {
-    Stream dummyStream;
+    Status stStream = stream_.Create();
+    ASSERT_TRUE(stStream.IsOK());
 
     Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::HOST);
     ASSERT_TRUE(stAlloc.IsOK());
     ASSERT_EQ(mat_.Location(), MatLocation::HOST);
 
-    Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], dummyStream);
+    Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], stream_);
     ASSERT_TRUE(stUp.IsOK());
 
-    Status stDown = mat_.Download(hostDst_.ptr(), hostDst_.step[0], dummyStream);
+    Status stDown = mat_.Download(hostDst_.ptr(), hostDst_.step[0], stream_);
     ASSERT_TRUE(stDown.IsOK());
 
     for (std::size_t i = 0; i < rows; ++i)

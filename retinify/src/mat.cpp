@@ -113,10 +113,10 @@ auto Mat::Allocate(std::size_t rows, std::size_t cols, std::size_t channels, std
         std::memset(newDeviceData, 0, alignedSize);
         break;
     }
-    default:
+    default: {
         LogError("Invalid MatLocation specified.");
         return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-        break;
+    }
     }
 
     this->deviceData_ = newDeviceData;
@@ -152,16 +152,19 @@ auto Mat::Free() noexcept -> Status
             LogError("Not implemented.");
             status = Status(StatusCategory::RETINIFY, StatusCode::FAIL);
 #endif
+            break;
         }
-        break;
-        case MatLocation::HOST:
+        case MatLocation::HOST: {
             std::free(deviceData_);
             break;
-        default:
+        }
+        default: {
             LogError("Invalid MatLocation specified.");
             status = Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
             break;
         }
+        }
+
         this->deviceData_ = nullptr;
     }
 
@@ -222,9 +225,10 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride, Stream &stream) c
         }
         break;
     }
-    default:
+    default: {
         LogError("Invalid MatLocation specified.");
         return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+    }
     }
 
     return Status{};
@@ -275,9 +279,10 @@ auto Mat::Download(void *hostData, std::size_t hostStride, Stream &stream) const
         }
         break;
     }
-    default:
+    default: {
         LogError("Invalid MatLocation specified.");
         return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+    }
     }
 
     return Status{};

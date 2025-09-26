@@ -14,6 +14,13 @@ Stream::~Stream() noexcept
 
 auto Stream::Create() noexcept -> Status
 {
+    // if already created, destroy first
+    auto statusDestroy = Destroy();
+    if (!statusDestroy.IsOK())
+    {
+        return statusDestroy;
+    }
+
 #ifdef BUILD_WITH_TENSORRT
     cudaError_t cudaStreamStatus = cudaStreamCreate(&stream_);
     if (cudaStreamStatus != cudaSuccess)
@@ -24,6 +31,7 @@ auto Stream::Create() noexcept -> Status
 
     ctx_.hStream = stream_;
 
+    LogDebug("Created cudaStream_t.");
     return Status{};
 #else
 #endif
@@ -42,6 +50,8 @@ auto Stream::Destroy() noexcept -> Status
             return Status{StatusCategory::CUDA, StatusCode::FAIL};
         }
         stream_ = nullptr;
+
+        LogDebug("Destroyed cudaStream_t.");
     }
     return Status{};
 #else
@@ -61,6 +71,8 @@ auto Stream::Synchronize() const noexcept -> Status
             return Status{StatusCategory::CUDA, StatusCode::FAIL};
         }
     }
+
+    LogDebug("Synchronized cudaStream_t.");
     return Status{};
 #else
 #endif
