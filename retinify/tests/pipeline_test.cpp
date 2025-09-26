@@ -8,7 +8,7 @@
 
 namespace retinify
 {
-TEST(PipelineTest, Forward)
+TEST(PipelineTest, Run)
 {
     const std::uint32_t width = 1280;
     const std::uint32_t height = 720;
@@ -21,7 +21,41 @@ TEST(PipelineTest, Forward)
     Status stInit = pipeline.Initialize(width, height);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stFwd = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
-    ASSERT_TRUE(stFwd.IsOK()) << "Forward Failed";
+    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
+    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+}
+
+TEST(PipelineTest, RunLowResolution)
+{
+    const std::uint32_t width = 640;
+    const std::uint32_t height = 480;
+    cv::Mat left = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat right = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
+
+    Pipeline pipeline;
+
+    Status stInit = pipeline.Initialize(width, height, Mode::ACCURATE);
+    ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
+
+    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
+    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+}
+
+TEST(PipelineTest, RunAccurateHighResolution)
+{
+    const std::uint32_t width = 3840;
+    const std::uint32_t height = 2160;
+    cv::Mat left = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat right = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
+
+    Pipeline pipeline;
+
+    Status stInit = pipeline.Initialize(width, height, Mode::ACCURATE);
+    ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
+
+    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
+    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
 }
 } // namespace retinify
