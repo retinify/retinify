@@ -7,9 +7,10 @@ file(GLOB SRCS_CXX
 
 # LIBRARY
 add_library(retinify SHARED ${SRCS_CXX})
-set_target_properties(retinify PROPERTIES
-    VERSION ${PROJECT_VERSION}
-    SOVERSION ${PROJECT_VERSION_MAJOR}
+set_target_properties(retinify 
+    PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 # INCLUDES
@@ -23,11 +24,6 @@ target_include_directories(retinify
 
 # SETTINGS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-
-set_target_properties(retinify 
-    PROPERTIES
-        CXX_EXTENSIONS OFF
-)
 
 target_compile_features(retinify 
     PUBLIC 
@@ -45,13 +41,19 @@ target_compile_options(retinify
 
 if(BUILD_WITH_TENSORRT)
     add_subdirectory(src/cuda)
-    target_link_libraries(retinify PRIVATE retinify-cuda)
+    target_link_libraries(retinify 
+        PRIVATE 
+            retinify-cuda
+    )
 
-    target_compile_definitions(retinify PRIVATE BUILD_WITH_TENSORRT)
+    target_compile_definitions(retinify 
+        PUBLIC 
+            BUILD_WITH_TENSORRT
+    )
 
     find_package(CUDAToolkit REQUIRED)
     target_link_libraries(retinify
-        PRIVATE
+        PUBLIC
             CUDA::cudart
             CUDA::cuda_driver
             CUDA::nppc
