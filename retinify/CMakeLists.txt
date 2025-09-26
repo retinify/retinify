@@ -47,13 +47,13 @@ if(BUILD_WITH_TENSORRT)
     )
 
     target_compile_definitions(retinify 
-        PUBLIC 
+        PRIVATE 
             BUILD_WITH_TENSORRT
     )
 
     find_package(CUDAToolkit REQUIRED)
     target_link_libraries(retinify
-        PUBLIC
+        PRIVATE
             CUDA::cudart
             CUDA::nppc
             CUDA::nppidei
