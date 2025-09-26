@@ -75,13 +75,13 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
-| 🎯 Target                              | ⚙️ Env              | 📦 Status                                                               |
-| ------------------------------------- | ------------------ | ---------------------------------------------------------------------- |
-| ![target-tensorrt10] ![target-cuda12] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
-| ![target-tensorrt10] ![target-cuda13] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
-| ![target-tensorrt10] ![target-cuda12] | ![env-jetpack6]    | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
-| ![target-hailort]                     | ![env-na]          | ![status-planned]                                                      |
-| ![target-openvino]                    | ![env-na]          | ![status-planned]                                                      |
+| 🎯 Target             |                  | ⚙️ Env              | 📦 Status                                                               |
+| -------------------- | ---------------- | ------------------ | ---------------------------------------------------------------------- |
+| ![target-tensorrt10] | ![target-cuda12] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
+| ![target-tensorrt10] | ![target-cuda13] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
+| ![target-tensorrt10] | ![target-cuda12] | ![env-jetpack6]    | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
+| ![target-hailort]    |                  | ![env-na]          | ![status-planned]                                                      |
+| ![target-openvino]   |                  | ![env-na]          | ![status-planned]                                                      |
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
 [target-cuda12]:   https://img.shields.io/badge/-CUDA%2012.x-76B900?style=flat-square&logo=nvidia&logoColor=white
