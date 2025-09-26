@@ -49,15 +49,15 @@ if(BUILD_WITH_TENSORRT)
 
     target_compile_definitions(retinify PRIVATE BUILD_WITH_TENSORRT)
 
-    target_include_directories(retinify PRIVATE /usr/local/cuda/include)
+    find_package(CUDAToolkit REQUIRED)
     target_link_libraries(retinify
         PRIVATE
-            /usr/local/cuda/lib64/libcudart.so
-            /usr/local/cuda/lib64/libnppc.so
-            /usr/local/cuda/lib64/libnppidei.so
-            /usr/local/cuda/lib64/libnppicc.so
-            /usr/local/cuda/lib64/libnppig.so
-            /usr/local/cuda/lib64/libnppial.so
+            CUDA::cudart
+            CUDA::nppc
+            CUDA::nppidei
+            CUDA::nppicc
+            CUDA::nppig
+            CUDA::nppial
     )
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")

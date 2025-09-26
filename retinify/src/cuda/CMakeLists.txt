@@ -8,8 +8,15 @@ file(GLOB SRCS_CUDA
 
 add_library(retinify-cuda STATIC ${SRCS_CUDA})
 
-set_target_properties(retinify-cuda PROPERTIES
-    POSITION_INDEPENDENT_CODE ON
+find_package(CUDAToolkit REQUIRED)
+target_link_libraries(retinify-cuda
+    PUBLIC
+        CUDA::cudart
+)
+
+set_target_properties(retinify-cuda 
+    PROPERTIES
+        POSITION_INDEPENDENT_CODE ON
 )
 
 target_include_directories(retinify-cuda

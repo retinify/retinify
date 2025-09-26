@@ -6,7 +6,7 @@ This script generates a Debian package, enabling clean installation, easy updati
 ## Dependencies
 Build Toolchain
 - [GCC](https://gcc.gnu.org/releases.html): 11 or later
-- [CMake](https://cmake.org/download/): 3.14 or later
+- [CMake](https://cmake.org/download/): 3.22 or later
   
 AI Runtime
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive): 12.x, 13.x
