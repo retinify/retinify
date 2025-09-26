@@ -9,6 +9,7 @@ option(BUILD_TESTS "Build tests" ON)
 # PROJECT
 if(BUILD_WITH_TENSORRT)
     message(STATUS "BUILD_WITH_TENSORRT=ON -> enabling CXX and CUDA languages")
+    set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
     project(retinify LANGUAGES CXX CUDA)
 else()
     project(retinify LANGUAGES CXX)
