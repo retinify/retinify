@@ -75,22 +75,20 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
   Detailed class and function-level documentation for developers.
 
 ## Supported Backends
-| 🎯 Target             |                  | ⚙️ Env              | 📦 Status                                                               |
-| -------------------- | ---------------- | ------------------ | ---------------------------------------------------------------------- |
-| ![target-tensorrt10] | ![target-cuda12] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
-| ![target-tensorrt10] | ![target-cuda13] | ![env-ubuntu-2404] | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
-| ![target-tensorrt10] | ![target-cuda12] | ![env-jetpack6]    | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
-| ![target-hailort]    |                  | ![env-na]          | ![status-planned]                                                      |
-| ![target-openvino]   |                  | ![env-na]          | ![status-planned]                                                      |
+| 🎯 Target             | ⚙️ Env           | 📦 Status                                                               |
+| -------------------- | --------------- | ---------------------------------------------------------------------- |
+| ![target-tensorrt10] | ![env-cuda12]   | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
+| ![target-tensorrt10] | ![env-cuda13]   | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
+| ![target-tensorrt10] | ![env-jetpack6] | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
+| ![target-hailort]    | ![env-na]       | ![status-planned]                                                      |
+| ![target-openvino]   | ![env-na]       | ![status-planned]                                                      |
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
-[target-cuda12]:   https://img.shields.io/badge/-CUDA%2012.x-76B900?style=flat-square&logo=nvidia&logoColor=white
-[target-cuda13]:   https://img.shields.io/badge/-CUDA%2013.x-76B900?style=flat-square&logo=nvidia&logoColor=white
 [target-hailort]:    https://img.shields.io/badge/-HailoRT-lightgray?style=flat-square
 [target-openvino]:   https://img.shields.io/badge/-OpenVINO-lightgray?style=flat-square
 
-[env-ubuntu-2404]: https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white
-[env-ubuntu-2204]: https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white
+[env-cuda12]:   https://img.shields.io/badge/-CUDA%2012.x-76B900?style=flat-square&logo=nvidia&logoColor=white
+[env-cuda13]:   https://img.shields.io/badge/-CUDA%2013.x-76B900?style=flat-square&logo=nvidia&logoColor=white
 [env-jetpack6]: https://img.shields.io/badge/-JETPACK%206-76B900?style=flat-square&logo=nvidia&logoColor=white
 [env-na]:       https://img.shields.io/badge/-TBD-lightgray?style=flat-square
 
