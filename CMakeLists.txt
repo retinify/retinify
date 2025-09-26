@@ -1,10 +1,20 @@
 ﻿# CMAKE
-cmake_minimum_required(VERSION 3.14)
-message(STATUS "CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}")
-set(CMAKE_BUILD_TYPE Release)
+cmake_minimum_required(VERSION 3.22)
+
+# BUILD OPTIONS
+option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
+option(BUILD_SAMPLES "Build samples" ON)
+option(BUILD_TESTS "Build tests" ON)
 
 # PROJECT
-project(retinify)
+if(BUILD_WITH_TENSORRT)
+    message(STATUS "BUILD_WITH_TENSORRT=ON -> enabling CXX and CUDA languages")
+    set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
+    project(retinify LANGUAGES CXX CUDA)
+else()
+    project(retinify LANGUAGES CXX)
+endif()
+set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_INSTALL_PREFIX "/usr")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -34,11 +44,6 @@ configure_package_config_file(
 install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
     DESTINATION "lib/cmake/retinify"
 )
-
-# BUILD OPTIONS
-option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
-option(BUILD_SAMPLES "Build samples" ON)
-option(BUILD_TESTS "Build tests" ON)
 
 # ALL IN ONE HEADER
 set(LIBRETINIFY_OPTION_INCLUDES "")

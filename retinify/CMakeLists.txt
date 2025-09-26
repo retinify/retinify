@@ -5,18 +5,12 @@ file(GLOB SRCS_CXX
     ./include/*.hpp
 )
 
-# CUDA SOURCES
-if (BUILD_WITH_TENSORRT)
-    enable_language(CUDA)
-    file(GLOB SRCS_CUDA ./src/cuda/*.cu ./src/cuda/*.h)
-    list(APPEND SRCS_CXX ${SRCS_CUDA})
-endif()
-
 # LIBRARY
 add_library(retinify SHARED ${SRCS_CXX})
-set_target_properties(retinify PROPERTIES
-    VERSION ${PROJECT_VERSION}
-    SOVERSION ${PROJECT_VERSION_MAJOR}
+set_target_properties(retinify 
+    PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 # INCLUDES
@@ -30,9 +24,13 @@ target_include_directories(retinify
 
 # SETTINGS
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+
+target_compile_features(retinify 
+    PUBLIC 
+        cxx_std_20
+)
+
 target_compile_options(retinify
-    PUBLIC
-        $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>
     PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility=hidden>
         $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
@@ -42,37 +40,27 @@ target_compile_options(retinify
 )
 
 if(BUILD_WITH_TENSORRT)
-    set_target_properties(retinify PROPERTIES
-        CUDA_ARCHITECTURES "75;80;86;87;89"
+    add_subdirectory(src/cuda)
+    target_link_libraries(retinify 
+        PRIVATE 
+            retinify-cuda
     )
 
-    target_compile_options(retinify
-        PRIVATE
-            $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>
-            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility=hidden>
-            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fvisibility-inlines-hidden>
-            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-funroll-loops>
-            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fno-rtti>
-            $<$<COMPILE_LANGUAGE:CUDA>:-O3>
-            $<$<COMPILE_LANGUAGE:CUDA>:--use_fast_math>
-            $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
-            $<$<COMPILE_LANGUAGE:CUDA>:--ptxas-options=-v>
+    target_compile_definitions(retinify 
+        PUBLIC 
+            BUILD_WITH_TENSORRT
     )
-endif()
 
-# DEPENDENCIES
-if(BUILD_WITH_TENSORRT)
-    target_compile_definitions(retinify PUBLIC BUILD_WITH_TENSORRT)
-
-    target_include_directories(retinify PUBLIC /usr/local/cuda/include)
+    find_package(CUDAToolkit REQUIRED)
     target_link_libraries(retinify
         PUBLIC
-            /usr/local/cuda/lib64/libcudart.so
-            /usr/local/cuda/lib64/libnppc.so
-            /usr/local/cuda/lib64/libnppidei.so
-            /usr/local/cuda/lib64/libnppicc.so
-            /usr/local/cuda/lib64/libnppig.so
-            /usr/local/cuda/lib64/libnppial.so
+            CUDA::cudart
+            CUDA::cuda_driver
+            CUDA::nppc
+            CUDA::nppidei
+            CUDA::nppicc
+            CUDA::nppig
+            CUDA::nppial
     )
 
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
@@ -110,9 +98,8 @@ if(BUILD_WITH_TENSORRT)
         )
         message(STATUS "TensorRT linked (${CMAKE_SYSTEM_PROCESSOR})")
     else()
-        message(WARNING "TensorRT libraries not found (${CMAKE_SYSTEM_PROCESSOR})")
+        message(FATAL_ERROR "TensorRT libraries not found (${CMAKE_SYSTEM_PROCESSOR})")
     endif()
-else()
 endif()
 
 # INSTALL
