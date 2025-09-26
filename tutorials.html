@@ -131,12 +131,9 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <h2><a class="anchor" id="autotoc_md11"></a>
 4. Create a retinify project</h2>
 <p>We recommend using a CMake-based project when integrating retinify. <br  />
- Retinify requires <b>C++20</b> and <b>GCC 11 or later</b>. <br  />
- </p><div class="fragment"><div class="line">set(CMAKE_CXX_STANDARD 20)</div>
-<div class="line"> </div>
-<div class="line">find_package(retinify REQUIRED)</div>
-<div class="line"> </div>
-<div class="line">target_link_libraries(${PROJECT_NAME} retinify)</div>
+ Retinify requires <b>GCC 11 or later</b>. <br  />
+ </p><div class="fragment"><div class="line">find_package(retinify REQUIRED)</div>
+<div class="line">target_link_libraries(${PROJECT_NAME} retinify::retinify)</div>
 </div><!-- fragment --><p>In this tutorial, we will use image data in the form of <code>cv::Mat</code>. <br  />
  Stereo matching can be performed using the <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code>. <br  />
 </p>
