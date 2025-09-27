@@ -54,6 +54,26 @@ using Mat3x4f = std::array<std::array<float, 4>, 3>;
 using Mat4x4f = std::array<std::array<float, 4>, 4>;
 
 /// @brief
+/// Rectangle structure.
+/// @tparam T
+/// Type of the rectangle coordinates and dimensions.
+template <typename T> struct Rect2
+{
+    T x{0};
+    T y{0};
+    T width{0};
+    T height{0};
+};
+
+/// @brief
+/// 2D rectangle (int).
+using Rect2i = Rect2<std::int32_t>;
+
+/// @brief
+/// 2D rectangle (double).
+using Rect2d = Rect2<double>;
+
+/// @brief
 /// Create a 3x3 identity matrix.
 /// @return
 /// 3x3 identity matrix.
@@ -182,17 +202,27 @@ struct DistortionFisheye
     double k4{0};
 };
 
-/// @brief Stereo camera calibration parameters.
+/// @brief
+/// Stereo camera calibration parameters.
 struct CalibrationParameters
 {
-    Intrinsics leftIntrinsics;    // Intrinsics for the left camera
-    Distortion leftDistortion;    // Distortion for the left camera
-    Intrinsics rightIntrinsics;   // Intrinsics for the right camera
-    Distortion rightDistortion;   // Distortion for the right camera
-    Mat3x3d rotation;             // Rotation from the left to the right camera
-    Vec3d translation;            // Translation from the left to the right camera
-    std::uint32_t imageWidth{0};  // Image width in pixels
-    std::uint32_t imageHeight{0}; // Image height in pixels
+    Intrinsics leftIntrinsics;   // Intrinsics for the left camera
+    Distortion leftDistortion;   // Distortion for the left camera
+    Intrinsics rightIntrinsics;  // Intrinsics for the right camera
+    Distortion rightDistortion;  // Distortion for the right camera
+    Mat3x3d rotation;            // Rotation from the left to the right camera
+    Vec3d translation;           // Translation from the left to the right camera
+    std::uint32_t imageWidth{};  // Image width in pixels
+    std::uint32_t imageHeight{}; // Image height in pixels
+
+    Rect2i leftValidRoi{};  // Valid ROI for the left image
+    Rect2i rightValidRoi{}; // Valid ROI for the right image
+
+    double rmsReprojectionError{};     // RMS reprojection error [pixels]
+    std::uint64_t calibrationTimeNs{}; // Calibration timestamp in Unix time [nanoseconds]
+
+    std::array<char, 64> leftCameraSerial{};  // Left camera serial ID
+    std::array<char, 64> rightCameraSerial{}; // Right camera serial ID
 };
 
 /// @brief
@@ -235,13 +265,19 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// Output projection matrix for the second camera.
 /// @param mappingMatrix
 /// Output mapping matrix.
+/// @param alpha
+/// A free scaling parameter that controls cropping after rectification:
+/// 0 keeps only valid pixels (no black borders),
+/// 1 preserves the full original image (black borders included),
+/// values between 0 and 1 yield intermediate results,
+/// and -1 applies the default behavior.
 RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
                                 const Intrinsics &intrinsics2, const Distortion &distortion2, //
                                 const Mat3x3d &rotation, const Vec3d &translation,            //
                                 std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                                 Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                                 Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
-                                Mat4x4d &mappingMatrix) noexcept -> void;
+                                Mat4x4d &mappingMatrix, double alpha) noexcept -> void;
 
 /// @brief
 /// Initialize undistort and rectify maps for image remapping.

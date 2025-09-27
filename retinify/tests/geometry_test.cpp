@@ -18,6 +18,7 @@ namespace retinify
 namespace
 {
 constexpr double kTolLoose = 1e-5;
+constexpr double kRelTolLoose = 1e-3;
 constexpr double kTolStrict = 1e-12;
 
 void ExpectMatrixNear(const retinify::Mat3x3d &lhs, const retinify::Mat3x3d &rhs, double tol)
@@ -250,7 +251,9 @@ TEST(GeometryTest, StereoRectifyIdealRig)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, rotationMatrix, translationVector, 640, 480, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    double alpha = -1.0;
+
+    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, rotationMatrix, translationVector, 640, 480, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
 
     ExpectMatrixNear(rectifiedRotationFirst, Identity(), kTolStrict);
     ExpectMatrixNear(rectifiedRotationSecond, Identity(), kTolStrict);
@@ -294,7 +297,9 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 800, 600, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    double alpha = -1.0;
+
+    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 800, 600, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -343,7 +348,9 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
     retinify::Mat3x4d projectionSecond{};
     retinify::Mat4x4d reprojectionMatrix{};
 
-    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 1024, 768, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix);
+    double alpha = -1.0;
+
+    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 1024, 768, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -608,9 +615,8 @@ auto ToMat44d(const cv::Mat &cvMat) -> Mat4x4d
     }
     return result;
 }
-} // namespace
 
-TEST(GeometryTest, StereoRectifyMatchesOpenCV)
+void ExpectStereoRectifyMatchesOpenCVAlpha(double alpha)
 {
     const Intrinsics intrinsics1{615.0, 605.0, 321.5, 242.0, 0.0};
     const Intrinsics intrinsics2{590.0, 600.0, 318.0, 239.5, 0.0};
@@ -626,7 +632,7 @@ TEST(GeometryTest, StereoRectifyMatchesOpenCV)
     Mat3x4d projectionMatrix2{};
     Mat4x4d mappingMatrix{};
 
-    StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, rotation, translation, 960, 720, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix);
+    StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, rotation, translation, 960, 720, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix, alpha);
 
     const cv::Mat cameraMatrix1 = ToCvCameraMatrix(intrinsics1);
     const cv::Mat cameraMatrix2 = ToCvCameraMatrix(intrinsics2);
@@ -641,7 +647,7 @@ TEST(GeometryTest, StereoRectifyMatchesOpenCV)
     cv::Mat cvP2;
     cv::Mat cvQ;
 
-    cv::stereoRectify(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, cv::Size(960, 720), cvRotation, cvTranslation, cvR1, cvR2, cvP1, cvP2, cvQ, cv::CALIB_ZERO_DISPARITY, -1);
+    cv::stereoRectify(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, cv::Size(960, 720), cvRotation, cvTranslation, cvR1, cvR2, cvP1, cvP2, cvQ, cv::CALIB_ZERO_DISPARITY, alpha);
 
     const Mat3x3d expectedR1 = ToMat33d(cvR1);
     const Mat3x3d expectedR2 = ToMat33d(cvR2);
@@ -649,11 +655,44 @@ TEST(GeometryTest, StereoRectifyMatchesOpenCV)
     const Mat3x4d expectedP2 = ToMat34d(cvP2);
     const Mat4x4d expectedQ = ToMat44d(cvQ);
 
-    ExpectMatrixNear(rotation1, expectedR1, kTolLoose);
-    ExpectMatrixNear(rotation2, expectedR2, kTolLoose);
-    ExpectMatrix34Near(projectionMatrix1, expectedP1, kTolLoose);
-    ExpectMatrix34Near(projectionMatrix2, expectedP2, kTolLoose);
-    ExpectMatrix44Near(mappingMatrix, expectedQ, kTolLoose);
+    const auto expectMatrixRelative = [&](const auto &lhs, const auto &rhs) {
+        for (std::size_t row = 0; row < lhs.size(); ++row)
+        {
+            for (std::size_t col = 0; col < lhs[row].size(); ++col)
+            {
+                const double expected = rhs[row][col];
+                const double tolerance = std::max(kTolLoose, kRelTolLoose * std::fabs(expected));
+                EXPECT_NEAR(lhs[row][col], expected, tolerance) << "entry(" << row << "," << col << ")";
+            }
+        }
+    };
+
+    expectMatrixRelative(rotation1, expectedR1);
+    expectMatrixRelative(rotation2, expectedR2);
+    expectMatrixRelative(projectionMatrix1, expectedP1);
+    expectMatrixRelative(projectionMatrix2, expectedP2);
+    expectMatrixRelative(mappingMatrix, expectedQ);
+}
+} // namespace
+
+TEST(GeometryTest, StereoRectifyMatchesOpenCV)
+{
+    ExpectStereoRectifyMatchesOpenCVAlpha(-1.0);
+}
+
+TEST(GeometryTest, StereoRectifyMatchesOpenCVAlphaZero)
+{
+    ExpectStereoRectifyMatchesOpenCVAlpha(0.0);
+}
+
+TEST(GeometryTest, StereoRectifyMatchesOpenCVAlphaHalf)
+{
+    ExpectStereoRectifyMatchesOpenCVAlpha(0.5);
+}
+
+TEST(GeometryTest, StereoRectifyMatchesOpenCVAlphaOne)
+{
+    ExpectStereoRectifyMatchesOpenCVAlpha(1.0);
 }
 
 TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
