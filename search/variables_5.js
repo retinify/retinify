@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['p1_0',['p1',['../structretinify_1_1Distortion.html#a0cdc8c177c5c55378553df0e085fbc73',1,'retinify::Distortion']]],
-  ['p2_1',['p2',['../structretinify_1_1Distortion.html#aed816a6da7ba3baed94931791738b514',1,'retinify::Distortion']]]
+  ['leftcameraserial_0',['leftCameraSerial',['../structretinify_1_1CalibrationParameters.html#a7b2f9dd7cc462807c2a1e727cdac6e76',1,'retinify::CalibrationParameters']]],
+  ['leftdistortion_1',['leftDistortion',['../structretinify_1_1CalibrationParameters.html#a59e309fd1a139e1ea77a39bb2eccef4f',1,'retinify::CalibrationParameters']]],
+  ['leftintrinsics_2',['leftIntrinsics',['../structretinify_1_1CalibrationParameters.html#afe016557eb7bde24deac0d75c90bacc5',1,'retinify::CalibrationParameters']]]
 ];

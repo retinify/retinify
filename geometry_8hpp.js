@@ -1,5 +1,6 @@
 var geometry_8hpp =
 [
+    [ "retinify::Rect2< T >", "structretinify_1_1Rect2.html", "structretinify_1_1Rect2" ],
     [ "retinify::Intrinsics", "structretinify_1_1Intrinsics.html", "structretinify_1_1Intrinsics" ],
     [ "retinify::Distortion", "structretinify_1_1Distortion.html", "structretinify_1_1Distortion" ],
     [ "retinify::DistortionFisheye", "structretinify_1_1DistortionFisheye.html", "structretinify_1_1DistortionFisheye" ],
@@ -14,6 +15,8 @@ var geometry_8hpp =
     [ "Point2f", "geometry_8hpp.html#aeb3be156a64738eb1b5245d2847fe15f", null ],
     [ "Point3d", "geometry_8hpp.html#a9255fb8e61a45045c8a7b9c1a819dd95", null ],
     [ "Point3f", "geometry_8hpp.html#aac7d4959a4eb865a96587b2262b92dc4", null ],
+    [ "Rect2d", "geometry_8hpp.html#a7439e708a0782c7c247fc221629633db", null ],
+    [ "Rect2i", "geometry_8hpp.html#a9647a932d46c3b73e8e815383e5db15e", null ],
     [ "Vec2d", "geometry_8hpp.html#a00859bf55fe20fbc194d4ecd64ff7002", null ],
     [ "Vec2f", "geometry_8hpp.html#a60d9e65f29123e2250b56f50804533b5", null ],
     [ "Vec3d", "geometry_8hpp.html#a1fc94eca66deaf8e12e2fdeb99fad8dc", null ],
@@ -29,7 +32,7 @@ var geometry_8hpp =
     [ "Multiply", "geometry_8hpp.html#acbcc293528213d2a5ed9275f9299ae76", null ],
     [ "Normalize", "geometry_8hpp.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
     [ "Scale", "geometry_8hpp.html#a30094f60b2a1571364e29d396f7ac0c9", null ],
-    [ "StereoRectify", "geometry_8hpp.html#ab811b299acfdd797f2322df46293bae4", null ],
+    [ "StereoRectify", "geometry_8hpp.html#a64ee9ccd29a47fbcf9846e63220acf10", null ],
     [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
     [ "UndistortPoint", "geometry_8hpp.html#a8876f0e2847382702e20d5af46ef6fe9", null ]
 ];
