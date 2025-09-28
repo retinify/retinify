@@ -5,6 +5,7 @@
 #include "retinify/logging.hpp"
 
 #include <array>
+#include <bit>
 #include <cstdint>
 #include <exception>
 #include <filesystem>
