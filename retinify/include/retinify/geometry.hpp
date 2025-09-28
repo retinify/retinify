@@ -11,47 +11,85 @@
 
 namespace retinify
 {
-/// @brief 2D vector (double).
+/// @brief
+/// 2D vector (double).
 using Vec2d = std::array<double, 2>;
 
-/// @brief 3D vector (double).
+/// @brief
+/// 3D vector (double).
 using Vec3d = std::array<double, 3>;
 
-/// @brief 2D point (double).
+/// @brief
+/// 2D point (double).
 using Point2d = std::array<double, 2>;
 
-/// @brief 3D point (double).
+/// @brief
+/// 3D point (double).
 using Point3d = std::array<double, 3>;
 
-/// @brief 3x3 matrix (double, row-major).
+/// @brief
+/// 3x3 matrix (double, row-major).
 using Mat3x3d = std::array<std::array<double, 3>, 3>;
 
-/// @brief 3x4 matrix (double, row-major).
+/// @brief
+/// 3x4 matrix (double, row-major).
 using Mat3x4d = std::array<std::array<double, 4>, 3>;
 
-/// @brief 4x4 matrix (double, row-major).
+/// @brief
+/// 4x4 matrix (double, row-major).
 using Mat4x4d = std::array<std::array<double, 4>, 4>;
 
-/// @brief 2D vector (float).
+/// @brief
+/// 2D vector (float).
 using Vec2f = std::array<float, 2>;
 
-/// @brief 3D vector (float).
+/// @brief
+/// 3D vector (float).
 using Vec3f = std::array<float, 3>;
 
-/// @brief 2D point (float).
+/// @brief
+/// 2D point (float).
 using Point2f = std::array<float, 2>;
 
-/// @brief 3D point (float).
+/// @brief
+/// 3D point (float).
 using Point3f = std::array<float, 3>;
 
-/// @brief 3x3 matrix (float, row-major).
+/// @brief
+/// 3x3 matrix (float, row-major).
 using Mat3x3f = std::array<std::array<float, 3>, 3>;
 
-/// @brief 3x4 matrix (float, row-major).
+/// @brief
+/// 3x4 matrix (float, row-major).
 using Mat3x4f = std::array<std::array<float, 4>, 3>;
 
-/// @brief 4x4 matrix (float, row-major).
+/// @brief
+/// 4x4 matrix (float, row-major).
 using Mat4x4f = std::array<std::array<float, 4>, 4>;
+
+/// @brief
+/// Rectangle structure.
+/// @tparam T
+/// Type of the rectangle coordinates and dimensions.
+template <typename T> struct Rect2
+{
+    /// @brief X coordinate of the top-left corner.
+    T x{0};
+    /// @brief Y coordinate of the top-left corner.
+    T y{0};
+    /// @brief Width of the rectangle.
+    T width{0};
+    /// @brief Height of the rectangle.
+    T height{0};
+};
+
+/// @brief
+/// 2D rectangle (int).
+using Rect2i = Rect2<std::int32_t>;
+
+/// @brief
+/// 2D rectangle (double).
+using Rect2d = Rect2<double>;
 
 /// @brief
 /// Create a 3x3 identity matrix.
@@ -151,11 +189,21 @@ RETINIFY_API auto Log(const Mat3x3d &rotation) noexcept -> Vec3d;
 /// Camera intrinsic parameters with focal lengths, principal point, and skew.
 struct Intrinsics
 {
-    double fx{0};   // Focal length in x [pixels]
-    double fy{0};   // Focal length in y [pixels]
-    double cx{0};   // Principal point x-coordinate [pixels]
-    double cy{0};   // Principal point y-coordinate [pixels]
-    double skew{0}; // Skew coefficient
+    /// @brief
+    /// Focal length in x [pixels]
+    double fx{0};
+    /// @brief
+    /// Focal length in y [pixels]
+    double fy{0};
+    /// @brief
+    /// Principal point x-coordinate [pixels]
+    double cx{0};
+    /// @brief
+    /// Principal point y-coordinate [pixels]
+    double cy{0};
+    /// @brief
+    /// Skew coefficient
+    double skew{0};
 };
 
 /// @brief
@@ -182,17 +230,46 @@ struct DistortionFisheye
     double k4{0};
 };
 
-/// @brief Stereo camera calibration parameters.
+/// @brief
+/// Stereo camera calibration parameters.
 struct CalibrationParameters
 {
-    Intrinsics leftIntrinsics;    // Intrinsics for the left camera
-    Distortion leftDistortion;    // Distortion for the left camera
-    Intrinsics rightIntrinsics;   // Intrinsics for the right camera
-    Distortion rightDistortion;   // Distortion for the right camera
-    Mat3x3d rotation;             // Rotation from the left to the right camera
-    Vec3d translation;            // Translation from the left to the right camera
-    std::uint32_t imageWidth{0};  // Image width in pixels
-    std::uint32_t imageHeight{0}; // Image height in pixels
+    /// @brief
+    /// Intrinsics for the left camera
+    Intrinsics leftIntrinsics;
+    /// @brief
+    /// Distortion for the left camera
+    Distortion leftDistortion;
+    /// @brief
+    /// Intrinsics for the right camera
+    Intrinsics rightIntrinsics;
+    /// @brief
+    /// Distortion for the right camera
+    Distortion rightDistortion;
+    /// @brief
+    /// Rotation from the left to the right camera
+    Mat3x3d rotation;
+    /// @brief
+    /// Translation from the left to the right camera
+    Vec3d translation;
+    /// @brief
+    /// Image width [pixels]
+    std::uint32_t imageWidth{};
+    /// @brief
+    /// Image height [pixels]
+    std::uint32_t imageHeight{};
+    /// @brief
+    /// Root mean square reprojection error [pixels]
+    double reprojectionError{};
+    /// @brief
+    /// Calibration timestamp in Unix time [nanoseconds]
+    std::uint64_t calibrationTime{};
+    /// @brief
+    /// Left camera hardware serial
+    std::array<char, 128> leftCameraSerial{};
+    /// @brief
+    /// Right camera hardware serial
+    std::array<char, 128> rightCameraSerial{};
 };
 
 /// @brief
@@ -235,13 +312,19 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// Output projection matrix for the second camera.
 /// @param mappingMatrix
 /// Output mapping matrix.
+/// @param alpha
+/// A free scaling parameter that controls cropping after rectification:
+/// 0 keeps only valid pixels (no black borders),
+/// 1 preserves the full original image (black borders included),
+/// values between 0 and 1 yield intermediate results,
+/// and -1 applies the default behavior.
 RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
                                 const Intrinsics &intrinsics2, const Distortion &distortion2, //
                                 const Mat3x3d &rotation, const Vec3d &translation,            //
                                 std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                                 Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                                 Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
-                                Mat4x4d &mappingMatrix) noexcept -> void;
+                                Mat4x4d &mappingMatrix, double alpha) noexcept -> void;
 
 /// @brief
 /// Initialize undistort and rectify maps for image remapping.

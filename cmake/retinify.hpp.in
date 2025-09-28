@@ -6,6 +6,7 @@
 #include "retinify/attributes.hpp"
 #include "retinify/colormap.hpp"
 #include "retinify/geometry.hpp"
+#include "retinify/io.hpp"
 #include "retinify/logging.hpp"
 #include "retinify/paths.hpp"
 #include "retinify/pipeline.hpp"
