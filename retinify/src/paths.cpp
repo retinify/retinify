@@ -6,13 +6,14 @@
 #include "retinify/retinify_onnx.hpp"
 #include "retinify/version.hpp"
 
-#include <array>
 #include <cstdlib>
 #include <cstring>
 #include <exception>
 #include <filesystem>
 
 namespace retinify
+{
+namespace
 {
 constexpr auto kConfigDirName = ".config/retinify";
 constexpr auto kCacheDirName = ".cache/retinify";
@@ -59,6 +60,42 @@ static inline auto CreateDirectory(const char *path) -> bool
     return !error;
 }
 
+static inline auto ResolveUserDirectory(const char *relativePath, const char *errorMessage) noexcept -> const char *
+{
+    try
+    {
+        const char *homeDirectory = HomeDirectoryPath();
+        if (homeDirectory == nullptr)
+        {
+            return nullptr;
+        }
+
+        const char *fullPath = JoinPathWithVersion(homeDirectory, relativePath);
+        if (fullPath == nullptr || std::strlen(fullPath) == 0)
+        {
+            return nullptr;
+        }
+
+        if (CreateDirectory(fullPath))
+        {
+            return fullPath;
+        }
+
+        LogError(errorMessage);
+    }
+    catch (std::exception &e)
+    {
+        LogError(e.what());
+    }
+    catch (...)
+    {
+        LogFatal("An unknown error occurred.");
+    }
+
+    return nullptr;
+}
+} // namespace
+
 auto HomeDirectoryPath() noexcept -> const char *
 {
     const char *path = std::getenv("HOME");
@@ -73,110 +110,22 @@ auto HomeDirectoryPath() noexcept -> const char *
 
 auto ConfigDirectoryPath() noexcept -> const char *
 {
-    try
-    {
-        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kConfigDirName);
-        if (path != nullptr && std::strlen(path) > 0)
-        {
-            if (CreateDirectory(path))
-            {
-                return path;
-            }
-
-            LogError("Failed to create or access the configuration directory.");
-        }
-    }
-    catch (std::exception &e)
-    {
-        LogError(e.what());
-    }
-    catch (...)
-    {
-        LogFatal("An unknown error occurred.");
-    }
-
-    return nullptr;
+    return ResolveUserDirectory(kConfigDirName, "Failed to create or access the configuration directory.");
 }
 
 auto CacheDirectoryPath() noexcept -> const char *
 {
-    try
-    {
-        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kCacheDirName);
-        if (path != nullptr && std::strlen(path) > 0)
-        {
-            if (CreateDirectory(path))
-            {
-                return path;
-            }
-
-            LogError("Failed to create or access the cache directory.");
-        }
-    }
-    catch (std::exception &e)
-    {
-        LogError(e.what());
-    }
-    catch (...)
-    {
-        LogFatal("An unknown error occurred.");
-    }
-
-    return nullptr;
+    return ResolveUserDirectory(kCacheDirName, "Failed to create or access the cache directory.");
 }
 
 auto DataDirectoryPath() noexcept -> const char *
 {
-    try
-    {
-        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kDataDirName);
-        if (path != nullptr && std::strlen(path) > 0)
-        {
-            if (CreateDirectory(path))
-            {
-                return path;
-            }
-
-            LogError("Failed to create or access the data directory.");
-        }
-    }
-    catch (std::exception &e)
-    {
-        LogError(e.what());
-    }
-    catch (...)
-    {
-        LogFatal("An unknown error occurred.");
-    }
-
-    return nullptr;
+    return ResolveUserDirectory(kDataDirName, "Failed to create or access the data directory.");
 }
 
 auto StateDirectoryPath() noexcept -> const char *
 {
-    try
-    {
-        const char *path = JoinPathWithVersion(HomeDirectoryPath(), kStateDirName);
-        if (path != nullptr && std::strlen(path) > 0)
-        {
-            if (CreateDirectory(path))
-            {
-                return path;
-            }
-
-            LogError("Failed to create or access the state directory.");
-        }
-    }
-    catch (std::exception &e)
-    {
-        LogError(e.what());
-    }
-    catch (...)
-    {
-        LogFatal("An unknown error occurred.");
-    }
-
-    return nullptr;
+    return ResolveUserDirectory(kStateDirName, "Failed to create or access the state directory.");
 }
 
 auto ONNXModelFilePath() noexcept -> const char *
