@@ -7,6 +7,7 @@
 
 #ifdef BUILD_WITH_TENSORRT
 #include "cuda/lrcheck.h"
+#include "cuda/occlusion.h"
 #include <npp.h>
 #else
 #endif
@@ -313,6 +314,49 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
     (void)right;
     (void)output;
     (void)relativeError;
+    (void)stream;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+#endif
+}
+
+auto DisparityOcclusion32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status
+{
+    if (left.Empty() || output.Empty())
+    {
+        LogError("One of the input or output is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (left.Channels() != 1 || output.Channels() != 1)
+    {
+        LogError("All of the input and output must have 1 channel.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if ((left.Cols() != output.Cols()) || (left.Rows() != output.Rows()))
+    {
+        LogError("Input and output must have the same size.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+#ifdef BUILD_WITH_TENSORRT
+    cudaError_t error = cudaDisparityOcclusionFilter(static_cast<const float *>(left.Data()), left.Stride(),     //
+                                                     static_cast<float *>(output.Data()), output.Stride(),       //
+                                                     static_cast<std::uint32_t>(left.Cols()),                    //
+                                                     static_cast<std::uint32_t>(left.Rows()),                    //
+                                                     stream.GetCudaStream());
+
+    if (error != cudaSuccess)
+    {
+        LogError("cudaDisparityOcclusionFilter failed");
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
+
+    return Status{};
+#else
+    (void)left;
+    (void)output;
     (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};

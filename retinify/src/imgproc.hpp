@@ -105,4 +105,16 @@ namespace retinify
 /// @return
 /// Status code.
 [[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError, Stream &stream) noexcept -> Status;
+
+/// @brief
+/// Remove occluded pixels from a 32-bit floating-point, 1-channel left disparity map.
+/// @param left
+/// Input left disparity map (32-bit floating-point, 1-channel).
+/// @param output
+/// Output disparity map with occlusions removed (32-bit floating-point, 1-channel).
+/// @param stream
+/// Execution stream.
+/// @return
+/// Status code.
+[[nodiscard]] auto DisparityOcclusion32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status;
 } // namespace retinify

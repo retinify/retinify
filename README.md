@@ -80,8 +80,8 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
 | ![target-tensorrt10] | ![env-cuda12]   | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
 | ![target-tensorrt10] | ![env-cuda13]   | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
 | ![target-tensorrt10] | ![env-jetpack6] | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
-| ![target-hailort]    | ![env-na]       | ![status-planned]                                                      |
-| ![target-openvino]   | ![env-na]       | ![status-planned]                                                      |
+<!-- | ![target-hailort]    | ![env-na]       | ![status-planned]                                                      | -->
+<!-- | ![target-openvino]   | ![env-na]       | ![status-planned]                                                      | -->
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
 [target-hailort]:    https://img.shields.io/badge/-HailoRT-lightgray?style=flat-square
@@ -104,7 +104,7 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
 
 ## Pipeline Latencies
 Latency includes the time for image upload, inference, and disparity download, reported as the median over 10,000 iterations (measured with `retinify::Pipeline`).  
-These measurements were taken using each setting of `retinify::Mode`.  
+These measurements were taken using each setting of `retinify::DepthMode`.  
 
 > [!NOTE]
 > Results may vary depending on the execution environment.

@@ -35,7 +35,7 @@ TEST(PipelineTest, RunLowResolution)
 
     Pipeline pipeline;
 
-    Status stInit = pipeline.Initialize(width, height, Mode::ACCURATE);
+    Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::ACCURATE);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
     Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
@@ -52,7 +52,7 @@ TEST(PipelineTest, RunAccurateHighResolution)
 
     Pipeline pipeline;
 
-    Status stInit = pipeline.Initialize(width, height, Mode::ACCURATE);
+    Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::ACCURATE);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
     Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);

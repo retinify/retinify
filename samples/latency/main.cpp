@@ -14,10 +14,10 @@ static constexpr int kBenchmarkImageHeight = 720;
 static constexpr int kBenchmarkImageWidth = 1280;
 static constexpr int kBenchmarkNumIters = 10000;
 
-double BenchmarkPipeline(retinify::Mode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
+double BenchmarkPipeline(retinify::DepthMode mode, const cv::Mat &img0, const cv::Mat &img1, cv::Mat &disp, int num_iters = 10000)
 {
     retinify::Pipeline pipeline;
-    retinify::Status statusInitialize = pipeline.Initialize(static_cast<std::uint32_t>(kBenchmarkImageWidth), static_cast<std::uint32_t>(kBenchmarkImageHeight), mode);
+    retinify::Status statusInitialize = pipeline.Initialize(static_cast<std::uint32_t>(kBenchmarkImageWidth), static_cast<std::uint32_t>(kBenchmarkImageHeight), retinify::PixelFormat::RGB8, mode);
     if (!statusInitialize.IsOK())
     {
         retinify::LogError("Pipeline initialization failed for mode.");
@@ -55,7 +55,7 @@ int main()
 
     retinify::SetLogLevel(retinify::LogLevel::INFO);
 
-    const std::vector<retinify::Mode> modes = {retinify::Mode::FAST, retinify::Mode::BALANCED, retinify::Mode::ACCURATE};
+    const std::vector<retinify::DepthMode> modes = {retinify::DepthMode::FAST, retinify::DepthMode::BALANCED, retinify::DepthMode::ACCURATE};
 
     struct Result
     {
@@ -66,18 +66,18 @@ int main()
     std::vector<Result> results;
     results.reserve(modes.size());
 
-    for (retinify::Mode m : modes)
+    for (retinify::DepthMode m : modes)
     {
         std::string mode_name;
         switch (m)
         {
-        case retinify::Mode::FAST:
+        case retinify::DepthMode::FAST:
             mode_name = "FAST";
             break;
-        case retinify::Mode::BALANCED:
+        case retinify::DepthMode::BALANCED:
             mode_name = "BALANCED";
             break;
-        case retinify::Mode::ACCURATE:
+        case retinify::DepthMode::ACCURATE:
             mode_name = "ACCURATE";
             break;
         default:

@@ -3,6 +3,8 @@ set(CMAKE_CUDA_ARCHITECTURES 75 80 86 87 89 90)
 file(GLOB SRCS_CUDA
     lrcheck.cu
     lrcheck.h
+    occlusion.cu
+    occlusion.h
 )
 
 add_library(retinify-cuda STATIC ${SRCS_CUDA})
