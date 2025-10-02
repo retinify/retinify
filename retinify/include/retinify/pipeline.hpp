@@ -16,11 +16,11 @@ namespace retinify
 enum class PixelFormat : std::uint8_t
 {
     /// @brief
-    /// 8-bit 3ch, RGB format.
-    RGB8,
-    /// @brief
     /// 8-bit 1ch, Grayscale format.
     GRAY8,
+    /// @brief
+    /// 8-bit 3ch, RGB format.
+    RGB8,
 };
 
 /// @brief
@@ -69,11 +69,11 @@ class RETINIFY_API Pipeline
     /// @brief
     /// Executes the stereo matching pipeline using the given left and right image data.
     /// @param leftImageData
-    /// Pointer to the left image data (8-bit rgb).
+    /// Pointer to the left image data.
     /// @param leftImageStride
     /// Stride (in bytes) of a row in the left image.
     /// @param rightImageData
-    /// Pointer to the right image data (8-bit rgb).
+    /// Pointer to the right image data.
     /// @param rightImageStride
     /// Stride (in bytes) of a row in the right image.
     /// @param disparityData

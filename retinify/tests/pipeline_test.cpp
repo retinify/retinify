@@ -8,7 +8,24 @@
 
 namespace retinify
 {
-TEST(PipelineTest, Run)
+TEST(PipelineTest, RunGray)
+{
+    const std::uint32_t width = 1280;
+    const std::uint32_t height = 720;
+    cv::Mat left = cv::Mat::zeros(height, width, CV_8UC1);
+    cv::Mat right = cv::Mat::zeros(height, width, CV_8UC1);
+    cv::Mat disp = cv::Mat::zeros(height, width, CV_32FC1);
+
+    Pipeline pipeline;
+
+    Status stInit = pipeline.Initialize(width, height, PixelFormat::GRAY8, DepthMode::BALANCED);
+    ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
+
+    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
+    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+}
+
+TEST(PipelineTest, RunRGB)
 {
     const std::uint32_t width = 1280;
     const std::uint32_t height = 720;
@@ -18,7 +35,7 @@ TEST(PipelineTest, Run)
 
     Pipeline pipeline;
 
-    Status stInit = pipeline.Initialize(width, height);
+    Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::BALANCED);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
     Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);

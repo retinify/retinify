@@ -24,12 +24,12 @@ class Pipeline::Impl
     {
         initialized_ = false;
         (void)stream_.Destroy();
-        (void)left8UC3_.Free();
-        (void)right8UC3_.Free();
+        (void)left8U_.Free();
+        (void)right8U_.Free();
         (void)leftDisparity32FC1_.Free();
         (void)leftDisparityFiltered32FC1_.Free();
-        (void)leftResized8UC3_.Free();
-        (void)rightResized8UC3_.Free();
+        (void)leftResized8U_.Free();
+        (void)rightResized8U_.Free();
         (void)leftResized8UC1_.Free();
         (void)rightResized8UC1_.Free();
         (void)leftResized32FC1_.Free();
@@ -61,11 +61,11 @@ class Pipeline::Impl
         // Set image channels
         switch (pixelFormat)
         {
-        case PixelFormat::RGB8:
-            imageChannels_ = 3;
-            break;
         case PixelFormat::GRAY8:
             imageChannels_ = 1;
+            break;
+        case PixelFormat::RGB8:
+            imageChannels_ = 3;
             break;
         default:
             LogError("Invalid pixel format.");
@@ -100,13 +100,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = left8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8UC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = right8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -124,13 +124,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = leftResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftResized8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized8UC3_.Allocate(matchingHeight_, matchingWidth_, 3, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightResized8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -256,37 +256,37 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8UC3_.Upload(leftImageData, leftImageStride, stream_);
+        status = left8U_.Upload(leftImageData, leftImageStride, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8UC3_.Upload(rightImageData, rightImageStride, stream_);
+        status = right8U_.Upload(rightImageData, rightImageStride, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8UC3(left8UC3_, leftResized8UC3_, stream_);
+        status = ResizeImage8U(left8U_, leftResized8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8UC3(right8UC3_, rightResized8UC3_, stream_);
+        status = ResizeImage8U(right8U_, rightResized8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC3To8UC1(leftResized8UC3_, leftResized8UC1_, stream_);
+        status = ConvertImage8UToC1(leftResized8U_, leftResized8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC3To8UC1(rightResized8UC3_, rightResized8UC1_, stream_);
+        status = ConvertImage8UToC1(rightResized8U_, rightResized8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -346,14 +346,14 @@ class Pipeline::Impl
     std::size_t matchingHeight_{};   // image height for stereo matching
     std::size_t matchingWidth_{};    // image width for stereo matching
     Session session_;                // inference session
-    Mat left8UC3_;                   // input rgb image
-    Mat right8UC3_;                  // input rgb image
+    Mat left8U_;                     // input left image
+    Mat right8U_;                    // input right image
     Mat leftDisparity32FC1_;         // output left disparity map
     Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
-    Mat leftResized8UC3_;            // resized rgb image
-    Mat rightResized8UC3_;           // resized rgb image
-    Mat leftResized8UC1_;            // resized gray image
-    Mat rightResized8UC1_;           // resized gray image
+    Mat leftResized8U_;              // resized left image
+    Mat rightResized8U_;             // resized right image
+    Mat leftResized8UC1_;            // resized left gray image
+    Mat rightResized8UC1_;           // resized right gray image
     Mat leftResized32FC1_;           // resized gray image for stereo matching
     Mat rightResized32FC1_;          // resized gray image for stereo matching
     Mat disparityResized32FC1_;      // resized disparity map from stereo matching
@@ -363,7 +363,6 @@ Pipeline::Pipeline() noexcept
 {
     static_assert(sizeof(buffer_) >= sizeof(Impl), "Buffer too small for Impl");
     static_assert(alignof(std::max_align_t) >= alignof(Impl), "Buffer alignment insufficient");
-
     new (&buffer_) Impl();
 }
 
