@@ -116,5 +116,5 @@ namespace retinify
 /// Execution stream.
 /// @return
 /// Status code.
-[[nodiscard]] auto DisparityOcclusion32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status;
+[[nodiscard]] auto DisparityOcclusionFilter32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status;
 } // namespace retinify

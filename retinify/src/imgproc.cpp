@@ -320,7 +320,7 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
 #endif
 }
 
-auto DisparityOcclusion32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status
+auto DisparityOcclusionFilter32FC1(const Mat &left, Mat &output, Stream &stream) noexcept -> Status
 {
     if (left.Empty() || output.Empty())
     {
@@ -341,10 +341,10 @@ auto DisparityOcclusion32FC1(const Mat &left, Mat &output, Stream &stream) noexc
     }
 
 #ifdef BUILD_WITH_TENSORRT
-    cudaError_t error = cudaDisparityOcclusionFilter(static_cast<const float *>(left.Data()), left.Stride(),     //
-                                                     static_cast<float *>(output.Data()), output.Stride(),       //
-                                                     static_cast<std::uint32_t>(left.Cols()),                    //
-                                                     static_cast<std::uint32_t>(left.Rows()),                    //
+    cudaError_t error = cudaDisparityOcclusionFilter(static_cast<const float *>(left.Data()), left.Stride(), //
+                                                     static_cast<float *>(output.Data()), output.Stride(),   //
+                                                     static_cast<std::uint32_t>(left.Cols()),                //
+                                                     static_cast<std::uint32_t>(left.Rows()),                //
                                                      stream.GetCudaStream());
 
     if (error != cudaSuccess)

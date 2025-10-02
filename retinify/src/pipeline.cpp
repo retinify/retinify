@@ -316,7 +316,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = DisparityOcclusion32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
+        status = DisparityOcclusionFilter32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
