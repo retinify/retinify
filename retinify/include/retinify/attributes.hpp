@@ -9,4 +9,4 @@
 
 /// @brief
 /// Defines a macro to mark functions as deprecated with a custom message.
-#define RETINIFY_DEPRECATED __attribute__((deprecated("This function is deprecated. Use the new function.")))
+#define RETINIFY_DEPRECATED(message) __attribute__((deprecated(message)))
