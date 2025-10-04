@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "retinify/geometry.hpp"
 #include "retinify/status.hpp"
 
 #include <array>
@@ -60,11 +61,13 @@ class RETINIFY_API Pipeline
     /// The pixel format of the input images.
     /// @param depthMode
     /// The depth mode option for the stereo matching.
+    /// @param calibrationParameters
+    /// The stereo camera calibration parameters.
     /// @return
     /// A Status object indicating whether the initialization was successful.
-    [[nodiscard]] auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, //
-                                  PixelFormat pixelFormat = PixelFormat::RGB8,         //
-                                  DepthMode depthMode = DepthMode::ACCURATE) noexcept -> Status;
+    [[nodiscard]] auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight,                                    //
+                                  PixelFormat pixelFormat = PixelFormat::RGB8, DepthMode depthMode = DepthMode::ACCURATE, //
+                                  const CalibrationParameters &calibrationParameters = CalibrationParameters{}) noexcept -> Status;
 
     /// @brief
     /// Executes the stereo matching pipeline using the given left and right image data.
@@ -90,7 +93,7 @@ class RETINIFY_API Pipeline
     class Impl;
     auto impl() noexcept -> Impl *;
     [[nodiscard]] auto impl() const noexcept -> const Impl *;
-    static constexpr std::size_t BufferSize = 2048;
+    static constexpr std::size_t BufferSize{2048};
     alignas(alignof(std::max_align_t)) std::array<unsigned char, BufferSize> buffer_{};
 };
 } // namespace retinify

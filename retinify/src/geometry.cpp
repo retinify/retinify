@@ -694,4 +694,31 @@ auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &dis
         }
     }
 }
+
+auto InitIdentityMap(float *mapX, std::size_t mapXStride, //
+                     float *mapY, std::size_t mapYStride, //
+                     std::size_t imageWidth, std::size_t imageHeight) noexcept -> void
+{
+    if (mapX == nullptr || mapY == nullptr)
+    {
+        return;
+    }
+
+    auto *mapXBytes = reinterpret_cast<unsigned char *>(mapX);
+    auto *mapYBytes = reinterpret_cast<unsigned char *>(mapY);
+
+    for (std::size_t row = 0; row < imageHeight; ++row)
+    {
+        const std::size_t offsetX = row * mapXStride;
+        const std::size_t offsetY = row * mapYStride;
+        auto *mapXRow = reinterpret_cast<float *>(mapXBytes + offsetX);
+        auto *mapYRow = reinterpret_cast<float *>(mapYBytes + offsetY);
+        const float y = static_cast<float>(row);
+        for (std::size_t col = 0; col < imageWidth; ++col)
+        {
+            mapXRow[col] = static_cast<float>(col);
+            mapYRow[col] = y;
+        }
+    }
+}
 } // namespace retinify

@@ -79,6 +79,22 @@ namespace retinify
 [[nodiscard]] auto DisparityOcclusionFilter32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status;
 
 /// @brief
+/// Remap an 8-bit, 1-channel image using the provided x and y maps.
+/// @param src
+/// Input image (8-bit, 1- or 3-channel).
+/// @param mapX
+/// X map (32-bit floating-point, 1-channel).
+/// @param mapY
+/// Y map (32-bit floating-point, 1-channel).
+/// @param dst
+/// Output image (8-bit, 1- or 3-channel).
+/// @param stream
+/// Execution stream.
+/// @return
+/// Status code.
+[[nodiscard]] auto RemapImage8U(const Mat &src, const Mat &mapX, const Mat &mapY, Mat &dst, Stream &stream) noexcept -> Status;
+
+/// @brief
 /// Horizontally flip an 8-bit, 1-channel image.
 /// @param src
 /// Input image (8-bit, 1-channel).

@@ -24,16 +24,22 @@ class Pipeline::Impl
     {
         initialized_ = false;
         (void)stream_.Destroy();
+        (void)leftMapX_.Free();
+        (void)leftMapY_.Free();
+        (void)rightMapX_.Free();
+        (void)rightMapY_.Free();
         (void)left8U_.Free();
         (void)right8U_.Free();
+        (void)leftRectified8U_.Free();
+        (void)rightRectified8U_.Free();
         (void)leftDisparity32FC1_.Free();
         (void)leftDisparityFiltered32FC1_.Free();
-        (void)leftResized8U_.Free();
-        (void)rightResized8U_.Free();
-        (void)leftResized8UC1_.Free();
-        (void)rightResized8UC1_.Free();
-        (void)leftResized32FC1_.Free();
-        (void)rightResized32FC1_.Free();
+        (void)leftResizedRectified8U_.Free();
+        (void)rightResizedRectified8U_.Free();
+        (void)leftResizedRectified8UC1_.Free();
+        (void)rightResizedRectified8UC1_.Free();
+        (void)leftResizedRectified32FC1_.Free();
+        (void)rightResizedRectified32FC1_.Free();
         (void)disparityResized32FC1_.Free();
     }
 
@@ -42,8 +48,8 @@ class Pipeline::Impl
     Impl(Impl &&) noexcept = delete;
     auto operator=(Impl &&other) noexcept -> Impl & = delete;
 
-    auto Initialize(const std::uint32_t imageWidth, const std::uint32_t imageHeight, const PixelFormat pixelFormat, //
-                    const DepthMode depthMode) noexcept -> Status
+    auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, PixelFormat pixelFormat, //
+                    DepthMode depthMode, const CalibrationParameters &calibrationParameters) noexcept -> Status
     {
         Status status;
 
@@ -100,6 +106,141 @@ class Pipeline::Impl
             return status;
         }
 
+        status = leftMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        Mat leftMapXHost, leftMapYHost, rightMapXHost, rightMapYHost;
+        status = leftMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        if (calibrationParameters == CalibrationParameters{})
+        {
+            retinify::InitIdentityMap(static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(), //
+                                      static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride(), //
+                                      imageWidth_, imageHeight_);
+
+            retinify::InitIdentityMap(static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(), //
+                                      static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride(), //
+                                      imageWidth_, imageHeight_);
+        }
+        else
+        {
+            retinify::Mat3x3d R1, R2;
+            retinify::Mat3x4d P1, P2;
+            retinify::Mat4x4d Q;
+
+            retinify::StereoRectify(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion,   //
+                                    calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
+                                    calibrationParameters.rotation, calibrationParameters.translation,            //
+                                    static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
+                                    static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
+                                    R1, R2, P1, P2, Q, 0.0);
+
+            retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
+                                              R1, P1,                                                                     //
+                                              static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
+                                              static_cast<std::uint32_t>(calibrationParameters.imageHeight),              //
+                                              static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(),           //
+                                              static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride());          //
+
+            retinify::InitUndistortRectifyMap(calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
+                                              R2, P2,                                                                       //
+                                              static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
+                                              static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
+                                              static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(),           //
+                                              static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride());          //
+        }
+
+        status = leftMapX_.Upload(leftMapXHost.Data(), leftMapXHost.Stride(), stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftMapY_.Upload(leftMapYHost.Data(), leftMapYHost.Stride(), stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapX_.Upload(rightMapXHost.Data(), rightMapXHost.Stride(), stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapY_.Upload(rightMapYHost.Data(), rightMapYHost.Stride(), stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftMapXHost.Free();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftMapYHost.Free();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapXHost.Free();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightMapYHost.Free();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
         status = left8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
@@ -107,6 +248,18 @@ class Pipeline::Impl
         }
 
         status = right8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = leftRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -124,37 +277,37 @@ class Pipeline::Impl
             return status;
         }
 
-        status = leftResized8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = rightResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -172,13 +325,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.BindInput("left", leftResized32FC1_);
+        status = session_.BindInput("left", leftResizedRectified32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput("right", rightResized32FC1_);
+        status = session_.BindInput("right", rightResizedRectified32FC1_);
         if (!status.IsOK())
         {
             return status;
@@ -268,37 +421,49 @@ class Pipeline::Impl
             return status;
         }
 
-        status = ResizeImage8U(left8U_, leftResized8U_, stream_);
+        status = RemapImage8U(left8U_, leftMapX_, leftMapY_, leftRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8U(right8U_, rightResized8U_, stream_);
+        status = RemapImage8U(right8U_, rightMapX_, rightMapY_, rightRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ConvertImage8UToC1(leftResized8U_, leftResized8UC1_, stream_);
+        status = ResizeImage8U(leftRectified8U_, leftResizedRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ConvertImage8UToC1(rightResized8U_, rightResized8UC1_, stream_);
+        status = ResizeImage8U(rightRectified8U_, rightResizedRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC1To32FC1(leftResized8UC1_, leftResized32FC1_, stream_);
+        status = ConvertImage8UToC1(leftResizedRectified8U_, leftResizedRectified8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC1To32FC1(rightResized8UC1_, rightResized32FC1_, stream_);
+        status = ConvertImage8UToC1(rightResizedRectified8U_, rightResizedRectified8UC1_, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = Convert8UC1To32FC1(leftResizedRectified8UC1_, leftResizedRectified32FC1_, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = Convert8UC1To32FC1(rightResizedRectified8UC1_, rightResizedRectified32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -339,23 +504,29 @@ class Pipeline::Impl
 
   private:
     bool initialized_{false};        // whether the pipeline is initialized
-    Stream stream_;                  // stream for operations
     std::size_t imageWidth_{};       // original input image width
     std::size_t imageHeight_{};      // original input image height
     std::size_t imageChannels_{};    // original input image channels
     std::size_t matchingHeight_{};   // image height for stereo matching
     std::size_t matchingWidth_{};    // image width for stereo matching
     Session session_;                // inference session
+    Stream stream_;                  // stream for operations
+    Mat leftMapX_;                   // left x map for image remapping
+    Mat leftMapY_;                   // left y map for image remapping
+    Mat rightMapX_;                  // right x map for image remapping
+    Mat rightMapY_;                  // right y map for image remapping
     Mat left8U_;                     // input left image
     Mat right8U_;                    // input right image
+    Mat leftRectified8U_;            // rectified left image
+    Mat rightRectified8U_;           // rectified right image
     Mat leftDisparity32FC1_;         // output left disparity map
     Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
-    Mat leftResized8U_;              // resized left image
-    Mat rightResized8U_;             // resized right image
-    Mat leftResized8UC1_;            // resized left gray image
-    Mat rightResized8UC1_;           // resized right gray image
-    Mat leftResized32FC1_;           // resized gray image for stereo matching
-    Mat rightResized32FC1_;          // resized gray image for stereo matching
+    Mat leftResizedRectified8U_;     // resized left image
+    Mat rightResizedRectified8U_;    // resized right image
+    Mat leftResizedRectified8UC1_;   // resized left gray image
+    Mat rightResizedRectified8UC1_;  // resized right gray image
+    Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
+    Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
     Mat disparityResized32FC1_;      // resized disparity map from stereo matching
 };
 
@@ -381,9 +552,10 @@ auto Pipeline::impl() const noexcept -> const Impl *
     return std::launder(reinterpret_cast<const Impl *>(&buffer_)); // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
 }
 
-auto Pipeline::Initialize(const std::uint32_t imageWidth, const std::uint32_t imageHeight, PixelFormat pixelFormat, DepthMode depthMode) noexcept -> Status
+auto Pipeline::Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, PixelFormat pixelFormat, //
+                          DepthMode depthMode, const CalibrationParameters &calibrationParameters) noexcept -> Status
 {
-    return this->impl()->Initialize(imageWidth, imageHeight, pixelFormat, depthMode);
+    return this->impl()->Initialize(imageWidth, imageHeight, pixelFormat, depthMode, calibrationParameters);
 }
 
 auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
