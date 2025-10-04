@@ -3,7 +3,6 @@
 
 #include "retinify/logging.hpp"
 
-#include <atomic>
 #include <chrono>
 #include <cstring>
 #include <iomanip>
@@ -28,6 +27,53 @@ void SetLogLevel(LogLevel level) noexcept
     GetLogLevelRef() = level;
 }
 
+namespace
+{
+constexpr const char *kDefaultLabel = "NONE ";
+constexpr const char *kDefaultMessage = "No message provided.";
+
+struct LogMetadata
+{
+    const char *label;
+    const char *colorCode;
+    std::ostream *destination;
+};
+
+[[nodiscard]] auto GetMetadataForLevel(LogLevel level) noexcept -> LogMetadata
+{
+    switch (level)
+    {
+    case LogLevel::DEBUG:
+        return {"DEBUG", "\033[35m", &std::cout};
+    case LogLevel::INFO:
+        return {"INFO ", "\033[32m", &std::cout};
+    case LogLevel::WARN:
+        return {"WARN ", "\033[33m", &std::cerr};
+    case LogLevel::ERROR:
+        return {"ERROR", "\033[31m", &std::cerr};
+    case LogLevel::FATAL:
+        return {"FATAL", "\033[31;1m", &std::cerr};
+    case LogLevel::OFF:
+    default:
+        return {kDefaultLabel, "\033[0m", &std::cerr};
+    }
+}
+
+[[nodiscard]] auto ShouldLog(LogLevel level) noexcept -> bool
+{
+    return static_cast<int>(level) >= static_cast<int>(GetLogLevel());
+}
+
+[[nodiscard]] auto SanitizeMessage(const char *message) noexcept -> const char *
+{
+    if (message == nullptr || std::strlen(message) == 0)
+    {
+        return kDefaultMessage;
+    }
+
+    return message;
+}
+
 static inline auto GetCurrentTime() -> std::string
 {
     const std::chrono::system_clock::time_point currentTimePoint = std::chrono::system_clock::now();
@@ -41,59 +87,39 @@ static inline auto GetCurrentTime() -> std::string
     timeStream << std::put_time(&localTimeStruct, "%F %T");
     return timeStream.str();
 }
+} // namespace
 
-static inline auto GetColorCode(LogLevel level) noexcept -> const char *
+static inline void Log(LogLevel level, const char *message, std::source_location location) noexcept
 {
-    switch (level)
-    {
-    case LogLevel::DEBUG:
-        return "\033[35m";
-    case LogLevel::INFO:
-        return "\033[32m";
-    case LogLevel::WARN:
-        return "\033[33m";
-    case LogLevel::ERROR:
-        return "\033[31m";
-    case LogLevel::FATAL:
-        return "\033[31;1m";
-    default:
-        return "\033[0m";
-    }
-}
-
-static inline void Log(LogLevel level, const char *label, const char *message, std::ostream &out, std::source_location location) noexcept
-{
-    if (static_cast<int>(level) < static_cast<int>(GetLogLevel()))
+    if (!ShouldLog(level))
     {
         return;
     }
 
     try
     {
-        if (label == nullptr || std::strlen(label) == 0)
-        {
-            label = "NONE ";
-        }
-
-        if (message == nullptr || std::strlen(message) == 0)
-        {
-            message = "No message provided.";
-        }
-
-        if (location.function_name() == nullptr)
+        const LogMetadata metadata = GetMetadataForLevel(level);
+        if (metadata.destination == nullptr)
         {
             return;
         }
 
+        std::ostream &out = *metadata.destination;
         if (!out.good())
         {
             return;
         }
 
-        out << "[" << GetCurrentTime() << "]"                          //
-            << "[" << GetColorCode(level) << label << "\033[0m" << "]" //
-            << "[" << location.function_name() << "]"                  //
-            << message << '\n';                                        //
+        const char *functionName = location.function_name();
+        if (functionName == nullptr)
+        {
+            return;
+        }
+
+        out << "[" << GetCurrentTime() << "]"                                  //
+            << "[" << metadata.colorCode << metadata.label << "\033[0m" << "]" //
+            << "[" << functionName << "]"                                      //
+            << SanitizeMessage(message) << '\n';                               //
     }
     catch (...) // NOLINT(bugprone-empty-catch)
     {
@@ -103,26 +129,26 @@ static inline void Log(LogLevel level, const char *label, const char *message, s
 
 void LogDebug(const char *message, const std::source_location location) noexcept
 {
-    Log(LogLevel::DEBUG, "DEBUG", message, std::cout, location);
+    Log(LogLevel::DEBUG, message, location);
 }
 
 void LogInfo(const char *message, const std::source_location location) noexcept
 {
-    Log(LogLevel::INFO, "INFO ", message, std::cout, location);
+    Log(LogLevel::INFO, message, location);
 }
 
 void LogWarn(const char *message, const std::source_location location) noexcept
 {
-    Log(LogLevel::WARN, "WARN ", message, std::cerr, location);
+    Log(LogLevel::WARN, message, location);
 }
 
 void LogError(const char *message, const std::source_location location) noexcept
 {
-    Log(LogLevel::ERROR, "ERROR", message, std::cerr, location);
+    Log(LogLevel::ERROR, message, location);
 }
 
 void LogFatal(const char *message, const std::source_location location) noexcept
 {
-    Log(LogLevel::FATAL, "FATAL", message, std::cerr, location);
+    Log(LogLevel::FATAL, message, location);
 }
 } // namespace retinify

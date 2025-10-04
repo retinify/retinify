@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <vector>
 
 #include <gtest/gtest.h>
 #include <opencv2/calib3d.hpp>
@@ -749,5 +750,56 @@ TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
 
     EXPECT_LT(maxErrorX, kTolLoose);
     EXPECT_LT(maxErrorY, kTolLoose);
+}
+
+TEST(GeometryTest, InitIdentityMapProducesPixelCoordinates)
+{
+    constexpr std::size_t kWidth = 5;
+    constexpr std::size_t kHeight = 4;
+    std::vector<float> mapX(kWidth * kHeight, -1.0F);
+    std::vector<float> mapY(kWidth * kHeight, -1.0F);
+
+    InitIdentityMap(mapX.data(), kWidth * sizeof(float), mapY.data(), kWidth * sizeof(float), kWidth, kHeight);
+
+    for (std::size_t row = 0; row < kHeight; ++row)
+    {
+        for (std::size_t col = 0; col < kWidth; ++col)
+        {
+            const std::size_t index = row * kWidth + col;
+            EXPECT_FLOAT_EQ(mapX[index], static_cast<float>(col)) << "row=" << row << ", col=" << col;
+            EXPECT_FLOAT_EQ(mapY[index], static_cast<float>(row)) << "row=" << row << ", col=" << col;
+        }
+    }
+}
+
+TEST(GeometryTest, InitIdentityMapHonorsStride)
+{
+    constexpr std::size_t kWidth = 3;
+    constexpr std::size_t kHeight = 3;
+    constexpr std::size_t kStrideFloats = 6; // add padding to ensure stride is used
+    constexpr std::size_t kStrideBytes = kStrideFloats * sizeof(float);
+
+    std::vector<float> mapX(kHeight * kStrideFloats, -1.0F);
+    std::vector<float> mapY(kHeight * kStrideFloats, -1.0F);
+
+    InitIdentityMap(mapX.data(), kStrideBytes, mapY.data(), kStrideBytes, kWidth, kHeight);
+
+    for (std::size_t row = 0; row < kHeight; ++row)
+    {
+        const float *rowX = mapX.data() + row * kStrideFloats;
+        const float *rowY = mapY.data() + row * kStrideFloats;
+
+        for (std::size_t col = 0; col < kWidth; ++col)
+        {
+            EXPECT_FLOAT_EQ(rowX[col], static_cast<float>(col)) << "row=" << row << ", col=" << col;
+            EXPECT_FLOAT_EQ(rowY[col], static_cast<float>(row)) << "row=" << row << ", col=" << col;
+        }
+
+        for (std::size_t paddingIndex = kWidth; paddingIndex < kStrideFloats; ++paddingIndex)
+        {
+            EXPECT_FLOAT_EQ(rowX[paddingIndex], -1.0F) << "padding row=" << row << ", idx=" << paddingIndex;
+            EXPECT_FLOAT_EQ(rowY[paddingIndex], -1.0F) << "padding row=" << row << ", idx=" << paddingIndex;
+        }
+    }
 }
 } // namespace retinify

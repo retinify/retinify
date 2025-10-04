@@ -1,6 +1,8 @@
 set(CMAKE_CUDA_ARCHITECTURES 75 80 86 87 89 90)
 
 file(GLOB SRCS_CUDA
+    occlusion.cu
+    occlusion.h
     lrcheck.cu
     lrcheck.h
 )

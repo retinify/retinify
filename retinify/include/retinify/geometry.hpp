@@ -204,6 +204,15 @@ struct Intrinsics
     /// @brief
     /// Skew coefficient
     double skew{0};
+
+    [[nodiscard]] auto operator==(const Intrinsics &other) const noexcept -> bool
+    {
+        return fx == other.fx && //
+               fy == other.fy && //
+               cx == other.cx && //
+               cy == other.cy && //
+               skew == other.skew;
+    }
 };
 
 /// @brief
@@ -218,6 +227,18 @@ struct Distortion
     double k4{0};
     double k5{0};
     double k6{0};
+
+    [[nodiscard]] auto operator==(const Distortion &other) const noexcept -> bool
+    {
+        return k1 == other.k1 && //
+               k2 == other.k2 && //
+               p1 == other.p1 && //
+               p2 == other.p2 && //
+               k3 == other.k3 && //
+               k4 == other.k4 && //
+               k5 == other.k5 && //
+               k6 == other.k6;
+    }
 };
 
 /// @brief
@@ -270,6 +291,22 @@ struct CalibrationParameters
     /// @brief
     /// Right camera hardware serial
     std::array<char, 128> rightCameraSerial{};
+
+    [[nodiscard]] auto operator==(const CalibrationParameters &other) const noexcept -> bool
+    {
+        return leftIntrinsics == other.leftIntrinsics &&       //
+               leftDistortion == other.leftDistortion &&       //
+               rightIntrinsics == other.rightIntrinsics &&     //
+               rightDistortion == other.rightDistortion &&     //
+               rotation == other.rotation &&                   //
+               translation == other.translation &&             //
+               imageWidth == other.imageWidth &&               //
+               imageHeight == other.imageHeight &&             //
+               reprojectionError == other.reprojectionError && //
+               calibrationTime == other.calibrationTime &&     //
+               leftCameraSerial == other.leftCameraSerial &&   //
+               rightCameraSerial == other.rightCameraSerial;   //
+    }
 };
 
 /// @brief
@@ -354,4 +391,22 @@ RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Di
                                           std::uint32_t imageWidth, std::uint32_t imageHeight,        //
                                           float *mapx, std::size_t mapxStride,                        //
                                           float *mapy, std::size_t mapyStride) noexcept -> void;
+
+/// @brief
+/// Initialize identity maps for undistortion/rectification.
+/// @param mapx
+/// Output map for x-coordinates
+/// @param mapxStride
+/// Stride (in bytes) of a row in mapx
+/// @param mapy
+/// Output map for y-coordinates
+/// @param mapyStride
+/// Stride (in bytes) of a row in mapy
+/// @param imageWidth
+/// Image width in pixels
+/// @param imageHeight
+/// Image height in pixels
+RETINIFY_API auto InitIdentityMap(float *mapx, std::size_t mapxStride, //
+                                  float *mapy, std::size_t mapyStride, //
+                                  std::size_t imageWidth, std::size_t imageHeight) noexcept -> void;
 } // namespace retinify
