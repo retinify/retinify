@@ -346,6 +346,109 @@ auto DisparityOcclusionFilter32FC1(const Mat &src, Mat &dst, Stream &stream) noe
 #endif
 }
 
+auto RemapImage8U(const Mat &src, const Mat &mapX, const Mat &mapY, Mat &dst, Stream &stream) noexcept -> Status
+{
+    if (src.Empty() || mapX.Empty() || mapY.Empty() || dst.Empty())
+    {
+        LogError("Source, maps, or destination is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (src.BytesPerElement() != sizeof(std::uint8_t) || dst.BytesPerElement() != sizeof(std::uint8_t))
+    {
+        LogError("Source and destination must be 8-bit unsigned.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (mapX.BytesPerElement() != sizeof(float) || mapY.BytesPerElement() != sizeof(float))
+    {
+        LogError("Maps must be 32-bit floating-point.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (src.Channels() != dst.Channels())
+    {
+        LogError("Source and destination must have the same number of channels.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (mapX.Channels() != 1 || mapY.Channels() != 1)
+    {
+        LogError("Maps must have 1 channel.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if ((dst.Cols() != mapX.Cols()) || (dst.Rows() != mapX.Rows()) || (dst.Cols() != mapY.Cols()) || (dst.Rows() != mapY.Rows()))
+    {
+        LogError("Destination and maps must have the same size.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if ((src.Cols() == 0) || (src.Rows() == 0))
+    {
+        LogError("Source size must be non-zero.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (src.Channels() != 1 && src.Channels() != 3)
+    {
+        LogError("Source and destination must have 1 or 3 channels.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+#ifdef BUILD_WITH_TENSORRT
+    const auto *srcData = static_cast<const Npp8u *>(src.Data());
+    auto *dstData = static_cast<Npp8u *>(dst.Data());
+    const auto *mapXData = static_cast<const Npp32f *>(mapX.Data());
+    const auto *mapYData = static_cast<const Npp32f *>(mapY.Data());
+    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
+    const auto dstSize = NppiSize{static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())};
+    const auto srcRoi = NppiRect{0, 0, srcSize.width, srcSize.height};
+    const auto srcStride = static_cast<int>(src.Stride());
+    const auto dstStride = static_cast<int>(dst.Stride());
+    const auto mapXStep = static_cast<int>(mapX.Stride());
+    const auto mapYStep = static_cast<int>(mapY.Stride());
+
+    NppStatus status{};
+
+    if (src.Channels() == 1)
+    {
+        status = nppiRemap_8u_C1R_Ctx(srcData, srcSize, srcStride, srcRoi,    //
+                                      mapXData, mapXStep, mapYData, mapYStep, //
+                                      dstData, dstStride, dstSize,            //
+                                      NPPI_INTER_LINEAR, stream.GetNppStreamContext());
+
+        if (status != NPP_SUCCESS)
+        {
+            LogError("nppiRemap_8u_C1R failed");
+            return Status{StatusCategory::CUDA, StatusCode::FAIL};
+        }
+
+        return Status{};
+    }
+
+    status = nppiRemap_8u_C3R_Ctx(srcData, srcSize, srcStride, srcRoi,                                 //
+                                  mapXData, mapXStep, mapYData, mapYStep, dstData, dstStride, dstSize, //
+                                  NPPI_INTER_LINEAR, stream.GetNppStreamContext());
+
+    if (status != NPP_SUCCESS)
+    {
+        LogError("nppiRemap_8u_C3R failed");
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
+
+    return Status{};
+#else
+    (void)src;
+    (void)mapX;
+    (void)mapY;
+    (void)dst;
+    (void)stream;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+#endif
+}
+
 auto HorizontalFlip8UC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
