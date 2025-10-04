@@ -23,6 +23,11 @@ var namespaceretinify =
     [ "Vec2f", "namespaceretinify.html#a60d9e65f29123e2250b56f50804533b5", null ],
     [ "Vec3d", "namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc", null ],
     [ "Vec3f", "namespaceretinify.html#aacc47ce73ec86d4a5e5397d7b10c6a52", null ],
+    [ "DepthMode", "namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7", [
+      [ "FAST", "namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7adca6e617f6fb54033deb311e7e7c93cc", null ],
+      [ "BALANCED", "namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a0cb4635d100151dcaac6f91db856c402", null ],
+      [ "ACCURATE", "namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a12be95d6acf8f32c3a193ad12b70d657", null ]
+    ] ],
     [ "LogLevel", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f", [
       [ "DEBUG", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15", null ],
       [ "INFO", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3", null ],
@@ -31,10 +36,9 @@ var namespaceretinify =
       [ "FATAL", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
       [ "OFF", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
     ] ],
-    [ "Mode", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6", [
-      [ "FAST", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc", null ],
-      [ "BALANCED", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402", null ],
-      [ "ACCURATE", "namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657", null ]
+    [ "PixelFormat", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb", [
+      [ "GRAY8", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e", null ],
+      [ "RGB8", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63", null ]
     ] ],
     [ "StatusCategory", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d", [
       [ "NONE", "namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693", null ],
@@ -58,6 +62,7 @@ var namespaceretinify =
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
     [ "HomeDirectoryPath", "namespaceretinify.html#aacffaa83dff370322a2bd10317728f65", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
+    [ "InitIdentityMap", "namespaceretinify.html#a0ec88a58bf0b217e6853e4dfc57dd074", null ],
     [ "InitUndistortRectifyMap", "namespaceretinify.html#a383b927cf95d20886158b5e3229fa7de", null ],
     [ "Length", "namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "LoadCalibrationParameters", "namespaceretinify.html#af213c472cb80766b95b316eb1b979810", null ],

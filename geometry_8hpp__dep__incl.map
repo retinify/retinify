@@ -1,5 +1,7 @@
 <map id="/home/runner/work/retinify/retinify/retinify/include/retinify/geometry.hpp" name="/home/runner/work/retinify/retinify/retinify/include/retinify/geometry.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,200,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="115,5,309,60"/>
 <area shape="rect" id="Node000002" href="$io_8hpp.html" title=" " alt="" coords="5,108,200,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,74,105,108,100,108,100,74"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,72,133,110,129,106,171,68"/>
+<area shape="rect" id="Node000003" href="$pipeline_8hpp.html" title=" " alt="" coords="224,108,419,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="253,68,295,106,291,110,249,72"/>
 </map>

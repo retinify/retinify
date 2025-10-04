@@ -196,12 +196,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging verbosity levels for retinify.  <a href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">More...</a><br /></td></tr>
 <tr class="separator:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad28fa89b14047dfa14d14b015cb396d6" id="r_ad28fa89b14047dfa14d14b015cb396d6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">Mode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
-, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
-, <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
+<tr class="memitem:a16d6a4001a7bbb7cb87e43aec4553dcb" id="r_a16d6a4001a7bbb7cb87e43aec4553dcb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb">PixelFormat</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e">GRAY8</a>
+, <a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63">RGB8</a>
  }</td></tr>
-<tr class="memdesc:ad28fa89b14047dfa14d14b015cb396d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode options for the stereo matching pipeline.  <a href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">More...</a><br /></td></tr>
-<tr class="separator:ad28fa89b14047dfa14d14b015cb396d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a16d6a4001a7bbb7cb87e43aec4553dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pixel format options for input images.  <a href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb">More...</a><br /></td></tr>
+<tr class="separator:a16d6a4001a7bbb7cb87e43aec4553dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870050f31cd05b5e20634a58e18de8a7" id="r_a870050f31cd05b5e20634a58e18de8a7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7">DepthMode</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7adca6e617f6fb54033deb311e7e7c93cc">FAST</a>
+, <a class="el" href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a0cb4635d100151dcaac6f91db856c402">BALANCED</a>
+, <a class="el" href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a12be95d6acf8f32c3a193ad12b70d657">ACCURATE</a>
+ }</td></tr>
+<tr class="memdesc:a870050f31cd05b5e20634a58e18de8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The depth mode options for stereo matching pipeline.  <a href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7">More...</a><br /></td></tr>
+<tr class="separator:a870050f31cd05b5e20634a58e18de8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a760ed0e98c342b4af3006ca06c81116d" id="r_a760ed0e98c342b4af3006ca06c81116d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d">StatusCategory</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693">NONE</a>
 , <a class="el" href="namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a">RETINIFY</a>
@@ -267,6 +272,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a383b927cf95d20886158b5e3229fa7de" id="r_a383b927cf95d20886158b5e3229fa7de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a383b927cf95d20886158b5e3229fa7de">InitUndistortRectifyMap</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;intrinsics, const <a class="el" href="structretinify_1_1Distortion.html">Distortion</a> &amp;distortion, const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;rotation, const <a class="el" href="namespaceretinify.html#ade3dd12d90b220052362ed254a5a7a21">Mat3x4d</a> &amp;projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapx, std::size_t mapxStride, float *mapy, std::size_t mapyStride) noexcept -&gt; void</td></tr>
 <tr class="memdesc:a383b927cf95d20886158b5e3229fa7de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize undistort and rectify maps for image remapping.  <br /></td></tr>
 <tr class="separator:a383b927cf95d20886158b5e3229fa7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ec88a58bf0b217e6853e4dfc57dd074" id="r_a0ec88a58bf0b217e6853e4dfc57dd074"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0ec88a58bf0b217e6853e4dfc57dd074">InitIdentityMap</a> (float *mapx, std::size_t mapxStride, float *mapy, std::size_t mapyStride, std::size_t imageWidth, std::size_t imageHeight) noexcept -&gt; void</td></tr>
+<tr class="memdesc:a0ec88a58bf0b217e6853e4dfc57dd074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize identity maps for undistortion/rectification.  <br /></td></tr>
+<tr class="separator:a0ec88a58bf0b217e6853e4dfc57dd074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13c2e1584097a06ea80ffd9aeee84639" id="r_a13c2e1584097a06ea80ffd9aeee84639"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639">SaveCalibrationParameters</a> (const char *filename, const <a class="el" href="structretinify_1_1CalibrationParameters.html">CalibrationParameters</a> &amp;parameters) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a13c2e1584097a06ea80ffd9aeee84639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save stereo calibration parameters.  <br /></td></tr>
 <tr class="separator:a13c2e1584097a06ea80ffd9aeee84639"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -574,6 +582,38 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a870050f31cd05b5e20634a58e18de8a7" name="a870050f31cd05b5e20634a58e18de8a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870050f31cd05b5e20634a58e18de8a7">&#9670;&#160;</a></span>DepthMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7">retinify::DepthMode</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The depth mode options for stereo matching pipeline. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a870050f31cd05b5e20634a58e18de8a7adca6e617f6fb54033deb311e7e7c93cc" name="a870050f31cd05b5e20634a58e18de8a7adca6e617f6fb54033deb311e7e7c93cc"></a>FAST&#160;</td><td class="fielddoc"><p>Fastest, with lowest accuracy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a870050f31cd05b5e20634a58e18de8a7a0cb4635d100151dcaac6f91db856c402" name="a870050f31cd05b5e20634a58e18de8a7a0cb4635d100151dcaac6f91db856c402"></a>BALANCED&#160;</td><td class="fielddoc"><p>Balanced, with moderate accuracy and speed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a870050f31cd05b5e20634a58e18de8a7a12be95d6acf8f32c3a193ad12b70d657" name="a870050f31cd05b5e20634a58e18de8a7a12be95d6acf8f32c3a193ad12b70d657"></a>ACCURATE&#160;</td><td class="fielddoc"><p>Most accurate, with slowest performance. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ad7864f6e39ba12c3d9bd53d13c64ac7f" name="ad7864f6e39ba12c3d9bd53d13c64ac7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7864f6e39ba12c3d9bd53d13c64ac7f">&#9670;&#160;</a></span>LogLevel</h2>
 
@@ -612,8 +652,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad28fa89b14047dfa14d14b015cb396d6" name="ad28fa89b14047dfa14d14b015cb396d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad28fa89b14047dfa14d14b015cb396d6">&#9670;&#160;</a></span>Mode</h2>
+<a id="a16d6a4001a7bbb7cb87e43aec4553dcb" name="a16d6a4001a7bbb7cb87e43aec4553dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d6a4001a7bbb7cb87e43aec4553dcb">&#9670;&#160;</a></span>PixelFormat</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -622,7 +662,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum class <a class="el" href="namespaceretinify.html#ad28fa89b14047dfa14d14b015cb396d6">retinify::Mode</a> : std::uint8_t</td>
+          <td class="memname">enum class <a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb">retinify::PixelFormat</a> : std::uint8_t</td>
         </tr>
       </table>
   </td>
@@ -632,13 +672,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The mode options for the stereo matching pipeline. </p>
+<p>The pixel format options for input images. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc" name="ad28fa89b14047dfa14d14b015cb396d6adca6e617f6fb54033deb311e7e7c93cc"></a>FAST&#160;</td><td class="fielddoc"><p>Fastest, with lowest accuracy. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e" name="a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e"></a>GRAY8&#160;</td><td class="fielddoc"><p>8-bit 1ch, Grayscale format. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402" name="ad28fa89b14047dfa14d14b015cb396d6a0cb4635d100151dcaac6f91db856c402"></a>BALANCED&#160;</td><td class="fielddoc"><p>Balanced, with moderate accuracy and speed. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657" name="ad28fa89b14047dfa14d14b015cb396d6a12be95d6acf8f32c3a193ad12b70d657"></a>ACCURATE&#160;</td><td class="fielddoc"><p>Most accurate, with slowest performance. </p>
+<tr><td class="fieldname"><a id="a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63" name="a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63"></a>RGB8&#160;</td><td class="fielddoc"><p>8-bit 3ch, RGB format. </p>
 </td></tr>
 </table>
 
@@ -1067,6 +1105,79 @@ Functions</h2></td></tr>
 
 <p>Create a 3x3 identity matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>3x3 identity matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a0ec88a58bf0b217e6853e4dfc57dd074" name="a0ec88a58bf0b217e6853e4dfc57dd074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ec88a58bf0b217e6853e4dfc57dd074">&#9670;&#160;</a></span>InitIdentityMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::InitIdentityMap </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>mapx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapxStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>mapy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapyStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>imageWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>imageHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  void</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize identity maps for undistortion/rectification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapx</td><td>Output map for x-coordinates </td></tr>
+    <tr><td class="paramname">mapxStride</td><td>Stride (in bytes) of a row in mapx </td></tr>
+    <tr><td class="paramname">mapy</td><td>Output map for y-coordinates </td></tr>
+    <tr><td class="paramname">mapyStride</td><td>Stride (in bytes) of a row in mapy </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Image width in pixels </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Image height in pixels </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
