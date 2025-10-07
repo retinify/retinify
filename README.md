@@ -12,7 +12,6 @@
 [![UBUNTU 22.04](https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/jammy/)
 [![JETPACK 6](https://img.shields.io/badge/-JETPACK%206-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://docs.nvidia.com/jetson/jetpack/index.html)
 [![Release](https://img.shields.io/github/v/release/retinify/retinify?sort=semver&style=flat-square&color=blue&label=Release)](https://github.com/retinify/retinify/releases/latest)
-[![License](https://img.shields.io/github/license/retinify/retinify?style=flat-square&label=License)](https://github.com/retinify/retinify/blob/main/LICENSE)
 ![Language](https://img.shields.io/github/languages/top/retinify/retinify?style=flat-square&color=yellow)  
 [![X](https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&logo=x)](https://x.com/retinify)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/retinify)
@@ -28,12 +27,16 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 </table>
 
 ## Why Retinify?
-- 🌐 **Open Source**: Fully customizable and freely available under an Apache-2.0 license.
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - ⚡ **Fast Pipeline**: All necessary computations run seamlessly on the GPU, enabling real-time performance.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
 - 🪶 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
+
+## License
+Your access to and use of **retinify** via the official GitHub repositories are governed by the **retinify End-User License Agreement (EULA)**.  
+By cloning, building, installing, or otherwise using retinify, you accept the applicable EULA. If you do not accept the EULA, you may not access or use retinify, and you must cease updates.  
+For releases obtained before a change takes effect, you may continue under the EULA that accompanied that release.
 
 ## Basic Usage
 > [!IMPORTANT]
@@ -80,8 +83,6 @@ pipeline.Run(leftImage.ptr<uint8_t>(), leftImage.step[0],   //
 | ![target-tensorrt10] | ![env-cuda12]   | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
 | ![target-tensorrt10] | ![env-cuda13]   | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
 | ![target-tensorrt10] | ![env-jetpack6] | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
-<!-- | ![target-hailort]    | ![env-na]       | ![status-planned]                                                      | -->
-<!-- | ![target-openvino]   | ![env-na]       | ![status-planned]                                                      | -->
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
 [target-hailort]:    https://img.shields.io/badge/-HailoRT-lightgray?style=flat-square
@@ -113,6 +114,29 @@ These measurements were taken using each setting of `retinify::DepthMode`.
 | ----------------------- | ------------------ | ------------------ | ------------------ |
 | NVIDIA RTX 3060         | 3.925ms / 254.8FPS | 4.691ms / 213.2FPS | 10.790ms / 92.7FPS |
 | NVIDIA Jetson Orin Nano | 17.462ms / 57.3FPS | 19.751ms / 50.6FPS | 46.104ms / 21.7FPS |
+
+## FAQ about the EULA
+
+**1) Can I use this commercially?**  
+Yes. Each Product is free until its lifetime Gross Revenue reaches **USD 1,000,000**.  
+After that, pay **5%** on the amount above that.  
+You only need to report when royalties are due.
+
+**2) Does the EULA cover the ONNX model?**  
+Yes. Models we provide (including ONNX) are covered by the **retinify End User License Agreement (EULA)**.  
+Third-party models remain under their own licenses.
+
+**3) Can I convert the ONNX model?**  
+Yes, for **internal use only** (e.g. TensorRT, CoreML, TFLite).  
+You **cannot share or redistribute** converted models — use the **original ONNX file** when redistributing.
+
+**4) Is this open source?**  
+No. It’s **source-available**, not OSI-open-source.  
+You may modify and redistribute the source **only under the same EULA**, and you can ship compiled binaries in your Product.
+
+**5) Do I need to report if I have no sales?**  
+No. You can submit a zero report or skip that quarter if no royalty is due  
+(e.g. no revenue or still below the USD 1,000,000 threshold).
 
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
