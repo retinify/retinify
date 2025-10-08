@@ -7,3 +7,6 @@
 [submodule "3rdparty/glfw"]
 	path = 3rdparty/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "3rdparty/retinify-EULA"]
+	path = 3rdparty/retinify-EULA
+	url = https://github.com/retinify/retinify-EULA
