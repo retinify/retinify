@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('installation.html',''); initResizable(
 <div class="textblock"><p>Retinify supports Linux (Ubuntu) and can be easily installed using the provided <code>build.sh</code> script. <br  />
  This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools. <br  />
 </p>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Dependencies</h2>
 <p>Build Toolchain</p><ul>
 <li><a href="https://gcc.gnu.org/releases.html">GCC</a>: 11 or later</li>
@@ -115,17 +115,17 @@ Dependencies</h2>
 <li><a href="https://developer.nvidia.com/cudnn-archive">cuDNN</a>: 9.x</li>
 <li><a href="https://developer.nvidia.com/tensorrt">TensorRT</a>: 10.x</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Clone the retinify repository.</h2>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
 <div class="line">cd retinify</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Install retinify</h2>
 <p>Build retinify and install its Debian package. </p><div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Verify Installation</h2>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
 Uninstall retinify</h2>
 <p>To uninstall the Debian package, use the following script. </p><div class="fragment"><div class="line">sudo apt remove libretinify-dev</div>
 </div><!-- fragment --> </div></div><!-- contents -->
