@@ -15,6 +15,13 @@ Retinify is open source, and the source code is publicly available:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
+### License
+Use of **retinify** is governed by the current [**retinify End User License Agreement**](https://github.com/retinify/retinify-EULA/blob/main/EULA.md).  
+By cloning, building, installing, or using retinify, you agree to the EULA.  
+If you do not agree, you must not use or update retinify.  
+
+For common questions, see the [**FAQ**](https://github.com/retinify/retinify-EULA/blob/main/FAQ.md).  
+
 ### Getting started
 - [Install retinify](@ref installation)  
 Step-by-step instructions to build and install retinify.
