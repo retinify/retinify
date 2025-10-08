@@ -65,5 +65,5 @@ jobs:
             git submodule sync --recursive
             git submodule update --init --recursive
 
-            ./build.sh --install --tensorrt
+            ./build.sh --install --tensorrt --accept-eula
           "
