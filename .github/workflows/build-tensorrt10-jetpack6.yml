@@ -61,6 +61,7 @@ jobs:
             git config --global --add safe.directory /workspace/3rdparty/glfw            
             git config --global --add safe.directory /workspace/3rdparty/googletest
             git config --global --add safe.directory /workspace/3rdparty/imgui
+            git config --global --add safe.directory /workspace/3rdparty/retinify-EULA
             git submodule sync --recursive
             git submodule update --init --recursive
 
