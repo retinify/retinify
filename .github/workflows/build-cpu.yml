@@ -29,4 +29,4 @@ jobs:
 
     - name: Build RETINIFY
       run: |
-        ./build.sh --install --cpu
+        ./build.sh --install --cpu --accept-eula

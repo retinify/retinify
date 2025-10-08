@@ -47,5 +47,5 @@ jobs:
             git config --global --add safe.directory /workspace/3rdparty/retinify-EULA
             git submodule update --init --recursive
 
-            ./build.sh --install --tensorrt
+            ./build.sh --install --tensorrt --accept-eula
           "
