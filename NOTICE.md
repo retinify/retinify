@@ -256,6 +256,7 @@ freely, subject to the following restrictions:
 
 3. This notice may not be removed or altered from any source
    distribution.
+  
 | Name | Link                         | License      | Copyright                                                                     |
 | ---- | ---------------------------- | ------------ | ----------------------------------------------------------------------------- |
 | GLFW | https://github.com/glfw/glfw | Zlib License | Copyright (c) 2002-2006 Marcus Geelnard, Copyright (c) 2006-2019 Camilla Löwy |
