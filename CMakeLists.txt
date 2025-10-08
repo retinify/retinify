@@ -1,6 +1,23 @@
 ﻿# CMAKE
 cmake_minimum_required(VERSION 3.22)
 
+# EULA
+set(RETINIFY_EULA_DIR "${CMAKE_SOURCE_DIR}/3rdparty/retinify-EULA")
+set(RETINIFY_EULA_FILE "${RETINIFY_EULA_DIR}/EULA.md")
+find_program(GIT_EXECUTABLE git REQUIRED)
+
+execute_process(
+  COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive -- 3rdparty/retinify-EULA
+  WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+  COMMAND_ERROR_IS_FATAL ANY
+)
+execute_process(COMMAND "${GIT_EXECUTABLE}" -C "${RETINIFY_EULA_DIR}" fetch origin main COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND "${GIT_EXECUTABLE}" -C "${RETINIFY_EULA_DIR}" reset --hard origin/main COMMAND_ERROR_IS_FATAL ANY)
+
+if(NOT EXISTS "${RETINIFY_EULA_FILE}")
+  message(FATAL_ERROR "EULA not found: ${RETINIFY_EULA_FILE}")
+endif()
+
 # BUILD OPTIONS
 option(BUILD_WITH_TENSORRT "Build with TensorRT" ON)
 option(BUILD_SAMPLES "Build samples" ON)
@@ -98,7 +115,7 @@ if(BUILD_SAMPLES)
 endif(BUILD_SAMPLES)
 
 # SHARE
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md DESTINATION share/retinify)
+install(FILES ${RETINIFY_EULA_FILE} DESTINATION share/retinify)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/VERSION DESTINATION share/retinify)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
@@ -124,7 +141,7 @@ set(CPACK_PACKAGE_DESCRIPTION "Real-Time AI Stereo Vision Library")
 set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://retinify.ai")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
+set(CPACK_RESOURCE_FILE_LICENSE "${RETINIFY_EULA_FILE}")
 include(CPack)
 
 # MESSAGES
@@ -136,4 +153,5 @@ message(STATUS "BUILD_WITH_TENSORRT    : ${BUILD_WITH_TENSORRT}")
 message(STATUS "BUILD_SAMPLES          : ${BUILD_SAMPLES}")
 message(STATUS "BUILD_TESTS            : ${BUILD_TESTS}")
 message(STATUS "STEREO_MODEL_PATH      : ${STEREO_MODEL_PATH}")
+message(STATUS "EULA_PATH              : ${RETINIFY_EULA_FILE}")
 message(STATUS "================================================================================")
