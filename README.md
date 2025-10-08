@@ -31,12 +31,14 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - ⚡ **Fast Pipeline**: All necessary computations run seamlessly on the GPU, enabling real-time performance.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
 - 💰 **Cost Efficiency**: Runs using just cameras, enabling depth perception with minimal hardware cost.
-- 🪶 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
+- 🌐 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
 
 ## License
-Your access to and use of **retinify** via the official GitHub repositories are governed by the [**retinify End-User License Agreement (EULA)**](https://github.com/retinify/retinify-EULA/blob/main/EULA.md).  
-By cloning, building, installing, or otherwise using retinify, you accept the applicable EULA. If you do not accept the EULA, you may not access or use retinify, and you must cease updates.  
-For releases obtained before a change takes effect, you may continue under the EULA that accompanied that release.
+Use of **retinify** is governed by the current [**retinify End User License Agreement**](https://github.com/retinify/retinify-EULA/blob/main/EULA.md).  
+By cloning, building, installing, or using retinify, you agree to the EULA.  
+If you do not agree, you must not use or update retinify.  
+
+For common questions, see the [**FAQ**](https://github.com/retinify/retinify-EULA/blob/main/FAQ.md).  
 
 ## Basic Usage
 > [!IMPORTANT]
@@ -115,32 +117,9 @@ These measurements were taken using each setting of `retinify::DepthMode`.
 | NVIDIA RTX 3060         | 3.925ms / 254.8FPS | 4.691ms / 213.2FPS | 10.790ms / 92.7FPS |
 | NVIDIA Jetson Orin Nano | 17.462ms / 57.3FPS | 19.751ms / 50.6FPS | 46.104ms / 21.7FPS |
 
-## FAQ about the EULA
-
-**1) Can I use this commercially?**  
-Yes. Each Product is free until its lifetime Gross Revenue reaches **USD 1,000,000**.  
-After that, pay **5%** on the amount above that.  
-You only need to report when royalties are due.
-
-**2) Does the EULA cover the ONNX model?**  
-Yes. Models we provide (including ONNX) are covered by the **retinify End User License Agreement (EULA)**.  
-Third-party models remain under their own licenses.
-
-**3) Can I convert the ONNX model?**  
-Yes, for **internal use only** (e.g. TensorRT, CoreML, TFLite).  
-You **cannot share or redistribute** converted models — use the **original ONNX file** when redistributing.
-
-**4) Is this open source?**  
-No. It’s **source-available**, not OSI-open-source.  
-You may modify and redistribute the source **only under the same EULA**, and you can ship compiled binaries in your Product.
-
-**5) Do I need to report if I have no sales?**  
-No. You can submit a zero report or skip that quarter if no royalty is due  
-(e.g. no revenue or still below the USD 1,000,000 threshold).
-
 ## Third-Party
 For a list of third-party dependencies, please refer to [NOTICE.md](./NOTICE.md).
 
 ## Contact
-For support or collaboration, please contact:  
-**[contact@retinify.ai](mailto:contact@retinify.ai)**  
+For all inquiries, including support, collaboration, and EULA-related matters, please contact:  
+**[contact@retinify.ai](mailto:contact@retinify.ai)**
