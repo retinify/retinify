@@ -129,6 +129,42 @@ TEST(GeometryTest, CrossProductOrthogonality)
     ExpectVectorNear(reversed, {-cross[0], -cross[1], -cross[2]}, kTolStrict);
 }
 
+TEST(GeometryTest, HatProducesSkewSymmetricMatrix)
+{
+    const retinify::Vec3d omega{1.0, -2.0, 3.0};
+    const retinify::Mat3x3d skew = retinify::Hat(omega);
+    const retinify::Mat3x3d expected{{{0.0, -3.0, -2.0}, {3.0, 0.0, -1.0}, {2.0, 1.0, 0.0}}};
+
+    ExpectMatrixNear(skew, expected, kTolStrict);
+
+    const retinify::Mat3x3d negTranspose = retinify::Transpose(skew);
+    for (int row = 0; row < 3; ++row)
+    {
+        for (int col = 0; col < 3; ++col)
+        {
+            EXPECT_NEAR(negTranspose[row][col], -skew[row][col], kTolStrict) << "entry(" << row << "," << col << ")";
+        }
+    }
+}
+
+TEST(GeometryTest, HatVeeAreInversesForSkewSymmetricMatrix)
+{
+    const retinify::Vec3d omega{0.25, -0.75, 2.0};
+    const retinify::Mat3x3d skew = retinify::Hat(omega);
+    const retinify::Vec3d recovered = retinify::Vee(skew);
+
+    ExpectVectorNear(recovered, omega, kTolStrict);
+    ExpectMatrixNear(retinify::Hat(recovered), skew, kTolStrict);
+
+    retinify::Mat3x3d perturbed = skew;
+    perturbed[0][1] -= 1e-6;
+    perturbed[1][0] += 1e-6;
+    perturbed[0][2] += 5e-7;
+    perturbed[2][0] -= 5e-7;
+    const retinify::Vec3d recoveredPerturbed = retinify::Vee(perturbed);
+    ExpectVectorNear(recoveredPerturbed, omega, kTolLoose);
+}
+
 TEST(GeometryTest, ExpReturnsIdentityForZeroRotation)
 {
     ExpectMatrixNear(retinify::Exp({0.0, 0.0, 0.0}), Identity(), kTolStrict);
