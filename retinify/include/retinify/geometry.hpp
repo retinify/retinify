@@ -160,13 +160,23 @@ RETINIFY_API auto Length(const Vec3d &vec) noexcept -> double;
 RETINIFY_API auto Normalize(const Vec3d &vec) noexcept -> Vec3d;
 
 /// @brief
+/// Compute the dot product of two 3D vectors.
+/// @param vec1
+/// First 3D vector.
+/// @param vec2
+/// Second 3D vector.
+/// @return
+/// Dot product value.
+RETINIFY_API auto Dot(const Vec3d &vec1, const Vec3d &vec2) noexcept -> double;
+
+/// @brief
 /// Compute the cross product of two 3D vectors.
 /// @param vec1
 /// First 3D vector.
 /// @param vec2
 /// Second 3D vector.
 /// @return
-/// 3D vector.
+/// Cross product vector.
 RETINIFY_API auto Cross(const Vec3d &vec1, const Vec3d &vec2) noexcept -> Vec3d;
 
 /// @brief

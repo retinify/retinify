@@ -109,6 +109,19 @@ TEST(GeometryTest, LengthAndNormalize)
     ExpectVectorNear(retinify::Normalize(zero), zero, kTolStrict);
 }
 
+TEST(GeometryTest, DotProductMatchesManualComputation)
+{
+    const retinify::Vec3d vectorU{1.5, -2.0, 0.25};
+    const retinify::Vec3d vectorV{-4.0, 3.5, 2.0};
+
+    const double manual = vectorU[0] * vectorV[0] + vectorU[1] * vectorV[1] + vectorU[2] * vectorV[2];
+    EXPECT_NEAR(retinify::Dot(vectorU, vectorV), manual, kTolStrict);
+    EXPECT_NEAR(retinify::Dot(vectorV, vectorU), manual, kTolStrict);
+
+    const retinify::Vec3d orthogonal{2.0, 1.5, 0.0};
+    EXPECT_NEAR(retinify::Dot(vectorU, orthogonal), 0.0, kTolStrict);
+}
+
 TEST(GeometryTest, CrossProductOrthogonality)
 {
     const retinify::Vec3d vectorU{1.0, 2.0, 3.0};

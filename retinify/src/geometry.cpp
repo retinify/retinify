@@ -20,11 +20,6 @@ constexpr inline std::size_t kMatSize = 3;
     return value * value;
 }
 
-[[nodiscard]] constexpr double Dot(const Vec3d &lhs, const Vec3d &rhs) noexcept
-{
-    return lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2];
-}
-
 inline void AccumulateScaledMatrix(Mat3x3d &target, const Mat3x3d &addend, double scale) noexcept
 {
     for (std::size_t row = 0; row < kMatSize; ++row)
@@ -134,6 +129,12 @@ auto Normalize(const Vec3d &vec) noexcept -> Vec3d
     }
     const double inv = 1.0 / n;
     return {vec[0] * inv, vec[1] * inv, vec[2] * inv};
+}
+
+auto Dot(const Vec3d &vec1, const Vec3d &vec2) noexcept -> double
+{
+    // v1 · v2
+    return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
 }
 
 auto Cross(const Vec3d &vec1, const Vec3d &vec2) noexcept -> Vec3d
