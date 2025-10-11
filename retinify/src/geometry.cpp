@@ -20,18 +20,6 @@ constexpr inline std::size_t kMatSize = 3;
     return value * value;
 }
 
-[[nodiscard]] constexpr double Dot(const Vec3d &lhs, const Vec3d &rhs) noexcept
-{
-    return lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2];
-}
-
-[[nodiscard]] constexpr Mat3x3d ComputeSkewSymmetricMatrix(const Vec3d &omega) noexcept
-{
-    return {{{0.0, -omega[2], omega[1]}, //
-             {omega[2], 0.0, -omega[0]}, //
-             {-omega[1], omega[0], 0.0}}};
-}
-
 inline void AccumulateScaledMatrix(Mat3x3d &target, const Mat3x3d &addend, double scale) noexcept
 {
     for (std::size_t row = 0; row < kMatSize; ++row)
@@ -143,12 +131,33 @@ auto Normalize(const Vec3d &vec) noexcept -> Vec3d
     return {vec[0] * inv, vec[1] * inv, vec[2] * inv};
 }
 
+auto Dot(const Vec3d &vec1, const Vec3d &vec2) noexcept -> double
+{
+    // v1 · v2
+    return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
+}
+
 auto Cross(const Vec3d &vec1, const Vec3d &vec2) noexcept -> Vec3d
 {
     // v1 × v2
     return {vec1[1] * vec2[2] - vec1[2] * vec2[1], //
             vec1[2] * vec2[0] - vec1[0] * vec2[2], //
             vec1[0] * vec2[1] - vec1[1] * vec2[0]};
+}
+
+auto Hat(const Vec3d &omega) noexcept -> Mat3x3d
+{
+    return {{{0.0, -omega[2], omega[1]}, //
+             {omega[2], 0.0, -omega[0]}, //
+             {-omega[1], omega[0], 0.0}}};
+}
+
+auto Vee(const Mat3x3d &skew) noexcept -> Vec3d
+{
+    // Average opposing entries to mitigate numerical drift.
+    return {0.5 * (skew[2][1] - skew[1][2]), //
+            0.5 * (skew[0][2] - skew[2][0]), //
+            0.5 * (skew[1][0] - skew[0][1])};
 }
 
 auto Exp(const Vec3d &omega) noexcept -> Mat3x3d
@@ -175,7 +184,7 @@ auto Exp(const Vec3d &omega) noexcept -> Mat3x3d
         coefA = std::sin(theta) / theta;
         coefB = (1.0 - std::cos(theta)) / thetaSquared;
     }
-    const Mat3x3d skew = ComputeSkewSymmetricMatrix(omega);
+    const Mat3x3d skew = Hat(omega);
     const Mat3x3d skewSquared = Multiply(skew, skew);
 
     Mat3x3d rotation = Identity();
