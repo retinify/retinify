@@ -58,8 +58,10 @@ var namespaceretinify =
     [ "Cross", "namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8", null ],
     [ "DataDirectoryPath", "namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16", null ],
     [ "Determinant", "namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1", null ],
+    [ "Dot", "namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe", null ],
     [ "Exp", "namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1", null ],
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
+    [ "Hat", "namespaceretinify.html#ae623bd8f4f90981b51de2d1b9b8f37fe", null ],
     [ "HomeDirectoryPath", "namespaceretinify.html#aacffaa83dff370322a2bd10317728f65", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "namespaceretinify.html#a0ec88a58bf0b217e6853e4dfc57dd074", null ],
@@ -83,5 +85,6 @@ var namespaceretinify =
     [ "StereoRectify", "namespaceretinify.html#a64ee9ccd29a47fbcf9846e63220acf10", null ],
     [ "Transpose", "namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
     [ "UndistortPoint", "namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9", null ],
+    [ "Vee", "namespaceretinify.html#a7e4599639acb77c7fe422e49fffaf2d6", null ],
     [ "Version", "namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc", null ]
 ];

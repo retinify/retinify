@@ -23,7 +23,9 @@ var geometry_8hpp =
     [ "Vec3f", "geometry_8hpp.html#aacc47ce73ec86d4a5e5397d7b10c6a52", null ],
     [ "Cross", "geometry_8hpp.html#a6a75b80725830180fede17e93d91c4c8", null ],
     [ "Determinant", "geometry_8hpp.html#aeecaff667d115ee519e88c231d6e47d1", null ],
+    [ "Dot", "geometry_8hpp.html#a0f9810659ed2830e792a5364be6cdbbe", null ],
     [ "Exp", "geometry_8hpp.html#afe4003e306f6238bce758b4b07fc7be1", null ],
+    [ "Hat", "geometry_8hpp.html#ae623bd8f4f90981b51de2d1b9b8f37fe", null ],
     [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "geometry_8hpp.html#a0ec88a58bf0b217e6853e4dfc57dd074", null ],
     [ "InitUndistortRectifyMap", "geometry_8hpp.html#a383b927cf95d20886158b5e3229fa7de", null ],
@@ -35,5 +37,6 @@ var geometry_8hpp =
     [ "Scale", "geometry_8hpp.html#a30094f60b2a1571364e29d396f7ac0c9", null ],
     [ "StereoRectify", "geometry_8hpp.html#a64ee9ccd29a47fbcf9846e63220acf10", null ],
     [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
-    [ "UndistortPoint", "geometry_8hpp.html#a8876f0e2847382702e20d5af46ef6fe9", null ]
+    [ "UndistortPoint", "geometry_8hpp.html#a8876f0e2847382702e20d5af46ef6fe9", null ],
+    [ "Vee", "geometry_8hpp.html#a7e4599639acb77c7fe422e49fffaf2d6", null ]
 ];

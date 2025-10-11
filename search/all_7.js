@@ -7,5 +7,6 @@ var searchData=
   ['depthmode_4',['DepthMode',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7',1,'retinify']]],
   ['determinant_5',['Determinant',['../namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1',1,'retinify']]],
   ['distortion_6',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
-  ['distortionfisheye_7',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]]
+  ['distortionfisheye_7',['DistortionFisheye',['../structretinify_1_1DistortionFisheye.html',1,'retinify']]],
+  ['dot_8',['Dot',['../namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe',1,'retinify']]]
 ];

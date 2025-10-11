@@ -254,9 +254,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b23a0163170bedf04b2dad526abcc9b" id="r_a9b23a0163170bedf04b2dad526abcc9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b">Normalize</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
 <tr class="memdesc:a9b23a0163170bedf04b2dad526abcc9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize a 3D vector to unit length.  <br /></td></tr>
 <tr class="separator:a9b23a0163170bedf04b2dad526abcc9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f9810659ed2830e792a5364be6cdbbe" id="r_a0f9810659ed2830e792a5364be6cdbbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe">Dot</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec1, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec2) noexcept -&gt; double</td></tr>
+<tr class="memdesc:a0f9810659ed2830e792a5364be6cdbbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the dot product of two 3D vectors.  <br /></td></tr>
+<tr class="separator:a0f9810659ed2830e792a5364be6cdbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a75b80725830180fede17e93d91c4c8" id="r_a6a75b80725830180fede17e93d91c4c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8">Cross</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec1, const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;vec2) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
 <tr class="memdesc:a6a75b80725830180fede17e93d91c4c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the cross product of two 3D vectors.  <br /></td></tr>
 <tr class="separator:a6a75b80725830180fede17e93d91c4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae623bd8f4f90981b51de2d1b9b8f37fe" id="r_ae623bd8f4f90981b51de2d1b9b8f37fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae623bd8f4f90981b51de2d1b9b8f37fe">Hat</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;omega) noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
+<tr class="memdesc:ae623bd8f4f90981b51de2d1b9b8f37fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a 3x3 skew-symmetric matrix from a 3D rotation vector.  <br /></td></tr>
+<tr class="separator:ae623bd8f4f90981b51de2d1b9b8f37fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4599639acb77c7fe422e49fffaf2d6" id="r_a7e4599639acb77c7fe422e49fffaf2d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a7e4599639acb77c7fe422e49fffaf2d6">Vee</a> (const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;skew) noexcept -&gt; <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td></tr>
+<tr class="memdesc:a7e4599639acb77c7fe422e49fffaf2d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a 3x3 skew-symmetric matrix to a 3D rotation vector.  <br /></td></tr>
+<tr class="separator:a7e4599639acb77c7fe422e49fffaf2d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe4003e306f6238bce758b4b07fc7be1" id="r_afe4003e306f6238bce758b4b07fc7be1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1">Exp</a> (const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;omega) noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
 <tr class="memdesc:afe4003e306f6238bce758b4b07fc7be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix exponential of a 3D rotation vector.  <br /></td></tr>
 <tr class="separator:afe4003e306f6238bce758b4b07fc7be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -922,7 +931,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>3D vector. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Cross product vector. </dd></dl>
 
 </div>
 </div>
@@ -989,6 +998,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f9810659ed2830e792a5364be6cdbbe" name="a0f9810659ed2830e792a5364be6cdbbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f9810659ed2830e792a5364be6cdbbe">&#9670;&#160;</a></span>Dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Dot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  double</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the dot product of two 3D vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec1</td><td>First 3D vector. </td></tr>
+    <tr><td class="paramname">vec2</td><td>Second 3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Dot product value. </dd></dl>
+
+</div>
+</div>
 <a id="afe4003e306f6238bce758b4b07fc7be1" name="afe4003e306f6238bce758b4b07fc7be1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe4003e306f6238bce758b4b07fc7be1">&#9670;&#160;</a></span>Exp()</h2>
 
@@ -1049,6 +1104,41 @@ Functions</h2></td></tr>
 
 <p>Returns the current log level. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current log level. </dd></dl>
+
+</div>
+</div>
+<a id="ae623bd8f4f90981b51de2d1b9b8f37fe" name="ae623bd8f4f90981b51de2d1b9b8f37fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae623bd8f4f90981b51de2d1b9b8f37fe">&#9670;&#160;</a></span>Hat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Hat </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>omega</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a 3x3 skew-symmetric matrix from a 3D rotation vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">omega</td><td>3D rotation vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3x3 skew-symmetric matrix. </dd></dl>
 
 </div>
 </div>
@@ -2147,6 +2237,41 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Undistorted 2D point in pixel coordinates. </dd></dl>
+
+</div>
+</div>
+<a id="a7e4599639acb77c7fe422e49fffaf2d6" name="a7e4599639acb77c7fe422e49fffaf2d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e4599639acb77c7fe422e49fffaf2d6">&#9670;&#160;</a></span>Vee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Vee </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>skew</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc">Vec3d</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert a 3x3 skew-symmetric matrix to a 3D rotation vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skew</td><td>3x3 skew-symmetric matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>3D rotation vector. </dd></dl>
 
 </div>
 </div>
