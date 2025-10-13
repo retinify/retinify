@@ -3,7 +3,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics.
 It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.
 
 @note
-Retinify is open source, and the source code is publicly available:  
+Retinify’s source code is publicly available:  
 👉 [**View the source on GitHub**](https://github.com/retinify/retinify)
 
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
