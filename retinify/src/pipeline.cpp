@@ -61,9 +61,6 @@ class Pipeline::Impl
             return status;
         }
 
-        reprojectionMatrixValid_ = false;
-        reprojectionMatrix_ = Mat4x4d{};
-
         // Set image dimensions
         imageWidth_ = static_cast<std::size_t>(imageWidth);
         imageHeight_ = static_cast<std::size_t>(imageHeight);
@@ -103,6 +100,8 @@ class Pipeline::Impl
             status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
             return status;
         }
+
+        reprojectionMatrix_ = Mat4x4d{};
 
         status = stream_.Create();
         if (!status.IsOK())
@@ -173,23 +172,13 @@ class Pipeline::Impl
         {
             retinify::Mat3x3d R1, R2;
             retinify::Mat3x4d P1, P2;
-            retinify::Mat4x4d Q;
 
             retinify::StereoRectify(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion,   //
                                     calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
                                     calibrationParameters.rotation, calibrationParameters.translation,            //
                                     static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
                                     static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
-                                    R1, R2, P1, P2, Q, 0.0);
-
-            for (std::size_t row = 0; row < 4; ++row)
-            {
-                for (std::size_t col = 0; col < 4; ++col)
-                {
-                    reprojectionMatrix_[row][col] = Q[row][col];
-                }
-            }
-            reprojectionMatrixValid_ = true;
+                                    R1, R2, P1, P2, reprojectionMatrix_, 0.0);
 
             retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
                                               R1, P1,                                                                     //
@@ -521,6 +510,133 @@ class Pipeline::Impl
         return status;
     }
 
+    [[nodiscard]] auto RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveRectifiedLeftImage().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (leftImageData == nullptr)
+        {
+            LogError("Output rectified left image data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * imageChannels_ * sizeof(std::uint8_t);
+        if (leftImageStride < requiredStride)
+        {
+            LogError("Rectified left image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = leftRectified8U_.Download(leftImageData, leftImageStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
+    [[nodiscard]] auto RetrieveRectifiedRightImage(std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveRectifiedRightImage().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (rightImageData == nullptr)
+        {
+            LogError("Output rectified right image data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * imageChannels_ * sizeof(std::uint8_t);
+        if (rightImageStride < requiredStride)
+        {
+            LogError("Rectified right image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = rightRectified8U_.Download(rightImageData, rightImageStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
+    [[nodiscard]] auto RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                                               std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveRectifiedImages().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if ((leftImageData == nullptr) || (rightImageData == nullptr))
+        {
+            LogError("Output rectified image data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * imageChannels_ * sizeof(std::uint8_t);
+        if (leftImageStride < requiredStride)
+        {
+            LogError("Rectified left image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (rightImageStride < requiredStride)
+        {
+            LogError("Rectified right image stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = leftRectified8U_.Download(leftImageData, leftImageStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = rightRectified8U_.Download(rightImageData, rightImageStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
     [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status
     {
         Status status;
@@ -569,12 +685,6 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::FAIL);
         }
 
-        if (!reprojectionMatrixValid_)
-        {
-            LogError("Reprojection matrix is not available. Provide calibration parameters during Initialize().");
-            return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
-        }
-
         if (pointCloudData == nullptr)
         {
             LogError("Output point cloud data is nullptr.");
@@ -610,34 +720,33 @@ class Pipeline::Impl
     }
 
   private:
-    bool initialized_{false};             // whether the pipeline is initialized
-    std::size_t imageWidth_{};            // original input image width
-    std::size_t imageHeight_{};           // original input image height
-    std::size_t imageChannels_{};         // original input image channels
-    std::size_t matchingHeight_{};        // image height for stereo matching
-    std::size_t matchingWidth_{};         // image width for stereo matching
-    Session session_;                     // inference session
-    Stream stream_;                       // stream for operations
-    Mat leftMapX_;                        // left x map for image remapping
-    Mat leftMapY_;                        // left y map for image remapping
-    Mat rightMapX_;                       // right x map for image remapping
-    Mat rightMapY_;                       // right y map for image remapping
-    Mat left8U_;                          // input left image
-    Mat right8U_;                         // input right image
-    Mat leftRectified8U_;                 // rectified left image
-    Mat rightRectified8U_;                // rectified right image
-    Mat leftDisparity32FC1_;              // output left disparity map
-    Mat leftDisparityFiltered32FC1_;      // output left disparity map after occlusion filtering
-    Mat leftResizedRectified8U_;          // resized left image
-    Mat rightResizedRectified8U_;         // resized right image
-    Mat leftResizedRectified8UC1_;        // resized left gray image
-    Mat rightResizedRectified8UC1_;       // resized right gray image
-    Mat leftResizedRectified32FC1_;       // resized gray image for stereo matching
-    Mat rightResizedRectified32FC1_;      // resized gray image for stereo matching
-    Mat disparityResized32FC1_;           // resized disparity map from stereo matching
-    Mat pointCloud32FC3_;                 // reprojected 3D point cloud
-    Mat4x4d reprojectionMatrix_{};        // reprojection matrix (double)
-    bool reprojectionMatrixValid_{false}; // whether reprojection matrix is available
+    bool initialized_{false};        // whether the pipeline is initialized
+    std::size_t imageWidth_{};       // original input image width
+    std::size_t imageHeight_{};      // original input image height
+    std::size_t imageChannels_{};    // original input image channels
+    std::size_t matchingHeight_{};   // image height for stereo matching
+    std::size_t matchingWidth_{};    // image width for stereo matching
+    Session session_;                // inference session
+    Stream stream_;                  // stream for operations
+    Mat leftMapX_;                   // left x map for image remapping
+    Mat leftMapY_;                   // left y map for image remapping
+    Mat rightMapX_;                  // right x map for image remapping
+    Mat rightMapY_;                  // right y map for image remapping
+    Mat left8U_;                     // input left image
+    Mat right8U_;                    // input right image
+    Mat leftRectified8U_;            // rectified left image
+    Mat rightRectified8U_;           // rectified right image
+    Mat leftDisparity32FC1_;         // output left disparity map
+    Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
+    Mat leftResizedRectified8U_;     // resized left image
+    Mat rightResizedRectified8U_;    // resized right image
+    Mat leftResizedRectified8UC1_;   // resized left gray image
+    Mat rightResizedRectified8UC1_;  // resized right gray image
+    Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
+    Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
+    Mat disparityResized32FC1_;      // resized disparity map from stereo matching
+    Mat pointCloud32FC3_;            // reprojected 3D point cloud
+    Mat4x4d reprojectionMatrix_{};   // reprojection matrix (double)
 };
 
 Pipeline::Pipeline() noexcept
@@ -673,6 +782,22 @@ auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStrid
                    float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+}
+
+auto Pipeline::RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status
+{
+    return this->impl()->RetrieveRectifiedLeftImage(leftImageData, leftImageStride);
+}
+
+auto Pipeline::RetrieveRectifiedRightImage(std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+{
+    return this->impl()->RetrieveRectifiedRightImage(rightImageData, rightImageStride);
+}
+
+auto Pipeline::RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                                       std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+{
+    return this->impl()->RetrieveRectifiedImages(leftImageData, leftImageStride, rightImageData, rightImageStride);
 }
 
 auto Pipeline::RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status

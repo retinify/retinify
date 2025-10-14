@@ -90,6 +90,41 @@ class RETINIFY_API Pipeline
                            float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
     /// @brief
+    /// Retrieves the rectified left image.
+    /// @param leftImageData
+    /// Pointer to the output buffer for left image data (8-bit unsigned char).
+    /// @param leftImageStride
+    /// Stride (in bytes) of a row in the output left image data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status;
+
+    /// @brief
+    /// Retrieves the rectified right image.
+    /// @param rightImageData
+    /// Pointer to the output buffer for right image data (8-bit unsigned char).
+    /// @param rightImageStride
+    /// Stride (in bytes) of a row in the output right image data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto RetrieveRectifiedRightImage(std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
+
+    /// @brief
+    /// Retrieves the rectified left and right images.
+    /// @param leftImageData
+    /// Pointer to the output buffer for left image data (8-bit unsigned char).
+    /// @param leftImageStride
+    /// Stride (in bytes) of a row in the output left image data.
+    /// @param rightImageData
+    /// Pointer to the output buffer for right image data (8-bit unsigned char).
+    /// @param rightImageStride
+    /// Stride (in bytes) of a row in the output right image data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                                               std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
+
+    /// @brief
     /// Retrieves the computed disparity map.
     /// @param disparityData
     /// Pointer to the output buffer for disparity data (32-bit float).
