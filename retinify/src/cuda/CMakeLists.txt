@@ -5,6 +5,8 @@ file(GLOB SRCS_CUDA
     occlusion.h
     lrcheck.cu
     lrcheck.h
+    reproject.cu
+    reproject.h
 )
 
 add_library(retinify-cuda STATIC ${SRCS_CUDA})
