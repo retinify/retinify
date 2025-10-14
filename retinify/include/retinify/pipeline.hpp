@@ -97,6 +97,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output left image data.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Run().
     [[nodiscard]] auto RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status;
 
     /// @brief
@@ -107,6 +109,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output right image data.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Run().
     [[nodiscard]] auto RetrieveRectifiedRightImage(std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 
     /// @brief
@@ -121,6 +125,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output right image data.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Run().
     [[nodiscard]] auto RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t leftImageStride, //
                                                std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 
@@ -132,6 +138,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output disparity data.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Run().
     [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
     /// @brief
@@ -142,6 +150,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output point cloud buffer.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Run().
     [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status;
 
   private:

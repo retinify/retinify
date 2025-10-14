@@ -101,6 +101,7 @@ class Pipeline::Impl
             return status;
         }
 
+        // Initialize matrices
         reprojectionMatrix_ = Mat4x4d{};
 
         status = stream_.Create();
