@@ -130,6 +130,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a63e6a9d44c617fca87fc98e7e20a01fa" id="r_a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a> (const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the stereo matching pipeline using the given left and right image data.  <br /></td></tr>
 <tr class="separator:a63e6a9d44c617fca87fc98e7e20a01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20c41146db8230915e9594ced69eabc" id="r_aa20c41146db8230915e9594ced69eabc"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#aa20c41146db8230915e9594ced69eabc">RetrieveRectifiedLeftImage</a> (std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:aa20c41146db8230915e9594ced69eabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the rectified left image.  <br /></td></tr>
+<tr class="separator:aa20c41146db8230915e9594ced69eabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556a4091f2870dd578f8c0b2cf10dcce" id="r_a556a4091f2870dd578f8c0b2cf10dcce"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce">RetrieveRectifiedRightImage</a> (std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a556a4091f2870dd578f8c0b2cf10dcce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the rectified right image.  <br /></td></tr>
+<tr class="separator:a556a4091f2870dd578f8c0b2cf10dcce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab611c471bf099e2b8a90ee34254f71fa" id="r_ab611c471bf099e2b8a90ee34254f71fa"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#ab611c471bf099e2b8a90ee34254f71fa">RetrieveRectifiedImages</a> (std::uint8_t *leftImageData, std::size_t leftImageStride, std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:ab611c471bf099e2b8a90ee34254f71fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the rectified left and right images.  <br /></td></tr>
+<tr class="separator:ab611c471bf099e2b8a90ee34254f71fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6f15753a353d52a1b708fb8fa0abd9" id="r_a2c6f15753a353d52a1b708fb8fa0abd9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9">RetrieveDisparity</a> (float *disparityData, std::size_t disparityStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a2c6f15753a353d52a1b708fb8fa0abd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the computed disparity map.  <br /></td></tr>
+<tr class="separator:a2c6f15753a353d52a1b708fb8fa0abd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68e166fda3c1719bfc884a06f99e490" id="r_ad68e166fda3c1719bfc884a06f99e490"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classretinify_1_1Pipeline.html#ad68e166fda3c1719bfc884a06f99e490">RetrievePointCloud</a> (float *pointCloudData, std::size_t pointCloudStride) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:ad68e166fda3c1719bfc884a06f99e490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprojects the computed disparity map to a 3D point cloud.  <br /></td></tr>
+<tr class="separator:ad68e166fda3c1719bfc884a06f99e490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code> provides an interface for running a stereo matching. </p>
@@ -353,6 +368,255 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c6f15753a353d52a1b708fb8fa0abd9" name="a2c6f15753a353d52a1b708fb8fa0abd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6f15753a353d52a1b708fb8fa0abd9">&#9670;&#160;</a></span>RetrieveDisparity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::Pipeline::RetrieveDisparity </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>disparityData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>disparityStride</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the computed disparity map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float). </td></tr>
+    <tr><td class="paramname">disparityStride</td><td>Stride (in bytes) of a row in the output disparity data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa" title="Executes the stereo matching pipeline using the given left and right image data.">Run()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ad68e166fda3c1719bfc884a06f99e490" name="ad68e166fda3c1719bfc884a06f99e490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68e166fda3c1719bfc884a06f99e490">&#9670;&#160;</a></span>RetrievePointCloud()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::Pipeline::RetrievePointCloud </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>pointCloudData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>pointCloudStride</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reprojects the computed disparity map to a 3D point cloud. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointCloudData</td><td>Pointer to the output buffer for point cloud data (32-bit float, 3 channels). </td></tr>
+    <tr><td class="paramname">pointCloudStride</td><td>Stride (in bytes) of a row in the output point cloud buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa" title="Executes the stereo matching pipeline using the given left and right image data.">Run()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ab611c471bf099e2b8a90ee34254f71fa" name="ab611c471bf099e2b8a90ee34254f71fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab611c471bf099e2b8a90ee34254f71fa">&#9670;&#160;</a></span>RetrieveRectifiedImages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::Pipeline::RetrieveRectifiedImages </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>leftImageData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>leftImageStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>rightImageData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>rightImageStride</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the rectified left and right images. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char). </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the output left image data. </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char). </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the output right image data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa" title="Executes the stereo matching pipeline using the given left and right image data.">Run()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="aa20c41146db8230915e9594ced69eabc" name="aa20c41146db8230915e9594ced69eabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa20c41146db8230915e9594ced69eabc">&#9670;&#160;</a></span>RetrieveRectifiedLeftImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::Pipeline::RetrieveRectifiedLeftImage </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>leftImageData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>leftImageStride</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the rectified left image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char). </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the output left image data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa" title="Executes the stereo matching pipeline using the given left and right image data.">Run()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a556a4091f2870dd578f8c0b2cf10dcce" name="a556a4091f2870dd578f8c0b2cf10dcce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556a4091f2870dd578f8c0b2cf10dcce">&#9670;&#160;</a></span>RetrieveRectifiedRightImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::Pipeline::RetrieveRectifiedRightImage </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>rightImageData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>rightImageStride</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the rectified right image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char). </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the output right image data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa" title="Executes the stereo matching pipeline using the given left and right image data.">Run()</a>. </dd></dl>
 
 </div>
 </div>

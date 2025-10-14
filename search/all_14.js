@@ -11,10 +11,15 @@ var searchData=
   ['retinify_20repository_8',['Clone the retinify repository.',['../installation.html#autotoc_md5',1,'']]],
   ['retinify_5fapi_9',['RETINIFY_API',['../attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28',1,'attributes.hpp']]],
   ['retinify_5fdeprecated_10',['RETINIFY_DEPRECATED',['../attributes_8hpp.html#a210b3c6fda00da54e0125d3367b6c6f5',1,'attributes.hpp']]],
-  ['rgb8_11',['RGB8',['../namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63',1,'retinify']]],
-  ['rightcameraserial_12',['rightCameraSerial',['../structretinify_1_1CalibrationParameters.html#a0ecbb71a31d67e1567fa0a9b4579a90c',1,'retinify::CalibrationParameters']]],
-  ['rightdistortion_13',['rightDistortion',['../structretinify_1_1CalibrationParameters.html#ae5a02f41e03346de350806c62c666dc6',1,'retinify::CalibrationParameters']]],
-  ['rightintrinsics_14',['rightIntrinsics',['../structretinify_1_1CalibrationParameters.html#ae1224209b7d2dcab3653d232df2f22f9',1,'retinify::CalibrationParameters']]],
-  ['rotation_15',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]],
-  ['run_16',['Run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline']]]
+  ['retrievedisparity_11',['RetrieveDisparity',['../classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9',1,'retinify::Pipeline']]],
+  ['retrievepointcloud_12',['RetrievePointCloud',['../classretinify_1_1Pipeline.html#ad68e166fda3c1719bfc884a06f99e490',1,'retinify::Pipeline']]],
+  ['retrieverectifiedimages_13',['RetrieveRectifiedImages',['../classretinify_1_1Pipeline.html#ab611c471bf099e2b8a90ee34254f71fa',1,'retinify::Pipeline']]],
+  ['retrieverectifiedleftimage_14',['RetrieveRectifiedLeftImage',['../classretinify_1_1Pipeline.html#aa20c41146db8230915e9594ced69eabc',1,'retinify::Pipeline']]],
+  ['retrieverectifiedrightimage_15',['RetrieveRectifiedRightImage',['../classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce',1,'retinify::Pipeline']]],
+  ['rgb8_16',['RGB8',['../namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63',1,'retinify']]],
+  ['rightcameraserial_17',['rightCameraSerial',['../structretinify_1_1CalibrationParameters.html#a0ecbb71a31d67e1567fa0a9b4579a90c',1,'retinify::CalibrationParameters']]],
+  ['rightdistortion_18',['rightDistortion',['../structretinify_1_1CalibrationParameters.html#ae5a02f41e03346de350806c62c666dc6',1,'retinify::CalibrationParameters']]],
+  ['rightintrinsics_19',['rightIntrinsics',['../structretinify_1_1CalibrationParameters.html#ae1224209b7d2dcab3653d232df2f22f9',1,'retinify::CalibrationParameters']]],
+  ['rotation_20',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]],
+  ['run_21',['Run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline']]]
 ];
