@@ -89,6 +89,26 @@ class RETINIFY_API Pipeline
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
+    /// @brief
+    /// Retrieves the computed disparity map.
+    /// @param disparityData
+    /// Pointer to the output buffer for disparity data (32-bit float).
+    /// @param disparityStride
+    /// Stride (in bytes) of a row in the output disparity data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status;
+
+    /// @brief
+    /// Reprojects the computed disparity map to a 3D point cloud.
+    /// @param pointCloudData
+    /// Pointer to the output buffer for point cloud data (32-bit float, 3 channels).
+    /// @param pointCloudStride
+    /// Stride (in bytes) of a row in the output point cloud buffer.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status;
+
   private:
     class Impl;
     auto impl() noexcept -> Impl *;

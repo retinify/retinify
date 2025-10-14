@@ -8,6 +8,7 @@
 #ifdef BUILD_WITH_TENSORRT
 #include "cuda/lrcheck.h"
 #include "cuda/occlusion.h"
+#include "cuda/reproject.h"
 #include <npp.h>
 #else
 #endif
@@ -554,6 +555,66 @@ auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, flo
     (void)right;
     (void)output;
     (void)relativeError;
+    (void)stream;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+#endif
+}
+
+auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &Q, Stream &stream) noexcept -> Status
+{
+    if (disparity.Empty() || points3d.Empty())
+    {
+        LogError("Disparity or output points buffer is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.Channels() != 1 || points3d.Channels() != 3)
+    {
+        LogError("Disparity must have 1 channel and points must have 3 channels.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.BytesPerElement() != sizeof(float) || points3d.BytesPerElement() != sizeof(float))
+    {
+        LogError("Disparity and points must have 32-bit floating-point elements.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.Rows() != points3d.Rows() || disparity.Cols() != points3d.Cols())
+    {
+        LogError("Disparity and points must have the same spatial dimensions.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+#ifdef BUILD_WITH_TENSORRT
+    float q[16];
+    for (std::size_t row = 0; row < 4; ++row)
+    {
+        for (std::size_t col = 0; col < 4; ++col)
+        {
+            q[row * 4 + col] = static_cast<float>(Q[row][col]);
+        }
+    }
+
+    cudaError_t error = cudaReprojectTo3d(static_cast<const float *>(disparity.Data()), disparity.Stride(), //
+                                          static_cast<float *>(points3d.Data()), points3d.Stride(),         //
+                                          static_cast<std::uint32_t>(disparity.Cols()),                    //
+                                          static_cast<std::uint32_t>(disparity.Rows()),                    //
+                                          q,                                                               //
+                                          stream.GetCudaStream());
+
+    if (error != cudaSuccess)
+    {
+        LogError("cudaReprojectTo3d failed");
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
+
+    return Status{};
+#else
+    (void)disparity;
+    (void)points3d;
+    (void)Q;
     (void)stream;
     LogError("This function is not available");
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};

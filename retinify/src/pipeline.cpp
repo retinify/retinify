@@ -41,6 +41,7 @@ class Pipeline::Impl
         (void)leftResizedRectified32FC1_.Free();
         (void)rightResizedRectified32FC1_.Free();
         (void)disparityResized32FC1_.Free();
+        (void)pointCloud32FC3_.Free();
     }
 
     Impl(const Impl &) = delete;
@@ -59,6 +60,9 @@ class Pipeline::Impl
             status = Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
             return status;
         }
+
+        reprojectionMatrixValid_ = false;
+        reprojectionMatrix_ = Mat4x4d{};
 
         // Set image dimensions
         imageWidth_ = static_cast<std::size_t>(imageWidth);
@@ -178,6 +182,15 @@ class Pipeline::Impl
                                     static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
                                     R1, R2, P1, P2, Q, 0.0);
 
+            for (std::size_t row = 0; row < 4; ++row)
+            {
+                for (std::size_t col = 0; col < 4; ++col)
+                {
+                    reprojectionMatrix_[row][col] = Q[row][col];
+                }
+            }
+            reprojectionMatrixValid_ = true;
+
             retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
                                               R1, P1,                                                                     //
                                               static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
@@ -272,6 +285,12 @@ class Pipeline::Impl
         }
 
         status = leftDisparityFiltered32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = pointCloud32FC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -502,32 +521,123 @@ class Pipeline::Impl
         return status;
     }
 
+    [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveDisparity().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (disparityData == nullptr)
+        {
+            LogError("Output disparity data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * sizeof(float);
+        if (disparityStride < requiredStride)
+        {
+            LogError("Disparity stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = leftDisparityFiltered32FC1_.Download(disparityData, disparityStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
+    [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before ComputePointCloud().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (!reprojectionMatrixValid_)
+        {
+            LogError("Reprojection matrix is not available. Provide calibration parameters during Initialize().");
+            return Status(StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT);
+        }
+
+        if (pointCloudData == nullptr)
+        {
+            LogError("Output point cloud data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * 3 * sizeof(float);
+        if (pointCloudStride < requiredStride)
+        {
+            LogError("Point cloud stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = ReprojectDisparityTo3D(leftDisparityFiltered32FC1_, pointCloud32FC3_, reprojectionMatrix_, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = pointCloud32FC3_.Download(pointCloudData, pointCloudStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
   private:
-    bool initialized_{false};        // whether the pipeline is initialized
-    std::size_t imageWidth_{};       // original input image width
-    std::size_t imageHeight_{};      // original input image height
-    std::size_t imageChannels_{};    // original input image channels
-    std::size_t matchingHeight_{};   // image height for stereo matching
-    std::size_t matchingWidth_{};    // image width for stereo matching
-    Session session_;                // inference session
-    Stream stream_;                  // stream for operations
-    Mat leftMapX_;                   // left x map for image remapping
-    Mat leftMapY_;                   // left y map for image remapping
-    Mat rightMapX_;                  // right x map for image remapping
-    Mat rightMapY_;                  // right y map for image remapping
-    Mat left8U_;                     // input left image
-    Mat right8U_;                    // input right image
-    Mat leftRectified8U_;            // rectified left image
-    Mat rightRectified8U_;           // rectified right image
-    Mat leftDisparity32FC1_;         // output left disparity map
-    Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
-    Mat leftResizedRectified8U_;     // resized left image
-    Mat rightResizedRectified8U_;    // resized right image
-    Mat leftResizedRectified8UC1_;   // resized left gray image
-    Mat rightResizedRectified8UC1_;  // resized right gray image
-    Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
-    Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
-    Mat disparityResized32FC1_;      // resized disparity map from stereo matching
+    bool initialized_{false};             // whether the pipeline is initialized
+    std::size_t imageWidth_{};            // original input image width
+    std::size_t imageHeight_{};           // original input image height
+    std::size_t imageChannels_{};         // original input image channels
+    std::size_t matchingHeight_{};        // image height for stereo matching
+    std::size_t matchingWidth_{};         // image width for stereo matching
+    Session session_;                     // inference session
+    Stream stream_;                       // stream for operations
+    Mat leftMapX_;                        // left x map for image remapping
+    Mat leftMapY_;                        // left y map for image remapping
+    Mat rightMapX_;                       // right x map for image remapping
+    Mat rightMapY_;                       // right y map for image remapping
+    Mat left8U_;                          // input left image
+    Mat right8U_;                         // input right image
+    Mat leftRectified8U_;                 // rectified left image
+    Mat rightRectified8U_;                // rectified right image
+    Mat leftDisparity32FC1_;              // output left disparity map
+    Mat leftDisparityFiltered32FC1_;      // output left disparity map after occlusion filtering
+    Mat leftResizedRectified8U_;          // resized left image
+    Mat rightResizedRectified8U_;         // resized right image
+    Mat leftResizedRectified8UC1_;        // resized left gray image
+    Mat rightResizedRectified8UC1_;       // resized right gray image
+    Mat leftResizedRectified32FC1_;       // resized gray image for stereo matching
+    Mat rightResizedRectified32FC1_;      // resized gray image for stereo matching
+    Mat disparityResized32FC1_;           // resized disparity map from stereo matching
+    Mat pointCloud32FC3_;                 // reprojected 3D point cloud
+    Mat4x4d reprojectionMatrix_{};        // reprojection matrix (double)
+    bool reprojectionMatrixValid_{false}; // whether reprojection matrix is available
 };
 
 Pipeline::Pipeline() noexcept
@@ -563,5 +673,15 @@ auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStrid
                    float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+}
+
+auto Pipeline::RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status
+{
+    return this->impl()->RetrieveDisparity(disparityData, disparityStride);
+}
+
+auto Pipeline::RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status
+{
+    return this->impl()->RetrievePointCloud(pointCloudData, pointCloudStride);
 }
 } // namespace retinify
