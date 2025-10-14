@@ -4,6 +4,8 @@
 #include "mat.hpp"
 #include "stream.hpp"
 
+#include "retinify/geometry.hpp"
+
 namespace retinify
 {
 /// @brief
@@ -133,4 +135,18 @@ namespace retinify
 /// @return
 /// Status code.
 [[nodiscard]] auto LRConsistencyCheck32FC1(const Mat &left, const Mat &right, Mat &output, float relativeError, Stream &stream) noexcept -> Status;
+
+/// @brief
+/// Reproject a disparity map into a 3D point cloud using a reprojection matrix.
+/// @param disparity
+/// Input disparity map (32-bit floating-point, 1-channel).
+/// @param points3d
+/// Output 3D points (32-bit floating-point, 3-channel).
+/// @param Q
+/// 4x4 reprojection matrix (row-major, double).
+/// @param stream
+/// Execution stream.
+/// @return
+/// Status code.
+[[nodiscard]] auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &Q, Stream &stream) noexcept -> Status;
 } // namespace retinify
