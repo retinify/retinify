@@ -2,12 +2,12 @@
 cmake_minimum_required(VERSION 3.22)
 
 # EULA
-set(RETINIFY_EULA_DIR "${CMAKE_SOURCE_DIR}/3rdparty/retinify-EULA")
+set(RETINIFY_EULA_DIR "${CMAKE_SOURCE_DIR}/3rdparty/retinify-eula")
 set(RETINIFY_EULA_FILE "${RETINIFY_EULA_DIR}/EULA.md")
 find_program(GIT_EXECUTABLE git REQUIRED)
 
 execute_process(
-  COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive -- 3rdparty/retinify-EULA
+  COMMAND "${GIT_EXECUTABLE}" submodule update --init --recursive -- 3rdparty/retinify-eula
   WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
   COMMAND_ERROR_IS_FATAL ANY
 )
