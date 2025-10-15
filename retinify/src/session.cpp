@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
-// SPDX-License-Identifier: LicenseRef-retinify-EULA
+// SPDX-License-Identifier: LicenseRef-retinify-eula
 
 #include "session.hpp"
 #include "mat.hpp"
