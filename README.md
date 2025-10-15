@@ -34,11 +34,11 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
 - 🌐 **Minimal Dependencies**: The pipeline depends only on CUDA Toolkit, cuDNN, and TensorRT, providing a lean and production-grade foundation.
 
 ## License
-Use of **retinify** is governed by the current [**retinify End User License Agreement**](https://github.com/retinify/retinify-EULA/blob/main/EULA.md).  
+Use of **retinify** is governed by the current [**retinify End User License Agreement**](https://github.com/retinify/retinify-eula/blob/main/EULA.md).  
 By cloning, building, installing, or using retinify, you agree to the EULA.  
 If you do not agree, you must not use or update retinify.  
 
-For common questions, see the [**FAQ**](https://github.com/retinify/retinify-EULA/blob/main/FAQ.md).  
+For common questions, see the [**FAQ**](https://github.com/retinify/retinify-eula/blob/main/FAQ.md).  
 
 ## Basic Usage
 > [!IMPORTANT]

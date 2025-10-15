@@ -38,7 +38,7 @@ for arg in "$@"; do
 done
 
 # EULA ACCEPTANCE
-EULA_REPO="retinify/retinify-EULA"
+EULA_REPO="retinify/retinify-eula"
 
 EULA_URL="https://github.com/${EULA_REPO}/blob/main/EULA.md"
 EULA_FAQ_URL="https://github.com/${EULA_REPO}/blob/main/FAQ.md"

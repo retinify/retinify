@@ -44,7 +44,7 @@ jobs:
             apt update && apt install -y git cmake build-essential
 
             git config --global --add safe.directory /workspace
-            git config --global --add safe.directory /workspace/3rdparty/retinify-EULA
+            git config --global --add safe.directory /workspace/3rdparty/retinify-eula
             git submodule update --init --recursive
 
             ./build.sh --install --tensorrt --accept-eula
