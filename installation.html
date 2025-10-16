@@ -120,12 +120,18 @@ Clone the retinify repository.</h2>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
 <div class="line">cd retinify</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Download Weights</h2>
+<p>Download <code>stereo-matching.onnx</code> from <a href="https://huggingface.co/retinify/stereo-matching">Hugging Face</a> <br  />
+ and place it inside the <code>weights</code> directory within the cloned <code>retinify</code> folder, as shown below: </p><div class="fragment"><div class="line">retinify/</div>
+<div class="line">└── weights/</div>
+<div class="line">    └── stereo-matching.onnx</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Install retinify</h2>
 <p>Build retinify and install its Debian package. </p><div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
 Verify Installation</h2>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Uninstall retinify</h2>
 <p>To uninstall the Debian package, use the following script. </p><div class="fragment"><div class="line">sudo apt remove libretinify-dev</div>
 </div><!-- fragment --> </div></div><!-- contents -->

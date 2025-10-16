@@ -5,7 +5,7 @@ var searchData=
   ['vec3d_2',['Vec3d',['../namespaceretinify.html#a1fc94eca66deaf8e12e2fdeb99fad8dc',1,'retinify']]],
   ['vec3f_3',['Vec3f',['../namespaceretinify.html#aacc47ce73ec86d4a5e5397d7b10c6a52',1,'retinify']]],
   ['vee_4',['Vee',['../namespaceretinify.html#a7e4599639acb77c7fe422e49fffaf2d6',1,'retinify']]],
-  ['verify_20installation_5',['Verify Installation',['../installation.html#autotoc_md7',1,'']]],
+  ['verify_20installation_5',['Verify Installation',['../installation.html#autotoc_md8',1,'']]],
   ['version_6',['Version',['../namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc',1,'retinify']]],
   ['version_2ehpp_7',['version.hpp',['../version_8hpp.html',1,'']]]
 ];

@@ -10,7 +10,7 @@ var searchData=
   ['colormap_2ehpp_7',['colormap.hpp',['../colormap_8hpp.html',1,'']]],
   ['configdirectorypath_8',['ConfigDirectoryPath',['../namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1',1,'retinify']]],
   ['contact_9',['Contact',['../index.html#autotoc_md3',1,'']]],
-  ['create_20a_20retinify_20project_10',['4. Create a retinify project',['../tutorials.html#autotoc_md12',1,'']]],
+  ['create_20a_20retinify_20project_10',['4. Create a retinify project',['../tutorials.html#autotoc_md13',1,'']]],
   ['cross_11',['Cross',['../namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8',1,'retinify']]],
   ['cuda_12',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
   ['cx_13',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],

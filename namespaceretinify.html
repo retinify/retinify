@@ -326,9 +326,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae0856ceeade3a7fa9f28ed3567bc4ab7" id="r_ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7">StateDirectoryPath</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the state directory path for retinify.  <br /></td></tr>
 <tr class="separator:ae0856ceeade3a7fa9f28ed3567bc4ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e302dee4bddf30ea2ce84915d77031f" id="r_a4e302dee4bddf30ea2ce84915d77031f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4e302dee4bddf30ea2ce84915d77031f">ONNXModelFilePath</a> () noexcept -&gt; const char *</td></tr>
-<tr class="memdesc:a4e302dee4bddf30ea2ce84915d77031f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the path to the ONNX model file used by retinify.  <br /></td></tr>
-<tr class="separator:a4e302dee4bddf30ea2ce84915d77031f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad94e307cc3927625cdb626d946f5c2f0" id="r_ad94e307cc3927625cdb626d946f5c2f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ad94e307cc3927625cdb626d946f5c2f0">StereoMatchingOnnxFilePath</a> () noexcept -&gt; const char *</td></tr>
+<tr class="memdesc:ad94e307cc3927625cdb626d946f5c2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the path to the ONNX model file used for stereo matching.  <br /></td></tr>
+<tr class="separator:ad94e307cc3927625cdb626d946f5c2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9111632655e1df2bfedea024ce2457cc" id="r_a9111632655e1df2bfedea024ce2457cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc">Version</a> () noexcept -&gt; const char *</td></tr>
 <tr class="memdesc:a9111632655e1df2bfedea024ce2457cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the retinify library version in semantic versioning format.  <br /></td></tr>
 <tr class="separator:a9111632655e1df2bfedea024ce2457cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1841,34 +1841,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4e302dee4bddf30ea2ce84915d77031f" name="a4e302dee4bddf30ea2ce84915d77031f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e302dee4bddf30ea2ce84915d77031f">&#9670;&#160;</a></span>ONNXModelFilePath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ONNXModelFilePath </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> -&gt;  const char *</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the path to the ONNX model file used by retinify. </p>
-<dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the ONNX model file path. </dd></dl>
-
-</div>
-</div>
 <a id="a13c2e1584097a06ea80ffd9aeee84639" name="a13c2e1584097a06ea80ffd9aeee84639"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13c2e1584097a06ea80ffd9aeee84639">&#9670;&#160;</a></span>SaveCalibrationParameters()</h2>
 
@@ -2020,6 +1992,34 @@ Functions</h2></td></tr>
 
 <p>Returns the state directory path for retinify. </p>
 <dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the state directory path, or nullptr on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ad94e307cc3927625cdb626d946f5c2f0" name="ad94e307cc3927625cdb626d946f5c2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad94e307cc3927625cdb626d946f5c2f0">&#9670;&#160;</a></span>StereoMatchingOnnxFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::StereoMatchingOnnxFilePath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  const char *</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the path to the ONNX model file used for stereo matching. </p>
+<dl class="section return"><dt>Returns</dt><dd>A null-terminated string with the ONNX model file path. </dd></dl>
 
 </div>
 </div>
