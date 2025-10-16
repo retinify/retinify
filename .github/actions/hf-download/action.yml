@@ -1,0 +1,30 @@
+name: hf-download
+
+inputs:
+  token:
+    description: "Hugging Face access token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - shell: bash
+      env:
+        HF_TOKEN: ${{ inputs.token }}
+      run: |
+        set -e
+
+        python -m pip install -q "huggingface_hub[cli]"
+
+        echo "Logging in to Hugging Face..."
+        huggingface-cli login --token "${HF_TOKEN}" --add-to-git-credential
+
+        echo "Downloading stereo-matching.onnx..."
+        mkdir -p weights
+        huggingface-cli download retinify/stereo-matching stereo-matching.onnx \
+          --local-dir weights --local-dir-use-symlinks False
+        ls -lh weights
