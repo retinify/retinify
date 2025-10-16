@@ -128,8 +128,8 @@ auto StateDirectoryPath() noexcept -> const char *
     return ResolveUserDirectory(kStateDirName, "Failed to create or access the state directory.");
 }
 
-auto ONNXModelFilePath() noexcept -> const char *
+auto StereoMatchingOnnxFilePath() noexcept -> const char *
 {
-    return LIBRETINIFY_ONNX_PATH;
+    return STEREO_MATCHING_ONNX_PATH;
 }
 } // namespace retinify

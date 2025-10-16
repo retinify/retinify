@@ -19,6 +19,15 @@ git clone --recurse-submodules https://github.com/retinify/retinify.git
 cd retinify
 ```
 
+## Download Weights
+Download `stereo-matching.onnx` from [Hugging Face](https://huggingface.co/retinify/stereo-matching)  
+and place it inside the `weights` directory within the cloned `retinify` folder, as shown below:
+```
+retinify/
+└── weights/
+    └── stereo-matching.onnx
+```
+
 ## Install retinify
 Build retinify and install its Debian package.
 ```bash

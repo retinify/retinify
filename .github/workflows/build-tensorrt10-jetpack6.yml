@@ -23,6 +23,11 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Download Weights
+      uses: ./.github/actions/hf-download
+      with:
+        token: ${{ secrets.HF_TOKEN }}
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
       with:
