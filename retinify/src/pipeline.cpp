@@ -328,7 +328,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.Initialize(ONNXModelFilePath());
+        status = session_.Initialize(StereoMatchingOnnxFilePath());
         if (!status.IsOK())
         {
             return status;

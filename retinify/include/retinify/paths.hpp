@@ -27,7 +27,7 @@ RETINIFY_API auto DataDirectoryPath() noexcept -> const char *;
 /// @return A null-terminated string with the state directory path, or nullptr on failure.
 RETINIFY_API auto StateDirectoryPath() noexcept -> const char *;
 
-/// @brief Returns the path to the ONNX model file used by retinify.
+/// @brief Returns the path to the ONNX model file used for stereo matching.
 /// @return A null-terminated string with the ONNX model file path.
-RETINIFY_API auto ONNXModelFilePath() noexcept -> const char *;
+RETINIFY_API auto StereoMatchingOnnxFilePath() noexcept -> const char *;
 } // namespace retinify
