@@ -17,14 +17,13 @@ runs:
         HF_TOKEN: ${{ inputs.token }}
       run: |
         set -e
-
-        python -m pip install -q "huggingface_hub[cli]"
+        python -m pip install -q "huggingface_hub[cli]>=0.25.0"
 
         echo "Logging in to Hugging Face..."
-        huggingface-cli login --token "${HF_TOKEN}" --add-to-git-credential
+        hf auth login --token "${HF_TOKEN}" --add-to-git-credential
 
         echo "Downloading stereo-matching.onnx..."
         mkdir -p weights
-        huggingface-cli download retinify/stereo-matching stereo-matching.onnx \
-          --local-dir weights --local-dir-use-symlinks False
+        hf download retinify/stereo-matching stereo-matching.onnx --local-dir weights
+
         ls -lh weights
