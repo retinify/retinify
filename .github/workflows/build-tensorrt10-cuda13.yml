@@ -22,7 +22,8 @@ jobs:
       with:
         submodules: true
 
-    - uses: ./.github/actions/hf-download
+    - name: Download Weights
+      uses: ./.github/actions/hf-download
       with:
         token: ${{ secrets.HF_TOKEN }}
 

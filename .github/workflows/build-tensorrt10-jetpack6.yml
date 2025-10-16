@@ -23,7 +23,8 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - uses: ./.github/actions/hf-download
+    - name: Download Weights
+      uses: ./.github/actions/hf-download
       with:
         token: ${{ secrets.HF_TOKEN }}
 
