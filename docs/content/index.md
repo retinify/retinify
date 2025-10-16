@@ -32,4 +32,4 @@ Detailed class and function-level documentation for developers.
 
 ### Contact
 For all inquiries, including support, collaboration, and EULA-related matters, please contact:  
-**[contact@retinify.ai](mailto:contact@retinify.ai)**
+[contact@retinify.ai](mailto:contact@retinify.ai)
