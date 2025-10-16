@@ -21,6 +21,10 @@ jobs:
       with:
         submodules: true
 
+    - uses: ./.github/actions/hf-download
+      with:
+        token: ${{ secrets.HF_TOKEN }}
+
     - name: Dependencies
       run: |
         sudo apt update
