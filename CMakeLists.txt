@@ -75,32 +75,12 @@ install(
 )
 
 # ONNX MODEL
-set(STEREO_MODEL_URL  "https://github.com/retinify/retinify-models/releases/download/v${PROJECT_VERSION}/model.onnx")
-set(STEREO_MODEL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx")
-set(STEREO_MODEL_HASH_URL  "${STEREO_MODEL_URL}.sha256")
-set(STEREO_MODEL_HASH_PATH  "${STEREO_MODEL_PATH}.sha256")
+set(STEREO_MODEL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/weights/stereo-matching.onnx")
+if(NOT EXISTS "${STEREO_MODEL_PATH}")
+  message(FATAL_ERROR "Stereo model file not found: ${STEREO_MODEL_PATH}")
+endif()
 
-file(DOWNLOAD
-    "${STEREO_MODEL_HASH_URL}"
-    "${STEREO_MODEL_HASH_PATH}"
-    TLS_VERIFY ON
-    STATUS status
-)
-
-file(READ "${STEREO_MODEL_HASH_PATH}" STEREO_MODEL_HASH_RAW)
-string(REGEX MATCH "^[0-9a-fA-F]+" STEREO_MODEL_HASH_HEX "${STEREO_MODEL_HASH_RAW}")
-set(STEREO_MODEL_HASH_EXPECTED "SHA256=${STEREO_MODEL_HASH_HEX}")
-
-file(DOWNLOAD
-    "${STEREO_MODEL_URL}"
-    "${STEREO_MODEL_PATH}"
-    EXPECTED_HASH "${STEREO_MODEL_HASH_EXPECTED}"
-    SHOW_PROGRESS
-    TLS_VERIFY ON
-    STATUS status
-)
-
-set(LIBRETINIFY_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/model.onnx")
+set(STEREO_MATCHING_ONNX_PATH "${CMAKE_INSTALL_PREFIX}/share/retinify/weights/${PROJECT_VERSION}/stereo-matching.onnx")
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/retinify_onnx.hpp.in"
     "${CMAKE_BINARY_DIR}/include/retinify/retinify_onnx.hpp"
@@ -118,7 +98,7 @@ endif(BUILD_SAMPLES)
 install(FILES ${RETINIFY_EULA_FILE} DESTINATION share/retinify)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/VERSION DESTINATION share/retinify)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weights/${PROJECT_VERSION}/model.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weights/stereo-matching.onnx DESTINATION share/retinify/weights/${PROJECT_VERSION})
 
 # CPACK
 set(CPACK_GENERATOR "DEB")

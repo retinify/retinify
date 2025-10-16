@@ -63,8 +63,8 @@ TEST_F(PathTest, StateDirectoryPath)
     CheckPath(StateDirectoryPath(), true);
 }
 
-TEST_F(PathTest, ONNXModelFilePath)
+TEST_F(PathTest, StereoMatchingOnnxFilePath)
 {
-    CheckPath(ONNXModelFilePath(), false);
+    CheckPath(StereoMatchingOnnxFilePath(), false);
 }
 } // namespace retinify

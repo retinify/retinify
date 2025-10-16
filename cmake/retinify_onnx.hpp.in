@@ -3,4 +3,4 @@
 
 #pragma once
 
-inline constexpr const char *LIBRETINIFY_ONNX_PATH = "@LIBRETINIFY_ONNX_PATH@";
+inline constexpr const char *STEREO_MATCHING_ONNX_PATH = "@STEREO_MATCHING_ONNX_PATH@";
