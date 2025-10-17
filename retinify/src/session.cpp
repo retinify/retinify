@@ -292,7 +292,7 @@ auto Session::BindOutput(const char *name, const Mat &mat) const noexcept -> Sta
 #endif
 }
 
-auto Session::Run(Stream &stream) const noexcept -> Status
+auto Session::Execute(Stream &stream) const noexcept -> Status
 {
 #ifdef BUILD_WITH_TENSORRT
     if (!context_->allInputDimensionsSpecified())

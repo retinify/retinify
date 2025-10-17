@@ -32,7 +32,7 @@ class RETINIFY_API Session
     [[nodiscard]] auto Initialize(const char *model_path) noexcept -> Status;
     [[nodiscard]] auto BindInput(const char *name, const Mat &mat) const noexcept -> Status;
     [[nodiscard]] auto BindOutput(const char *name, const Mat &mat) const noexcept -> Status;
-    [[nodiscard]] auto Run(Stream &stream) const noexcept -> Status;
+    [[nodiscard]] auto Execute(Stream &stream) const noexcept -> Status;
 
   private:
 #ifdef BUILD_WITH_TENSORRT

@@ -30,12 +30,20 @@ double BenchmarkPipeline(retinify::DepthMode mode, const cv::Mat &img0, const cv
     for (int i = 0; i < num_iters; ++i)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        retinify::Status statusRun = pipeline.Run(img0.ptr<std::uint8_t>(), img0.step[0], img1.ptr<std::uint8_t>(), img1.step[0], disp.ptr<float>(), disp.step[0]);
-        if (!statusRun.IsOK())
+        retinify::Status statusExecute = pipeline.Execute(img0.ptr<std::uint8_t>(), img0.step[0], img1.ptr<std::uint8_t>(), img1.step[0]);
+        if (!statusExecute.IsOK())
         {
-            retinify::LogError("Pipeline run failed for mode.");
+            retinify::LogError("Pipeline execution failed.");
             return -1.0;
         }
+
+        retinify::Status statusRetrieve = pipeline.RetrieveDisparity(disp.ptr<float>(), disp.step[0]);
+        if (!statusRetrieve.IsOK())
+        {
+            retinify::LogError("Disparity retrieval failed.");
+            return -1.0;
+        }
+
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
         double ms = static_cast<double>(duration.count()) / 1000.0;

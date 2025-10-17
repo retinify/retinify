@@ -6,6 +6,7 @@
 #include "retinify/logging.hpp"
 
 #ifdef BUILD_WITH_TENSORRT
+#include "cuda/depth.h"
 #include "cuda/lrcheck.h"
 #include "cuda/occlusion.h"
 #include "cuda/reproject.h"
@@ -599,9 +600,9 @@ auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &
 
     cudaError_t error = cudaReprojectTo3d(static_cast<const float *>(disparity.Data()), disparity.Stride(), //
                                           static_cast<float *>(points3d.Data()), points3d.Stride(),         //
-                                          static_cast<std::uint32_t>(disparity.Cols()),                    //
-                                          static_cast<std::uint32_t>(disparity.Rows()),                    //
-                                          q,                                                               //
+                                          static_cast<std::uint32_t>(disparity.Cols()),                     //
+                                          static_cast<std::uint32_t>(disparity.Rows()),                     //
+                                          q,                                                                //
                                           stream.GetCudaStream());
 
     if (error != cudaSuccess)
@@ -614,6 +615,66 @@ auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &
 #else
     (void)disparity;
     (void)points3d;
+    (void)Q;
+    (void)stream;
+    LogError("This function is not available");
+    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
+#endif
+}
+
+auto DisparityToDepth32FC1(const Mat &disparity, Mat &depth, const Mat4x4d &Q, Stream &stream) noexcept -> Status
+{
+    if (disparity.Empty() || depth.Empty())
+    {
+        LogError("Disparity or depth buffer is empty.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.Channels() != 1 || depth.Channels() != 1)
+    {
+        LogError("Disparity and depth must have exactly 1 channel.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.BytesPerElement() != sizeof(float) || depth.BytesPerElement() != sizeof(float))
+    {
+        LogError("Disparity and depth must have 32-bit floating-point elements.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if (disparity.Rows() != depth.Rows() || disparity.Cols() != depth.Cols())
+    {
+        LogError("Disparity and depth must have the same spatial dimensions.");
+        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+    }
+
+#ifdef BUILD_WITH_TENSORRT
+    float q[16];
+    for (std::size_t row = 0; row < 4; ++row)
+    {
+        for (std::size_t col = 0; col < 4; ++col)
+        {
+            q[row * 4 + col] = static_cast<float>(Q[row][col]);
+        }
+    }
+
+    cudaError_t error = cudaDisparityToDepth(static_cast<const float *>(disparity.Data()), disparity.Stride(), //
+                                             static_cast<float *>(depth.Data()), depth.Stride(),               //
+                                             static_cast<std::uint32_t>(disparity.Cols()),                     //
+                                             static_cast<std::uint32_t>(disparity.Rows()),                     //
+                                             q,                                                                //
+                                             stream.GetCudaStream());
+
+    if (error != cudaSuccess)
+    {
+        LogError("cudaDisparityToDepth failed");
+        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+    }
+
+    return Status{};
+#else
+    (void)disparity;
+    (void)depth;
     (void)Q;
     (void)stream;
     LogError("This function is not available");

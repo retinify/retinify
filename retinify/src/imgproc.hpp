@@ -149,4 +149,18 @@ namespace retinify
 /// @return
 /// Status code.
 [[nodiscard]] auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &Q, Stream &stream) noexcept -> Status;
+
+/// @brief
+/// Convert a disparity map into a depth map using a reprojection matrix.
+/// @param disparity
+/// Input disparity map (32-bit floating-point, 1-channel).
+/// @param depth
+/// Output depth map (32-bit floating-point, 1-channel).
+/// @param Q
+/// 4x4 reprojection matrix (row-major, double).
+/// @param stream
+/// Execution stream.
+/// @return
+/// Status code.
+[[nodiscard]] auto DisparityToDepth32FC1(const Mat &disparity, Mat &depth, const Mat4x4d &Q, Stream &stream) noexcept -> Status;
 } // namespace retinify
