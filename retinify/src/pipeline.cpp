@@ -41,6 +41,7 @@ class Pipeline::Impl
         (void)leftResizedRectified32FC1_.Free();
         (void)rightResizedRectified32FC1_.Free();
         (void)disparityResized32FC1_.Free();
+        (void)depth32FC1_.Free();
         (void)pointCloud32FC3_.Free();
     }
 
@@ -275,6 +276,12 @@ class Pipeline::Impl
         }
 
         status = leftDisparityFiltered32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = depth32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -650,6 +657,50 @@ class Pipeline::Impl
         return Status{};
     }
 
+    [[nodiscard]] auto RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveDepth().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (depthData == nullptr)
+        {
+            LogError("Output depth data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * sizeof(float);
+        if (depthStride < requiredStride)
+        {
+            LogError("Depth stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = DisparityToDepth32FC1(leftDisparityFiltered32FC1_, depth32FC1_, reprojectionMatrix_, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = depth32FC1_.Download(depthData, depthStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
     [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status
     {
         Status status;
@@ -720,6 +771,7 @@ class Pipeline::Impl
     Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
     Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
     Mat disparityResized32FC1_;      // resized disparity map from stereo matching
+    Mat depth32FC1_;                 // depth map derived from disparity
     Mat pointCloud32FC3_;            // reprojected 3D point cloud
     Mat4x4d reprojectionMatrix_{};   // reprojection matrix (double)
 };
@@ -797,6 +849,11 @@ auto Pipeline::RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t 
 auto Pipeline::RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->RetrieveDisparity(disparityData, disparityStride);
+}
+
+auto Pipeline::RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status
+{
+    return this->impl()->RetrieveDepth(depthData, depthStride);
 }
 
 auto Pipeline::RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status

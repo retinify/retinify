@@ -159,6 +159,18 @@ class RETINIFY_API Pipeline
     [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status;
 
     /// @brief
+    /// Retrieves the computed depth map.
+    /// @param depthData
+    /// Pointer to the output buffer for depth data (32-bit float).
+    /// @param depthStride
+    /// Stride (in bytes) of a row in the output depth data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Execute().
+    [[nodiscard]] auto RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status;
+
+    /// @brief
     /// Reprojects the computed disparity map to a 3D point cloud.
     /// @param pointCloudData
     /// Pointer to the output buffer for point cloud data (32-bit float, 3 channels).
