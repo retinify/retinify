@@ -60,7 +60,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structretinify_1_1CalibrationParameters.html#a5ba3e34575c3cbed1c5b708ceb20b765"
+"structretinify_1_1CalibrationParameters.html#a59e309fd1a139e1ea77a39bb2eccef4f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

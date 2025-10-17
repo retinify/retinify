@@ -158,8 +158,15 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// EXECUTE STEREO MATCHING</span></div>
-<div class="line"><span class="keyword">auto</span> statusRun = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">Run</a>(leftImage.ptr&lt;std::uint8_t&gt;(), leftImage.step[0], rightImage.ptr&lt;std::uint8_t&gt;(), rightImage.step[0], disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0]);</div>
-<div class="line"><span class="keywordflow">if</span> (!statusRun.IsOK())</div>
+<div class="line"><span class="keyword">auto</span> statusExecute = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#ae3143b74242adaae0010bb10bae33624">Execute</a>(leftImage.ptr&lt;std::uint8_t&gt;(), leftImage.step[0], rightImage.ptr&lt;std::uint8_t&gt;(), rightImage.step[0]);</div>
+<div class="line"><span class="keywordflow">if</span> (!statusExecute.IsOK())</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">return</span> 1;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// RETRIEVE DISPARITY</span></div>
+<div class="line"><span class="keyword">auto</span> statusRetrieve = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9">RetrieveDisparity</a>(disparity.ptr&lt;<span class="keywordtype">float</span>&gt;(), disparity.step[0]);</div>
+<div class="line"><span class="keywordflow">if</span> (!statusRetrieve.IsOK())</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
 <div class="line">}</div>
@@ -175,8 +182,9 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <div class="line">cv::imshow(<span class="stringliteral">&quot;disparity&quot;</span>, disparityColored);</div>
 <div class="line">cv::waitKey(0);</div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html"><div class="ttname"><a href="classretinify_1_1Pipeline.html">retinify::Pipeline</a></div><div class="ttdoc">A retinify::Pipeline provides an interface for running a stereo matching.</div><div class="ttdef"><b>Definition</b> pipeline.hpp:45</div></div>
-<div class="ttc" id="aclassretinify_1_1Pipeline_html_a63e6a9d44c617fca87fc98e7e20a01fa"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa">retinify::Pipeline::Run</a></div><div class="ttdeci">auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride, float *disparityData, std::size_t disparityStride) noexcept -&gt; Status</div><div class="ttdoc">Executes the stereo matching pipeline using the given left and right image data.</div></div>
+<div class="ttc" id="aclassretinify_1_1Pipeline_html_a2c6f15753a353d52a1b708fb8fa0abd9"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9">retinify::Pipeline::RetrieveDisparity</a></div><div class="ttdeci">auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -&gt; Status</div><div class="ttdoc">Retrieves the computed disparity map.</div></div>
 <div class="ttc" id="aclassretinify_1_1Pipeline_html_a65ccd79b2d259aeb8cb54b746162dab6"><div class="ttname"><a href="classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6">retinify::Pipeline::Initialize</a></div><div class="ttdeci">auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, PixelFormat pixelFormat=PixelFormat::RGB8, DepthMode depthMode=DepthMode::ACCURATE, const CalibrationParameters &amp;calibrationParameters=CalibrationParameters{}) noexcept -&gt; Status</div><div class="ttdoc">Initializes the stereo matching pipeline with the given image dimensions.</div></div>
+<div class="ttc" id="aclassretinify_1_1Pipeline_html_ae3143b74242adaae0010bb10bae33624"><div class="ttname"><a href="classretinify_1_1Pipeline.html#ae3143b74242adaae0010bb10bae33624">retinify::Pipeline::Execute</a></div><div class="ttdeci">RETINIFY_DEPRECATED(&quot;Use Execute() followed by RetrieveDisparity() instead.&quot;) auto Run(const std auto Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -&gt; Status</div><div class="ttdoc">Executes the stereo matching pipeline using the given left and right image data.</div></div>
 <div class="ttc" id="anamespaceretinify_html_a0c249c755e7a264d7c677887ff7b4c6b"><div class="ttname"><a href="namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b">retinify::ColorizeDisparity</a></div><div class="ttdeci">RETINIFY_API auto ColorizeDisparity(const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -&gt; Status</div><div class="ttdoc">Applies the colormap to the disparity map.</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
