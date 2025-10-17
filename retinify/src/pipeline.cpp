@@ -41,6 +41,7 @@ class Pipeline::Impl
         (void)leftResizedRectified32FC1_.Free();
         (void)rightResizedRectified32FC1_.Free();
         (void)disparityResized32FC1_.Free();
+        (void)depth32FC1_.Free();
         (void)pointCloud32FC3_.Free();
     }
 
@@ -280,6 +281,12 @@ class Pipeline::Impl
             return status;
         }
 
+        status = depth32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
         status = pointCloud32FC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(float), MatLocation::DEVICE);
         if (!status.IsOK())
         {
@@ -356,9 +363,8 @@ class Pipeline::Impl
         return status;
     }
 
-    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride,   //
-                                       const std::uint8_t *rightImageData, const std::size_t rightImageStride, //
-                                       float *disparityData, const std::size_t disparityStride) noexcept -> Status
+    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride, //
+                                       const std::uint8_t *rightImageData, const std::size_t rightImageStride) noexcept -> Status
     {
         if (!leftImageData)
         {
@@ -369,12 +375,6 @@ class Pipeline::Impl
         if (!rightImageData)
         {
             LogError("Right image data is nullptr.");
-            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-        }
-
-        if (!disparityData)
-        {
-            LogError("Output disparity data is nullptr.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -390,29 +390,22 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (disparityStride < imageWidth_ * sizeof(float))
-        {
-            LogError("Disparity stride is too small.");
-            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-        }
-
         return Status{};
     }
 
-    auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
-             const std::uint8_t *rightImageData, std::size_t rightImageStride, //
-             float *disparityData, std::size_t disparityStride) noexcept -> Status
+    auto Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                 const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
     {
         Status status;
 
         if (!initialized_)
         {
-            LogError("Pipeline is not initialized. Call Initialize() before Run().");
+            LogError("Pipeline is not initialized. Call Initialize() before Execute().");
             status = Status(StatusCategory::USER, StatusCode::FAIL);
             return status;
         }
 
-        status = CheckInputImage(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+        status = CheckInputImage(leftImageData, leftImageStride, rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
@@ -478,7 +471,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.Run(stream_);
+        status = session_.Execute(stream_);
         if (!status.IsOK())
         {
             return status;
@@ -491,18 +484,6 @@ class Pipeline::Impl
         }
 
         status = DisparityOcclusionFilter32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = leftDisparityFiltered32FC1_.Download(disparityData, disparityStride, stream_);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = stream_.Synchronize();
         if (!status.IsOK())
         {
             return status;
@@ -676,6 +657,50 @@ class Pipeline::Impl
         return Status{};
     }
 
+    [[nodiscard]] auto RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status
+    {
+        Status status;
+
+        if (!initialized_)
+        {
+            LogError("Pipeline is not initialized. Call Initialize() before RetrieveDepth().");
+            return Status(StatusCategory::USER, StatusCode::FAIL);
+        }
+
+        if (depthData == nullptr)
+        {
+            LogError("Output depth data is nullptr.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        const std::size_t requiredStride = imageWidth_ * sizeof(float);
+        if (depthStride < requiredStride)
+        {
+            LogError("Depth stride is too small.");
+            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+        }
+
+        status = DisparityToDepth32FC1(leftDisparityFiltered32FC1_, depth32FC1_, reprojectionMatrix_, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = depth32FC1_.Download(depthData, depthStride, stream_);
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        status = stream_.Synchronize();
+        if (!status.IsOK())
+        {
+            return status;
+        }
+
+        return Status{};
+    }
+
     [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status
     {
         Status status;
@@ -746,6 +771,7 @@ class Pipeline::Impl
     Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
     Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
     Mat disparityResized32FC1_;      // resized disparity map from stereo matching
+    Mat depth32FC1_;                 // depth map derived from disparity
     Mat pointCloud32FC3_;            // reprojected 3D point cloud
     Mat4x4d reprojectionMatrix_{};   // reprojection matrix (double)
 };
@@ -782,7 +808,26 @@ auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStrid
                    const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                    float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
-    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+    Status status;
+    status = this->impl()->Execute(leftImageData, leftImageStride, rightImageData, rightImageStride);
+    if (!status.IsOK())
+    {
+        return status;
+    }
+
+    status = this->impl()->RetrieveDisparity(disparityData, disparityStride);
+    if (!status.IsOK())
+    {
+        return status;
+    }
+
+    return status;
+}
+
+auto Pipeline::Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                       const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+{
+    return this->impl()->Execute(leftImageData, leftImageStride, rightImageData, rightImageStride);
 }
 
 auto Pipeline::RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status
@@ -804,6 +849,11 @@ auto Pipeline::RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t 
 auto Pipeline::RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
     return this->impl()->RetrieveDisparity(disparityData, disparityStride);
+}
+
+auto Pipeline::RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status
+{
+    return this->impl()->RetrieveDepth(depthData, depthStride);
 }
 
 auto Pipeline::RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status

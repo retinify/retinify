@@ -85,9 +85,25 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output disparity data.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    RETINIFY_DEPRECATED("Use Execute() followed by RetrieveDisparity() instead.")
     [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride) noexcept -> Status;
+
+    /// @brief
+    /// Executes the stereo matching pipeline using the given left and right image data.
+    /// @param leftImageData
+    /// Pointer to the left image data.
+    /// @param leftImageStride
+    /// Stride (in bytes) of a row in the left image.
+    /// @param rightImageData
+    /// Pointer to the right image data.
+    /// @param rightImageStride
+    /// Stride (in bytes) of a row in the right image.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    [[nodiscard]] auto Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                               const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 
     /// @brief
     /// Retrieves the rectified left image.
@@ -98,7 +114,7 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating whether the operation was successful.
     /// @note
-    /// This function must be called after Run().
+    /// This function must be called after Execute().
     [[nodiscard]] auto RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status;
 
     /// @brief
@@ -110,7 +126,7 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating whether the operation was successful.
     /// @note
-    /// This function must be called after Run().
+    /// This function must be called after Execute().
     [[nodiscard]] auto RetrieveRectifiedRightImage(std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 
     /// @brief
@@ -126,7 +142,7 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating whether the operation was successful.
     /// @note
-    /// This function must be called after Run().
+    /// This function must be called after Execute().
     [[nodiscard]] auto RetrieveRectifiedImages(std::uint8_t *leftImageData, std::size_t leftImageStride, //
                                                std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 
@@ -139,8 +155,20 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating whether the operation was successful.
     /// @note
-    /// This function must be called after Run().
+    /// This function must be called after Execute().
     [[nodiscard]] auto RetrieveDisparity(float *disparityData, std::size_t disparityStride) noexcept -> Status;
+
+    /// @brief
+    /// Retrieves the computed depth map.
+    /// @param depthData
+    /// Pointer to the output buffer for depth data (32-bit float).
+    /// @param depthStride
+    /// Stride (in bytes) of a row in the output depth data.
+    /// @return
+    /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Execute().
+    [[nodiscard]] auto RetrieveDepth(float *depthData, std::size_t depthStride) noexcept -> Status;
 
     /// @brief
     /// Reprojects the computed disparity map to a 3D point cloud.
@@ -151,7 +179,7 @@ class RETINIFY_API Pipeline
     /// @return
     /// A Status object indicating whether the operation was successful.
     /// @note
-    /// This function must be called after Run().
+    /// This function must be called after Execute().
     [[nodiscard]] auto RetrievePointCloud(float *pointCloudData, std::size_t pointCloudStride) noexcept -> Status;
 
   private:

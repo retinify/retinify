@@ -75,8 +75,15 @@ if (!statusInitialize.IsOK())
 }
 
 // EXECUTE STEREO MATCHING
-auto statusRun = pipeline.Run(leftImage.ptr<std::uint8_t>(), leftImage.step[0], rightImage.ptr<std::uint8_t>(), rightImage.step[0], disparity.ptr<float>(), disparity.step[0]);
-if (!statusRun.IsOK())
+auto statusExecute = pipeline.Execute(leftImage.ptr<std::uint8_t>(), leftImage.step[0], rightImage.ptr<std::uint8_t>(), rightImage.step[0]);
+if (!statusExecute.IsOK())
+{
+    return 1;
+}
+
+// RETRIEVE DISPARITY
+auto statusRetrieve = pipeline.RetrieveDisparity(disparity.ptr<float>(), disparity.step[0]);
+if (!statusRetrieve.IsOK())
 {
     return 1;
 }
