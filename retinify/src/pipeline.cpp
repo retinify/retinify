@@ -356,9 +356,8 @@ class Pipeline::Impl
         return status;
     }
 
-    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride,   //
-                                       const std::uint8_t *rightImageData, const std::size_t rightImageStride, //
-                                       float *disparityData, const std::size_t disparityStride) noexcept -> Status
+    [[nodiscard]] auto CheckInputImage(const std::uint8_t *leftImageData, const std::size_t leftImageStride, //
+                                       const std::uint8_t *rightImageData, const std::size_t rightImageStride) noexcept -> Status
     {
         if (!leftImageData)
         {
@@ -369,12 +368,6 @@ class Pipeline::Impl
         if (!rightImageData)
         {
             LogError("Right image data is nullptr.");
-            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-        }
-
-        if (!disparityData)
-        {
-            LogError("Output disparity data is nullptr.");
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -390,29 +383,22 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (disparityStride < imageWidth_ * sizeof(float))
-        {
-            LogError("Disparity stride is too small.");
-            return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
-        }
-
         return Status{};
     }
 
-    auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
-             const std::uint8_t *rightImageData, std::size_t rightImageStride, //
-             float *disparityData, std::size_t disparityStride) noexcept -> Status
+    auto Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                 const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
     {
         Status status;
 
         if (!initialized_)
         {
-            LogError("Pipeline is not initialized. Call Initialize() before Run().");
+            LogError("Pipeline is not initialized. Call Initialize() before Execute().");
             status = Status(StatusCategory::USER, StatusCode::FAIL);
             return status;
         }
 
-        status = CheckInputImage(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+        status = CheckInputImage(leftImageData, leftImageStride, rightImageData, rightImageStride);
         if (!status.IsOK())
         {
             return status;
@@ -478,7 +464,7 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.Run(stream_);
+        status = session_.Execute(stream_);
         if (!status.IsOK())
         {
             return status;
@@ -491,18 +477,6 @@ class Pipeline::Impl
         }
 
         status = DisparityOcclusionFilter32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = leftDisparityFiltered32FC1_.Download(disparityData, disparityStride, stream_);
-        if (!status.IsOK())
-        {
-            return status;
-        }
-
-        status = stream_.Synchronize();
         if (!status.IsOK())
         {
             return status;
@@ -782,7 +756,26 @@ auto Pipeline::Run(const std::uint8_t *leftImageData, std::size_t leftImageStrid
                    const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                    float *disparityData, std::size_t disparityStride) noexcept -> Status
 {
-    return this->impl()->Run(leftImageData, leftImageStride, rightImageData, rightImageStride, disparityData, disparityStride);
+    Status status;
+    status = this->impl()->Execute(leftImageData, leftImageStride, rightImageData, rightImageStride);
+    if (!status.IsOK())
+    {
+        return status;
+    }
+
+    status = this->impl()->RetrieveDisparity(disparityData, disparityStride);
+    if (!status.IsOK())
+    {
+        return status;
+    }
+
+    return status;
+}
+
+auto Pipeline::Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
+                       const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status
+{
+    return this->impl()->Execute(leftImageData, leftImageStride, rightImageData, rightImageStride);
 }
 
 auto Pipeline::RetrieveRectifiedLeftImage(std::uint8_t *leftImageData, std::size_t leftImageStride) noexcept -> Status

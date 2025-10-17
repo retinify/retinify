@@ -21,8 +21,8 @@ void InitializeAndRunPipeline(Pipeline &pipeline, std::uint32_t width, std::uint
     Status stInit = pipeline.Initialize(width, height, pixelFormat, depthMode);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disparity.ptr<float>(), disparity.step[0]);
-    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+    Status stExecute = pipeline.Execute(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0]);
+    ASSERT_TRUE(stExecute.IsOK()) << "Execute Failed";
 }
 } // namespace
 
@@ -39,8 +39,8 @@ TEST(PipelineTest, RunGray)
     Status stInit = pipeline.Initialize(width, height, PixelFormat::GRAY8, DepthMode::BALANCED);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
-    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+    Status stExecute = pipeline.Execute(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0]);
+    ASSERT_TRUE(stExecute.IsOK()) << "Execute Failed";
 }
 
 TEST(PipelineTest, RetrieveOutputsSuccess)
@@ -340,8 +340,8 @@ TEST(PipelineTest, RunRGB)
     Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::BALANCED);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
-    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+    Status stExecute = pipeline.Execute(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0]);
+    ASSERT_TRUE(stExecute.IsOK()) << "Execute Failed";
 }
 
 TEST(PipelineTest, RunLowResolution)
@@ -357,8 +357,8 @@ TEST(PipelineTest, RunLowResolution)
     Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::ACCURATE);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
-    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+    Status stExecute = pipeline.Execute(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0]);
+    ASSERT_TRUE(stExecute.IsOK()) << "Execute Failed";
 }
 
 TEST(PipelineTest, RunAccurateHighResolution)
@@ -374,7 +374,7 @@ TEST(PipelineTest, RunAccurateHighResolution)
     Status stInit = pipeline.Initialize(width, height, PixelFormat::RGB8, DepthMode::ACCURATE);
     ASSERT_TRUE(stInit.IsOK()) << "Initialize Failed";
 
-    Status stRun = pipeline.Run(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0], disp.ptr<float>(), disp.step[0]);
-    ASSERT_TRUE(stRun.IsOK()) << "Run Failed";
+    Status stExecute = pipeline.Execute(left.ptr<std::uint8_t>(), left.step[0], right.ptr<std::uint8_t>(), right.step[0]);
+    ASSERT_TRUE(stExecute.IsOK()) << "Execute Failed";
 }
 } // namespace retinify
