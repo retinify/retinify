@@ -16,7 +16,7 @@
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
   
 # retinify
->Real-Time AI Stereo Vision Library
+>🚀 Real-Time AI Stereo Vision Library
 
 Retinify is an advanced AI-powered stereo vision library designed for robotics. It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.  
   
@@ -27,7 +27,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics. 
   </tr>
 </table>
 
-## Why Retinify?
+## Why retinify?
 - 🔥 **High Precision**: Delivers real-time, accurate 3D mapping and object recognition from stereo image input.
 - ⚡ **Fast Pipeline**: All necessary computations run seamlessly on the GPU, enabling real-time performance.
 - 🎥 **Camera-Agnostic**: Accepts stereo images from any rectified camera setup, giving you the flexibility to use your own hardware.
@@ -73,7 +73,7 @@ pipeline.RetrieveDisparity(disparity.ptr<float>(), disparity.step[0]);
 ## Getting Started
 📖 [**retinify documentation**](https://docs.retinify.ai/) — Developer guide and API reference.
 
-- 🚀 [**Installation Guide**](https://docs.retinify.ai/installation.html)  
+- 📥 [**Installation Guide**](https://docs.retinify.ai/installation.html)  
   Step-by-step guide to build and install retinify.
 
 - 🔨 [**Tutorials**](https://docs.retinify.ai/tutorials.html)  
