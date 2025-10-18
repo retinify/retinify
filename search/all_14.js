@@ -21,5 +21,6 @@ var searchData=
   ['rightcameraserial_18',['rightCameraSerial',['../structretinify_1_1CalibrationParameters.html#a0ecbb71a31d67e1567fa0a9b4579a90c',1,'retinify::CalibrationParameters']]],
   ['rightdistortion_19',['rightDistortion',['../structretinify_1_1CalibrationParameters.html#ae5a02f41e03346de350806c62c666dc6',1,'retinify::CalibrationParameters']]],
   ['rightintrinsics_20',['rightIntrinsics',['../structretinify_1_1CalibrationParameters.html#ae1224209b7d2dcab3653d232df2f22f9',1,'retinify::CalibrationParameters']]],
-  ['rotation_21',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]]
+  ['rotation_21',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]],
+  ['run_22',['Run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline']]]
 ];
