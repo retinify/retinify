@@ -85,7 +85,7 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the output disparity data.
     /// @return
     /// A Status object indicating whether the operation was successful.
-    RETINIFY_DEPRECATED("Use Execute() followed by RetrieveDisparity() instead.")
+    RETINIFY_DEPRECATED("Use Execute() instead")
     [[nodiscard]] auto Run(const std::uint8_t *leftImageData, std::size_t leftImageStride,   //
                            const std::uint8_t *rightImageData, std::size_t rightImageStride, //
                            float *disparityData, std::size_t disparityStride) noexcept -> Status;
@@ -102,6 +102,8 @@ class RETINIFY_API Pipeline
     /// Stride (in bytes) of a row in the right image.
     /// @return
     /// A Status object indicating whether the operation was successful.
+    /// @note
+    /// This function must be called after Initialize().
     [[nodiscard]] auto Execute(const std::uint8_t *leftImageData, std::size_t leftImageStride, //
                                const std::uint8_t *rightImageData, std::size_t rightImageStride) noexcept -> Status;
 

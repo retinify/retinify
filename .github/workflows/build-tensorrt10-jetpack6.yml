@@ -62,10 +62,8 @@ jobs:
             hash -r
             cmake --version
 
-            git config --global --add safe.directory /workspace
-            git config --global --add safe.directory /workspace/3rdparty/glfw            
+            git config --global --add safe.directory /workspace      
             git config --global --add safe.directory /workspace/3rdparty/googletest
-            git config --global --add safe.directory /workspace/3rdparty/imgui
             git config --global --add safe.directory /workspace/3rdparty/retinify-eula
             git submodule sync --recursive
             git submodule update --init --recursive
