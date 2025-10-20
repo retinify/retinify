@@ -303,7 +303,8 @@ TEST(GeometryTest, StereoRectifyIdealRig)
 
     double alpha = -1.0;
 
-    StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, rotationMatrix, translationVector, 640, 480, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    const Status status = StereoRectify(primaryIntrinsics, noDistortion, secondaryIntrinsics, noDistortion, rotationMatrix, translationVector, 640, 480, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    ASSERT_TRUE(status.IsOK());
 
     ExpectMatrixNear(rectifiedRotationFirst, Identity(), kTolStrict);
     ExpectMatrixNear(rectifiedRotationSecond, Identity(), kTolStrict);
@@ -349,7 +350,8 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
 
     double alpha = -1.0;
 
-    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 800, 600, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    const Status status = StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 800, 600, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    ASSERT_TRUE(status.IsOK());
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -400,7 +402,8 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
 
     double alpha = -1.0;
 
-    StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 1024, 768, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    const Status status = StereoRectify(K1, D1, K2, D2, rotationMatrix, translationVector, 1024, 768, rectifiedRotationFirst, rectifiedRotationSecond, projectionFirst, projectionSecond, reprojectionMatrix, alpha);
+    ASSERT_TRUE(status.IsOK());
 
     ExpectOrthonormal(rectifiedRotationFirst, kTolStrict);
     ExpectOrthonormal(rectifiedRotationSecond, kTolStrict);
@@ -433,6 +436,24 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
     EXPECT_NEAR(reprojectionMatrix[3][2], -1.0 / baselineComponent, kTolStrict);
 }
 
+TEST(GeometryTest, StereoRectifyRejectsZeroDimensions)
+{
+    const Intrinsics intrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
+    const Distortion distortion{};
+    const Mat3x3d rotation = Identity();
+    const Vec3d translation{0.1, 0.0, 0.0};
+    Mat3x3d rotation1{};
+    Mat3x3d rotation2{};
+    Mat3x4d projection1{};
+    Mat3x4d projection2{};
+    Mat4x4d mapping{};
+
+    const Status status = StereoRectify(intrinsics, distortion, intrinsics, distortion, rotation, translation, 0, 480, rotation1, rotation2, projection1, projection2, mapping, 0.0);
+    EXPECT_FALSE(status.IsOK());
+    EXPECT_EQ(status.Category(), StatusCategory::USER);
+    EXPECT_EQ(status.Code(), StatusCode::INVALID_ARGUMENT);
+}
+
 TEST(GeometryTest, InitUndistortRectifyMapIdentity)
 {
     const Intrinsics intrinsics{1.0, 1.0, 0.0, 0.0, 0.0};
@@ -454,9 +475,10 @@ TEST(GeometryTest, InitUndistortRectifyMapIdentity)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                            static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
     const void *mapYVoid = mapY.Data();
@@ -497,9 +519,10 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                            static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
     const void *mapYVoid = mapY.Data();
@@ -549,9 +572,10 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                            static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                            static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
     const void *mapYVoid = mapY.Data();
@@ -575,6 +599,42 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
             EXPECT_NEAR(mapYRow[u], static_cast<float>(distortedPixel[1]), kTolStrict);
         }
     }
+}
+
+TEST(GeometryTest, InitUndistortRectifyMapRejectsInvalidArgs)
+{
+    const Intrinsics intrinsics{400.0, 410.0, 200.0, 150.0, 0.0};
+    const Distortion distortion{};
+    const Mat3x3d rotation = Identity();
+    Mat3x4d projection{};
+    projection[0][0] = 1.0;
+    projection[1][1] = 1.0;
+    projection[2][2] = 1.0;
+
+    constexpr std::uint32_t kWidth = 3;
+    constexpr std::uint32_t kHeight = 2;
+    std::vector<float> mapX(static_cast<std::size_t>(kWidth) * kHeight, 0.0F);
+    std::vector<float> mapY(static_cast<std::size_t>(kWidth) * kHeight, 0.0F);
+    const std::size_t strideBytes = static_cast<std::size_t>(kWidth) * sizeof(float);
+    const std::size_t insufficientStride = strideBytes - sizeof(float);
+
+    const Status nullStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, kWidth, kHeight, //
+                                                      nullptr, strideBytes, mapY.data(), strideBytes);
+    EXPECT_FALSE(nullStatus.IsOK());
+    EXPECT_EQ(nullStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(nullStatus.Code(), StatusCode::INVALID_ARGUMENT);
+
+    const Status zeroDimStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, 0, kHeight, //
+                                                         mapX.data(), strideBytes, mapY.data(), strideBytes);
+    EXPECT_FALSE(zeroDimStatus.IsOK());
+    EXPECT_EQ(zeroDimStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(zeroDimStatus.Code(), StatusCode::INVALID_ARGUMENT);
+
+    const Status strideStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, kWidth, kHeight, //
+                                                        mapX.data(), insufficientStride, mapY.data(), strideBytes);
+    EXPECT_FALSE(strideStatus.IsOK());
+    EXPECT_EQ(strideStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(strideStatus.Code(), StatusCode::INVALID_ARGUMENT);
 }
 
 namespace
@@ -682,7 +742,8 @@ void ExpectStereoRectifyMatchesOpenCVAlpha(double alpha)
     Mat3x4d projectionMatrix2{};
     Mat4x4d mappingMatrix{};
 
-    StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, rotation, translation, 960, 720, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix, alpha);
+    const Status status = StereoRectify(intrinsics1, distortion1, intrinsics2, distortion2, rotation, translation, 960, 720, rotation1, rotation2, projectionMatrix1, projectionMatrix2, mappingMatrix, alpha);
+    ASSERT_TRUE(status.IsOK());
 
     const cv::Mat cameraMatrix1 = ToCvCameraMatrix(intrinsics1);
     const cv::Mat cameraMatrix2 = ToCvCameraMatrix(intrinsics2);
@@ -764,7 +825,8 @@ TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
     ASSERT_TRUE(mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
     ASSERT_TRUE(mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
 
-    InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, static_cast<float *>(mapX.Data()), mapX.Stride(), static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, static_cast<float *>(mapX.Data()), mapX.Stride(), static_cast<float *>(mapY.Data()), mapY.Stride());
+    ASSERT_TRUE(status.IsOK());
 
     const cv::Mat cameraMatrix = ToCvCameraMatrix(intrinsics);
     const cv::Mat distCoeffs = ToCvDistCoeffs(distortion);
@@ -808,7 +870,8 @@ TEST(GeometryTest, InitIdentityMapProducesPixelCoordinates)
     std::vector<float> mapX(kWidth * kHeight, -1.0F);
     std::vector<float> mapY(kWidth * kHeight, -1.0F);
 
-    InitIdentityMap(mapX.data(), kWidth * sizeof(float), mapY.data(), kWidth * sizeof(float), kWidth, kHeight);
+    const Status status = InitIdentityMap(mapX.data(), kWidth * sizeof(float), mapY.data(), kWidth * sizeof(float), kWidth, kHeight);
+    ASSERT_TRUE(status.IsOK());
 
     for (std::size_t row = 0; row < kHeight; ++row)
     {
@@ -831,7 +894,8 @@ TEST(GeometryTest, InitIdentityMapHonorsStride)
     std::vector<float> mapX(kHeight * kStrideFloats, -1.0F);
     std::vector<float> mapY(kHeight * kStrideFloats, -1.0F);
 
-    InitIdentityMap(mapX.data(), kStrideBytes, mapY.data(), kStrideBytes, kWidth, kHeight);
+    const Status status = InitIdentityMap(mapX.data(), kStrideBytes, mapY.data(), kStrideBytes, kWidth, kHeight);
+    ASSERT_TRUE(status.IsOK());
 
     for (std::size_t row = 0; row < kHeight; ++row)
     {
@@ -850,5 +914,31 @@ TEST(GeometryTest, InitIdentityMapHonorsStride)
             EXPECT_FLOAT_EQ(rowY[paddingIndex], -1.0F) << "padding row=" << row << ", idx=" << paddingIndex;
         }
     }
+}
+
+TEST(GeometryTest, InitIdentityMapRejectsInvalidArgs)
+{
+    constexpr std::size_t kWidth = 2;
+    constexpr std::size_t kHeight = 2;
+    constexpr std::size_t kStrideBytes = kWidth * sizeof(float);
+    constexpr std::size_t kInsufficientStride = kStrideBytes - sizeof(float);
+
+    std::vector<float> mapX(kWidth * kHeight, 0.0F);
+    std::vector<float> mapY(kWidth * kHeight, 0.0F);
+
+    const Status nullStatus = InitIdentityMap(nullptr, kStrideBytes, mapY.data(), kStrideBytes, kWidth, kHeight);
+    EXPECT_FALSE(nullStatus.IsOK());
+    EXPECT_EQ(nullStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(nullStatus.Code(), StatusCode::INVALID_ARGUMENT);
+
+    const Status zeroDimStatus = InitIdentityMap(mapX.data(), kStrideBytes, mapY.data(), kStrideBytes, 0, kHeight);
+    EXPECT_FALSE(zeroDimStatus.IsOK());
+    EXPECT_EQ(zeroDimStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(zeroDimStatus.Code(), StatusCode::INVALID_ARGUMENT);
+
+    const Status strideStatus = InitIdentityMap(mapX.data(), kInsufficientStride, mapY.data(), kStrideBytes, kWidth, kHeight);
+    EXPECT_FALSE(strideStatus.IsOK());
+    EXPECT_EQ(strideStatus.Category(), StatusCategory::USER);
+    EXPECT_EQ(strideStatus.Code(), StatusCode::INVALID_ARGUMENT);
 }
 } // namespace retinify
