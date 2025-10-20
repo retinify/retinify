@@ -4,6 +4,7 @@
 #pragma once
 
 #include "attributes.hpp"
+#include "status.hpp"
 
 #include <array>
 #include <cstddef>
@@ -381,13 +382,15 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// 1 preserves the full original image (black borders included),
 /// values between 0 and 1 yield intermediate results,
 /// and -1 applies the default behavior.
+/// @return
+/// Operation status.
 RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, //
                                 const Intrinsics &intrinsics2, const Distortion &distortion2, //
                                 const Mat3x3d &rotation, const Vec3d &translation,            //
                                 std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                                 Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                                 Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
-                                Mat4x4d &mappingMatrix, double alpha) noexcept -> void;
+                                Mat4x4d &mappingMatrix, double alpha) noexcept -> Status;
 
 /// @brief
 /// Initialize undistort and rectify maps for image remapping.
@@ -412,11 +415,12 @@ RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion 
 /// @param mapyStride
 /// Stride (in bytes) of a row in mapy
 /// @return
+/// Operation status.
 RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, //
                                           const Mat3x3d &rotation, const Mat3x4d &projectionMatrix,   //
                                           std::uint32_t imageWidth, std::uint32_t imageHeight,        //
                                           float *mapx, std::size_t mapxStride,                        //
-                                          float *mapy, std::size_t mapyStride) noexcept -> void;
+                                          float *mapy, std::size_t mapyStride) noexcept -> Status;
 
 /// @brief
 /// Initialize identity maps for undistortion/rectification.
@@ -432,7 +436,9 @@ RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Di
 /// Image width in pixels
 /// @param imageHeight
 /// Image height in pixels
+/// @return
+/// Operation status.
 RETINIFY_API auto InitIdentityMap(float *mapx, std::size_t mapxStride, //
                                   float *mapy, std::size_t mapyStride, //
-                                  std::size_t imageWidth, std::size_t imageHeight) noexcept -> void;
+                                  std::size_t imageWidth, std::size_t imageHeight) noexcept -> Status;
 } // namespace retinify

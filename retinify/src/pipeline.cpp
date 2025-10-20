@@ -162,39 +162,59 @@ class Pipeline::Impl
 
         if (calibrationParameters == CalibrationParameters{})
         {
-            retinify::InitIdentityMap(static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(), //
-                                      static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride(), //
-                                      imageWidth_, imageHeight_);
+            status = retinify::InitIdentityMap(static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(), //
+                                               static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride(), //
+                                               imageWidth_, imageHeight_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
 
-            retinify::InitIdentityMap(static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(), //
-                                      static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride(), //
-                                      imageWidth_, imageHeight_);
+            status = retinify::InitIdentityMap(static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(), //
+                                               static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride(), //
+                                               imageWidth_, imageHeight_);
+            if (!status.IsOK())
+            {
+                return status;
+            }
         }
         else
         {
             retinify::Mat3x3d R1, R2;
             retinify::Mat3x4d P1, P2;
 
-            retinify::StereoRectify(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion,   //
-                                    calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
-                                    calibrationParameters.rotation, calibrationParameters.translation,            //
-                                    static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
-                                    static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
-                                    R1, R2, P1, P2, reprojectionMatrix_, 0.0);
+            status = retinify::StereoRectify(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion,   //
+                                             calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
+                                             calibrationParameters.rotation, calibrationParameters.translation,            //
+                                             static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
+                                             static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
+                                             R1, R2, P1, P2, reprojectionMatrix_, 0.0);
+            if (!status.IsOK())
+            {
+                return status;
+            }
 
-            retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
-                                              R1, P1,                                                                     //
-                                              static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
-                                              static_cast<std::uint32_t>(calibrationParameters.imageHeight),              //
-                                              static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(),           //
-                                              static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride());          //
+            status = retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
+                                                       R1, P1,                                                                     //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight),              //
+                                                       static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(),           //
+                                                       static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride());          //
+            if (!status.IsOK())
+            {
+                return status;
+            }
 
-            retinify::InitUndistortRectifyMap(calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
-                                              R2, P2,                                                                       //
-                                              static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
-                                              static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
-                                              static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(),           //
-                                              static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride());          //
+            status = retinify::InitUndistortRectifyMap(calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
+                                                       R2, P2,                                                                       //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
+                                                       static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(),           //
+                                                       static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride());          //
+            if (!status.IsOK())
+            {
+                return status;
+            }
         }
 
         status = leftMapX_.Upload(leftMapXHost.Data(), leftMapXHost.Stride(), stream_);
