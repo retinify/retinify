@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-retinify-eula
 
 #include "retinify/geometry.hpp"
+#include "retinify/logging.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -592,8 +593,14 @@ auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1,
                    std::uint32_t imageWidth, std::uint32_t imageHeight,          //
                    Mat3x3d &rotation1, Mat3x3d &rotation2,                       //
                    Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2,       //
-                   Mat4x4d &mappingMatrix, double alpha) noexcept -> void
+                   Mat4x4d &mappingMatrix, double alpha) noexcept -> Status
 {
+    if ((imageWidth == 0U) || (imageHeight == 0U))
+    {
+        LogError("imageWidth and imageHeight must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
     // Stereo rectification: rotation1 = R_align R_rect^T, rotation2 = R_align R_rect,
     // share focal f = 0.5 * ((fx1+fx2) if axis=y else (fy1+fy2)), and set disparity scale via baseline
     const Mat3x3d rectifyingRotation = ComputeRectifyingRotation(rotation);
@@ -642,17 +649,39 @@ auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1,
     mappingMatrix[2][3] = newFocalLength;
     mappingMatrix[3][2] = (std::fabs(baselineComponent) > kEpsilon) ? (-1.0 / baselineComponent) : 0.0;
     mappingMatrix[3][3] = 0.0;
+
+    return Status{};
 }
 
 auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, //
                              const Mat3x3d &rotation, const Mat3x4d &projectionMatrix,   //
                              std::uint32_t imageWidth, std::uint32_t imageHeight,        //
                              float *mapX, std::size_t mapXStride,                        //
-                             float *mapY, std::size_t mapYStride) noexcept -> void
+                             float *mapY, std::size_t mapYStride) noexcept -> Status
 {
     if (mapX == nullptr || mapY == nullptr)
     {
-        return;
+        LogError("map pointers must not be null.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if ((imageWidth == 0U) || (imageHeight == 0U))
+    {
+        LogError("imageWidth and imageHeight must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if ((mapXStride == 0U) || (mapYStride == 0U))
+    {
+        LogError("map strides must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    const std::size_t minRowBytes = static_cast<std::size_t>(imageWidth) * sizeof(float);
+    if (mapXStride < minRowBytes || mapYStride < minRowBytes)
+    {
+        LogError("map strides are smaller than the minimum row size.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     const Mat3x3d rotationInverse = Transpose(rotation);
@@ -702,15 +731,37 @@ auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &dis
             mapYRow[u] = static_cast<float>(vDistorted);
         }
     }
+
+    return Status{};
 }
 
 auto InitIdentityMap(float *mapX, std::size_t mapXStride, //
                      float *mapY, std::size_t mapYStride, //
-                     std::size_t imageWidth, std::size_t imageHeight) noexcept -> void
+                     std::size_t imageWidth, std::size_t imageHeight) noexcept -> Status
 {
     if (mapX == nullptr || mapY == nullptr)
     {
-        return;
+        LogError("map pointers must not be null.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if ((imageWidth == 0U) || (imageHeight == 0U))
+    {
+        LogError("imageWidth and imageHeight must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if ((mapXStride == 0U) || (mapYStride == 0U))
+    {
+        LogError("map strides must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    const std::size_t minRowBytes = static_cast<std::size_t>(imageWidth) * sizeof(float);
+    if (mapXStride < minRowBytes || mapYStride < minRowBytes)
+    {
+        LogError("map strides are smaller than the minimum row size.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
     auto *mapXBytes = reinterpret_cast<unsigned char *>(mapX);
@@ -729,5 +780,7 @@ auto InitIdentityMap(float *mapX, std::size_t mapXStride, //
             mapYRow[col] = y;
         }
     }
+
+    return Status{};
 }
 } // namespace retinify
