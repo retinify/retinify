@@ -33,7 +33,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">retinify<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">retinify<span id="projectnumber">&#160;0.1.6</span>
    </div>
    <div id="projectbrief">Real-Time AI Stereo Vision Library</div>
   </td>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('installation.html',''); initResizable(
 <div class="textblock"><p>Retinify supports Linux and can be easily installed using the provided <code>build.sh</code> script. <br  />
  This script generates a Debian package, enabling clean installation, easy updating, and simple removal using standard package management tools. <br  />
 </p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Dependencies</h2>
 <p>Platform</p><ul>
 <li><a href="https://ubuntu.com/download">Ubuntu</a> 22.04 / 24.04 or <a href="https://developer.nvidia.com/embedded/jetpack">JetPack</a> 6.x</li>
@@ -118,23 +118,17 @@ Dependencies</h2>
 <li><a href="https://developer.nvidia.com/cudnn-archive">cuDNN</a>: 9.x</li>
 <li><a href="https://developer.nvidia.com/tensorrt">TensorRT</a>: 10.x</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Clone the retinify repository.</h2>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/retinify/retinify.git</div>
 <div class="line">cd retinify</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
-Download Weights</h2>
-<p>Download <code>stereo-matching.onnx</code> from <a href="https://huggingface.co/retinify/stereo-matching">Hugging Face</a> <br  />
- and place it inside the <code>weights</code> directory within the cloned <code>retinify</code> folder, as shown below: </p><div class="fragment"><div class="line">retinify/</div>
-<div class="line">└── weights/</div>
-<div class="line">    └── stereo-matching.onnx</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
 Install retinify</h2>
 <p>Build retinify and install its Debian package. </p><div class="fragment"><div class="line">./build.sh --install --tensorrt</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Verify Installation</h2>
 <p>You can check whether the Debian package is installed using the following script. </p><div class="fragment"><div class="line">dpkg -s libretinify-dev</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Uninstall retinify</h2>
 <p>To uninstall the Debian package, use the following script. </p><div class="fragment"><div class="line">sudo apt remove libretinify-dev</div>
 </div><!-- fragment --> </div></div><!-- contents -->
