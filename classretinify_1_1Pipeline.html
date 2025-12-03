@@ -307,15 +307,15 @@ Public Member Functions</h2></td></tr>
 <p>Executes the stereo matching pipeline using the given left and right image data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data. </td></tr>
-    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the left image. </td></tr>
-    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data. </td></tr>
-    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the right image. </td></tr>
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride of a row in the left image (in bytes) </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride of a row in the right image (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6" title="Initializes the stereo matching pipeline with the given image dimensions.">Initialize()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6" title="Initializes the stereo matching pipeline with the given image dimensions.">Initialize()</a> </dd></dl>
 
 </div>
 </div>
@@ -374,15 +374,15 @@ Public Member Functions</h2></td></tr>
 <p>Initializes the stereo matching pipeline with the given image dimensions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imageWidth</td><td>Width of the input images (in pixels). </td></tr>
-    <tr><td class="paramname">imageHeight</td><td>Height of the input images (in pixels). </td></tr>
-    <tr><td class="paramname">pixelFormat</td><td>The pixel format of the input images. </td></tr>
-    <tr><td class="paramname">depthMode</td><td>The depth mode option for the stereo matching. </td></tr>
-    <tr><td class="paramname">calibrationParameters</td><td>The stereo camera calibration parameters. </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Width of the input images (in pixels) </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Height of the input images (in pixels) </td></tr>
+    <tr><td class="paramname">pixelFormat</td><td>The pixel format of the input images </td></tr>
+    <tr><td class="paramname">depthMode</td><td>The depth mode option for the stereo matching </td></tr>
+    <tr><td class="paramname">calibrationParameters</td><td>The stereo camera calibration parameters </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the initialization was successful. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
 
 </div>
 </div>
@@ -475,13 +475,13 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the computed depth map. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">depthData</td><td>Pointer to the output buffer for depth data (32-bit float). </td></tr>
-    <tr><td class="paramname">depthStride</td><td>Stride (in bytes) of a row in the output depth data. </td></tr>
+    <tr><td class="paramname">depthData</td><td>Pointer to the output buffer for depth data (32-bit float) </td></tr>
+    <tr><td class="paramname">depthStride</td><td>Stride of a row in the output depth data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -522,13 +522,13 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the computed disparity map. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float). </td></tr>
-    <tr><td class="paramname">disparityStride</td><td>Stride (in bytes) of a row in the output disparity data. </td></tr>
+    <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float) </td></tr>
+    <tr><td class="paramname">disparityStride</td><td>Stride of a row in the output disparity data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -569,13 +569,13 @@ Public Member Functions</h2></td></tr>
 <p>Reprojects the computed disparity map to a 3D point cloud. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pointCloudData</td><td>Pointer to the output buffer for point cloud data (32-bit float, 3 channels). </td></tr>
-    <tr><td class="paramname">pointCloudStride</td><td>Stride (in bytes) of a row in the output point cloud buffer. </td></tr>
+    <tr><td class="paramname">pointCloudData</td><td>Pointer to the output buffer for point cloud data (32-bit float, 3 channels) </td></tr>
+    <tr><td class="paramname">pointCloudStride</td><td>Stride of a row in the output point cloud buffer (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -628,15 +628,15 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the rectified left and right images. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char). </td></tr>
-    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the output left image data. </td></tr>
-    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char). </td></tr>
-    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the output right image data. </td></tr>
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char) </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride of a row in the output left image data (in bytes) </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char) </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride of a row in the output right image data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -677,13 +677,13 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the rectified left image. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char). </td></tr>
-    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the output left image data. </td></tr>
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the output buffer for left image data (8-bit unsigned char) </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride of a row in the output left image data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -724,13 +724,13 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the rectified right image. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char). </td></tr>
-    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the output right image data. </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the output buffer for right image data (8-bit unsigned char) </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride of a row in the output right image data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function must be called after <a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">Execute()</a> </dd></dl>
 
 </div>
 </div>
@@ -795,16 +795,16 @@ Public Member Functions</h2></td></tr>
 <p>Executes the stereo matching pipeline using the given left and right image data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data. </td></tr>
-    <tr><td class="paramname">leftImageStride</td><td>Stride (in bytes) of a row in the left image. </td></tr>
-    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data. </td></tr>
-    <tr><td class="paramname">rightImageStride</td><td>Stride (in bytes) of a row in the right image. </td></tr>
-    <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float). </td></tr>
-    <tr><td class="paramname">disparityStride</td><td>Stride (in bytes) of a row in the output disparity data. </td></tr>
+    <tr><td class="paramname">leftImageData</td><td>Pointer to the left image data </td></tr>
+    <tr><td class="paramname">leftImageStride</td><td>Stride of a row in the left image (in bytes) </td></tr>
+    <tr><td class="paramname">rightImageData</td><td>Pointer to the right image data </td></tr>
+    <tr><td class="paramname">rightImageStride</td><td>Stride of a row in the right image (in bytes) </td></tr>
+    <tr><td class="paramname">disparityData</td><td>Pointer to the output buffer for disparity data (32-bit float) </td></tr>
+    <tr><td class="paramname">disparityStride</td><td>Stride of a row in the output disparity data (in bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object indicating whether the operation was successful. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
 
 </div>
 </div>
