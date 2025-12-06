@@ -10,5 +10,8 @@ var searchData=
   ['point2f_7',['Point2f',['../namespaceretinify.html#aeb3be156a64738eb1b5245d2847fe15f',1,'retinify']]],
   ['point3d_8',['Point3d',['../namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95',1,'retinify']]],
   ['point3f_9',['Point3f',['../namespaceretinify.html#aac7d4959a4eb865a96587b2262b92dc4',1,'retinify']]],
-  ['project_10',['4. Create a retinify project',['../tutorials.html#autotoc_md11',1,'']]]
+  ['project_10',['4. Create a retinify project',['../tutorials.html#autotoc_md11',1,'']]],
+  ['python_20bindings_11',['Install Python bindings',['../python.html#installation',1,'']]],
+  ['python_20docs_12',['Python Docs',['../python.html',1,'']]],
+  ['python_2emd_13',['python.md',['../python_8md.html',1,'']]]
 ];

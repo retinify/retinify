@@ -9,11 +9,13 @@ var searchData=
   ['initidentitymap_6',['InitIdentityMap',['../namespaceretinify.html#a40676a77e7c6b67f949aabd8baf04cfc',1,'retinify']]],
   ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#a4170b23fe70a454da9d1b316a5e7824f',1,'retinify']]],
   ['install_20opencv_8',['1. Install OpenCV',['../tutorials.html#autotoc_md8',1,'']]],
-  ['install_20retinify_9',['install retinify',['../tutorials.html#autotoc_md9',1,'2. Install retinify'],['../installation.html#autotoc_md5',1,'Install retinify']]],
-  ['installation_10',['installation',['../installation.html',1,'Installation'],['../installation.html#autotoc_md6',1,'Verify Installation']]],
-  ['installation_2emd_11',['installation.md',['../installation_8md.html',1,'']]],
-  ['intrinsics_12',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]],
-  ['invalid_5fargument_13',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
-  ['io_2ehpp_14',['io.hpp',['../io_8hpp.html',1,'']]],
-  ['isok_15',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
+  ['install_20python_20bindings_9',['Install Python bindings',['../python.html#installation',1,'']]],
+  ['install_20retinify_10',['install retinify',['../tutorials.html#autotoc_md9',1,'2. Install retinify'],['../installation.html#autotoc_md5',1,'Install retinify']]],
+  ['installation_11',['installation',['../installation.html',1,'Installation'],['../installation.html#autotoc_md6',1,'Verify Installation']]],
+  ['installation_2emd_12',['installation.md',['../installation_8md.html',1,'']]],
+  ['intrinsics_13',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]],
+  ['introduction_14',['Introduction',['../python.html#introduction',1,'']]],
+  ['invalid_5fargument_15',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
+  ['io_2ehpp_16',['io.hpp',['../io_8hpp.html',1,'']]],
+  ['isok_17',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
 ];

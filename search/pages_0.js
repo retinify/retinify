@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['api_20reference_0',['API Reference',['../api.html',1,'']]]
+  ['c_20docs_0',['C++ Docs',['../cpp.html',1,'']]]
 ];
