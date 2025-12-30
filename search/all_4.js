@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['a_20retinify_20project_0',['4. Create a retinify project',['../tutorials.html#autotoc_md11',1,'']]],
-  ['accurate_1',['ACCURATE',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a12be95d6acf8f32c3a193ad12b70d657',1,'retinify']]],
-  ['attributes_2ehpp_2',['attributes.hpp',['../attributes_8hpp.html',1,'']]]
+  ['balanced_0',['BALANCED',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7a0cb4635d100151dcaac6f91db856c402',1,'retinify']]],
+  ['bindings_1',['Install Python bindings',['../python.html#installation_python',1,'']]],
+  ['build_20the_20example_20project_2',['3. Build the Example Project',['../demos.html#autotoc_md10',1,'']]]
 ];

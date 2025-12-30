@@ -27,11 +27,12 @@ var NAVTREE =
   [ "retinify documentation", "index.html", [
     [ "Overview", "index.html", null ],
     [ "Installation", "installation.html", null ],
+    [ "Demos", "demos.html", null ],
     [ "Tutorials", "tutorials.html", null ],
     [ "Python Docs", "python.html", [
-      [ "Introduction", "python.html#introduction", null ],
-      [ "Install Python bindings", "python.html#installation", null ],
-      [ "Example usage", "python.html#example", null ]
+      [ "Introduction", "python.html#introduction_python", null ],
+      [ "Install Python bindings", "python.html#installation_python", null ],
+      [ "Example usage", "python.html#example_python", null ]
     ] ],
     [ "C++ Docs", "cpp.html", null ],
     [ "ROS2 Docs", "ros2.html", null ],
@@ -66,7 +67,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structretinify_1_1CalibrationParameters.html#a12c79b717ea2854b91f146a53088ffeb"
+"structretinify_1_1CalibrationParameters.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

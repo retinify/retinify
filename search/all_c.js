@@ -1,21 +1,9 @@
 var searchData=
 [
-  ['identity_0',['Identity',['../namespaceretinify.html#a669c1552f239769d07d686d871db5ba8',1,'retinify']]],
-  ['imageheight_1',['imageHeight',['../structretinify_1_1CalibrationParameters.html#af2ce69bd490d5f3ceb2b1b77a099b329',1,'retinify::CalibrationParameters']]],
-  ['imagewidth_2',['imageWidth',['../structretinify_1_1CalibrationParameters.html#a419ecaa440dd7a4c505498d5f12db606',1,'retinify::CalibrationParameters']]],
-  ['index_2emd_3',['index.md',['../index_8md.html',1,'']]],
-  ['info_4',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
-  ['initialize_5',['Initialize',['../classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6',1,'retinify::Pipeline']]],
-  ['initidentitymap_6',['InitIdentityMap',['../namespaceretinify.html#a40676a77e7c6b67f949aabd8baf04cfc',1,'retinify']]],
-  ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#a4170b23fe70a454da9d1b316a5e7824f',1,'retinify']]],
-  ['install_20opencv_8',['1. Install OpenCV',['../tutorials.html#autotoc_md8',1,'']]],
-  ['install_20python_20bindings_9',['Install Python bindings',['../python.html#installation',1,'']]],
-  ['install_20retinify_10',['install retinify',['../tutorials.html#autotoc_md9',1,'2. Install retinify'],['../installation.html#autotoc_md5',1,'Install retinify']]],
-  ['installation_11',['installation',['../installation.html',1,'Installation'],['../installation.html#autotoc_md6',1,'Verify Installation']]],
-  ['installation_2emd_12',['installation.md',['../installation_8md.html',1,'']]],
-  ['intrinsics_13',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]],
-  ['introduction_14',['Introduction',['../python.html#introduction',1,'']]],
-  ['invalid_5fargument_15',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
-  ['io_2ehpp_16',['io.hpp',['../io_8hpp.html',1,'']]],
-  ['isok_17',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
+  ['k1_0',['k1',['../structretinify_1_1Distortion.html#aa22294b2b355f533ed26acc55a526213',1,'retinify::Distortion::k1'],['../structretinify_1_1DistortionFisheye.html#a082e541648586164b6f36d62b652f747',1,'retinify::DistortionFisheye::k1']]],
+  ['k2_1',['k2',['../structretinify_1_1Distortion.html#ac0de9fdbb91f652eb3cd24b5a3645cfe',1,'retinify::Distortion::k2'],['../structretinify_1_1DistortionFisheye.html#acfbab711e00df48397a98f499fa8ffbc',1,'retinify::DistortionFisheye::k2']]],
+  ['k3_2',['k3',['../structretinify_1_1Distortion.html#af3d884d83d5efbc0a53690040908d25f',1,'retinify::Distortion::k3'],['../structretinify_1_1DistortionFisheye.html#abe97ddeaf779a1d01f37c6372102ed0d',1,'retinify::DistortionFisheye::k3']]],
+  ['k4_3',['k4',['../structretinify_1_1Distortion.html#a9b6411f9b5c803dcf74b501dc09ce743',1,'retinify::Distortion::k4'],['../structretinify_1_1DistortionFisheye.html#a71ef968a9cdc97ab586fcba395e8e55c',1,'retinify::DistortionFisheye::k4']]],
+  ['k5_4',['k5',['../structretinify_1_1Distortion.html#afb1cbbf51f2ce30f5a038ab3ab87fa48',1,'retinify::Distortion']]],
+  ['k6_5',['k6',['../structretinify_1_1Distortion.html#a7940de1b1c342ff302b00faa79132112',1,'retinify::Distortion']]]
 ];

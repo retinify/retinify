@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['undistortpoint_0',['UndistortPoint',['../namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9',1,'retinify']]],
-  ['uninstall_20retinify_1',['Uninstall retinify',['../installation.html#autotoc_md7',1,'']]],
-  ['usage_2',['Example usage',['../python.html#example',1,'']]],
-  ['user_3',['USER',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12',1,'retinify']]]
+  ['warn_0',['WARN',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa32bd8a1db2275458673903bdb84cb277',1,'retinify']]],
+  ['width_1',['width',['../structretinify_1_1Rect2.html#aa13a1b6978ef7a7b31fa4b6aa44d429d',1,'retinify::Rect2']]]
 ];
