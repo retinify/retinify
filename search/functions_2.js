@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['execute_0',['Execute',['../classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692',1,'retinify::Pipeline']]],
-  ['exp_1',['Exp',['../namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1',1,'retinify']]]
+  ['datadirectorypath_0',['DataDirectoryPath',['../namespaceretinify.html#ae27b69290a3fbaef89e92be8d3253a16',1,'retinify']]],
+  ['determinant_1',['Determinant',['../namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1',1,'retinify']]],
+  ['distortpoint_2',['DistortPoint',['../namespaceretinify.html#a139de69159032c6086e4cba16dbc6f02',1,'retinify']]],
+  ['dot_3',['Dot',['../namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe',1,'retinify']]]
 ];

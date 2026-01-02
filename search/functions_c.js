@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['savecalibrationparameters_0',['SaveCalibrationParameters',['../namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639',1,'retinify']]],
-  ['scale_1',['Scale',['../namespaceretinify.html#a30094f60b2a1571364e29d396f7ac0c9',1,'retinify']]],
-  ['setloglevel_2',['SetLogLevel',['../namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177',1,'retinify']]],
-  ['statedirectorypath_3',['StateDirectoryPath',['../namespaceretinify.html#ae0856ceeade3a7fa9f28ed3567bc4ab7',1,'retinify']]],
-  ['status_4',['status',['../classretinify_1_1Status.html#a6ce624fbd2239802e14bbaf1079b3bd5',1,'retinify::Status::Status() noexcept=default'],['../classretinify_1_1Status.html#a17ebabbd700e537fbf081959fda8fb85',1,'retinify::Status::Status(StatusCategory category, StatusCode code) noexcept'],['../classretinify_1_1Status.html#a09e8f981bb2e2631353b407a7b5b9955',1,'retinify::Status::Status(const Status &amp;) noexcept=default'],['../classretinify_1_1Status.html#ac89b5383d6f3bcb3b2c7c8db8b5a2534',1,'retinify::Status::Status(Status &amp;&amp;) noexcept=default']]],
-  ['stereomatchingonnxfilepath_5',['StereoMatchingOnnxFilePath',['../namespaceretinify.html#ad94e307cc3927625cdb626d946f5c2f0',1,'retinify']]],
-  ['stereorectify_6',['StereoRectify',['../namespaceretinify.html#a3c231e44eaaf754f29aa315e469da1df',1,'retinify']]]
+  ['retrievedepth_0',['RetrieveDepth',['../classretinify_1_1Pipeline.html#a5cf68a30dbfe880b3d7baf13d17f5304',1,'retinify::Pipeline']]],
+  ['retrievedisparity_1',['RetrieveDisparity',['../classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9',1,'retinify::Pipeline']]],
+  ['retrievepointcloud_2',['RetrievePointCloud',['../classretinify_1_1Pipeline.html#ad68e166fda3c1719bfc884a06f99e490',1,'retinify::Pipeline']]],
+  ['retrieverectifiedimages_3',['RetrieveRectifiedImages',['../classretinify_1_1Pipeline.html#ab611c471bf099e2b8a90ee34254f71fa',1,'retinify::Pipeline']]],
+  ['retrieverectifiedleftimage_4',['RetrieveRectifiedLeftImage',['../classretinify_1_1Pipeline.html#aa20c41146db8230915e9594ced69eabc',1,'retinify::Pipeline']]],
+  ['retrieverectifiedrightimage_5',['RetrieveRectifiedRightImage',['../classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce',1,'retinify::Pipeline']]],
+  ['run_6',['Run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline']]]
 ];

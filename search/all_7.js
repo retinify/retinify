@@ -4,5 +4,5 @@ var searchData=
   ['example_20project_1',['3. Build the Example Project',['../demos.html#autotoc_md10',1,'']]],
   ['example_20usage_2',['Example usage',['../python.html#example_python',1,'']]],
   ['execute_3',['Execute',['../classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692',1,'retinify::Pipeline']]],
-  ['exp_4',['Exp',['../namespaceretinify.html#afe4003e306f6238bce758b4b07fc7be1',1,'retinify']]]
+  ['exp_4',['Exp',['../namespaceretinify.html#a5d6052424e4a38041db489589aca1abd',1,'retinify']]]
 ];

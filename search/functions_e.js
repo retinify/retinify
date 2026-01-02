@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['undistortpoint_0',['UndistortPoint',['../namespaceretinify.html#a8876f0e2847382702e20d5af46ef6fe9',1,'retinify']]]
+  ['transpose_0',['Transpose',['../namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8',1,'retinify']]]
 ];
