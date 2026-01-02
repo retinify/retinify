@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['undistortpoint_0',['UndistortPoint',['../namespaceretinify.html#af2d971fcf9cee3b4adb09551a8386b73',1,'retinify']]],
-  ['uninstall_20retinify_1',['Uninstall retinify',['../installation.html#autotoc_md7',1,'']]],
-  ['usage_2',['Example usage',['../python.html#example_python',1,'']]],
-  ['user_3',['USER',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da2e40ad879e955201df4dedbf8d479a12',1,'retinify']]]
+  ['the_20example_20project_0',['3. Build the Example Project',['../demos.html#autotoc_md10',1,'']]],
+  ['the_20retinify_20repository_1',['Clone the retinify repository.',['../installation.html#autotoc_md4',1,'']]],
+  ['translation_2',['translation',['../structretinify_1_1CalibrationParameters.html#a12c79b717ea2854b91f146a53088ffeb',1,'retinify::CalibrationParameters']]],
+  ['transpose_3',['Transpose',['../namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8',1,'retinify']]],
+  ['tutorials_4',['Tutorials',['../tutorials.html',1,'']]],
+  ['tutorials_2emd_5',['tutorials.md',['../tutorials_8md.html',1,'']]]
 ];
