@@ -101,27 +101,18 @@ $(document).ready(function(){initNavTree('python.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Python Docs</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="introduction_python"></a>
-Introduction</h1>
-<p>The Python bindings of <b>retinify</b> are designed to use <b>NumPy arrays</b> as the primary input and output format. <br  />
+<div class="textblock"><h2><a class="anchor" id="autotoc_md17"></a>
+Installation</h2>
+<p>First, follow the instructions in the <a class="el" href="installation.html">Installation</a> section to install retinify. <br  />
+ Then, install the Python bindings using:</p>
+<div class="fragment"><div class="line">pip install git+https://github.com/retinify/retinify-python.git</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
+Writing Python code</h2>
+<p>The Python bindings of retinify are designed to use <b>NumPy arrays</b> as the primary input and output format. <br  />
  Images loaded using libraries such as <b>Pillow</b> or <b>opencv-python</b> can be passed directly as <code>numpy.ndarray</code> objects.</p>
-<p>A typical usage flow looks like this:</p>
-<ul>
-<li>Load images as NumPy arrays <br  />
-</li>
-<li>Initialize a <code>Pipeline</code> with the desired image size, pixel format, depth mode, and calibration parameters <br  />
-</li>
-<li>Provide left/right images and run stereo matching <br  />
-</li>
-<li>Retrieve disparity, depth, rectified images, or a point cloud as needed</li>
-</ul>
-<h1><a class="anchor" id="installation_python"></a>
-Install Python bindings</h1>
-<p>Install the Python bindings with: </p><div class="fragment"><div class="line">pip install git+https://github.com/retinify/retinify-python.git</div>
-</div><!-- fragment --><h1><a class="anchor" id="example_python"></a>
-Example usage</h1>
-<ol type="1">
-<li>Stereo matching with rectified images <div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<p>To perform stereo matching with rectified stereo images, use the following code: <br  />
+</p>
+<div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
 <div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div>
 <div class="line"><span class="keyword">from</span> retinify <span class="keyword">import</span> Pipeline</div>
 <div class="line"> </div>
@@ -129,7 +120,7 @@ Example usage</h1>
 <div class="line">left = np.asarray(Image.open(<span class="stringliteral">&quot;path/to/left.png&quot;</span>).convert(<span class="stringliteral">&quot;RGB&quot;</span>))</div>
 <div class="line">right = np.asarray(Image.open(<span class="stringliteral">&quot;path/to/right.png&quot;</span>).convert(<span class="stringliteral">&quot;RGB&quot;</span>))</div>
 <div class="line"> </div>
-<div class="line"><span class="comment"># CREATE STEREO MATCHING PIPELINE</span></div>
+<div class="line"><span class="comment"># CREATE THE STEREO MATCHING PIPELINE</span></div>
 <div class="line">pipe = Pipeline()</div>
 <div class="line"> </div>
 <div class="line"><span class="comment"># INITIALIZE THE PIPELINE</span></div>
@@ -141,15 +132,13 @@ Example usage</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment"># RETRIEVE DISPARITY</span></div>
 <div class="line">disparity = pipe.retrieve_disparity()</div>
-</div><!-- fragment --></li>
-<li>Colorizing and saving the disparity map <div class="fragment"><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div>
-<div class="line"><span class="keyword">from</span> retinify <span class="keyword">import</span> colorize_disparity</div>
-<div class="line"> </div>
-<div class="line">disparity_color = colorize_disparity(disparity, max_disparity=128)</div>
-<div class="line"> </div>
-<div class="line">Image.fromarray(disparity_color).save(<span class="stringliteral">&quot;disparity.png&quot;</span>)</div>
-</div><!-- fragment --></li>
-<li>Stereo matching with non-rectified images and calibration parameters <div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+</div><!-- fragment --><p>When initializing the pipeline, you can provide calibration parameters to enable the following features:</p>
+<ul>
+<li>Distortion correction and rectification</li>
+<li>Depth and point cloud generation</li>
+</ul>
+<p>To perform stereo matching with non-rectified stereo images, use the following code:</p>
+<div class="fragment"><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
 <div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div>
 <div class="line"><span class="keyword">from</span> retinify <span class="keyword">import</span> Pipeline, load_calibration_parameters, PixelFormat, DepthMode</div>
 <div class="line"> </div>
@@ -173,6 +162,9 @@ Example usage</h1>
 <div class="line"><span class="comment"># EXECUTE STEREO MATCHING</span></div>
 <div class="line">pipe.execute(left, right)</div>
 <div class="line"> </div>
+<div class="line"><span class="comment"># RETRIEVE RECTIFIED LEFT IMAGE</span></div>
+<div class="line">left_rectified = pipe.retrieve_rectified_left_image()</div>
+<div class="line"> </div>
 <div class="line"><span class="comment"># RETRIEVE DISPARITY</span></div>
 <div class="line">disparity = pipe.retrieve_disparity()</div>
 <div class="line"> </div>
@@ -181,9 +173,7 @@ Example usage</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment"># RETRIEVE POINT CLOUD</span></div>
 <div class="line">point_cloud = pipe.retrieve_point_cloud()</div>
-</div><!-- fragment --> </li>
-</ol>
-</div></div><!-- contents -->
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

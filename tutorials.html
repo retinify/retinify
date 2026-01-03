@@ -105,14 +105,16 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 1. Overall Structure</h2>
 <p>Retinify is designed by clearly separating the stereo processing pipeline into three phases:</p>
 <ul>
-<li><b>Initialize</b>: Initialization using parameters and input conditions <br  />
+<li><b>1. Initialize</b>: Initialization using parameters and input conditions <br  />
 </li>
-<li><b>Execute</b>: GPU-based image processing and stereo matching <br  />
+<li><b>2. Execute</b>: GPU-based image processing and stereo matching <br  />
 </li>
-<li><b>Retrieve</b>: Transferring result data from GPU to CPU <br  />
+<li><b>3. Retrieve</b>: Transferring result data from GPU to CPU <br  />
 </li>
 </ul>
-<p>By separating initialization from per-frame execution, the runtime loop is kept minimal, enabling stable real-time processing on the GPU. This structure is shared across the Python, C++, and ROS2 APIs.</p>
+<p>By separating initialization from per-frame execution, the runtime loop is kept minimal, enabling stable real-time processing on the GPU. This structure is shared across the Python, C++, and ROS2 APIs. <br  />
+</p>
+<p>In C++, <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code> handles these three phases.</p>
 <h3><a class="anchor" id="autotoc_md12"></a>
 1.1 Initialize</h3>
 <p>The Initialize phase prepares all processing using information that is fixed before execution.</p>
@@ -164,9 +166,10 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 1.4 Coordinate Systems</h3>
 <p>Retinify uses the same coordinate system conventions as <a href="https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html">OpenCV</a>. <br  />
 </p>
-<p><img src="https://docs.opencv.org/4.x/pinhole_camera_model.png" alt="Coordinate Systems" class="inline"/></p>
-<h3><a class="anchor" id="autotoc_md16"></a>
-2. Using retinify</h3>
+<p><img src="https://docs.opencv.org/4.x/pinhole_camera_model.png" alt="Coordinate Systems" class="inline"/> <br  />
+ (Source: OpenCV Documentation, <a href="https://docs.opencv.org/4.x/">https://docs.opencv.org/4.x/</a>)</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+2. Using retinify</h2>
 <p>There are three options for using retinify:</p>
 <ul>
 <li>🐍 <a class="el" href="python.html">Python API</a> <br  />
