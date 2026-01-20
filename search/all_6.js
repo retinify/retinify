@@ -2,7 +2,7 @@ var searchData=
 [
   ['c_20code_0',['Writing C++ code',['../cpp.html#autotoc_md23',1,'']]],
   ['c_20docs_1',['C++ Docs',['../cpp.html',1,'']]],
-  ['cachedirectorypath_2',['CacheDirectoryPath',['../namespaceretinify.html#a5041f8aa65d5d1f0185e72a888d97d2c',1,'retinify']]],
+  ['cachedirectorypath_2',['CacheDirectoryPath',['../namespaceretinify.html#a71b7800a2264ee3fd17d7d32198bf6a5',1,'retinify']]],
   ['calibrationerror_3',['calibrationError',['../structretinify_1_1CalibrationParameters.html#ac232af62279465c167f93e8448b45fb1',1,'retinify::CalibrationParameters']]],
   ['calibrationparameters_4',['CalibrationParameters',['../structretinify_1_1CalibrationParameters.html',1,'retinify']]],
   ['calibrationtime_5',['calibrationTime',['../structretinify_1_1CalibrationParameters.html#af46f5a00ff6215ee4d60c1a0bbdbeeeb',1,'retinify::CalibrationParameters']]],
@@ -13,7 +13,7 @@ var searchData=
   ['code_10',['code',['../classretinify_1_1Status.html#a2b78d61f4f0fd7ccfe7e5153b17a2630',1,'retinify::Status::Code()'],['../cpp.html#autotoc_md23',1,'Writing C++ code'],['../python.html#autotoc_md18',1,'Writing Python code']]],
   ['colorizedisparity_11',['ColorizeDisparity',['../namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b',1,'retinify']]],
   ['colormap_2ehpp_12',['colormap.hpp',['../colormap_8hpp.html',1,'']]],
-  ['configdirectorypath_13',['ConfigDirectoryPath',['../namespaceretinify.html#a8436647478f9e9c2c9b695e587ca70d1',1,'retinify']]],
+  ['configdirectorypath_13',['ConfigDirectoryPath',['../namespaceretinify.html#a8ea579e2ca6c59a5cf4f0546b2823165',1,'retinify']]],
   ['contact_14',['Contact',['../index.html#autotoc_md2',1,'']]],
   ['coordinate_20systems_15',['1.4 Coordinate Systems',['../tutorials.html#autotoc_md15',1,'']]],
   ['cpp_2emd_16',['cpp.md',['../cpp_8md.html',1,'']]],

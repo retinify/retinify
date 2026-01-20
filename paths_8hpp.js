@@ -1,9 +1,8 @@
 var paths_8hpp =
 [
-    [ "CacheDirectoryPath", "paths_8hpp.html#a5041f8aa65d5d1f0185e72a888d97d2c", null ],
-    [ "ConfigDirectoryPath", "paths_8hpp.html#a8436647478f9e9c2c9b695e587ca70d1", null ],
-    [ "DataDirectoryPath", "paths_8hpp.html#ae27b69290a3fbaef89e92be8d3253a16", null ],
-    [ "HomeDirectoryPath", "paths_8hpp.html#aacffaa83dff370322a2bd10317728f65", null ],
-    [ "StateDirectoryPath", "paths_8hpp.html#ae0856ceeade3a7fa9f28ed3567bc4ab7", null ],
-    [ "StereoMatchingOnnxFilePath", "paths_8hpp.html#ad94e307cc3927625cdb626d946f5c2f0", null ]
+    [ "CacheDirectoryPath", "paths_8hpp.html#a71b7800a2264ee3fd17d7d32198bf6a5", null ],
+    [ "ConfigDirectoryPath", "paths_8hpp.html#a8ea579e2ca6c59a5cf4f0546b2823165", null ],
+    [ "DataDirectoryPath", "paths_8hpp.html#a941ddcb2633bd04ed7395ec2191f8d9d", null ],
+    [ "HomeDirectoryPath", "paths_8hpp.html#aa185954ed2ed2f3cdb995939f189e8b5", null ],
+    [ "StateDirectoryPath", "paths_8hpp.html#a605504dd9aadddb4d0198a8cfc2ac6bf", null ]
 ];
