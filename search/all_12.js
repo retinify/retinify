@@ -7,11 +7,9 @@ var searchData=
   ['pipeline_2ehpp_4',['pipeline.hpp',['../pipeline_8hpp.html',1,'']]],
   ['pixelformat_5',['PixelFormat',['../namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb',1,'retinify']]],
   ['point2d_6',['Point2d',['../namespaceretinify.html#a4a169294bff970ffd298d294886da8d1',1,'retinify']]],
-  ['point2f_7',['Point2f',['../namespaceretinify.html#aeb3be156a64738eb1b5245d2847fe15f',1,'retinify']]],
-  ['point3d_8',['Point3d',['../namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95',1,'retinify']]],
-  ['point3f_9',['Point3f',['../namespaceretinify.html#aac7d4959a4eb865a96587b2262b92dc4',1,'retinify']]],
-  ['project_10',['3. Build the Example Project',['../demos.html#autotoc_md10',1,'']]],
-  ['python_20code_11',['Writing Python code',['../python.html#autotoc_md18',1,'']]],
-  ['python_20docs_12',['Python Docs',['../python.html',1,'']]],
-  ['python_2emd_13',['python.md',['../python_8md.html',1,'']]]
+  ['point3d_7',['Point3d',['../namespaceretinify.html#a9255fb8e61a45045c8a7b9c1a819dd95',1,'retinify']]],
+  ['project_8',['3. Build the Example Project',['../demos.html#autotoc_md10',1,'']]],
+  ['python_20code_9',['Writing Python code',['../python.html#autotoc_md18',1,'']]],
+  ['python_20docs_10',['Python Docs',['../python.html',1,'']]],
+  ['python_2emd_11',['python.md',['../python_8md.html',1,'']]]
 ];

@@ -10,7 +10,7 @@ var searchData=
   ['status_2ehpp_7',['status.hpp',['../status_8hpp.html',1,'']]],
   ['statuscategory_8',['StatusCategory',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116d',1,'retinify']]],
   ['statuscode_9',['StatusCode',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4',1,'retinify']]],
-  ['stereorectify_10',['StereoRectify',['../namespaceretinify.html#a3c231e44eaaf754f29aa315e469da1df',1,'retinify']]],
+  ['stereorectify_10',['StereoRectify',['../namespaceretinify.html#a9bdbc7248bc4085d5ae43a5745758807',1,'retinify']]],
   ['structure_11',['1. Overall Structure',['../tutorials.html#autotoc_md11',1,'']]],
   ['system_12',['SYSTEM',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dafa177138f94a7ea01f549b1aa7893d03',1,'retinify']]],
   ['systems_13',['1.4 Coordinate Systems',['../tutorials.html#autotoc_md15',1,'']]]
