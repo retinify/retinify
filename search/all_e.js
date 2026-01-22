@@ -12,5 +12,6 @@ var searchData=
   ['logging_2ehpp_9',['logging.hpp',['../logging_8hpp.html',1,'']]],
   ['loginfo_10',['LogInfo',['../namespaceretinify.html#a2bb799c831b65b8471540ae9efe49a83',1,'retinify']]],
   ['loglevel_11',['LogLevel',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f',1,'retinify']]],
-  ['logwarn_12',['LogWarn',['../namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809',1,'retinify']]]
+  ['loglocation_12',['LogLocation',['../namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366',1,'retinify']]],
+  ['logwarn_13',['LogWarn',['../namespaceretinify.html#a897decd89cb0b5249d4aebb5cbece809',1,'retinify']]]
 ];

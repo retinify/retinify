@@ -21,6 +21,5 @@ var searchData=
   ['rightintrinsics_18',['rightIntrinsics',['../structretinify_1_1CalibrationParameters.html#ae1224209b7d2dcab3653d232df2f22f9',1,'retinify::CalibrationParameters']]],
   ['ros2_20docs_19',['ROS2 Docs',['../ros2.html',1,'']]],
   ['ros2_2emd_20',['ros2.md',['../ros2_8md.html',1,'']]],
-  ['rotation_21',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]],
-  ['run_22',['Run',['../classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa',1,'retinify::Pipeline']]]
+  ['rotation_21',['rotation',['../structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3',1,'retinify::CalibrationParameters']]]
 ];

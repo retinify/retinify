@@ -194,8 +194,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4">OFF</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging verbosity levels for retinify.  <a href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">More...</a><br /></td></tr>
+<tr class="memdesc:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging verbosity levels.  <a href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">More...</a><br /></td></tr>
 <tr class="separator:ad7864f6e39ba12c3d9bd53d13c64ac7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e1f256c39037611a1a1e558657b8366" id="r_a9e1f256c39037611a1a1e558657b8366"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">LogLocation</a> { <a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693">NONE</a>
+, <a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b">FUNCTION</a>
+ }</td></tr>
+<tr class="memdesc:a9e1f256c39037611a1a1e558657b8366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging source location options.  <a href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">More...</a><br /></td></tr>
+<tr class="separator:a9e1f256c39037611a1a1e558657b8366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16d6a4001a7bbb7cb87e43aec4553dcb" id="r_a16d6a4001a7bbb7cb87e43aec4553dcb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb">PixelFormat</a> : std::uint8_t { <a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e">GRAY8</a>
 , <a class="el" href="namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63">RGB8</a>
  }</td></tr>
@@ -305,6 +310,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a4de8520c89a118095ed0ae4426f17177" id="r_a4de8520c89a118095ed0ae4426f17177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177">SetLogLevel</a> (<a class="el" href="namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7f">LogLevel</a> level) noexcept</td></tr>
 <tr class="memdesc:a4de8520c89a118095ed0ae4426f17177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the log level.  <br /></td></tr>
 <tr class="separator:a4de8520c89a118095ed0ae4426f17177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26cf1ded03e25ce6e5cdb8f6fd9cb681" id="r_a26cf1ded03e25ce6e5cdb8f6fd9cb681"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a26cf1ded03e25ce6e5cdb8f6fd9cb681">GetLogLocation</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">LogLocation</a></td></tr>
+<tr class="memdesc:a26cf1ded03e25ce6e5cdb8f6fd9cb681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log location setting.  <br /></td></tr>
+<tr class="separator:a26cf1ded03e25ce6e5cdb8f6fd9cb681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c5dbd6c0b028a2158c9eb49600c8d04" id="r_a5c5dbd6c0b028a2158c9eb49600c8d04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a5c5dbd6c0b028a2158c9eb49600c8d04">SetLogLocation</a> (<a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">LogLocation</a> location) noexcept</td></tr>
+<tr class="memdesc:a5c5dbd6c0b028a2158c9eb49600c8d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the log location setting.  <br /></td></tr>
+<tr class="separator:a5c5dbd6c0b028a2158c9eb49600c8d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2176cf5cf8d8e64c04c8c45365d2c5b" id="r_aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa2176cf5cf8d8e64c04c8c45365d2c5b">LogDebug</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a debug message.  <br /></td></tr>
 <tr class="separator:aa2176cf5cf8d8e64c04c8c45365d2c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -649,7 +660,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Logging verbosity levels for retinify. </p>
+<p>Logging verbosity levels. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15" name="ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15"></a>DEBUG&#160;</td><td class="fielddoc"><p>Debug messages. </p>
 </td></tr>
@@ -662,6 +673,36 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc" name="ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc"></a>FATAL&#160;</td><td class="fielddoc"><p>Fatal Error messages. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4" name="ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4"></a>OFF&#160;</td><td class="fielddoc"><p>Disable all logging. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a9e1f256c39037611a1a1e558657b8366" name="a9e1f256c39037611a1a1e558657b8366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1f256c39037611a1a1e558657b8366">&#9670;&#160;</a></span>LogLocation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">retinify::LogLocation</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logging source location options. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693" name="a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693"></a>NONE&#160;</td><td class="fielddoc"><p>No source location. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b" name="a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b"></a>FUNCTION&#160;</td><td class="fielddoc"><p>Function name. </p>
 </td></tr>
 </table>
 
@@ -1230,6 +1271,34 @@ Functions</h2></td></tr>
 
 <p>Returns the current log level. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current log level </dd></dl>
+
+</div>
+</div>
+<a id="a26cf1ded03e25ce6e5cdb8f6fd9cb681" name="a26cf1ded03e25ce6e5cdb8f6fd9cb681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26cf1ded03e25ce6e5cdb8f6fd9cb681">&#9670;&#160;</a></span>GetLogLocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::GetLogLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">LogLocation</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current log location setting. </p>
+<dl class="section return"><dt>Returns</dt><dd>The current log location setting </dd></dl>
 
 </div>
 </div>
@@ -2141,6 +2210,40 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>The new log level to apply </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5c5dbd6c0b028a2158c9eb49600c8d04" name="a5c5dbd6c0b028a2158c9eb49600c8d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c5dbd6c0b028a2158c9eb49600c8d04">&#9670;&#160;</a></span>SetLogLocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void retinify::SetLogLocation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366">LogLocation</a>&#160;</td>
+          <td class="paramname"><em>location</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the log location setting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">location</td><td>The new log location setting to apply </td></tr>
   </table>
   </dd>
 </dl>

@@ -36,6 +36,10 @@ var namespaceretinify =
       [ "FATAL", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
       [ "OFF", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
     ] ],
+    [ "LogLocation", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366", [
+      [ "NONE", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "FUNCTION", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b", null ]
+    ] ],
     [ "PixelFormat", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb", [
       [ "GRAY8", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e", null ],
       [ "RGB8", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63", null ]
@@ -63,6 +67,7 @@ var namespaceretinify =
     [ "Dot", "namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe", null ],
     [ "Exp", "namespaceretinify.html#a5d6052424e4a38041db489589aca1abd", null ],
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
+    [ "GetLogLocation", "namespaceretinify.html#a26cf1ded03e25ce6e5cdb8f6fd9cb681", null ],
     [ "Hat", "namespaceretinify.html#ad6fd48d7818cdbfebfd07e4a48555f90", null ],
     [ "HomeDirectoryPath", "namespaceretinify.html#aa185954ed2ed2f3cdb995939f189e8b5", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
@@ -83,6 +88,7 @@ var namespaceretinify =
     [ "Normalize", "namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
     [ "SaveCalibrationParameters", "namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639", null ],
     [ "SetLogLevel", "namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177", null ],
+    [ "SetLogLocation", "namespaceretinify.html#a5c5dbd6c0b028a2158c9eb49600c8d04", null ],
     [ "StateDirectoryPath", "namespaceretinify.html#a605504dd9aadddb4d0198a8cfc2ac6bf", null ],
     [ "StereoRectify", "namespaceretinify.html#a3c231e44eaaf754f29aa315e469da1df", null ],
     [ "Transpose", "namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],

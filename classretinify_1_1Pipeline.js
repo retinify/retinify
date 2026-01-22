@@ -13,6 +13,5 @@ var classretinify_1_1Pipeline =
     [ "RetrievePointCloud", "classretinify_1_1Pipeline.html#ad68e166fda3c1719bfc884a06f99e490", null ],
     [ "RetrieveRectifiedImages", "classretinify_1_1Pipeline.html#ab611c471bf099e2b8a90ee34254f71fa", null ],
     [ "RetrieveRectifiedLeftImage", "classretinify_1_1Pipeline.html#aa20c41146db8230915e9594ced69eabc", null ],
-    [ "RetrieveRectifiedRightImage", "classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce", null ],
-    [ "Run", "classretinify_1_1Pipeline.html#a63e6a9d44c617fca87fc98e7e20a01fa", null ]
+    [ "RetrieveRectifiedRightImage", "classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce", null ]
 ];
