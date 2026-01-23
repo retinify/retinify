@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rect2_0',['Rect2',['../structretinify_1_1Rect2.html',1,'retinify']]]
+  ['pipeline_0',['Pipeline',['../classretinify_1_1Pipeline.html',1,'retinify']]]
 ];

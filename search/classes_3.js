@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pipeline_0',['Pipeline',['../classretinify_1_1Pipeline.html',1,'retinify']]]
+  ['nocopymove_0',['NoCopyMove',['../classretinify_1_1NoCopyMove.html',1,'retinify']]]
 ];

@@ -3,6 +3,7 @@ var namespaceretinify =
     [ "CalibrationParameters", "structretinify_1_1CalibrationParameters.html", "structretinify_1_1CalibrationParameters" ],
     [ "Distortion", "structretinify_1_1Distortion.html", "structretinify_1_1Distortion" ],
     [ "Intrinsics", "structretinify_1_1Intrinsics.html", "structretinify_1_1Intrinsics" ],
+    [ "NoCopyMove", "classretinify_1_1NoCopyMove.html", "classretinify_1_1NoCopyMove" ],
     [ "Pipeline", "classretinify_1_1Pipeline.html", "classretinify_1_1Pipeline" ],
     [ "Rect2", "structretinify_1_1Rect2.html", "structretinify_1_1Rect2" ],
     [ "Status", "classretinify_1_1Status.html", "classretinify_1_1Status" ],
@@ -27,9 +28,9 @@ var namespaceretinify =
       [ "FATAL", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
       [ "OFF", "namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
     ] ],
-    [ "LogLocation", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366", [
-      [ "NONE", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693", null ],
-      [ "FUNCTION", "namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b", null ]
+    [ "LogLocation", "namespaceretinify.html#a372ff55f77ecca5f9d632bf5e16755eb", [
+      [ "NONE", "namespaceretinify.html#a372ff55f77ecca5f9d632bf5e16755ebab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "FUNCTION", "namespaceretinify.html#a372ff55f77ecca5f9d632bf5e16755eba6a72a6a776662a244f82d31e9274a07b", null ]
     ] ],
     [ "PixelFormat", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcb", [
       [ "GRAY8", "namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcbab05f65488c7c7ff2ebca625a87e3e79e", null ],

@@ -8,9 +8,9 @@ var logging_8hpp =
       [ "FATAL", "logging_8hpp.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc", null ],
       [ "OFF", "logging_8hpp.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa88559a0cfd8250c9d65970cc145c92d4", null ]
     ] ],
-    [ "LogLocation", "logging_8hpp.html#a9e1f256c39037611a1a1e558657b8366", [
-      [ "NONE", "logging_8hpp.html#a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693", null ],
-      [ "FUNCTION", "logging_8hpp.html#a9e1f256c39037611a1a1e558657b8366a6a72a6a776662a244f82d31e9274a07b", null ]
+    [ "LogLocation", "logging_8hpp.html#a372ff55f77ecca5f9d632bf5e16755eb", [
+      [ "NONE", "logging_8hpp.html#a372ff55f77ecca5f9d632bf5e16755ebab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "FUNCTION", "logging_8hpp.html#a372ff55f77ecca5f9d632bf5e16755eba6a72a6a776662a244f82d31e9274a07b", null ]
     ] ],
     [ "GetLogLevel", "logging_8hpp.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
     [ "GetLogLocation", "logging_8hpp.html#a26cf1ded03e25ce6e5cdb8f6fd9cb681", null ],

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['none_0',['none',['../namespaceretinify.html#a9e1f256c39037611a1a1e558657b8366ab50339a10e1de285ac99d4c3990b8693',1,'retinify::NONE'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693',1,'retinify::NONE']]],
-  ['normalize_1',['Normalize',['../namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b',1,'retinify']]]
+  ['nocopymove_0',['nocopymove',['../classretinify_1_1NoCopyMove.html',1,'retinify::NoCopyMove'],['../classretinify_1_1NoCopyMove.html#a25e03898306d945e23350cd803230ee2',1,'retinify::NoCopyMove::NoCopyMove()=default'],['../classretinify_1_1NoCopyMove.html#aff516ad898ccf43e02bb18e726507a44',1,'retinify::NoCopyMove::NoCopyMove(const NoCopyMove &amp;)=delete'],['../classretinify_1_1NoCopyMove.html#a4234ea8c2e693e936156a639a2cae569',1,'retinify::NoCopyMove::NoCopyMove(NoCopyMove &amp;&amp;)=delete']]],
+  ['none_1',['none',['../namespaceretinify.html#a372ff55f77ecca5f9d632bf5e16755ebab50339a10e1de285ac99d4c3990b8693',1,'retinify::NONE'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693',1,'retinify::NONE']]],
+  ['normalize_2',['Normalize',['../namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b',1,'retinify']]]
 ];
