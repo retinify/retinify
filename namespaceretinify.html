@@ -205,9 +205,12 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0c249c755e7a264d7c677887ff7b4c6b" id="r_a0c249c755e7a264d7c677887ff7b4c6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a0c249c755e7a264d7c677887ff7b4c6b">ColorizeDisparity</a> (const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
-<tr class="memdesc:a0c249c755e7a264d7c677887ff7b4c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the disparity map.  <br /></td></tr>
-<tr class="separator:a0c249c755e7a264d7c677887ff7b4c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46630b01cb4bb499c8f6c27947b7b839" id="r_a46630b01cb4bb499c8f6c27947b7b839"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a46630b01cb4bb499c8f6c27947b7b839">ColorizeDisparity</a> (const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDisparity) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a46630b01cb4bb499c8f6c27947b7b839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the disparity map.  <br /></td></tr>
+<tr class="separator:a46630b01cb4bb499c8f6c27947b7b839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa41cd625508301e2183c133628b8214b" id="r_aa41cd625508301e2183c133628b8214b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa41cd625508301e2183c133628b8214b">ColorizeDepth</a> (const float *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight, float maxDepth) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:aa41cd625508301e2183c133628b8214b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the colormap to the depth map.  <br /></td></tr>
+<tr class="separator:aa41cd625508301e2183c133628b8214b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a669c1552f239769d07d686d871db5ba8" id="r_a669c1552f239769d07d686d871db5ba8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a669c1552f239769d07d686d871db5ba8">Identity</a> () noexcept -&gt; <a class="el" href="namespaceretinify.html#a26282a3f32000d8c29fb89e1dbc4ee4c">Mat3x3d</a></td></tr>
 <tr class="memdesc:a669c1552f239769d07d686d871db5ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a 3x3 identity matrix.  <br /></td></tr>
 <tr class="separator:a669c1552f239769d07d686d871db5ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -733,11 +736,95 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0c249c755e7a264d7c677887ff7b4c6b" name="a0c249c755e7a264d7c677887ff7b4c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c249c755e7a264d7c677887ff7b4c6b">&#9670;&#160;</a></span>ColorizeDisparity()</h2>
+<a id="aa41cd625508301e2183c133628b8214b" name="aa41cd625508301e2183c133628b8214b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41cd625508301e2183c133628b8214b">&#9670;&#160;</a></span>ColorizeDepth()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ColorizeDepth </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>srcStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>dstStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>imageWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>imageHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxDepth</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applies the colormap to the depth map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Input depth map (32-bit float) </td></tr>
+    <tr><td class="paramname">srcStride</td><td>Stride of the input depth map (in bytes) </td></tr>
+    <tr><td class="paramname">dst</td><td>Output colored depth map (8-bit 3-channel RGB) </td></tr>
+    <tr><td class="paramname">dstStride</td><td>Stride of the output colored depth map (in bytes) </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Width of the input and output depth maps (in pixels) </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Height of the input and output depth maps (in pixels) </td></tr>
+    <tr><td class="paramname">maxDepth</td><td>Maximum depth value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+
+</div>
+</div>
+<a id="a46630b01cb4bb499c8f6c27947b7b839" name="a46630b01cb4bb499c8f6c27947b7b839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46630b01cb4bb499c8f6c27947b7b839">&#9670;&#160;</a></span>ColorizeDisparity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::ColorizeDisparity </td>
@@ -787,6 +874,11 @@ Functions</h2></td></tr>
           <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Applies the colormap to the disparity map. </p>
@@ -798,7 +890,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">dstStride</td><td>Stride of the output colored disparity map (in bytes) </td></tr>
     <tr><td class="paramname">imageWidth</td><td>Width of the input and output disparity maps (in pixels) </td></tr>
     <tr><td class="paramname">imageHeight</td><td>Height of the input and output disparity maps (in pixels) </td></tr>
-    <tr><td class="paramname">maxDisparity</td><td>Maximum disparity value for normalization </td></tr>
+    <tr><td class="paramname">maxDisparity</td><td>Maximum disparity value </td></tr>
   </table>
   </dd>
 </dl>

@@ -1,4 +1,5 @@
 var colormap_8hpp =
 [
-    [ "ColorizeDisparity", "colormap_8hpp.html#a0c249c755e7a264d7c677887ff7b4c6b", null ]
+    [ "ColorizeDepth", "colormap_8hpp.html#aa41cd625508301e2183c133628b8214b", null ],
+    [ "ColorizeDisparity", "colormap_8hpp.html#a46630b01cb4bb499c8f6c27947b7b839", null ]
 ];

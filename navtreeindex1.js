@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"structretinify_1_1CalibrationParameters.html#a59e309fd1a139e1ea77a39bb2eccef4f":[8,0,0,0,5],
+"structretinify_1_1CalibrationParameters.html#a59e309fd1a139e1ea77a39bb2eccef4f":[7,0,0,0,5],
 "structretinify_1_1CalibrationParameters.html#ac232af62279465c167f93e8448b45fb1":[7,0,0,0,1],
 "structretinify_1_1CalibrationParameters.html#ac232af62279465c167f93e8448b45fb1":[8,0,0,0,1],
 "structretinify_1_1CalibrationParameters.html#ad612adb53208b19059deddbec56503e3":[7,0,0,0,9],
