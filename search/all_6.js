@@ -15,12 +15,11 @@ var searchData=
   ['colorizedisparity_12',['ColorizeDisparity',['../namespaceretinify.html#a46630b01cb4bb499c8f6c27947b7b839',1,'retinify']]],
   ['colormap_2ehpp_13',['colormap.hpp',['../colormap_8hpp.html',1,'']]],
   ['configdirectorypath_14',['ConfigDirectoryPath',['../namespaceretinify.html#a8ea579e2ca6c59a5cf4f0546b2823165',1,'retinify']]],
-  ['constraints_2ehpp_15',['constraints.hpp',['../constraints_8hpp.html',1,'']]],
-  ['contact_16',['Contact',['../index.html#autotoc_md2',1,'']]],
-  ['coordinate_20systems_17',['1.4 Coordinate Systems',['../tutorials.html#autotoc_md15',1,'']]],
-  ['cpp_2emd_18',['cpp.md',['../cpp_8md.html',1,'']]],
-  ['cross_19',['Cross',['../namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8',1,'retinify']]],
-  ['cuda_20',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
-  ['cx_21',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],
-  ['cy_22',['cy',['../structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd',1,'retinify::Intrinsics']]]
+  ['contact_15',['Contact',['../index.html#autotoc_md2',1,'']]],
+  ['coordinate_20systems_16',['1.4 Coordinate Systems',['../tutorials.html#autotoc_md15',1,'']]],
+  ['cpp_2emd_17',['cpp.md',['../cpp_8md.html',1,'']]],
+  ['cross_18',['Cross',['../namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8',1,'retinify']]],
+  ['cuda_19',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
+  ['cx_20',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],
+  ['cy_21',['cy',['../structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd',1,'retinify::Intrinsics']]]
 ];

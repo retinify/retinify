@@ -1,4 +1,4 @@
-var constraints_8hpp =
+var nocopymove_8hpp =
 [
     [ "retinify::NoCopyMove", "classretinify_1_1NoCopyMove.html", "classretinify_1_1NoCopyMove" ]
 ];
