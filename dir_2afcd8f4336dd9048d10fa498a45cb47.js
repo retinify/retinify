@@ -6,6 +6,7 @@ var dir_2afcd8f4336dd9048d10fa498a45cb47 =
     [ "io.hpp", "io_8hpp.html", "io_8hpp" ],
     [ "logging.hpp", "logging_8hpp.html", "logging_8hpp" ],
     [ "nocopymove.hpp", "nocopymove_8hpp.html", "nocopymove_8hpp" ],
+    [ "nothrow.hpp", "nothrow_8hpp.html", "nothrow_8hpp" ],
     [ "paths.hpp", "paths_8hpp.html", "paths_8hpp" ],
     [ "pipeline.hpp", "pipeline_8hpp.html", "pipeline_8hpp" ],
     [ "status.hpp", "status_8hpp.html", "status_8hpp" ],

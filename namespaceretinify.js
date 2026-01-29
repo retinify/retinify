@@ -79,6 +79,7 @@ var namespaceretinify =
     [ "Multiply", "namespaceretinify.html#acbcc293528213d2a5ed9275f9299ae76", null ],
     [ "Multiply", "namespaceretinify.html#aba68a556f4111e1f046d155611efc08e", null ],
     [ "Normalize", "namespaceretinify.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
+    [ "NoThrow", "namespaceretinify.html#ab161f89b773a720c8d040b566b5cd179", null ],
     [ "SaveCalibrationParameters", "namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639", null ],
     [ "SetLogLevel", "namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177", null ],
     [ "SetLogLocation", "namespaceretinify.html#a5c5dbd6c0b028a2158c9eb49600c8d04", null ],

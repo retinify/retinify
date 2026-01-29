@@ -310,6 +310,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a9a9b1f6e167926306723c22265f71068" id="r_a9a9b1f6e167926306723c22265f71068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a9a9b1f6e167926306723c22265f71068">LogFatal</a> (const char *message, std::source_location location=std::source_location::current()) noexcept</td></tr>
 <tr class="memdesc:a9a9b1f6e167926306723c22265f71068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a fatal error message.  <br /></td></tr>
 <tr class="separator:a9a9b1f6e167926306723c22265f71068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab161f89b773a720c8d040b566b5cd179" id="r_ab161f89b773a720c8d040b566b5cd179"><td class="memTemplParams" colspan="2">template&lt;typename Function &gt; </td></tr>
+<tr class="memitem:ab161f89b773a720c8d040b566b5cd179"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ab161f89b773a720c8d040b566b5cd179">NoThrow</a> (Function &amp;&amp;function) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:ab161f89b773a720c8d040b566b5cd179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a function and converts any exception into a <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a>.  <br /></td></tr>
+<tr class="separator:ab161f89b773a720c8d040b566b5cd179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa185954ed2ed2f3cdb995939f189e8b5" id="r_aa185954ed2ed2f3cdb995939f189e8b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#aa185954ed2ed2f3cdb995939f189e8b5">HomeDirectoryPath</a> (std::filesystem::path &amp;path) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:aa185954ed2ed2f3cdb995939f189e8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current user’s home directory path.  <br /></td></tr>
 <tr class="separator:aa185954ed2ed2f3cdb995939f189e8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2073,6 +2077,50 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Normalized 3D vector </dd></dl>
+
+</div>
+</div>
+<a id="ab161f89b773a720c8d040b566b5cd179" name="ab161f89b773a720c8d040b566b5cd179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab161f89b773a720c8d040b566b5cd179">&#9670;&#160;</a></span>NoThrow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Function &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto retinify::NoThrow </td>
+          <td>(</td>
+          <td class="paramtype">Function &amp;&amp;&#160;</td>
+          <td class="paramname"><em>function</em></td><td>)</td>
+          <td> -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a>
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes a function and converts any exception into a <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Function</td><td>The type of the function to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td>The function to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
 
 </div>
 </div>
