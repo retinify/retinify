@@ -5,7 +5,7 @@ var searchData=
   ['repository_2',['Clone the retinify repository.',['../installation.html#autotoc_md4',1,'']]],
   ['retinify_3',['retinify',['../demos.html#autotoc_md8',1,'1. Install retinify'],['../tutorials.html#autotoc_md16',1,'2. Using retinify'],['../installation.html#autotoc_md5',1,'Install retinify'],['../namespaceretinify.html',1,'retinify'],['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116da853581f261e523e6a07d9f8967334e8a',1,'retinify::RETINIFY'],['../installation.html#autotoc_md7',1,'Uninstall retinify']]],
   ['retinify_20repository_4',['Clone the retinify repository.',['../installation.html#autotoc_md4',1,'']]],
-  ['retinify_20with_20cmake_5',['Using retinify with CMake',['../cpp.html#autotoc_md22',1,'']]],
+  ['retinify_20with_20cmake_5',['Using retinify with CMake',['../cpp.html#autotoc_md24',1,'']]],
   ['retinify_5fapi_6',['RETINIFY_API',['../attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28',1,'attributes.hpp']]],
   ['retinify_5fdeprecated_7',['RETINIFY_DEPRECATED',['../attributes_8hpp.html#a210b3c6fda00da54e0125d3367b6c6f5',1,'attributes.hpp']]],
   ['retrieve_8',['1.3 Retrieve',['../tutorials.html#autotoc_md14',1,'']]],

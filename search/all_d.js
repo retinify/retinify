@@ -6,5 +6,5 @@ var searchData=
   ['k4_3',['k4',['../structretinify_1_1Distortion.html#a9b6411f9b5c803dcf74b501dc09ce743',1,'retinify::Distortion']]],
   ['k5_4',['k5',['../structretinify_1_1Distortion.html#afb1cbbf51f2ce30f5a038ab3ab87fa48',1,'retinify::Distortion']]],
   ['k6_5',['k6',['../structretinify_1_1Distortion.html#a7940de1b1c342ff302b00faa79132112',1,'retinify::Distortion']]],
-  ['key_20classes_6',['Key classes',['../cpp.html#autotoc_md21',1,'']]]
+  ['key_20classes_6',['Key classes',['../cpp.html#autotoc_md23',1,'']]]
 ];

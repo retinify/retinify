@@ -29,6 +29,7 @@ var NAVTREE =
     [ "Installation", "installation.html", null ],
     [ "Demos", "demos.html", null ],
     [ "Tutorials", "tutorials.html", null ],
+    [ "Calibration", "calibration.html", null ],
     [ "Python Docs", "python.html", null ],
     [ "C++ Docs", "cpp.html", null ],
     [ "ROS2 Docs", "ros2.html", null ],
@@ -64,7 +65,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"status_8hpp.html#a760ed0e98c342b4af3006ca06c81116dab50339a10e1de285ac99d4c3990b8693"
+"status_8hpp.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
