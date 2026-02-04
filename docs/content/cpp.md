@@ -69,8 +69,10 @@ if (!statusInitialize.IsOK())
 }
 
 // EXECUTE STEREO MATCHING
-auto statusExecute = pipeline.Execute(leftImage.ptr<std::uint8_t>(), leftImage.step[0], 
-                                      rightImage.ptr<std::uint8_t>(), rightImage.step[0]);
+auto statusExecute = pipeline.Execute(leftImage.ptr<std::uint8_t>(), 
+                                      leftImage.step[0], 
+                                      rightImage.ptr<std::uint8_t>(), 
+                                      rightImage.step[0]);
 if (!statusExecute.IsOK())
 {
     return 1;
@@ -128,8 +130,10 @@ if (!statusInitialize.IsOK())
 }
 
 // EXECUTE STEREO MATCHING
-auto statusExecute = pipeline.Execute(leftImage.ptr<std::uint8_t>(), leftImage.step[0], 
-                                      rightImage.ptr<std::uint8_t>(), rightImage.step[0]);
+auto statusExecute = pipeline.Execute(leftImage.ptr<std::uint8_t>(), 
+                                      leftImage.step[0], 
+                                      rightImage.ptr<std::uint8_t>(), 
+                                      rightImage.step[0]);
 if (!statusExecute.IsOK())
 {
     return 1;

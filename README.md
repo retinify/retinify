@@ -129,8 +129,10 @@ retinify::Pipeline pipeline;
 pipeline.Initialize(leftImage.cols, leftImage.rows);
 
 // EXECUTE STEREO MATCHING
-pipeline.Execute(leftImage.ptr<uint8_t>(), leftImage.step[0],
-                 rightImage.ptr<uint8_t>(), rightImage.step[0]);
+pipeline.Execute(leftImage.ptr<uint8_t>(), 
+                 leftImage.step[0],
+                 rightImage.ptr<uint8_t>(), 
+                 rightImage.step[0]);
 
 // RETRIEVE DISPARITY
 pipeline.RetrieveDisparity(disparity.ptr<float>(), disparity.step[0]);
@@ -164,14 +166,17 @@ retinify::LoadCalibrationParameters("path/to/calib.json", calibParams);
 retinify::Pipeline pipeline;
 
 // INITIALIZE THE PIPELINE WITH CALIBRATION PARAMETERS
-pipeline.Initialize(leftImage.cols, leftImage.rows, 
+pipeline.Initialize(leftImage.cols, 
+                    leftImage.rows, 
                     retinify::PixelFormat::RGB8, 
                     retinify::DepthMode::ACCURATE, 
                     calibParams);
 
 // EXECUTE STEREO MATCHING
-pipeline.Execute(leftImage.ptr<uint8_t>(), leftImage.step[0],
-                 rightImage.ptr<uint8_t>(), rightImage.step[0]);
+pipeline.Execute(leftImage.ptr<uint8_t>(), 
+                 leftImage.step[0],
+                 rightImage.ptr<uint8_t>(), 
+                 rightImage.step[0]);
 
 // RETRIEVE DISPARITY
 pipeline.RetrieveDisparity(disparity.ptr<float>(), disparity.step[0]);
@@ -198,7 +203,7 @@ pipeline.RetrievePointCloud(pointCloud.ptr<float>(), pointCloud.step[0]);
   Guided explanations of retinify concepts
 
 - 🎯 [**Calibration**](https://docs.retinify.ai/calibration.html)  
-  Calibration Parameters Specification
+  Calibration parameters specification
 
 - 🐍 [**Python Docs**](https://docs.retinify.ai/python.html)  
   Python API documentation
