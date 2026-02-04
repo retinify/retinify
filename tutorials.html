@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
   <div class="headertitle"><div class="title">Tutorials</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md11"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md12"></a>
 1. Overall Structure</h2>
 <p>Retinify is designed by clearly separating the stereo processing pipeline into three phases:</p>
 <ul>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <p>By separating initialization from per-frame execution, the runtime loop is kept minimal, enabling stable real-time processing on the GPU. This structure is shared across the Python, C++, and ROS2 APIs. <br  />
 </p>
 <p>In C++, <code><a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a></code> handles these three phases.</p>
-<h3><a class="anchor" id="autotoc_md12"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 1.1 Initialize</h3>
 <p>The Initialize phase prepares all processing using information that is fixed before execution.</p>
 <ul>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 </p>
 <p>In C++, <code><a class="el" href="classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6" title="Initializes the stereo matching pipeline with the given image dimensions.">retinify::Pipeline.Initialize()</a></code> corresponds to this phase. <br  />
 </p>
-<h3><a class="anchor" id="autotoc_md13"></a>
+<h3><a class="anchor" id="autotoc_md14"></a>
 1.2 Execute</h3>
 <p>The Execute phase performs all per-frame processing on the GPU.</p>
 <ul>
@@ -148,7 +148,7 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 </p>
 <p>In C++, <code><a class="el" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692" title="Executes the stereo matching pipeline using the given left and right image data.">retinify::Pipeline.Execute()</a></code> corresponds to this phase. <br  />
 </p>
-<h3><a class="anchor" id="autotoc_md14"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 1.3 Retrieve</h3>
 <p>The Retrieve phase transfers selected results from GPU to CPU.</p>
 <ul>
@@ -162,13 +162,13 @@ $(document).ready(function(){initNavTree('tutorials.html',''); initResizable(); 
 <p>All conversions are performed on the GPU before transfer to minimize data movement. Retrieve can be called selectively, depending on application requirements.</p>
 <p>In C++, <code><a class="el" href="classretinify_1_1Pipeline.html#a2c6f15753a353d52a1b708fb8fa0abd9" title="Retrieves the computed disparity map.">retinify::Pipeline.RetrieveDisparity()</a></code>, <code><a class="el" href="classretinify_1_1Pipeline.html#ab611c471bf099e2b8a90ee34254f71fa" title="Retrieves the rectified left and right images.">retinify::Pipeline.RetrieveRectifiedImages()</a></code>, etc. correspond to this phase. <br  />
 </p>
-<h3><a class="anchor" id="autotoc_md15"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 1.4 Coordinate Systems</h3>
 <p>Retinify uses the same coordinate system conventions as <a href="https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html">OpenCV</a>. <br  />
 </p>
 <p><img src="https://docs.opencv.org/4.x/pinhole_camera_model.png" alt="Coordinate Systems" class="inline"/> <br  />
  (Source: OpenCV Documentation, <a href="https://docs.opencv.org/4.x/">https://docs.opencv.org/4.x/</a>)</p>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 2. Using retinify</h2>
 <p>There are three options for using retinify:</p>
 <ul>

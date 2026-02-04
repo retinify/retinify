@@ -103,11 +103,21 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_index"></a>Retinify is an advanced AI-powered stereo vision library designed for robotics. <br  />
  It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.</p>
-<dl class="section note"><dt>Note</dt><dd>Retinify is open-source, and the source code is publicly available: <br  />
+<dl class="section note"><dt>Note</dt><dd>The source code is publicly available: <br  />
  👉 <a href="https://github.com/retinify/retinify"><b>View on GitHub</b></a></dd></dl>
 <p><a href="https://releases.ubuntu.com/noble/"><img src="https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&amp;logo=ubuntu&amp;logoColor=white" alt="UBUNTU 24.04" class="inline"/></a> <a href="https://releases.ubuntu.com/jammy/"><img src="https://img.shields.io/badge/-UBUNTU%2022%2E04-orange?style=flat-square&amp;logo=ubuntu&amp;logoColor=white" alt="UBUNTU 22.04" class="inline"/></a> <a href="https://docs.nvidia.com/jetson/jetpack/index.html"><img src="https://img.shields.io/badge/-JETPACK%206-76B900?style=flat-square&amp;logo=nvidia&amp;logoColor=white" alt="JETPACK 6" class="inline"/></a> <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/Apache_2.0-blue?style=flat-square&amp;logo=apache&amp;label=" alt="Apache 2.0" class="inline"/></a> <img src="https://img.shields.io/badge/C++-royalblue?style=flat-square&amp;logo=c%2B%2B&amp;logoColor=white" alt="C++" class="inline"/> <img src="https://img.shields.io/badge/Python-yellow?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python" class="inline"/> <br  />
  <a href="https://x.com/retinify"><img src="https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&amp;logo=x" alt="X" class="inline"/></a> <a href="https://www.linkedin.com/company/retinify"><img src="https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&amp;logo=linkedin" alt="LinkedIn" class="inline"/></a> <a href="https://www.youtube.com/@retinify_ai"><img src="https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&amp;logo=youtube" alt="YouTube" class="inline"/></a></p>
 <h2><a class="anchor" id="autotoc_md1"></a>
+The retinify pipeline</h2>
+<p><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" alt="" style="width:50%;" class="inline"/></p>
+<p>The main functionality of retinify is accessible through <a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a>.</p>
+<p><b>GPU-Based Computing:</b> <br  />
+ All processing required for stereo depth estimation — including image remapping (undistortion and rectification), stereo matching, and 3D reprojection — is executed entirely on the GPU, enabling efficient and real-time performance.</p>
+<p><b>AI-Powered Stereo Matching:</b> <br  />
+ Stereo correspondence is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional stereo matching algorithms.</p>
+<p><b>Flexible Integration:</b> <br  />
+ The pipeline is camera-agnostic and supports any pinhole stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Getting started</h2>
 <ul>
 <li><a class="el" href="installation.html">Installation</a> <br  />
@@ -124,7 +134,7 @@ Getting started</h2>
 <li><a class="el" href="ros2.html">ROS2 Docs</a> <br  />
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Contact</h2>
 <p>For all inquiries, including support, collaboration, please contact: <br  />
  <a href="#" onclick="location.href='mai'+'lto:'+'con'+'ta'+'ct@'+'re'+'tin'+'if'+'y.a'+'i'; return false;">contact@retinify.ai</a> </p>

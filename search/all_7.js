@@ -4,7 +4,7 @@ var searchData=
   ['debug_1',['DEBUG',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fadc30ec20708ef7b0f641ef78b7880a15',1,'retinify']]],
   ['demos_2',['Demos',['../demos.html',1,'']]],
   ['demos_2emd_3',['demos.md',['../demos_8md.html',1,'']]],
-  ['dependencies_4',['Dependencies',['../installation.html#autotoc_md3',1,'']]],
+  ['dependencies_4',['Dependencies',['../installation.html#autotoc_md4',1,'']]],
   ['depthmode_5',['DepthMode',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7',1,'retinify']]],
   ['determinant_6',['Determinant',['../namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1',1,'retinify']]],
   ['distortion_7',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],

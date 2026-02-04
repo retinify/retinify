@@ -101,16 +101,16 @@ $(document).ready(function(){initNavTree('cpp.html',''); initResizable(); });
   <div class="headertitle"><div class="title">C++ Docs</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md21"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md22"></a>
 Installation</h2>
 <p>Please refer to the <a class="el" href="installation.html">Installation</a> section for details. <br  />
 </p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 Learning by example</h2>
 <p>Example code is available in the following repository: <br  />
  👉 <a href="https://github.com/retinify/retinify-opencv-example">https://github.com/retinify/retinify-opencv-example</a> <br  />
 </p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Key classes</h2>
 <p>Retinify is written in C++ and defined under the <code>retinify::</code> namespace. <br  />
  The following classes form the core API:</p>
@@ -121,13 +121,13 @@ Key classes</h2>
  The main interface for performing stereo matching.</li>
 </ul>
 <p>Retinify does not use C++ exceptions; all operations report their results via <code><a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">retinify::Status</a></code>.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 Using retinify with CMake</h2>
 <p>To use retinify in your CMake project, find the package and link against the provided target: <br  />
  </p><div class="fragment"><div class="line">find_package(retinify REQUIRED)</div>
 <div class="line">target_link_libraries(${PROJECT_NAME} retinify::retinify)</div>
 </div><!-- fragment --><p> Note that retinify requires <b>GCC 11 or later</b>.</p>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 Writing C++ code</h2>
 <p>The code in this section uses OpenCV's <code>cv::Mat</code> for image data.</p>
 <dl class="section note"><dt>Note</dt><dd>Retinify does not define its own image class and does not depend on OpenCV. <br  />
@@ -156,8 +156,10 @@ Writing C++ code</h2>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// EXECUTE STEREO MATCHING</span></div>
-<div class="line"><span class="keyword">auto</span> statusExecute = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692">Execute</a>(leftImage.ptr&lt;std::uint8_t&gt;(), leftImage.step[0], </div>
-<div class="line">                                      rightImage.ptr&lt;std::uint8_t&gt;(), rightImage.step[0]);</div>
+<div class="line"><span class="keyword">auto</span> statusExecute = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692">Execute</a>(leftImage.ptr&lt;std::uint8_t&gt;(), </div>
+<div class="line">                                      leftImage.step[0], </div>
+<div class="line">                                      rightImage.ptr&lt;std::uint8_t&gt;(), </div>
+<div class="line">                                      rightImage.step[0]);</div>
 <div class="line"><span class="keywordflow">if</span> (!statusExecute.IsOK())</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
@@ -215,8 +217,10 @@ Writing C++ code</h2>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// EXECUTE STEREO MATCHING</span></div>
-<div class="line"><span class="keyword">auto</span> statusExecute = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692">Execute</a>(leftImage.ptr&lt;std::uint8_t&gt;(), leftImage.step[0], </div>
-<div class="line">                                      rightImage.ptr&lt;std::uint8_t&gt;(), rightImage.step[0]);</div>
+<div class="line"><span class="keyword">auto</span> statusExecute = pipeline.<a class="code hl_function" href="classretinify_1_1Pipeline.html#ae3b5b598c24e9208dcdb0bac416d3692">Execute</a>(leftImage.ptr&lt;std::uint8_t&gt;(), </div>
+<div class="line">                                      leftImage.step[0], </div>
+<div class="line">                                      rightImage.ptr&lt;std::uint8_t&gt;(), </div>
+<div class="line">                                      rightImage.step[0]);</div>
 <div class="line"><span class="keywordflow">if</span> (!statusExecute.IsOK())</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
