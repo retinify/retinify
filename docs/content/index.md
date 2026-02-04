@@ -3,7 +3,7 @@ Retinify is an advanced AI-powered stereo vision library designed for robotics.
 It enables real-time, high-precision 3D perception by leveraging GPU and NPU acceleration.
 
 @note
-Retinify is open-source, and the source code is publicly available:  
+The source code is publicly available:  
 👉 [**View on GitHub**](https://github.com/retinify/retinify)
   
 [![UBUNTU 24.04](https://img.shields.io/badge/-UBUNTU%2024%2E04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/noble/)
@@ -16,7 +16,25 @@ Retinify is open-source, and the source code is publicly available:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/retinify)
 [![YouTube](https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&logo=youtube)](https://www.youtube.com/@retinify_ai)
 
+
+### The retinify pipeline
+
+<img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" style="width:50%;">
+
+The main functionality of retinify is accessible through retinify::Pipeline.
+  
+**GPU-Based Computing:**  
+All processing required for stereo depth estimation — including image remapping (undistortion and rectification), stereo matching, and 3D reprojection — is executed entirely on the GPU, enabling efficient and real-time performance.
+
+**AI-Powered Stereo Matching:**  
+Stereo correspondence is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional stereo matching algorithms.
+
+**Flexible Integration:**  
+The pipeline is camera-agnostic and supports any pinhole stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.
+
+
 ### Getting started
+
 - [Installation](@ref installation)  
 - [Demos](@ref demos)  
 - [Tutorials](@ref tutorials)  
@@ -25,6 +43,8 @@ Retinify is open-source, and the source code is publicly available:
 - [C++ Docs](@ref cpp)  
 - [ROS2 Docs](@ref ros2)  
 
+
 ### Contact
+
 For all inquiries, including support, collaboration, please contact:  
 [contact@retinify.ai](mailto:contact@retinify.ai)
