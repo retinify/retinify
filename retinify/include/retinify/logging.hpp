@@ -110,4 +110,8 @@ RETINIFY_API void LogError(const char *message, std::source_location location = 
 /// @param location
 /// The source location of the log call (defaults to the call site)
 RETINIFY_API void LogFatal(const char *message, std::source_location location = std::source_location::current()) noexcept;
+
+/// @brief
+/// Logs a brief summary of the retinify software, including version and copyright information.
+RETINIFY_API void LogSoftwareSummary() noexcept;
 } // namespace retinify

@@ -5,7 +5,6 @@
 #include "mat.hpp"
 #include "session.hpp"
 #include "stream.hpp"
-#include "summary.hpp"
 
 #include "retinify/retinifyModels.hpp"
 
