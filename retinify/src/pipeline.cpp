@@ -54,7 +54,7 @@ class Pipeline::Impl
 
     auto Initialize(std::uint32_t imageWidth, std::uint32_t imageHeight, PixelFormat pixelFormat, DepthMode depthMode, const CalibrationParameters &calibrationParameters) noexcept -> Status
     {
-        LogSoftwareSummary();
+        LogSoftwareInfo();
 
         Status status;
 
@@ -394,15 +394,19 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (leftImageStride < imageWidth_ * imageChannels_ * sizeof(std::uint8_t))
+        const std::size_t requiredStride = imageWidth_ * imageChannels_ * sizeof(std::uint8_t);
+
+        if (leftImageStride < requiredStride)
         {
             LogError("Left image stride is too small.");
+            LogStrideError(leftImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        if (rightImageStride < imageWidth_ * imageChannels_ * sizeof(std::uint8_t))
+        if (rightImageStride < requiredStride)
         {
             LogError("Right image stride is too small.");
+            LogStrideError(rightImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -527,6 +531,7 @@ class Pipeline::Impl
         if (leftImageStride < requiredStride)
         {
             LogError("Rectified left image stride is too small.");
+            LogStrideError(leftImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -565,6 +570,7 @@ class Pipeline::Impl
         if (rightImageStride < requiredStride)
         {
             LogError("Rectified right image stride is too small.");
+            LogStrideError(rightImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -603,12 +609,14 @@ class Pipeline::Impl
         if (leftImageStride < requiredStride)
         {
             LogError("Rectified left image stride is too small.");
+            LogStrideError(leftImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
         if (rightImageStride < requiredStride)
         {
             LogError("Rectified right image stride is too small.");
+            LogStrideError(rightImageStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -653,6 +661,7 @@ class Pipeline::Impl
         if (disparityStride < requiredStride)
         {
             LogError("Disparity stride is too small.");
+            LogStrideError(disparityStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -691,6 +700,7 @@ class Pipeline::Impl
         if (depthStride < requiredStride)
         {
             LogError("Depth stride is too small.");
+            LogStrideError(depthStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
@@ -735,6 +745,7 @@ class Pipeline::Impl
         if (pointCloudStride < requiredStride)
         {
             LogError("Point cloud stride is too small.");
+            LogStrideError(pointCloudStride, requiredStride);
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
