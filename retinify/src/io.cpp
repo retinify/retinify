@@ -100,7 +100,7 @@ template <typename T> [[nodiscard]] auto ReadIntegral(const nlohmann::json &obj,
             {kKeySkew, intrinsics.skew}};
 }
 
-[[nodiscard]] auto SerializeDistortion(const DistortionParameters &distortion) -> nlohmann::json
+[[nodiscard]] auto SerializeDistortion(const DistortionCoefficients &distortion) -> nlohmann::json
 {
     return {{kKeyK1, distortion.k1}, //
             {kKeyK2, distortion.k2}, //
@@ -140,7 +140,7 @@ template <typename T> [[nodiscard]] auto ReadIntegral(const nlohmann::json &obj,
            ReadNumber(value, kKeySkew, intrinsics.skew);
 }
 
-[[nodiscard]] auto DeserializeDistortion(const nlohmann::json &value, DistortionParameters &distortion) -> bool
+[[nodiscard]] auto DeserializeDistortion(const nlohmann::json &value, DistortionCoefficients &distortion) -> bool
 {
     if (!value.is_object())
     {
