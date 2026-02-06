@@ -109,14 +109,17 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
  <a href="https://x.com/retinify"><img src="https://img.shields.io/badge/Follow-@retinify-blueviolet?style=flat-square&amp;logo=x" alt="X" class="inline"/></a> <a href="https://www.linkedin.com/company/retinify"><img src="https://img.shields.io/badge/LinkedIn-@retinify-blue?style=flat-square&amp;logo=linkedin" alt="LinkedIn" class="inline"/></a> <a href="https://www.youtube.com/@retinify_ai"><img src="https://img.shields.io/badge/Watch-%40retinify-red?style=flat-square&amp;logo=youtube" alt="YouTube" class="inline"/></a></p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 The retinify pipeline</h2>
-<p><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" alt="" style="width:50%;" class="inline"/></p>
+<table style="width:100%;">
+<tr>
+<td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/images/vo_pipeline.png" alt="" style="width:100%;" class="inline"/> </td><td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" alt="" style="width:100%;" class="inline"/>  </td></tr>
+</table>
 <p>The main functionality of retinify is accessible through <a class="el" href="classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching.">retinify::Pipeline</a>.</p>
 <p><b>GPU-Based Computing:</b> <br  />
  All processing required for stereo depth estimation — including image remapping (undistortion and rectification), stereo matching, and 3D reprojection — is executed entirely on the GPU, enabling efficient and real-time performance.</p>
 <p><b>AI-Powered Stereo Matching:</b> <br  />
- Stereo correspondence is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional stereo matching algorithms.</p>
+ Stereo matching is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional algorithms.</p>
 <p><b>Flexible Integration:</b> <br  />
- The pipeline is camera-agnostic and supports any pinhole stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.</p>
+ The pipeline is camera-agnostic and supports any stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.</p>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Getting started</h2>
 <ul>
