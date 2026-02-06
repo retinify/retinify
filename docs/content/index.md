@@ -19,7 +19,12 @@ The source code is publicly available:
 
 ### The retinify pipeline
 
-<img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" style="width:50%;">
+<table style="width:100%;">
+  <tr>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/images/vo_pipeline.png" style="width:100%;" /></td>
+    <td style="width:50%;"><img src="https://raw.githubusercontent.com/retinify/assets/main/videos/gpu_pipeline.gif" style="width:100%;" /></td>
+  </tr>
+</table>
 
 The main functionality of retinify is accessible through retinify::Pipeline.
   
@@ -27,10 +32,10 @@ The main functionality of retinify is accessible through retinify::Pipeline.
 All processing required for stereo depth estimation — including image remapping (undistortion and rectification), stereo matching, and 3D reprojection — is executed entirely on the GPU, enabling efficient and real-time performance.
 
 **AI-Powered Stereo Matching:**  
-Stereo correspondence is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional stereo matching algorithms.
+Stereo matching is computed using deep learning–based models, delivering significantly higher accuracy and robustness compared to traditional algorithms.
 
 **Flexible Integration:**  
-The pipeline is camera-agnostic and supports any pinhole stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.
+The pipeline is camera-agnostic and supports any stereo camera setup. Input images are handled via raw pointers and strides, allowing seamless integration without dependencies on specific image processing libraries.
 
 
 ### Getting started
