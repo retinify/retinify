@@ -1,8 +1,8 @@
 var searchData=
 [
   ['savecalibrationparameters_0',['SaveCalibrationParameters',['../namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639',1,'retinify']]],
-  ['setloglevel_1',['SetLogLevel',['../namespaceretinify.html#a4de8520c89a118095ed0ae4426f17177',1,'retinify']]],
-  ['setloglocation_2',['SetLogLocation',['../namespaceretinify.html#a5c5dbd6c0b028a2158c9eb49600c8d04',1,'retinify']]],
+  ['setloglevel_1',['SetLogLevel',['../namespaceretinify.html#ac1962b12e039b7ad482538cc3b6b1160',1,'retinify']]],
+  ['setloglocation_2',['SetLogLocation',['../namespaceretinify.html#a46ec3dd03b7f4540a98b2657e13a399b',1,'retinify']]],
   ['skew_3',['skew',['../structretinify_1_1Intrinsics.html#af44dd3c97733374f2a953fafc2f533ba',1,'retinify::Intrinsics']]],
   ['started_4',['Getting started',['../index.html#autotoc_md2',1,'']]],
   ['statedirectorypath_5',['StateDirectoryPath',['../namespaceretinify.html#a605504dd9aadddb4d0198a8cfc2ac6bf',1,'retinify']]],

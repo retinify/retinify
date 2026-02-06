@@ -14,11 +14,13 @@ var logging_8hpp =
     ] ],
     [ "GetLogLevel", "logging_8hpp.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
     [ "GetLogLocation", "logging_8hpp.html#a26cf1ded03e25ce6e5cdb8f6fd9cb681", null ],
-    [ "LogDebug", "logging_8hpp.html#aa2176cf5cf8d8e64c04c8c45365d2c5b", null ],
-    [ "LogError", "logging_8hpp.html#a7e027a47f0e6deebacb95503ade809c0", null ],
-    [ "LogFatal", "logging_8hpp.html#a9a9b1f6e167926306723c22265f71068", null ],
-    [ "LogInfo", "logging_8hpp.html#a2bb799c831b65b8471540ae9efe49a83", null ],
-    [ "LogWarn", "logging_8hpp.html#a897decd89cb0b5249d4aebb5cbece809", null ],
-    [ "SetLogLevel", "logging_8hpp.html#a4de8520c89a118095ed0ae4426f17177", null ],
-    [ "SetLogLocation", "logging_8hpp.html#a5c5dbd6c0b028a2158c9eb49600c8d04", null ]
+    [ "LogDebug", "logging_8hpp.html#a254f138aee2b8cd924ec33f6a17105ff", null ],
+    [ "LogError", "logging_8hpp.html#af210cda0cb955dc73d5b2bec308feb22", null ],
+    [ "LogFatal", "logging_8hpp.html#a7df1b42e0aeb1a081433a009365073b8", null ],
+    [ "LogInfo", "logging_8hpp.html#aa25756513c85c13c39a0b7e2478c7014", null ],
+    [ "LogSoftwareInfo", "logging_8hpp.html#a943ea686bdbf0457cf89995569d7ed4f", null ],
+    [ "LogStrideError", "logging_8hpp.html#a31737da2bc13568c80db1dcd6e3b907a", null ],
+    [ "LogWarn", "logging_8hpp.html#a1abac14ac2580ec483a9ce68386f1d95", null ],
+    [ "SetLogLevel", "logging_8hpp.html#ac1962b12e039b7ad482538cc3b6b1160", null ],
+    [ "SetLogLocation", "logging_8hpp.html#a46ec3dd03b7f4540a98b2657e13a399b", null ]
 ];
