@@ -258,8 +258,8 @@ TEST(GeometryTest, LogHandlesPiRotation)
 
 TEST(GeometryTest, UndistortPointWithFiveCoefficients)
 {
-    const retinify::Intrinsics intrinsics{500.0, 480.0, 320.0, 240.0, 0.0};
-    const retinify::Distortion distortion{0.12, -0.05, 0.001, 0.0005, 0.03};
+    const retinify::PinholeIntrinsics intrinsics{500.0, 480.0, 320.0, 240.0, 0.0};
+    const retinify::DistortionParameters distortion{0.12, -0.05, 0.001, 0.0005, 0.03};
 
     const retinify::Point2d idealPixel{0.05, -0.04};
     const retinify::Point2d distortedPixel = DistortPoint(intrinsics, distortion, idealPixel);
@@ -272,8 +272,8 @@ TEST(GeometryTest, UndistortPointWithFiveCoefficients)
 
 TEST(GeometryTest, UndistortPointWithEightCoefficients)
 {
-    const retinify::Intrinsics intrinsics{500.0, 480.0, 320.0, 240.0, 0.0};
-    const retinify::Distortion distortion{0.08, -0.03, -0.0007, 0.0004, 0.015, 0.005, -0.002, 0.001};
+    const retinify::PinholeIntrinsics intrinsics{500.0, 480.0, 320.0, 240.0, 0.0};
+    const retinify::DistortionParameters distortion{0.08, -0.03, -0.0007, 0.0004, 0.015, 0.005, -0.002, 0.001};
 
     const retinify::Point2d idealPixel{-0.06, 0.045};
     const retinify::Point2d distortedPixel = DistortPoint(intrinsics, distortion, idealPixel);
@@ -286,9 +286,9 @@ TEST(GeometryTest, UndistortPointWithEightCoefficients)
 
 TEST(GeometryTest, StereoRectifyIdealRig)
 {
-    const retinify::Intrinsics primaryIntrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
-    const retinify::Intrinsics secondaryIntrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
-    const retinify::Distortion noDistortion{};
+    const retinify::PinholeIntrinsics primaryIntrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
+    const retinify::PinholeIntrinsics secondaryIntrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
+    const retinify::DistortionParameters noDistortion{};
 
     const retinify::Mat3x3d rotationMatrix = Identity();
     const retinify::Vec3d translationVector{0.1, 0.0, 0.0};
@@ -332,10 +332,10 @@ TEST(GeometryTest, StereoRectifyIdealRig)
 
 TEST(GeometryTest, StereoRectifyHorizontalBaseline)
 {
-    const retinify::Intrinsics K1{620.0, 590.0, 310.0, 245.0, 0.0};
-    const retinify::Intrinsics K2{600.0, 575.0, 305.0, 250.0, 0.0};
-    const retinify::Distortion D1{0.01, -0.005, 0.0005, -0.0003, 0.001, 0.0002, -1e-4, 5e-5};
-    const retinify::Distortion D2{-0.008, 0.004, -0.0004, 8e-4, -0.0009, 0.0003, 2e-4, -6e-5};
+    const retinify::PinholeIntrinsics K1{620.0, 590.0, 310.0, 245.0, 0.0};
+    const retinify::PinholeIntrinsics K2{600.0, 575.0, 305.0, 250.0, 0.0};
+    const retinify::DistortionParameters D1{0.01, -0.005, 0.0005, -0.0003, 0.001, 0.0002, -1e-4, 5e-5};
+    const retinify::DistortionParameters D2{-0.008, 0.004, -0.0004, 8e-4, -0.0009, 0.0003, 2e-4, -6e-5};
 
     const retinify::Mat3x3d rotationMatrix = retinify::Exp({0.1, -0.05, 0.07});
     const retinify::Vec3d translationVector{0.12, 0.03, -0.02};
@@ -384,10 +384,10 @@ TEST(GeometryTest, StereoRectifyHorizontalBaseline)
 
 TEST(GeometryTest, StereoRectifyVerticalBaseline)
 {
-    const retinify::Intrinsics K1{580.0, 615.0, 315.0, 255.0, 0.0};
-    const retinify::Intrinsics K2{590.0, 605.0, 320.0, 248.0, 0.0};
-    const retinify::Distortion D1{-0.006, 0.003, -0.0002, 0.0004, -0.0007, 1e-4, -5e-5, 2e-5};
-    const retinify::Distortion D2{0.005, -0.002, 3e-4, -4e-4, 8e-4, -2e-4, 7e-5, -3e-5};
+    const retinify::PinholeIntrinsics K1{580.0, 615.0, 315.0, 255.0, 0.0};
+    const retinify::PinholeIntrinsics K2{590.0, 605.0, 320.0, 248.0, 0.0};
+    const retinify::DistortionParameters D1{-0.006, 0.003, -0.0002, 0.0004, -0.0007, 1e-4, -5e-5, 2e-5};
+    const retinify::DistortionParameters D2{0.005, -0.002, 3e-4, -4e-4, 8e-4, -2e-4, 7e-5, -3e-5};
 
     const retinify::Mat3x3d rotationMatrix = retinify::Exp({-0.04, 0.02, 0.05});
     const retinify::Vec3d translationVector{0.015, 0.2, -0.025};
@@ -436,8 +436,8 @@ TEST(GeometryTest, StereoRectifyVerticalBaseline)
 
 TEST(GeometryTest, StereoRectifyRejectsZeroDimensions)
 {
-    const Intrinsics intrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
-    const Distortion distortion{};
+    const PinholeIntrinsics intrinsics{500.0, 500.0, 320.0, 240.0, 0.0};
+    const DistortionParameters distortion{};
     const Mat3x3d rotation = Identity();
     const Vec3d translation{0.1, 0.0, 0.0};
     Mat3x3d rotation1{};
@@ -454,8 +454,8 @@ TEST(GeometryTest, StereoRectifyRejectsZeroDimensions)
 
 TEST(GeometryTest, InitUndistortRectifyMapIdentity)
 {
-    const Intrinsics intrinsics{1.0, 1.0, 0.0, 0.0, 0.0};
-    const Distortion distortion{};
+    const PinholeIntrinsics intrinsics{1.0, 1.0, 0.0, 0.0, 0.0};
+    const DistortionParameters distortion{};
     const Mat3x3d rectificationRotation = Identity();
 
     Mat3x4d projection{};
@@ -498,8 +498,8 @@ TEST(GeometryTest, InitUndistortRectifyMapIdentity)
 
 TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
 {
-    const Intrinsics intrinsics{4.0, 5.0, 3.0, 2.0, 0.1};
-    const Distortion distortion{};
+    const PinholeIntrinsics intrinsics{4.0, 5.0, 3.0, 2.0, 0.1};
+    const DistortionParameters distortion{};
     const Mat3x3d rectificationRotation{{{0.0, -1.0, 0.0}, {1.0, 0.0, 0.0}, {0.0, 0.0, 1.0}}};
 
     Mat3x4d projection{};
@@ -551,8 +551,8 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
 
 TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
 {
-    const Intrinsics intrinsics{500.0, 520.0, 320.0, 240.0, 0.0};
-    const Distortion distortion{0.05, -0.01, 0.001, -0.0004, 0.0005, -0.0002, 0.0001, -5e-5};
+    const PinholeIntrinsics intrinsics{500.0, 520.0, 320.0, 240.0, 0.0};
+    const DistortionParameters distortion{0.05, -0.01, 0.001, -0.0004, 0.0005, -0.0002, 0.0001, -5e-5};
     const Mat3x3d rectificationRotation = Identity();
 
     Mat3x4d projection{};
@@ -601,8 +601,8 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
 
 TEST(GeometryTest, InitUndistortRectifyMapRejectsInvalidArgs)
 {
-    const Intrinsics intrinsics{400.0, 410.0, 200.0, 150.0, 0.0};
-    const Distortion distortion{};
+    const PinholeIntrinsics intrinsics{400.0, 410.0, 200.0, 150.0, 0.0};
+    const DistortionParameters distortion{};
     const Mat3x3d rotation = Identity();
     Mat3x4d projection{};
     projection[0][0] = 1.0;
@@ -637,7 +637,7 @@ TEST(GeometryTest, InitUndistortRectifyMapRejectsInvalidArgs)
 
 namespace
 {
-auto ToCvCameraMatrix(const Intrinsics &intrinsics) -> cv::Mat
+auto ToCvCameraMatrix(const PinholeIntrinsics &intrinsics) -> cv::Mat
 {
     cv::Mat cameraMatrix = cv::Mat::eye(3, 3, CV_64F);
     cameraMatrix.at<double>(0, 0) = intrinsics.fx;
@@ -648,7 +648,7 @@ auto ToCvCameraMatrix(const Intrinsics &intrinsics) -> cv::Mat
     return cameraMatrix;
 }
 
-auto ToCvDistCoeffs(const Distortion &distortion) -> cv::Mat
+auto ToCvDistCoeffs(const DistortionParameters &distortion) -> cv::Mat
 {
     cv::Mat distCoeffs = cv::Mat::zeros(1, 8, CV_64F);
     distCoeffs.at<double>(0, 0) = distortion.k1;
@@ -726,10 +726,10 @@ auto ToMat44d(const cv::Mat &cvMat) -> Mat4x4d
 
 void ExpectStereoRectifyMatchesOpenCVAlpha(double alpha)
 {
-    const Intrinsics intrinsics1{615.0, 605.0, 321.5, 242.0, 0.0};
-    const Intrinsics intrinsics2{590.0, 600.0, 318.0, 239.5, 0.0};
-    const Distortion distortion1{0.011, -0.004, 5e-4, -3e-4, 7e-4, -2e-4, 1e-4, -5e-5};
-    const Distortion distortion2{-0.009, 0.0035, -4e-4, 2.5e-4, -6e-4, 1.5e-4, -8e-5, 4e-5};
+    const PinholeIntrinsics intrinsics1{615.0, 605.0, 321.5, 242.0, 0.0};
+    const PinholeIntrinsics intrinsics2{590.0, 600.0, 318.0, 239.5, 0.0};
+    const DistortionParameters distortion1{0.011, -0.004, 5e-4, -3e-4, 7e-4, -2e-4, 1e-4, -5e-5};
+    const DistortionParameters distortion2{-0.009, 0.0035, -4e-4, 2.5e-4, -6e-4, 1.5e-4, -8e-5, 4e-5};
 
     const Mat3x3d rotation = Exp({0.08, -0.06, 0.04});
     const Vec3d translation{0.12, 0.035, -0.018};
@@ -806,8 +806,8 @@ TEST(GeometryTest, StereoRectifyMatchesOpenCVAlphaOne)
 
 TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
 {
-    const Intrinsics intrinsics{612.5, 598.0, 322.0, 241.5, 0.0};
-    const Distortion distortion{-0.013, 0.0045, -6e-4, 3.5e-4, -7.5e-4, 2e-4, -1.1e-4, 6e-5};
+    const PinholeIntrinsics intrinsics{612.5, 598.0, 322.0, 241.5, 0.0};
+    const DistortionParameters distortion{-0.013, 0.0045, -6e-4, 3.5e-4, -7.5e-4, 2e-4, -1.1e-4, 6e-5};
 
     const Mat3x3d rectificationRotation = Exp({-0.02, 0.015, 0.03});
     Mat3x4d projection{};
