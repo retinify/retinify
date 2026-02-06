@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['intrinsics_0',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]]
+  ['nocopymove_0',['NoCopyMove',['../classretinify_1_1NoCopyMove.html',1,'retinify']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>retinify documentation: retinify::Intrinsics Struct Reference</title>
+<title>retinify documentation: retinify::PinholeIntrinsics Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('structretinify_1_1Intrinsics.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structretinify_1_1PinholeIntrinsics.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -101,44 +101,44 @@ $(document).ready(function(){initNavTree('structretinify_1_1Intrinsics.html','')
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structretinify_1_1Intrinsics-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">retinify::Intrinsics Struct Reference</div></div>
+<a href="structretinify_1_1PinholeIntrinsics-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">retinify::PinholeIntrinsics Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Camera intrinsic parameters with focal lengths, principal point, and skew.  
- <a href="structretinify_1_1Intrinsics.html#details">More...</a></p>
+<p>Pinhole camera intrinsic parameters with focal lengths, principal point, and skew.  
+ <a href="structretinify_1_1PinholeIntrinsics.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="geometry_8hpp_source.html">geometry.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a964355d44ebc6afe84a33f97ef6d5921" id="r_a964355d44ebc6afe84a33f97ef6d5921"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#a964355d44ebc6afe84a33f97ef6d5921">operator==</a> (const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;other) const noexcept -&gt; bool</td></tr>
-<tr class="separator:a964355d44ebc6afe84a33f97ef6d5921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40b57dd2a17608fba36751a2e60d6b1b" id="r_a40b57dd2a17608fba36751a2e60d6b1b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#a40b57dd2a17608fba36751a2e60d6b1b">operator==</a> (const <a class="el" href="structretinify_1_1PinholeIntrinsics.html">PinholeIntrinsics</a> &amp;other) const noexcept -&gt; bool</td></tr>
+<tr class="separator:a40b57dd2a17608fba36751a2e60d6b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ae696babb4d93ef56274d798397e595b1" id="r_ae696babb4d93ef56274d798397e595b1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#ae696babb4d93ef56274d798397e595b1">fx</a> {0}</td></tr>
-<tr class="memdesc:ae696babb4d93ef56274d798397e595b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Focal length in x (in pixels)  <br /></td></tr>
-<tr class="separator:ae696babb4d93ef56274d798397e595b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bdacca8a4fc308b4bb5f13d2cd4567f" id="r_a3bdacca8a4fc308b4bb5f13d2cd4567f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#a3bdacca8a4fc308b4bb5f13d2cd4567f">fy</a> {0}</td></tr>
-<tr class="memdesc:a3bdacca8a4fc308b4bb5f13d2cd4567f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Focal length in y (in pixels)  <br /></td></tr>
-<tr class="separator:a3bdacca8a4fc308b4bb5f13d2cd4567f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49c1450f8d990b9dace8d527343762f8" id="r_a49c1450f8d990b9dace8d527343762f8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8">cx</a> {0}</td></tr>
-<tr class="memdesc:a49c1450f8d990b9dace8d527343762f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Principal point x-coordinate (in pixels)  <br /></td></tr>
-<tr class="separator:a49c1450f8d990b9dace8d527343762f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc392b960422616def890e685b4b7fd" id="r_a5dc392b960422616def890e685b4b7fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd">cy</a> {0}</td></tr>
-<tr class="memdesc:a5dc392b960422616def890e685b4b7fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Principal point y-coordinate (in pixels)  <br /></td></tr>
-<tr class="separator:a5dc392b960422616def890e685b4b7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af44dd3c97733374f2a953fafc2f533ba" id="r_af44dd3c97733374f2a953fafc2f533ba"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1Intrinsics.html#af44dd3c97733374f2a953fafc2f533ba">skew</a> {0}</td></tr>
-<tr class="memdesc:af44dd3c97733374f2a953fafc2f533ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skew coefficient.  <br /></td></tr>
-<tr class="separator:af44dd3c97733374f2a953fafc2f533ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f2c6089c337b7fd14cb0d9554f5d87f" id="r_a6f2c6089c337b7fd14cb0d9554f5d87f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#a6f2c6089c337b7fd14cb0d9554f5d87f">fx</a> {0}</td></tr>
+<tr class="memdesc:a6f2c6089c337b7fd14cb0d9554f5d87f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Focal length in x (in pixels)  <br /></td></tr>
+<tr class="separator:a6f2c6089c337b7fd14cb0d9554f5d87f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d496f1b6b7c788c5ac3659024658bed" id="r_a9d496f1b6b7c788c5ac3659024658bed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#a9d496f1b6b7c788c5ac3659024658bed">fy</a> {0}</td></tr>
+<tr class="memdesc:a9d496f1b6b7c788c5ac3659024658bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Focal length in y (in pixels)  <br /></td></tr>
+<tr class="separator:a9d496f1b6b7c788c5ac3659024658bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad350d6cfa6416f85b72962f7a70cbfb6" id="r_ad350d6cfa6416f85b72962f7a70cbfb6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#ad350d6cfa6416f85b72962f7a70cbfb6">cx</a> {0}</td></tr>
+<tr class="memdesc:ad350d6cfa6416f85b72962f7a70cbfb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Principal point x-coordinate (in pixels)  <br /></td></tr>
+<tr class="separator:ad350d6cfa6416f85b72962f7a70cbfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66aa0c1b590733f2406344c8b8c09e16" id="r_a66aa0c1b590733f2406344c8b8c09e16"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#a66aa0c1b590733f2406344c8b8c09e16">cy</a> {0}</td></tr>
+<tr class="memdesc:a66aa0c1b590733f2406344c8b8c09e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Principal point y-coordinate (in pixels)  <br /></td></tr>
+<tr class="separator:a66aa0c1b590733f2406344c8b8c09e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f98025fdc95d65db360b4e537a72ae" id="r_a14f98025fdc95d65db360b4e537a72ae"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structretinify_1_1PinholeIntrinsics.html#a14f98025fdc95d65db360b4e537a72ae">skew</a> {0}</td></tr>
+<tr class="memdesc:a14f98025fdc95d65db360b4e537a72ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skew coefficient.  <br /></td></tr>
+<tr class="separator:a14f98025fdc95d65db360b4e537a72ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Camera intrinsic parameters with focal lengths, principal point, and skew. </p>
+<div class="textblock"><p>Pinhole camera intrinsic parameters with focal lengths, principal point, and skew. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a964355d44ebc6afe84a33f97ef6d5921" name="a964355d44ebc6afe84a33f97ef6d5921"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a964355d44ebc6afe84a33f97ef6d5921">&#9670;&#160;</a></span>operator==()</h2>
+<a id="a40b57dd2a17608fba36751a2e60d6b1b" name="a40b57dd2a17608fba36751a2e60d6b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40b57dd2a17608fba36751a2e60d6b1b">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,9 +147,9 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto retinify::Intrinsics::operator== </td>
+          <td class="memname">auto retinify::PinholeIntrinsics::operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="structretinify_1_1PinholeIntrinsics.html">PinholeIntrinsics</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const -&gt; bool
     </td>
@@ -165,14 +165,14 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a49c1450f8d990b9dace8d527343762f8" name="a49c1450f8d990b9dace8d527343762f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49c1450f8d990b9dace8d527343762f8">&#9670;&#160;</a></span>cx</h2>
+<a id="ad350d6cfa6416f85b72962f7a70cbfb6" name="ad350d6cfa6416f85b72962f7a70cbfb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad350d6cfa6416f85b72962f7a70cbfb6">&#9670;&#160;</a></span>cx</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double retinify::Intrinsics::cx {0}</td>
+          <td class="memname">double retinify::PinholeIntrinsics::cx {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -181,14 +181,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5dc392b960422616def890e685b4b7fd" name="a5dc392b960422616def890e685b4b7fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc392b960422616def890e685b4b7fd">&#9670;&#160;</a></span>cy</h2>
+<a id="a66aa0c1b590733f2406344c8b8c09e16" name="a66aa0c1b590733f2406344c8b8c09e16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66aa0c1b590733f2406344c8b8c09e16">&#9670;&#160;</a></span>cy</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double retinify::Intrinsics::cy {0}</td>
+          <td class="memname">double retinify::PinholeIntrinsics::cy {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,14 +197,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae696babb4d93ef56274d798397e595b1" name="ae696babb4d93ef56274d798397e595b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae696babb4d93ef56274d798397e595b1">&#9670;&#160;</a></span>fx</h2>
+<a id="a6f2c6089c337b7fd14cb0d9554f5d87f" name="a6f2c6089c337b7fd14cb0d9554f5d87f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f2c6089c337b7fd14cb0d9554f5d87f">&#9670;&#160;</a></span>fx</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double retinify::Intrinsics::fx {0}</td>
+          <td class="memname">double retinify::PinholeIntrinsics::fx {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -213,14 +213,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3bdacca8a4fc308b4bb5f13d2cd4567f" name="a3bdacca8a4fc308b4bb5f13d2cd4567f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bdacca8a4fc308b4bb5f13d2cd4567f">&#9670;&#160;</a></span>fy</h2>
+<a id="a9d496f1b6b7c788c5ac3659024658bed" name="a9d496f1b6b7c788c5ac3659024658bed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d496f1b6b7c788c5ac3659024658bed">&#9670;&#160;</a></span>fy</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double retinify::Intrinsics::fy {0}</td>
+          <td class="memname">double retinify::PinholeIntrinsics::fy {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -229,14 +229,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af44dd3c97733374f2a953fafc2f533ba" name="af44dd3c97733374f2a953fafc2f533ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af44dd3c97733374f2a953fafc2f533ba">&#9670;&#160;</a></span>skew</h2>
+<a id="a14f98025fdc95d65db360b4e537a72ae" name="a14f98025fdc95d65db360b4e537a72ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f98025fdc95d65db360b4e537a72ae">&#9670;&#160;</a></span>skew</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double retinify::Intrinsics::skew {0}</td>
+          <td class="memname">double retinify::PinholeIntrinsics::skew {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -253,7 +253,7 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceretinify.html">retinify</a></li><li class="navelem"><a class="el" href="structretinify_1_1Intrinsics.html">Intrinsics</a></li>
+    <li class="navelem"><a class="el" href="namespaceretinify.html">retinify</a></li><li class="navelem"><a class="el" href="structretinify_1_1PinholeIntrinsics.html">PinholeIntrinsics</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -7,8 +7,8 @@ var searchData=
   ['dependencies_4',['Dependencies',['../installation.html#autotoc_md4',1,'']]],
   ['depthmode_5',['DepthMode',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7',1,'retinify']]],
   ['determinant_6',['Determinant',['../namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1',1,'retinify']]],
-  ['distortion_7',['Distortion',['../structretinify_1_1Distortion.html',1,'retinify']]],
-  ['distortpoint_8',['DistortPoint',['../namespaceretinify.html#a139de69159032c6086e4cba16dbc6f02',1,'retinify']]],
+  ['distortionparameters_7',['DistortionParameters',['../structretinify_1_1DistortionParameters.html',1,'retinify']]],
+  ['distortpoint_8',['DistortPoint',['../namespaceretinify.html#aa4cd30bc49672093d58c76f0e7350353',1,'retinify']]],
   ['docs_9',['docs',['../cpp.html',1,'C++ Docs'],['../python.html',1,'Python Docs'],['../ros2.html',1,'ROS2 Docs']]],
   ['dot_10',['Dot',['../namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe',1,'retinify']]]
 ];

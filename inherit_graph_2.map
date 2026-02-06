@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structretinify_1_1Intrinsics.html" title="Camera intrinsic parameters with focal lengths, principal point, and skew." alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000000" href="$classretinify_1_1NoCopyMove.html" title="Base class that disables copy and move operations for derived classes." alt="" coords="5,5,168,31"/>
+<area shape="rect" id="Node000001" href="$classretinify_1_1Pipeline.html" title="A retinify::Pipeline provides an interface for running a stereo matching." alt="" coords="216,5,343,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="182,15,216,15,216,21,182,21"/>
 </map>

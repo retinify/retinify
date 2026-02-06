@@ -7,13 +7,12 @@ var searchData=
   ['info_4',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
   ['initialize_5',['initialize',['../tutorials.html#autotoc_md13',1,'1.1 Initialize'],['../classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6',1,'retinify::Pipeline::Initialize()']]],
   ['initidentitymap_6',['InitIdentityMap',['../namespaceretinify.html#ab488fcd1a202d5287035c12f8ff23c0a',1,'retinify']]],
-  ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#aa8cb6f8252c8746d99219d35d3b4b04c',1,'retinify']]],
+  ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#a075ee58be08264007a608f2b3c97a1d0',1,'retinify']]],
   ['install_20opencv_8',['2. Install OpenCV',['../demos.html#autotoc_md10',1,'']]],
   ['install_20retinify_9',['install retinify',['../demos.html#autotoc_md9',1,'1. Install retinify'],['../installation.html#autotoc_md6',1,'Install retinify']]],
-  ['installation_10',['installation',['../installation.html',1,'Installation'],['../python.html#autotoc_md20',1,'Installation'],['../cpp.html#autotoc_md22',1,'Installation'],['../installation.html#autotoc_md7',1,'Verify Installation']]],
+  ['installation_10',['installation',['../cpp.html#autotoc_md22',1,'Installation'],['../python.html#autotoc_md20',1,'Installation'],['../installation.html',1,'Installation'],['../installation.html#autotoc_md7',1,'Verify Installation']]],
   ['installation_2emd_11',['installation.md',['../installation_8md.html',1,'']]],
-  ['intrinsics_12',['Intrinsics',['../structretinify_1_1Intrinsics.html',1,'retinify']]],
-  ['invalid_5fargument_13',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
-  ['io_2ehpp_14',['io.hpp',['../io_8hpp.html',1,'']]],
-  ['isok_15',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
+  ['invalid_5fargument_12',['INVALID_ARGUMENT',['../namespaceretinify.html#aa9ea92bf239f2bf34c6cd3265f541ea4af295a0c3e37c94f078e1c5476479132d',1,'retinify']]],
+  ['io_2ehpp_13',['io.hpp',['../io_8hpp.html',1,'']]],
+  ['isok_14',['IsOK',['../classretinify_1_1Status.html#ab4df7a7e3c4c8bd9ba8da837f636421b',1,'retinify::Status']]]
 ];

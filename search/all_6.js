@@ -23,6 +23,6 @@ var searchData=
   ['cpp_2emd_20',['cpp.md',['../cpp_8md.html',1,'']]],
   ['cross_21',['Cross',['../namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8',1,'retinify']]],
   ['cuda_22',['CUDA',['../namespaceretinify.html#a760ed0e98c342b4af3006ca06c81116daa33b7755e5f9b504d2d038eaca4ff28d',1,'retinify']]],
-  ['cx_23',['cx',['../structretinify_1_1Intrinsics.html#a49c1450f8d990b9dace8d527343762f8',1,'retinify::Intrinsics']]],
-  ['cy_24',['cy',['../structretinify_1_1Intrinsics.html#a5dc392b960422616def890e685b4b7fd',1,'retinify::Intrinsics']]]
+  ['cx_23',['cx',['../structretinify_1_1PinholeIntrinsics.html#ad350d6cfa6416f85b72962f7a70cbfb6',1,'retinify::PinholeIntrinsics']]],
+  ['cy_24',['cy',['../structretinify_1_1PinholeIntrinsics.html#a66aa0c1b590733f2406344c8b8c09e16',1,'retinify::PinholeIntrinsics']]]
 ];

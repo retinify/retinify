@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['k1_0',['k1',['../structretinify_1_1Distortion.html#aa22294b2b355f533ed26acc55a526213',1,'retinify::Distortion']]],
-  ['k2_1',['k2',['../structretinify_1_1Distortion.html#ac0de9fdbb91f652eb3cd24b5a3645cfe',1,'retinify::Distortion']]],
-  ['k3_2',['k3',['../structretinify_1_1Distortion.html#af3d884d83d5efbc0a53690040908d25f',1,'retinify::Distortion']]],
-  ['k4_3',['k4',['../structretinify_1_1Distortion.html#a9b6411f9b5c803dcf74b501dc09ce743',1,'retinify::Distortion']]],
-  ['k5_4',['k5',['../structretinify_1_1Distortion.html#afb1cbbf51f2ce30f5a038ab3ab87fa48',1,'retinify::Distortion']]],
-  ['k6_5',['k6',['../structretinify_1_1Distortion.html#a7940de1b1c342ff302b00faa79132112',1,'retinify::Distortion']]]
+  ['k1_0',['k1',['../structretinify_1_1DistortionParameters.html#a291a7427bd6afbeae5a3ea19e2d75187',1,'retinify::DistortionParameters']]],
+  ['k2_1',['k2',['../structretinify_1_1DistortionParameters.html#aae982eb303c0b0e5463e8599fdc92899',1,'retinify::DistortionParameters']]],
+  ['k3_2',['k3',['../structretinify_1_1DistortionParameters.html#a40d7aece383b5143971c79d8caed8fec',1,'retinify::DistortionParameters']]],
+  ['k4_3',['k4',['../structretinify_1_1DistortionParameters.html#a13d78930ac5a979301e869241eac0ca3',1,'retinify::DistortionParameters']]],
+  ['k5_4',['k5',['../structretinify_1_1DistortionParameters.html#a081dfb27d1c7daddc3ec27de99ee49b4',1,'retinify::DistortionParameters']]],
+  ['k6_5',['k6',['../structretinify_1_1DistortionParameters.html#a4ea8a58702f61bf6a7589ac332bec412',1,'retinify::DistortionParameters']]]
 ];

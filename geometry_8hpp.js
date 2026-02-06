@@ -1,8 +1,8 @@
 var geometry_8hpp =
 [
     [ "retinify::Rect2< T >", "structretinify_1_1Rect2.html", "structretinify_1_1Rect2" ],
-    [ "retinify::Intrinsics", "structretinify_1_1Intrinsics.html", "structretinify_1_1Intrinsics" ],
-    [ "retinify::Distortion", "structretinify_1_1Distortion.html", "structretinify_1_1Distortion" ],
+    [ "retinify::PinholeIntrinsics", "structretinify_1_1PinholeIntrinsics.html", "structretinify_1_1PinholeIntrinsics" ],
+    [ "retinify::DistortionParameters", "structretinify_1_1DistortionParameters.html", "structretinify_1_1DistortionParameters" ],
     [ "retinify::CalibrationParameters", "structretinify_1_1CalibrationParameters.html", "structretinify_1_1CalibrationParameters" ],
     [ "Mat3x3d", "geometry_8hpp.html#a26282a3f32000d8c29fb89e1dbc4ee4c", null ],
     [ "Mat3x4d", "geometry_8hpp.html#ade3dd12d90b220052362ed254a5a7a21", null ],
@@ -15,13 +15,13 @@ var geometry_8hpp =
     [ "Add", "geometry_8hpp.html#ae07615c66dca47cdad872720e2a0a58b", null ],
     [ "Cross", "geometry_8hpp.html#a6a75b80725830180fede17e93d91c4c8", null ],
     [ "Determinant", "geometry_8hpp.html#aeecaff667d115ee519e88c231d6e47d1", null ],
-    [ "DistortPoint", "geometry_8hpp.html#a139de69159032c6086e4cba16dbc6f02", null ],
+    [ "DistortPoint", "geometry_8hpp.html#aa4cd30bc49672093d58c76f0e7350353", null ],
     [ "Dot", "geometry_8hpp.html#a0f9810659ed2830e792a5364be6cdbbe", null ],
     [ "Exp", "geometry_8hpp.html#a5d6052424e4a38041db489589aca1abd", null ],
     [ "Hat", "geometry_8hpp.html#ad6fd48d7818cdbfebfd07e4a48555f90", null ],
     [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "geometry_8hpp.html#ab488fcd1a202d5287035c12f8ff23c0a", null ],
-    [ "InitUndistortRectifyMap", "geometry_8hpp.html#aa8cb6f8252c8746d99219d35d3b4b04c", null ],
+    [ "InitUndistortRectifyMap", "geometry_8hpp.html#a075ee58be08264007a608f2b3c97a1d0", null ],
     [ "Length", "geometry_8hpp.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "geometry_8hpp.html#acf207d78d6ab5be35a1ccf98768d3ce3", null ],
     [ "Multiply", "geometry_8hpp.html#a118ccc5f4dd0948582f4a69cbc5deac6", null ],
@@ -29,8 +29,8 @@ var geometry_8hpp =
     [ "Multiply", "geometry_8hpp.html#acbcc293528213d2a5ed9275f9299ae76", null ],
     [ "Multiply", "geometry_8hpp.html#aba68a556f4111e1f046d155611efc08e", null ],
     [ "Normalize", "geometry_8hpp.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
-    [ "StereoRectify", "geometry_8hpp.html#a9bdbc7248bc4085d5ae43a5745758807", null ],
+    [ "StereoRectify", "geometry_8hpp.html#a1e7badcb06ba04e372dd7d2cb2f11845", null ],
     [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
-    [ "UndistortPoint", "geometry_8hpp.html#af2d971fcf9cee3b4adb09551a8386b73", null ],
+    [ "UndistortPoint", "geometry_8hpp.html#aa05bf6643c3646c51221082b09ca2bc2", null ],
     [ "Vee", "geometry_8hpp.html#acefc7386b8c9afb172bdeb602913921b", null ]
 ];

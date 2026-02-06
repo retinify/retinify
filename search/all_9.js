@@ -4,6 +4,6 @@ var searchData=
   ['fast_1',['FAST',['../namespaceretinify.html#a870050f31cd05b5e20634a58e18de8a7adca6e617f6fb54033deb311e7e7c93cc',1,'retinify']]],
   ['fatal_2',['FATAL',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa19da7170bea36556dde582519795f3fc',1,'retinify']]],
   ['function_3',['FUNCTION',['../namespaceretinify.html#a372ff55f77ecca5f9d632bf5e16755eba6a72a6a776662a244f82d31e9274a07b',1,'retinify']]],
-  ['fx_4',['fx',['../structretinify_1_1Intrinsics.html#ae696babb4d93ef56274d798397e595b1',1,'retinify::Intrinsics']]],
-  ['fy_5',['fy',['../structretinify_1_1Intrinsics.html#a3bdacca8a4fc308b4bb5f13d2cd4567f',1,'retinify::Intrinsics']]]
+  ['fx_4',['fx',['../structretinify_1_1PinholeIntrinsics.html#a6f2c6089c337b7fd14cb0d9554f5d87f',1,'retinify::PinholeIntrinsics']]],
+  ['fy_5',['fy',['../structretinify_1_1PinholeIntrinsics.html#a9d496f1b6b7c788c5ac3659024658bed',1,'retinify::PinholeIntrinsics']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fx_0',['fx',['../structretinify_1_1Intrinsics.html#ae696babb4d93ef56274d798397e595b1',1,'retinify::Intrinsics']]],
-  ['fy_1',['fy',['../structretinify_1_1Intrinsics.html#a3bdacca8a4fc308b4bb5f13d2cd4567f',1,'retinify::Intrinsics']]]
+  ['fx_0',['fx',['../structretinify_1_1PinholeIntrinsics.html#a6f2c6089c337b7fd14cb0d9554f5d87f',1,'retinify::PinholeIntrinsics']]],
+  ['fy_1',['fy',['../structretinify_1_1PinholeIntrinsics.html#a9d496f1b6b7c788c5ac3659024658bed',1,'retinify::PinholeIntrinsics']]]
 ];

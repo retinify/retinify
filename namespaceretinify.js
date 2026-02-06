@@ -1,9 +1,9 @@
 var namespaceretinify =
 [
     [ "CalibrationParameters", "structretinify_1_1CalibrationParameters.html", "structretinify_1_1CalibrationParameters" ],
-    [ "Distortion", "structretinify_1_1Distortion.html", "structretinify_1_1Distortion" ],
-    [ "Intrinsics", "structretinify_1_1Intrinsics.html", "structretinify_1_1Intrinsics" ],
+    [ "DistortionParameters", "structretinify_1_1DistortionParameters.html", "structretinify_1_1DistortionParameters" ],
     [ "NoCopyMove", "classretinify_1_1NoCopyMove.html", "classretinify_1_1NoCopyMove" ],
+    [ "PinholeIntrinsics", "structretinify_1_1PinholeIntrinsics.html", "structretinify_1_1PinholeIntrinsics" ],
     [ "Pipeline", "classretinify_1_1Pipeline.html", "classretinify_1_1Pipeline" ],
     [ "Rect2", "structretinify_1_1Rect2.html", "structretinify_1_1Rect2" ],
     [ "Status", "classretinify_1_1Status.html", "classretinify_1_1Status" ],
@@ -56,7 +56,7 @@ var namespaceretinify =
     [ "Cross", "namespaceretinify.html#a6a75b80725830180fede17e93d91c4c8", null ],
     [ "DataDirectoryPath", "namespaceretinify.html#a941ddcb2633bd04ed7395ec2191f8d9d", null ],
     [ "Determinant", "namespaceretinify.html#aeecaff667d115ee519e88c231d6e47d1", null ],
-    [ "DistortPoint", "namespaceretinify.html#a139de69159032c6086e4cba16dbc6f02", null ],
+    [ "DistortPoint", "namespaceretinify.html#aa4cd30bc49672093d58c76f0e7350353", null ],
     [ "Dot", "namespaceretinify.html#a0f9810659ed2830e792a5364be6cdbbe", null ],
     [ "Exp", "namespaceretinify.html#a5d6052424e4a38041db489589aca1abd", null ],
     [ "GetLogLevel", "namespaceretinify.html#a6e9f58f6b0cc01cbe490c9e9819ebf84", null ],
@@ -65,7 +65,7 @@ var namespaceretinify =
     [ "HomeDirectoryPath", "namespaceretinify.html#aa185954ed2ed2f3cdb995939f189e8b5", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "namespaceretinify.html#ab488fcd1a202d5287035c12f8ff23c0a", null ],
-    [ "InitUndistortRectifyMap", "namespaceretinify.html#aa8cb6f8252c8746d99219d35d3b4b04c", null ],
+    [ "InitUndistortRectifyMap", "namespaceretinify.html#a075ee58be08264007a608f2b3c97a1d0", null ],
     [ "Length", "namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "LoadCalibrationParameters", "namespaceretinify.html#af213c472cb80766b95b316eb1b979810", null ],
     [ "Log", "namespaceretinify.html#acf207d78d6ab5be35a1ccf98768d3ce3", null ],
@@ -86,9 +86,9 @@ var namespaceretinify =
     [ "SetLogLevel", "namespaceretinify.html#ac1962b12e039b7ad482538cc3b6b1160", null ],
     [ "SetLogLocation", "namespaceretinify.html#a46ec3dd03b7f4540a98b2657e13a399b", null ],
     [ "StateDirectoryPath", "namespaceretinify.html#a605504dd9aadddb4d0198a8cfc2ac6bf", null ],
-    [ "StereoRectify", "namespaceretinify.html#a9bdbc7248bc4085d5ae43a5745758807", null ],
+    [ "StereoRectify", "namespaceretinify.html#a1e7badcb06ba04e372dd7d2cb2f11845", null ],
     [ "Transpose", "namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
-    [ "UndistortPoint", "namespaceretinify.html#af2d971fcf9cee3b4adb09551a8386b73", null ],
+    [ "UndistortPoint", "namespaceretinify.html#aa05bf6643c3646c51221082b09ca2bc2", null ],
     [ "Vee", "namespaceretinify.html#acefc7386b8c9afb172bdeb602913921b", null ],
     [ "Version", "namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc", null ]
 ];
