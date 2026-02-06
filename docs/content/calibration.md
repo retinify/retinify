@@ -5,13 +5,13 @@
 
 retinify::CalibrationParameters supports the pinhole camera model.
 
-- Intrinsic Parameters: retinify::PinholeIntrinsics
+- Pinhole Intrinsics: retinify::PinholeIntrinsics
 
   - Focal lengths: `fx`, `fy`
   - Principal point: `cx`, `cy`
   - Skew coefficient: `skew`
 
-- Distortion Coefficients: retinify::DistortionParameters
+- Distortion Coefficients: retinify::DistortionCoefficients
 
   - Radial distortion coefficients: `k1`, `k2`, `k3`, `k4`, `k5`, `k6`
   - Tangential distortion coefficients: `p1`, `p2`
