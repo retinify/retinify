@@ -17,7 +17,7 @@ var searchData=
   ['retrieverectifiedleftimage_14',['RetrieveRectifiedLeftImage',['../classretinify_1_1Pipeline.html#aa20c41146db8230915e9594ced69eabc',1,'retinify::Pipeline']]],
   ['retrieverectifiedrightimage_15',['RetrieveRectifiedRightImage',['../classretinify_1_1Pipeline.html#a556a4091f2870dd578f8c0b2cf10dcce',1,'retinify::Pipeline']]],
   ['rgb8_16',['RGB8',['../namespaceretinify.html#a16d6a4001a7bbb7cb87e43aec4553dcba165c6379d01617e12de274a3952efa63',1,'retinify']]],
-  ['rightdistortion_17',['rightDistortion',['../structretinify_1_1CalibrationParameters.html#ae2be1fe3b76e2896ffe708d099ddb546',1,'retinify::CalibrationParameters']]],
+  ['rightdistortion_17',['rightDistortion',['../structretinify_1_1CalibrationParameters.html#a02e2950782b3f7efc7c86397911b8224',1,'retinify::CalibrationParameters']]],
   ['rightintrinsics_18',['rightIntrinsics',['../structretinify_1_1CalibrationParameters.html#aae4570eed08e40a59bfe29e6b33b5b4a',1,'retinify::CalibrationParameters']]],
   ['ros2_20docs_19',['ROS2 Docs',['../ros2.html',1,'']]],
   ['ros2_2emd_20',['ros2.md',['../ros2_8md.html',1,'']]],

@@ -1,7 +1,7 @@
 var hierarchy =
 [
     [ "retinify::CalibrationParameters", "structretinify_1_1CalibrationParameters.html", null ],
-    [ "retinify::DistortionParameters", "structretinify_1_1DistortionParameters.html", null ],
+    [ "retinify::DistortionCoefficients", "structretinify_1_1DistortionCoefficients.html", null ],
     [ "retinify::NoCopyMove", "classretinify_1_1NoCopyMove.html", [
       [ "retinify::Pipeline", "classretinify_1_1Pipeline.html", null ]
     ] ],

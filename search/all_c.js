@@ -7,7 +7,7 @@ var searchData=
   ['info_4',['INFO',['../namespaceretinify.html#ad7864f6e39ba12c3d9bd53d13c64ac7fa551b723eafd6a31d444fcb2f5920fbd3',1,'retinify']]],
   ['initialize_5',['initialize',['../tutorials.html#autotoc_md13',1,'1.1 Initialize'],['../classretinify_1_1Pipeline.html#a65ccd79b2d259aeb8cb54b746162dab6',1,'retinify::Pipeline::Initialize()']]],
   ['initidentitymap_6',['InitIdentityMap',['../namespaceretinify.html#ab488fcd1a202d5287035c12f8ff23c0a',1,'retinify']]],
-  ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#a075ee58be08264007a608f2b3c97a1d0',1,'retinify']]],
+  ['initundistortrectifymap_7',['InitUndistortRectifyMap',['../namespaceretinify.html#aec41812b138a4bd7e137c2e4b1db9cb5',1,'retinify']]],
   ['install_20opencv_8',['2. Install OpenCV',['../demos.html#autotoc_md10',1,'']]],
   ['install_20retinify_9',['install retinify',['../demos.html#autotoc_md9',1,'1. Install retinify'],['../installation.html#autotoc_md6',1,'Install retinify']]],
   ['installation_10',['installation',['../cpp.html#autotoc_md22',1,'Installation'],['../python.html#autotoc_md20',1,'Installation'],['../installation.html',1,'Installation'],['../installation.html#autotoc_md7',1,'Verify Installation']]],
