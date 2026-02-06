@@ -290,7 +290,7 @@ enum class BaselineAxis : std::uint8_t
     return Exp(Multiply(cross, scale));
 }
 
-[[nodiscard]] auto ComputePrincipalPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Mat3x3d &rectifiedRotation, double newFocalLength, double width, double height) noexcept -> Point2d
+[[nodiscard]] auto ComputePrincipalPoint(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Mat3x3d &rectifiedRotation, double newFocalLength, double width, double height) noexcept -> Point2d
 {
     const std::array<Point2d, 4> imageCorners{Point2d{0.0, 0.0}, Point2d{width - 1.0, 0.0}, Point2d{0.0, height - 1.0}, Point2d{width - 1.0, height - 1.0}};
 
@@ -358,7 +358,7 @@ constexpr double kInfinity = std::numeric_limits<double>::infinity();
     return index == 0 || index == lastIndex;
 }
 
-auto ComputeRectifiedInnerOuterRectangles(const Intrinsics &intrinsics, const Distortion &distortion, const Mat3x3d &rectifiedRotation, const Mat3x3d &newCameraMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, Rect2d &inner, Rect2d &outer) noexcept -> void
+auto ComputeRectifiedInnerOuterRectangles(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Mat3x3d &rectifiedRotation, const Mat3x3d &newCameraMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, Rect2d &inner, Rect2d &outer) noexcept -> void
 {
     constexpr int kGridSize = 9;
     constexpr int kLastIndex = kGridSize - 1;
@@ -465,7 +465,7 @@ auto ComputeRectifiedInnerOuterRectangles(const Intrinsics &intrinsics, const Di
     }
 }
 
-[[nodiscard]] auto ComputeRectifiedFocalLengthScale(const Intrinsics &intrinsics1, const Distortion &distortion1, const Mat3x3d &rectifiedRotation1, const Intrinsics &intrinsics2, const Distortion &distortion2, const Mat3x3d &rectifiedRotation2, double focalLength, const Point2d &principalPoint1, const Point2d &principalPoint2, std::uint32_t imageWidth, std::uint32_t imageHeight, double alpha) noexcept -> double
+[[nodiscard]] auto ComputeRectifiedFocalLengthScale(const PinholeIntrinsics &intrinsics1, const DistortionParameters &distortion1, const Mat3x3d &rectifiedRotation1, const PinholeIntrinsics &intrinsics2, const DistortionParameters &distortion2, const Mat3x3d &rectifiedRotation2, double focalLength, const Point2d &principalPoint1, const Point2d &principalPoint2, std::uint32_t imageWidth, std::uint32_t imageHeight, double alpha) noexcept -> double
 {
     if (alpha < 0.0)
     {
@@ -524,7 +524,7 @@ auto ComputeRectifiedInnerOuterRectangles(const Intrinsics &intrinsics, const Di
 }
 } // namespace
 
-auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &point) noexcept -> Point2d
+auto UndistortPoint(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Point2d &point) noexcept -> Point2d
 {
     const double inverseFocalX = Reciprocal(intrinsics.fx, 1.0);
     const double inverseFocalY = Reciprocal(intrinsics.fy, 1.0);
@@ -556,7 +556,7 @@ auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, 
     return {undistortedX, undistortedY};
 }
 
-auto DistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &point) noexcept -> Point2d
+auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Point2d &point) noexcept -> Point2d
 {
     const double undistortedX = point[0];
     const double undistortedY = point[1];
@@ -579,7 +579,7 @@ auto DistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, co
     return {distortedX * intrinsics.fx + intrinsics.cx, distortedY * intrinsics.fy + intrinsics.cy};
 }
 
-auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, const Intrinsics &intrinsics2, const Distortion &distortion2, const Mat3x3d &rotation, const Vec3d &translation, std::uint32_t imageWidth, std::uint32_t imageHeight, Mat3x3d &rectifiedRotation1, Mat3x3d &rectifiedRotation2, Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2, Mat4x4d &reprojectionMatrix, double alpha) noexcept -> Status
+auto StereoRectify(const PinholeIntrinsics &intrinsics1, const DistortionParameters &distortion1, const PinholeIntrinsics &intrinsics2, const DistortionParameters &distortion2, const Mat3x3d &rotation, const Vec3d &translation, std::uint32_t imageWidth, std::uint32_t imageHeight, Mat3x3d &rectifiedRotation1, Mat3x3d &rectifiedRotation2, Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2, Mat4x4d &reprojectionMatrix, double alpha) noexcept -> Status
 {
     if ((imageWidth == 0U) || (imageHeight == 0U))
     {
@@ -636,7 +636,7 @@ auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1,
     return Status{};
 }
 
-auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status
+auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status
 {
     if (mapX == nullptr || mapY == nullptr)
     {

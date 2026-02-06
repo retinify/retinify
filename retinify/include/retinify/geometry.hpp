@@ -205,8 +205,8 @@ RETINIFY_API auto Exp(const Vec3d &vec) noexcept -> Mat3x3d;
 RETINIFY_API auto Log(const Mat3x3d &mat) noexcept -> Vec3d;
 
 /// @brief
-/// Camera intrinsic parameters with focal lengths, principal point, and skew
-struct Intrinsics
+/// Pinhole camera intrinsic parameters with focal lengths, principal point, and skew
+struct PinholeIntrinsics
 {
     /// @brief
     /// Focal length in x (in pixels)
@@ -224,7 +224,7 @@ struct Intrinsics
     /// Skew coefficient
     double skew{0};
 
-    [[nodiscard]] auto operator==(const Intrinsics &other) const noexcept -> bool
+    [[nodiscard]] auto operator==(const PinholeIntrinsics &other) const noexcept -> bool
     {
         return fx == other.fx && //
                fy == other.fy && //
@@ -236,7 +236,7 @@ struct Intrinsics
 
 /// @brief
 /// Rational distortion model with 8 coefficients: (k1, k2, p1, p2, k3, k4, k5, k6)
-struct Distortion
+struct DistortionParameters
 {
     double k1{0};
     double k2{0};
@@ -247,7 +247,7 @@ struct Distortion
     double k5{0};
     double k6{0};
 
-    [[nodiscard]] auto operator==(const Distortion &other) const noexcept -> bool
+    [[nodiscard]] auto operator==(const DistortionParameters &other) const noexcept -> bool
     {
         return k1 == other.k1 && //
                k2 == other.k2 && //
@@ -265,17 +265,17 @@ struct Distortion
 struct CalibrationParameters
 {
     /// @brief
-    /// Intrinsics for the left camera
-    Intrinsics leftIntrinsics{};
+    /// Pinhole intrinsics for the left camera
+    PinholeIntrinsics leftIntrinsics{};
     /// @brief
-    /// Distortion for the left camera
-    Distortion leftDistortion{};
+    /// Distortion parameters for the left camera
+    DistortionParameters leftDistortion{};
     /// @brief
-    /// Intrinsics for the right camera
-    Intrinsics rightIntrinsics{};
+    /// Pinhole intrinsics for the right camera
+    PinholeIntrinsics rightIntrinsics{};
     /// @brief
-    /// Distortion for the right camera
-    Distortion rightDistortion{};
+    /// Distortion parameters for the right camera
+    DistortionParameters rightDistortion{};
     /// @brief
     /// Rotation matrix
     Mat3x3d rotation{};
@@ -320,7 +320,7 @@ struct CalibrationParameters
 /// Distorted 2D point (in pixel coordinates)
 /// @return
 /// Undistorted 2D point (normalized image coordinates)
-RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &point) noexcept -> Point2d;
+RETINIFY_API auto UndistortPoint(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Point2d &point) noexcept -> Point2d;
 
 /// @brief
 /// Distort a normalized 2D point using the given camera intrinsics and distortion parameters
@@ -332,7 +332,7 @@ RETINIFY_API auto UndistortPoint(const Intrinsics &intrinsics, const Distortion 
 /// Undistorted 2D point (normalized image coordinates)
 /// @return
 /// Distorted 2D point (in pixel coordinates)
-RETINIFY_API auto DistortPoint(const Intrinsics &intrinsics, const Distortion &distortion, const Point2d &point) noexcept -> Point2d;
+RETINIFY_API auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Point2d &point) noexcept -> Point2d;
 
 /// @brief
 /// Perform stereo rectification for a pair of cameras
@@ -370,7 +370,7 @@ RETINIFY_API auto DistortPoint(const Intrinsics &intrinsics, const Distortion &d
 /// and -1 applies the default behavior
 /// @return
 /// A Status object that indicates whether the operation was successful
-RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion &distortion1, const Intrinsics &intrinsics2, const Distortion &distortion2, const Mat3x3d &rotation, const Vec3d &translation, std::uint32_t imageWidth, std::uint32_t imageHeight, Mat3x3d &rotation1, Mat3x3d &rotation2, Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2, Mat4x4d &reprojectionMatrix, double alpha) noexcept -> Status;
+RETINIFY_API auto StereoRectify(const PinholeIntrinsics &intrinsics1, const DistortionParameters &distortion1, const PinholeIntrinsics &intrinsics2, const DistortionParameters &distortion2, const Mat3x3d &rotation, const Vec3d &translation, std::uint32_t imageWidth, std::uint32_t imageHeight, Mat3x3d &rotation1, Mat3x3d &rotation2, Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2, Mat4x4d &reprojectionMatrix, double alpha) noexcept -> Status;
 
 /// @brief
 /// Initialize undistort and rectify maps for image remapping
@@ -396,7 +396,7 @@ RETINIFY_API auto StereoRectify(const Intrinsics &intrinsics1, const Distortion 
 /// Stride of a row in mapY (in bytes)
 /// @return
 /// A Status object that indicates whether the operation was successful
-RETINIFY_API auto InitUndistortRectifyMap(const Intrinsics &intrinsics, const Distortion &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status;
+RETINIFY_API auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionParameters &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status;
 
 /// @brief
 /// Initialize identity maps for undistortion/rectification
