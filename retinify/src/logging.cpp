@@ -7,6 +7,7 @@
 #include <atomic>
 #include <chrono>
 #include <cstring>
+#include <format>
 #include <iomanip>
 #include <iostream>
 #include <source_location>
@@ -92,16 +93,28 @@ struct LogMetadata
 
 [[nodiscard]] auto GetCurrentTime() -> std::string
 {
-    const std::chrono::system_clock::time_point currentTimePoint = std::chrono::system_clock::now();
-    const std::time_t currentTimeT = std::chrono::system_clock::to_time_t(currentTimePoint);
-    std::tm localTimeStruct{};
-    if (localtime_r(&currentTimeT, &localTimeStruct) == nullptr)
+    const std::time_t now = std::time(nullptr);
+
+    std::tm utc{};
+#if defined(_WIN32)
+    if (gmtime_s(&utc, &now) != 0)
     {
-        return std::string{"Invalid time"};
+        return {};
     }
-    std::ostringstream timeStream;
-    timeStream << std::put_time(&localTimeStruct, "%F %T");
-    return timeStream.str();
+#else
+    if (gmtime_r(&now, &utc) == nullptr)
+    {
+        return {};
+    }
+#endif
+
+    char buffer[32];
+    if (std::strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%SZ", &utc) == 0)
+    {
+        return {};
+    }
+
+    return buffer;
 }
 
 inline auto Log(LogLevel level, const char *message, std::source_location location) noexcept -> void
