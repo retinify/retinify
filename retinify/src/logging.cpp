@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "retinify/logging.hpp"
+#include "retinify/version.hpp"
 
 #include <atomic>
 #include <chrono>
@@ -13,7 +14,7 @@
 
 namespace retinify
 {
-static inline auto GetLogLevelStorage() noexcept -> std::atomic<LogLevel> &
+static auto GetLogLevelStorage() noexcept -> std::atomic<LogLevel> &
 {
     static std::atomic<LogLevel> storage{LogLevel::INFO};
     return storage;
@@ -29,7 +30,7 @@ void SetLogLevel(LogLevel level) noexcept
     GetLogLevelStorage().store(level, std::memory_order_relaxed);
 }
 
-static inline auto GetLogLocationStorage() noexcept -> std::atomic<LogLocation> &
+static auto GetLogLocationStorage() noexcept -> std::atomic<LogLocation> &
 {
     static std::atomic<LogLocation> storage{LogLocation::NONE};
     return storage;
@@ -47,9 +48,6 @@ void SetLogLocation(LogLocation location) noexcept
 
 namespace
 {
-constexpr const char kDefaultLabel[] = "NONE ";
-constexpr const char kDefaultMessage[] = " ";
-
 struct LogMetadata
 {
     const char *label;
@@ -73,7 +71,7 @@ struct LogMetadata
         return {"FATAL", "\033[31;1m", &std::cerr};
     case LogLevel::OFF:
     default:
-        return {kDefaultLabel, "\033[0m", &std::cerr};
+        return {"NONE ", "\033[0m", &std::cerr};
     }
 }
 
@@ -86,13 +84,13 @@ struct LogMetadata
 {
     if (message == nullptr || std::strlen(message) == 0)
     {
-        return kDefaultMessage;
+        return " ";
     }
 
     return message;
 }
 
-static inline auto GetCurrentTime() -> std::string
+[[nodiscard]] auto GetCurrentTime() -> std::string
 {
     const std::chrono::system_clock::time_point currentTimePoint = std::chrono::system_clock::now();
     const std::time_t currentTimeT = std::chrono::system_clock::to_time_t(currentTimePoint);
@@ -105,9 +103,8 @@ static inline auto GetCurrentTime() -> std::string
     timeStream << std::put_time(&localTimeStruct, "%F %T");
     return timeStream.str();
 }
-} // namespace
 
-static inline void Log(LogLevel level, const char *message, std::source_location location) noexcept
+inline auto Log(LogLevel level, const char *message, std::source_location location) noexcept -> void
 {
     if (!ShouldLog(level))
     {
@@ -150,29 +147,50 @@ static inline void Log(LogLevel level, const char *message, std::source_location
         // do nothing
     }
 }
+} // namespace
 
-void LogDebug(const char *message, const std::source_location location) noexcept
+auto LogDebug(const char *message, const std::source_location location) noexcept -> void
 {
     Log(LogLevel::DEBUG, message, location);
 }
 
-void LogInfo(const char *message, const std::source_location location) noexcept
+auto LogInfo(const char *message, const std::source_location location) noexcept -> void
 {
     Log(LogLevel::INFO, message, location);
 }
 
-void LogWarn(const char *message, const std::source_location location) noexcept
+auto LogWarn(const char *message, const std::source_location location) noexcept -> void
 {
     Log(LogLevel::WARN, message, location);
 }
 
-void LogError(const char *message, const std::source_location location) noexcept
+auto LogError(const char *message, const std::source_location location) noexcept -> void
 {
     Log(LogLevel::ERROR, message, location);
 }
 
-void LogFatal(const char *message, const std::source_location location) noexcept
+auto LogFatal(const char *message, const std::source_location location) noexcept -> void
 {
     Log(LogLevel::FATAL, message, location);
+}
+
+auto LogSoftwareInfo(const std::source_location location) noexcept -> void
+{
+    static std::atomic_flag printed = ATOMIC_FLAG_INIT;
+    if (printed.test_and_set())
+    {
+        return;
+    }
+
+    char summaryBuffer[128];
+    std::snprintf(summaryBuffer, sizeof(summaryBuffer), "retinify v%s | Real-Time AI Stereo Vision Library | Copyright (c) 2025 Sensui Yagi", Version());
+    LogInfo(summaryBuffer, location);
+}
+
+auto LogStrideError(std::size_t providedStride, std::size_t requiredStride, const std::source_location location) noexcept -> void
+{
+    char messageBuffer[256];
+    std::snprintf(messageBuffer, sizeof(messageBuffer), "Provided stride (%zu bytes) is smaller than the required stride (%zu bytes).", providedStride, requiredStride);
+    LogError(messageBuffer, location);
 }
 } // namespace retinify

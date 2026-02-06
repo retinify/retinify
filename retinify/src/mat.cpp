@@ -207,6 +207,7 @@ auto Mat::Upload(const void *hostData, std::size_t hostStride, Stream &stream) c
     if (hostStride < deviceColumnsInBytes_)
     {
         LogError("Host stride is less than device columns in bytes.");
+        LogStrideError(hostStride, deviceColumnsInBytes_);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
@@ -264,6 +265,7 @@ auto Mat::Download(void *hostData, std::size_t hostStride, Stream &stream) const
     if (hostStride < deviceColumnsInBytes_)
     {
         LogError("Host stride is less than device columns in bytes.");
+        LogStrideError(hostStride, deviceColumnsInBytes_);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
