@@ -305,7 +305,7 @@ TEST(GeometryTest, UndistortIdentityPreservesPixels)
     const retinify::PinholeIntrinsics intrinsics{420.0, 415.0, 2.5, 1.5, 0.2};
     const retinify::DistortionCoefficients distortion{};
 
-    const Status status = Undistort(intrinsics, distortion, kWidth, kHeight, src.data(), kStride, dst.data(), kStride);
+    const Status status = Undistort(intrinsics, distortion, src.data(), kStride, dst.data(), kStride, kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     for (std::uint32_t y = 0; y < kHeight; ++y)
@@ -341,7 +341,7 @@ TEST(GeometryTest, UndistortMatchesOpenCV)
     const retinify::PinholeIntrinsics intrinsics{260.0, 245.0, 15.5, 11.0, 0.12};
     const retinify::DistortionCoefficients distortion{0.08, -0.03, 0.001, -0.0006, 0.012, 0.004, -0.0015, 0.0007};
 
-    const Status status = Undistort(intrinsics, distortion, kWidth, kHeight, src.data(), kWidth, dst.data(), kWidth);
+    const Status status = Undistort(intrinsics, distortion, src.data(), kWidth, dst.data(), kWidth, kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     cv::Mat srcMat(kHeight, kWidth, CV_8UC1, src.data(), static_cast<std::size_t>(kWidth));
@@ -392,22 +392,22 @@ TEST(GeometryTest, UndistortRejectsInvalidArgs)
     std::vector<std::uint8_t> src(static_cast<std::size_t>(kWidth) * kHeight, 0U);
     std::vector<std::uint8_t> dst(static_cast<std::size_t>(kWidth) * kHeight, 0U);
 
-    const Status nullSrcStatus = Undistort(intrinsics, distortion, kWidth, kHeight, nullptr, kStride, dst.data(), kStride);
+    const Status nullSrcStatus = Undistort(intrinsics, distortion, nullptr, kStride, dst.data(), kStride, kWidth, kHeight);
     EXPECT_FALSE(nullSrcStatus.IsOK());
     EXPECT_EQ(nullSrcStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(nullSrcStatus.Code(), StatusCode::INVALID_ARGUMENT);
 
-    const Status nullDstStatus = Undistort(intrinsics, distortion, kWidth, kHeight, src.data(), kStride, nullptr, kStride);
+    const Status nullDstStatus = Undistort(intrinsics, distortion, src.data(), kStride, nullptr, kStride, kWidth, kHeight);
     EXPECT_FALSE(nullDstStatus.IsOK());
     EXPECT_EQ(nullDstStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(nullDstStatus.Code(), StatusCode::INVALID_ARGUMENT);
 
-    const Status zeroDimStatus = Undistort(intrinsics, distortion, 0, kHeight, src.data(), kStride, dst.data(), kStride);
+    const Status zeroDimStatus = Undistort(intrinsics, distortion, src.data(), kStride, dst.data(), kStride, 0, kHeight);
     EXPECT_FALSE(zeroDimStatus.IsOK());
     EXPECT_EQ(zeroDimStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(zeroDimStatus.Code(), StatusCode::INVALID_ARGUMENT);
 
-    const Status strideStatus = Undistort(intrinsics, distortion, kWidth, kHeight, src.data(), kInsufficientStride, dst.data(), kStride);
+    const Status strideStatus = Undistort(intrinsics, distortion, src.data(), kInsufficientStride, dst.data(), kStride, kWidth, kHeight);
     EXPECT_FALSE(strideStatus.IsOK());
     EXPECT_EQ(strideStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(strideStatus.Code(), StatusCode::INVALID_ARGUMENT);
@@ -602,9 +602,10 @@ TEST(GeometryTest, InitUndistortRectifyMapIdentity)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),          //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride(),          //
+                                                  kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
@@ -646,9 +647,10 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),          //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride(),          //
+                                                  kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
@@ -699,9 +701,10 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
     const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
-    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, //
-                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),                           //
-                                                  static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
+                                                  static_cast<float *>(mapX.Data()), mapX.Stride(),          //
+                                                  static_cast<float *>(mapY.Data()), mapY.Stride(),          //
+                                                  kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     const void *mapXVoid = mapX.Data();
@@ -745,20 +748,23 @@ TEST(GeometryTest, InitUndistortRectifyMapRejectsInvalidArgs)
     const std::size_t strideBytes = static_cast<std::size_t>(kWidth) * sizeof(float);
     const std::size_t insufficientStride = strideBytes - sizeof(float);
 
-    const Status nullStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, kWidth, kHeight, //
-                                                      nullptr, strideBytes, mapY.data(), strideBytes);
+    const Status nullStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection,   //
+                                                      nullptr, strideBytes, mapY.data(), strideBytes, //
+                                                      kWidth, kHeight);
     EXPECT_FALSE(nullStatus.IsOK());
     EXPECT_EQ(nullStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(nullStatus.Code(), StatusCode::INVALID_ARGUMENT);
 
-    const Status zeroDimStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, 0, kHeight, //
-                                                         mapX.data(), strideBytes, mapY.data(), strideBytes);
+    const Status zeroDimStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection,       //
+                                                         mapX.data(), strideBytes, mapY.data(), strideBytes, //
+                                                         0, kHeight);
     EXPECT_FALSE(zeroDimStatus.IsOK());
     EXPECT_EQ(zeroDimStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(zeroDimStatus.Code(), StatusCode::INVALID_ARGUMENT);
 
-    const Status strideStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection, kWidth, kHeight, //
-                                                        mapX.data(), insufficientStride, mapY.data(), strideBytes);
+    const Status strideStatus = InitUndistortRectifyMap(intrinsics, distortion, rotation, projection,              //
+                                                        mapX.data(), insufficientStride, mapY.data(), strideBytes, //
+                                                        kWidth, kHeight);
     EXPECT_FALSE(strideStatus.IsOK());
     EXPECT_EQ(strideStatus.Category(), StatusCategory::USER);
     EXPECT_EQ(strideStatus.Code(), StatusCode::INVALID_ARGUMENT);
@@ -952,7 +958,7 @@ TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
     ASSERT_TRUE(mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
     ASSERT_TRUE(mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
 
-    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, kWidth, kHeight, static_cast<float *>(mapX.Data()), mapX.Stride(), static_cast<float *>(mapY.Data()), mapY.Stride());
+    const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, static_cast<float *>(mapX.Data()), mapX.Stride(), static_cast<float *>(mapY.Data()), mapY.Stride(), kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());
 
     const cv::Mat cameraMatrix = ToCvCameraMatrix(intrinsics);

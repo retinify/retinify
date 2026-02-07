@@ -579,7 +579,7 @@ auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionCoefficie
     return {distortedX * intrinsics.fx + intrinsics.cx, distortedY * intrinsics.fy + intrinsics.cy};
 }
 
-auto Undistort(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, std::uint32_t imageWidth, std::uint32_t imageHeight, const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride) noexcept -> Status
+auto Undistort(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight) noexcept -> Status
 {
     if (src == nullptr || dst == nullptr)
     {
@@ -744,7 +744,7 @@ auto StereoRectify(const PinholeIntrinsics &intrinsics1, const DistortionCoeffic
     return Status{};
 }
 
-auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status
+auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride, std::uint32_t imageWidth, std::uint32_t imageHeight) noexcept -> Status
 {
     if (mapX == nullptr || mapY == nullptr)
     {
