@@ -335,6 +335,28 @@ RETINIFY_API auto UndistortPoint(const PinholeIntrinsics &intrinsics, const Dist
 RETINIFY_API auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Point2d &point) noexcept -> Point2d;
 
 /// @brief
+/// Undistort an image using the given camera intrinsics and distortion coefficients
+/// @param intrinsics
+/// Camera intrinsic parameters
+/// @param distortion
+/// Distortion coefficients
+/// @param src
+/// Input image data pointer
+/// @param srcStride
+/// Stride of a row in the source image (in bytes)
+/// @param dst
+/// Output image data pointer
+/// @param dstStride
+/// Stride of a row in the destination image (in bytes)
+/// @param imageWidth
+/// Image width (in pixels)
+/// @param imageHeight
+/// Image height (in pixels)
+/// @return
+/// A Status object that indicates whether the operation was successful
+RETINIFY_API auto Undistort(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::uint32_t imageWidth, std::uint32_t imageHeight) noexcept -> Status;
+
+/// @brief
 /// Perform stereo rectification for a pair of cameras
 /// @param intrinsics1
 /// First camera intrinsics
@@ -382,10 +404,6 @@ RETINIFY_API auto StereoRectify(const PinholeIntrinsics &intrinsics1, const Dist
 /// Rectification rotation
 /// @param projectionMatrix
 /// Projection matrix
-/// @param imageWidth
-/// Image width (in pixels)
-/// @param imageHeight
-/// Image height (in pixels)
 /// @param mapX
 /// Output map for x-coordinates
 /// @param mapXStride
@@ -394,9 +412,13 @@ RETINIFY_API auto StereoRectify(const PinholeIntrinsics &intrinsics1, const Dist
 /// Output map for y-coordinates
 /// @param mapYStride
 /// Stride of a row in mapY (in bytes)
+/// @param imageWidth
+/// Image width (in pixels)
+/// @param imageHeight
+/// Image height (in pixels)
 /// @return
 /// A Status object that indicates whether the operation was successful
-RETINIFY_API auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, std::uint32_t imageWidth, std::uint32_t imageHeight, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride) noexcept -> Status;
+RETINIFY_API auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Mat3x3d &rotation, const Mat3x4d &projectionMatrix, float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride, std::uint32_t imageWidth, std::uint32_t imageHeight) noexcept -> Status;
 
 /// @brief
 /// Initialize identity maps for undistortion/rectification

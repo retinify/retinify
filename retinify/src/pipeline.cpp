@@ -193,10 +193,10 @@ class Pipeline::Impl
 
             status = retinify::InitUndistortRectifyMap(calibrationParameters.leftIntrinsics, calibrationParameters.leftDistortion, //
                                                        R1, P1,                                                                     //
-                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
-                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight),              //
                                                        static_cast<float *>(leftMapXHost.Data()), leftMapXHost.Stride(),           //
-                                                       static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride());          //
+                                                       static_cast<float *>(leftMapYHost.Data()), leftMapYHost.Stride(),           //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),               //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight));             //
             if (!status.IsOK())
             {
                 return status;
@@ -204,10 +204,10 @@ class Pipeline::Impl
 
             status = retinify::InitUndistortRectifyMap(calibrationParameters.rightIntrinsics, calibrationParameters.rightDistortion, //
                                                        R2, P2,                                                                       //
-                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
-                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight),                //
                                                        static_cast<float *>(rightMapXHost.Data()), rightMapXHost.Stride(),           //
-                                                       static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride());          //
+                                                       static_cast<float *>(rightMapYHost.Data()), rightMapYHost.Stride(),           //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageWidth),                 //
+                                                       static_cast<std::uint32_t>(calibrationParameters.imageHeight));               //
             if (!status.IsOK())
             {
                 return status;
