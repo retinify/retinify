@@ -65,7 +65,7 @@ var namespaceretinify =
     [ "HomeDirectoryPath", "namespaceretinify.html#aa185954ed2ed2f3cdb995939f189e8b5", null ],
     [ "Identity", "namespaceretinify.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "namespaceretinify.html#ab488fcd1a202d5287035c12f8ff23c0a", null ],
-    [ "InitUndistortRectifyMap", "namespaceretinify.html#aec41812b138a4bd7e137c2e4b1db9cb5", null ],
+    [ "InitUndistortRectifyMap", "namespaceretinify.html#a8591d2426e631efe476562922875436a", null ],
     [ "Length", "namespaceretinify.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "LoadCalibrationParameters", "namespaceretinify.html#af213c472cb80766b95b316eb1b979810", null ],
     [ "Log", "namespaceretinify.html#acf207d78d6ab5be35a1ccf98768d3ce3", null ],
@@ -88,6 +88,7 @@ var namespaceretinify =
     [ "StateDirectoryPath", "namespaceretinify.html#a605504dd9aadddb4d0198a8cfc2ac6bf", null ],
     [ "StereoRectify", "namespaceretinify.html#abe3f0d28768189c81fe77452a3e7ec43", null ],
     [ "Transpose", "namespaceretinify.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
+    [ "Undistort", "namespaceretinify.html#a336e90c3d5d810bf54f38e205f4cd0cd", null ],
     [ "UndistortPoint", "namespaceretinify.html#a38a9ae2f28105897128d88946ff59c9c", null ],
     [ "Vee", "namespaceretinify.html#acefc7386b8c9afb172bdeb602913921b", null ],
     [ "Version", "namespaceretinify.html#a9111632655e1df2bfedea024ce2457cc", null ]

@@ -21,7 +21,7 @@ var geometry_8hpp =
     [ "Hat", "geometry_8hpp.html#ad6fd48d7818cdbfebfd07e4a48555f90", null ],
     [ "Identity", "geometry_8hpp.html#a669c1552f239769d07d686d871db5ba8", null ],
     [ "InitIdentityMap", "geometry_8hpp.html#ab488fcd1a202d5287035c12f8ff23c0a", null ],
-    [ "InitUndistortRectifyMap", "geometry_8hpp.html#aec41812b138a4bd7e137c2e4b1db9cb5", null ],
+    [ "InitUndistortRectifyMap", "geometry_8hpp.html#a8591d2426e631efe476562922875436a", null ],
     [ "Length", "geometry_8hpp.html#a82f844ae09b5d007f9d65bb4ac756d94", null ],
     [ "Log", "geometry_8hpp.html#acf207d78d6ab5be35a1ccf98768d3ce3", null ],
     [ "Multiply", "geometry_8hpp.html#a118ccc5f4dd0948582f4a69cbc5deac6", null ],
@@ -31,6 +31,7 @@ var geometry_8hpp =
     [ "Normalize", "geometry_8hpp.html#a9b23a0163170bedf04b2dad526abcc9b", null ],
     [ "StereoRectify", "geometry_8hpp.html#abe3f0d28768189c81fe77452a3e7ec43", null ],
     [ "Transpose", "geometry_8hpp.html#a0cf4159d2fa6f7190b95c0259806f0a8", null ],
+    [ "Undistort", "geometry_8hpp.html#a336e90c3d5d810bf54f38e205f4cd0cd", null ],
     [ "UndistortPoint", "geometry_8hpp.html#a38a9ae2f28105897128d88946ff59c9c", null ],
     [ "Vee", "geometry_8hpp.html#acefc7386b8c9afb172bdeb602913921b", null ]
 ];
