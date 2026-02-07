@@ -3,7 +3,7 @@
 
 ## Calibration Parameters
 
-retinify::CalibrationParameters supports the pinhole camera model.
+retinify::CalibrationParameters contains all parameters required for calibrated projection and geometric reconstruction.
 
 - Pinhole Intrinsics: retinify::PinholeIntrinsics
 
