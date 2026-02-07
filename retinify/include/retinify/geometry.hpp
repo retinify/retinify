@@ -335,6 +335,28 @@ RETINIFY_API auto UndistortPoint(const PinholeIntrinsics &intrinsics, const Dist
 RETINIFY_API auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, const Point2d &point) noexcept -> Point2d;
 
 /// @brief
+/// Undistort an image using the given camera intrinsics and distortion coefficients
+/// @param intrinsics
+/// Camera intrinsic parameters
+/// @param distortion
+/// Distortion coefficients
+/// @param imageWidth
+/// Image width (in pixels)
+/// @param imageHeight
+/// Image height (in pixels)
+/// @param src
+/// Input image data pointer
+/// @param srcStride
+/// Stride of a row in the source image (in bytes)
+/// @param dst
+/// Output image data pointer
+/// @param dstStride
+/// Stride of a row in the destination image (in bytes)
+/// @return
+/// A Status object that indicates whether the operation was successful
+RETINIFY_API auto Undistort(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, std::uint32_t imageWidth, std::uint32_t imageHeight, const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride) noexcept -> Status;
+
+/// @brief
 /// Perform stereo rectification for a pair of cameras
 /// @param intrinsics1
 /// First camera intrinsics

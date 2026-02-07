@@ -579,6 +579,114 @@ auto DistortPoint(const PinholeIntrinsics &intrinsics, const DistortionCoefficie
     return {distortedX * intrinsics.fx + intrinsics.cx, distortedY * intrinsics.fy + intrinsics.cy};
 }
 
+auto Undistort(const PinholeIntrinsics &intrinsics, const DistortionCoefficients &distortion, std::uint32_t imageWidth, std::uint32_t imageHeight, const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride) noexcept -> Status
+{
+    if (src == nullptr || dst == nullptr)
+    {
+        LogError("source and destination pointers must not be null.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if ((imageWidth == 0U) || (imageHeight == 0U))
+    {
+        LogError("imageWidth and imageHeight must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    const std::size_t requiredStride = static_cast<std::size_t>(imageWidth) * sizeof(std::uint8_t);
+    if (srcStride < requiredStride)
+    {
+        LogError("src stride is too small for the given image width.");
+        LogStrideError(srcStride, requiredStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    if (dstStride < requiredStride)
+    {
+        LogError("dst stride is too small for the given image width.");
+        LogStrideError(dstStride, requiredStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    constexpr int kInterpolationBits = 5;
+    constexpr int kInterpolationTabSize = 1 << kInterpolationBits;
+    constexpr int kInterpolationTabMask = kInterpolationTabSize - 1;
+    constexpr int kInterpolationTabSize2 = kInterpolationTabSize * kInterpolationTabSize;
+
+    const double inverseFocalX = Reciprocal(intrinsics.fx, 1.0);
+    const double inverseFocalY = Reciprocal(intrinsics.fy, 1.0);
+    const double skew = intrinsics.skew;
+    const int width = static_cast<int>(imageWidth);
+    const int height = static_cast<int>(imageHeight);
+    const auto *srcBytes = reinterpret_cast<const unsigned char *>(src);
+    auto *dstBytes = reinterpret_cast<unsigned char *>(dst);
+
+    const auto samplePixel = [&](int x, int y) noexcept -> int {
+        if (x < 0 || y < 0 || x >= width || y >= height)
+        {
+            return 0;
+        }
+        const std::size_t offset = static_cast<std::size_t>(y) * srcStride + static_cast<std::size_t>(x);
+        return static_cast<int>(srcBytes[offset]);
+    };
+
+    for (std::uint32_t v = 0; v < imageHeight; ++v)
+    {
+        const std::size_t offsetDst = static_cast<std::size_t>(v) * dstStride;
+        auto *dstRow = reinterpret_cast<std::uint8_t *>(dstBytes + offsetDst);
+        const double undistortedY = (static_cast<double>(v) - intrinsics.cy) * inverseFocalY;
+        for (std::uint32_t u = 0; u < imageWidth; ++u)
+        {
+            const double undistortedX = (static_cast<double>(u) - intrinsics.cx - skew * undistortedY) * inverseFocalX;
+
+            const double radiusSquared = Square(undistortedX) + Square(undistortedY);
+            const double radialNumerator = ComputeRadialDistortionScale(radiusSquared, distortion.k1, distortion.k2, distortion.k3);
+            const double radialDenominator = ComputeRadialDistortionScale(radiusSquared, distortion.k4, distortion.k5, distortion.k6);
+            const double inverseRadialDenominator = Reciprocal(radialDenominator, 0.0);
+            const double radialScale = (inverseRadialDenominator != 0.0) ? radialNumerator * inverseRadialDenominator : 1.0;
+
+            const double twiceUndistortedXY = 2.0 * undistortedX * undistortedY;
+            const double undistortedXSquared = Square(undistortedX);
+            const double undistortedYSquared = Square(undistortedY);
+            const double distortedX = undistortedX * radialScale + distortion.p1 * twiceUndistortedXY + distortion.p2 * (radiusSquared + 2.0 * undistortedXSquared);
+            const double distortedY = undistortedY * radialScale + distortion.p1 * (radiusSquared + 2.0 * undistortedYSquared) + distortion.p2 * twiceUndistortedXY;
+
+            const double pixelX = intrinsics.fx * distortedX + intrinsics.skew * distortedY + intrinsics.cx;
+            const double pixelY = intrinsics.fy * distortedY + intrinsics.cy;
+
+            if (!std::isfinite(pixelX) || !std::isfinite(pixelY))
+            {
+                dstRow[u] = 0U;
+                continue;
+            }
+
+            const int pixelXFixed = static_cast<int>(std::lrint(pixelX * kInterpolationTabSize));
+            const int pixelYFixed = static_cast<int>(std::lrint(pixelY * kInterpolationTabSize));
+            const int x0 = pixelXFixed >> kInterpolationBits;
+            const int y0 = pixelYFixed >> kInterpolationBits;
+            const int fracX = pixelXFixed & kInterpolationTabMask;
+            const int fracY = pixelYFixed & kInterpolationTabMask;
+
+            const int v00 = samplePixel(x0, y0);
+            const int v10 = samplePixel(x0 + 1, y0);
+            const int v01 = samplePixel(x0, y0 + 1);
+            const int v11 = samplePixel(x0 + 1, y0 + 1);
+
+            const int w00 = (kInterpolationTabSize - fracX) * (kInterpolationTabSize - fracY);
+            const int w10 = fracX * (kInterpolationTabSize - fracY);
+            const int w01 = (kInterpolationTabSize - fracX) * fracY;
+            const int w11 = fracX * fracY;
+
+            const int weightedSum = v00 * w00 + v10 * w10 + v01 * w01 + v11 * w11;
+            const int interpolated = static_cast<int>(std::lrint(static_cast<double>(weightedSum) / kInterpolationTabSize2));
+            const int clamped = std::clamp(interpolated, 0, 255);
+            dstRow[u] = static_cast<std::uint8_t>(clamped);
+        }
+    }
+
+    return Status{};
+}
+
 auto StereoRectify(const PinholeIntrinsics &intrinsics1, const DistortionCoefficients &distortion1, const PinholeIntrinsics &intrinsics2, const DistortionCoefficients &distortion2, const Mat3x3d &rotation, const Vec3d &translation, std::uint32_t imageWidth, std::uint32_t imageHeight, Mat3x3d &rectifiedRotation1, Mat3x3d &rectifiedRotation2, Mat3x4d &projectionMatrix1, Mat3x4d &projectionMatrix2, Mat4x4d &reprojectionMatrix, double alpha) noexcept -> Status
 {
     if ((imageWidth == 0U) || (imageHeight == 0U))
@@ -650,16 +758,18 @@ auto InitUndistortRectifyMap(const PinholeIntrinsics &intrinsics, const Distorti
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if ((mapXStride == 0U) || (mapYStride == 0U))
+    const std::size_t requiredStride = static_cast<std::size_t>(imageWidth) * sizeof(float);
+    if (mapXStride < requiredStride)
     {
-        LogError("map strides must be greater than zero.");
+        LogError("mapX stride is too small for the given image width.");
+        LogStrideError(mapXStride, requiredStride);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    const std::size_t minRowBytes = static_cast<std::size_t>(imageWidth) * sizeof(float);
-    if (mapXStride < minRowBytes || mapYStride < minRowBytes)
+    if (mapYStride < requiredStride)
     {
-        LogError("map strides are smaller than the minimum row size.");
+        LogError("mapY stride is too small for the given image width.");
+        LogStrideError(mapYStride, requiredStride);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
@@ -728,16 +838,18 @@ auto InitIdentityMap(float *mapX, std::size_t mapXStride, float *mapY, std::size
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if ((mapXStride == 0U) || (mapYStride == 0U))
+    const std::size_t requiredStride = static_cast<std::size_t>(imageWidth) * sizeof(float);
+    if (mapXStride < requiredStride)
     {
-        LogError("map strides must be greater than zero.");
+        LogError("mapX stride is too small for the given image width.");
+        LogStrideError(mapXStride, requiredStride);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    const std::size_t minRowBytes = static_cast<std::size_t>(imageWidth) * sizeof(float);
-    if (mapXStride < minRowBytes || mapYStride < minRowBytes)
+    if (mapYStride < requiredStride)
     {
-        LogError("map strides are smaller than the minimum row size.");
+        LogError("mapY stride is too small for the given image width.");
+        LogStrideError(mapYStride, requiredStride);
         return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
