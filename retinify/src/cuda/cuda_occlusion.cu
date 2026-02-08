@@ -11,7 +11,6 @@
 #include <cooperative_groups/scan.h>
 #include <cstdint>
 #include <cuda_runtime.h>
-#include <limits>
 #include <thrust/functional.h>
 
 namespace retinify
@@ -22,23 +21,23 @@ __global__ void DisparityOcclusionFilterKernel(const float *__restrict__ leftDis
 {
     extern __shared__ float sharedCarry[];
 
-    const std::uint32_t localX = static_cast<std::uint32_t>(threadIdx.x);
-    const std::uint32_t localY = static_cast<std::uint32_t>(threadIdx.y);
-    const std::uint32_t y = static_cast<std::uint32_t>(blockIdx.y) * static_cast<std::uint32_t>(blockDim.y) + localY;
-
-    const bool rowInBounds = y < disparityHeight;
-    const int blockWidth = static_cast<int>(blockDim.x);
-
+    const std::uint32_t threadX = static_cast<std::uint32_t>(threadIdx.x);
+    const std::uint32_t threadY = static_cast<std::uint32_t>(threadIdx.y);
     cooperative_groups::thread_block blockGroup = cooperative_groups::this_thread_block();
     cooperative_groups::thread_block_tile<kBlockW> rowGroup = cooperative_groups::tiled_partition<kBlockW>(blockGroup);
 
-    if (localX == 0)
+    const std::uint32_t y = static_cast<std::uint32_t>(blockIdx.y) * static_cast<std::uint32_t>(blockDim.y) + threadY;
+    const bool rowInBounds = y < disparityHeight;
+    const int tileWidth = static_cast<int>(blockDim.x);
+    const int width = static_cast<int>(disparityWidth);
+    const float widthMax = static_cast<float>(width - 1);
+    const int lane = rowGroup.thread_rank();
+
+    if (threadX == 0)
     {
-        sharedCarry[localY] = FLT_MAX;
+        sharedCarry[threadY] = FLT_MAX;
     }
     blockGroup.sync();
-
-    const int width = static_cast<int>(disparityWidth);
 
     const std::size_t leftRowOffset = rowInBounds ? (static_cast<std::size_t>(y) * leftDisparityStride) / sizeof(float) : 0U;
     const std::size_t outputRowOffset = rowInBounds ? (static_cast<std::size_t>(y) * outputDisparityStride) / sizeof(float) : 0U;
@@ -46,13 +45,12 @@ __global__ void DisparityOcclusionFilterKernel(const float *__restrict__ leftDis
     const float *leftRow = rowInBounds ? (leftDisparity + leftRowOffset) : nullptr;
     float *outputRow = rowInBounds ? (outputDisparity + outputRowOffset) : nullptr;
 
-    thrust::minimum<float> min_op;
+    const thrust::minimum<float> minOp;
 
-    for (int remaining = width; remaining > 0; remaining -= blockWidth)
+    for (int remaining = width; remaining > 0; remaining -= tileWidth)
     {
-        const int tileCount = remaining < blockWidth ? remaining : blockWidth;
-        const bool inTile = rowInBounds && (localX < static_cast<std::uint32_t>(tileCount));
-        const int x = remaining - 1 - static_cast<int>(localX);
+        const int x = remaining - 1 - static_cast<int>(threadX);
+        const bool inTile = rowInBounds && (x >= 0);
 
         float disparity = 0.0f;
         float projectedRight = FLT_MAX;
@@ -63,27 +61,20 @@ __global__ void DisparityOcclusionFilterKernel(const float *__restrict__ leftDis
             disparity = leftRow[x];
             if (disparity > 0.0f && isfinite(disparity))
             {
-                projectedRight = static_cast<float>(x) - disparity;
-                if (isfinite(projectedRight) && (projectedRight >= 0.0f) && (projectedRight <= static_cast<float>(width - 1)))
+                const float right = static_cast<float>(x) - disparity;
+                if (isfinite(right) && (right >= 0.0f) && (right <= widthMax))
                 {
+                    projectedRight = right;
                     validDisparity = true;
                 }
-                else
-                {
-                    projectedRight = FLT_MAX;
-                }
-            }
-            else
-            {
-                projectedRight = FLT_MAX;
             }
         }
 
-        const float carry = sharedCarry[localY];
-        const float tileValue = inTile ? projectedRight : FLT_MAX;
+        const float carry = sharedCarry[threadY];
+        const float tileValue = projectedRight;
 
-        float prefixMin = cooperative_groups::exclusive_scan(rowGroup, tileValue, min_op);
-        if (rowGroup.thread_rank() == 0)
+        float prefixMin = cooperative_groups::exclusive_scan(rowGroup, tileValue, minOp);
+        if (lane == 0)
         {
             prefixMin = FLT_MAX;
         }
@@ -94,10 +85,10 @@ __global__ void DisparityOcclusionFilterKernel(const float *__restrict__ leftDis
             outputRow[x] = (validDisparity && (projectedRight < minRight)) ? disparity : 0.0f;
         }
 
-        const float tileMin = cooperative_groups::reduce(rowGroup, tileValue, min_op);
-        if (rowGroup.thread_rank() == 0)
+        const float tileMin = cooperative_groups::reduce(rowGroup, tileValue, minOp);
+        if (lane == 0)
         {
-            sharedCarry[localY] = fminf(carry, tileMin);
+            sharedCarry[threadY] = fminf(carry, tileMin);
         }
         blockGroup.sync();
     }
@@ -117,19 +108,10 @@ cudaError_t cudaDisparityOcclusionFilter(const float *leftDisparity, std::size_t
         return cudaErrorInvalidValue;
     }
 
-    if ((leftDisparityStride % sizeof(float)) != 0 || (outputDisparityStride % sizeof(float)) != 0)
-    {
-        return cudaErrorInvalidValue;
-    }
-
     const std::size_t requiredLeftDisparityStride = static_cast<std::size_t>(disparityWidth) * sizeof(float);
-    if (leftDisparityStride < requiredLeftDisparityStride)
-    {
-        return cudaErrorInvalidValue;
-    }
-
     const std::size_t requiredOutputDisparityStride = static_cast<std::size_t>(disparityWidth) * sizeof(float);
-    if (outputDisparityStride < requiredOutputDisparityStride)
+
+    if ((leftDisparityStride % sizeof(float)) != 0 || (outputDisparityStride % sizeof(float)) != 0 || leftDisparityStride < requiredLeftDisparityStride || outputDisparityStride < requiredOutputDisparityStride)
     {
         return cudaErrorInvalidValue;
     }
