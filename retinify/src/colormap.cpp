@@ -101,9 +101,17 @@ auto Colorize(const float *src, std::size_t srcStride, std::uint8_t *dst, std::s
     const auto requiredSrcStride = static_cast<std::size_t>(imageWidth) * sizeof(float);
     const auto requiredDstStride = static_cast<std::size_t>(imageWidth) * 3 * sizeof(std::uint8_t);
 
-    if ((srcStride < requiredSrcStride) || (dstStride < requiredDstStride))
+    if ((srcStride < requiredSrcStride))
     {
-        LogError("srcStride or dstStride is too small.");
+        LogError("srcStride is less than required stride.");
+        LogStrideError(srcStride, requiredSrcStride);
+        return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
+    }
+
+    if ((dstStride < requiredDstStride))
+    {
+        LogError("dstStride is less than required stride.");
+        LogStrideError(dstStride, requiredDstStride);
         return Status{StatusCategory::USER, StatusCode::INVALID_ARGUMENT};
     }
 
