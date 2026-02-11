@@ -34,6 +34,7 @@ install(EXPORT retinifyTargets
     FILE retinifyTargets.cmake
     NAMESPACE retinify::
     DESTINATION lib/cmake/retinify
+    COMPONENT dev
 )
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
@@ -43,6 +44,7 @@ configure_package_config_file(
 )
 install(FILES "${CMAKE_BINARY_DIR}/retinifyConfig.cmake"
     DESTINATION "lib/cmake/retinify"
+    COMPONENT dev
 )
 
 # ALL IN ONE HEADER
@@ -55,6 +57,14 @@ configure_file(
 install(
     FILES "${CMAKE_BINARY_DIR}/include/retinify/retinify.hpp"
     DESTINATION include/retinify
+    COMPONENT dev
+)
+install(
+    FILES
+        "${CMAKE_BINARY_DIR}/include/retinify/retinifyVersion.hpp"
+        "${CMAKE_BINARY_DIR}/include/retinify/retinifyModels.hpp"
+    DESTINATION include/retinify
+    COMPONENT dev
 )
 
 # DOWNLOAD MODELS
@@ -97,15 +107,20 @@ if(BUILD_SAMPLES)
 endif(BUILD_SAMPLES)
 
 # SHARE
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE DESTINATION share/retinify)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/VERSION DESTINATION share/retinify)
-install(FILES ${DOWNLOADED_MODEL_ASSETS} DESTINATION share/retinify/weights/${PROJECT_VERSION})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE DESTINATION share/retinify COMPONENT runtime)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/NOTICE.md DESTINATION share/retinify COMPONENT runtime)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/VERSION DESTINATION share/retinify COMPONENT runtime)
+install(FILES ${DOWNLOADED_MODEL_ASSETS} DESTINATION share/retinify/weights/${PROJECT_VERSION} COMPONENT runtime)
 
 # CPACK
 set(CPACK_GENERATOR "DEB")
-set(CPACK_PACKAGE_NAME "libretinify-dev")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_DEB_COMPONENT_INSTALL ON)
+set(CPACK_COMPONENTS_ALL runtime dev)
+set(CPACK_COMPONENT_RUNTIME_DESCRIPTION "Runtime library for retinify")
+set(CPACK_COMPONENT_DEV_DESCRIPTION "Development files for retinify")
+set(CPACK_DEBIAN_ENABLE_COMPONENT_DEPENDS ON)
+set(CPACK_COMPONENT_DEV_DEPENDS runtime)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
   set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE amd64)
@@ -152,13 +167,20 @@ if(BUILD_WITH_TENSORRT)
   set(_retinify_pkg_tag "cuda${_retinify_cuda_major}-tensorrt${_retinify_tensorrt_major}")
 endif()
 
-set(CPACK_DEBIAN_FILE_NAME
-  "${CPACK_PACKAGE_NAME}-${_retinify_pkg_tag}_${CPACK_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}.deb"
-)
+get_target_property(RETINIFY_SOVERSION retinify SOVERSION)
+if(NOT RETINIFY_SOVERSION)
+  set(RETINIFY_SOVERSION "${PROJECT_VERSION_MAJOR}")
+endif()
 
+set(CPACK_DEBIAN_RUNTIME_PACKAGE_NAME "libretinify${RETINIFY_SOVERSION}")
+set(CPACK_DEBIAN_DEV_PACKAGE_NAME "libretinify-dev")
+set(CPACK_DEBIAN_RUNTIME_FILE_NAME "${CPACK_DEBIAN_RUNTIME_PACKAGE_NAME}-${_retinify_pkg_tag}_${CPACK_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}.deb")
+set(CPACK_DEBIAN_DEV_FILE_NAME "${CPACK_DEBIAN_DEV_PACKAGE_NAME}-${_retinify_pkg_tag}_${CPACK_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}.deb")
+
+set(CPACK_DEBIAN_RUNTIME_PACKAGE_SHLIBDEPS ON)
+set(CPACK_DEBIAN_DEV_PACKAGE_SHLIBDEPS ON)
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Sensui Yagi <contact@retinify.ai>")
 set(CPACK_PACKAGE_CONTACT "contact@retinify.ai")
-set(CPACK_PACKAGE_DESCRIPTION "Real-Time AI Stereo Vision Library")
 set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://retinify.ai")

@@ -8,10 +8,14 @@ BUILD_WITH_TENSORRT=ON
 BUILD_SAMPLES=OFF
 BUILD_TESTS=OFF
 DO_INSTALL=0
+DEV_MODE=0
 
 # ARGUMENTS
 for arg in "$@"; do
     case "$arg" in
+        --dev)
+            DEV_MODE=1
+            ;;
         --install)
             DO_INSTALL=1
             ;;    
@@ -21,13 +25,15 @@ for arg in "$@"; do
         --cpu)
             BUILD_WITH_TENSORRT=OFF
             ;;
-        --dev)
-            BUILD_SAMPLES=ON
+        --tests)
             BUILD_TESTS=ON
+            ;;
+        --samples)
+            BUILD_SAMPLES=ON
             ;;
         *)
             echo "Unknown option: $arg"
-            echo "Usage: $0 [--install] [--tensorrt|--cpu] [--dev]"
+            echo "Usage: $0 [--dev] [--install] [--tensorrt|--cpu] [--tests] [--samples]"
             exit 1
             ;;
     esac
@@ -57,17 +63,30 @@ cpack -G DEB
 if [[ "${DO_INSTALL}" -eq 1 ]]; then
     echo -e "\033[1;32m[RETINIFY] INSTALLING DEBIAN PACKAGE\033[0m"
 
-    DEB_PACKAGE=$(ls -t libretinify-*.deb 2>/dev/null | head -n 1)
+    RUNTIME_DEB=$(ls -t libretinify[0-9]*-*.deb 2>/dev/null | head -n 1)
+    if [[ -z "${RUNTIME_DEB}" ]]; then
+        RUNTIME_DEB=$(ls -t libretinify-*.deb 2>/dev/null | grep -v "libretinify-dev" | head -n 1)
+    fi
+    DEV_DEB=$(ls -t libretinify-dev-*.deb 2>/dev/null | head -n 1)
 
-    if [[ -z "${DEB_PACKAGE}" ]]; then
+    if [[ -z "${RUNTIME_DEB}" ]]; then
         echo -e "\033[1;31m[RETINIFY] ERROR: RETINIFY DEBIAN PACKAGE NOT FOUND.\033[0m"
         exit 1
     fi
 
+    INSTALL_PKGS=("${RUNTIME_DEB}")
+    if [[ "${DEV_MODE}" -eq 1 ]]; then
+        if [[ -z "${DEV_DEB}" ]]; then
+            echo -e "\033[1;31m[RETINIFY] ERROR: RETINIFY DEV PACKAGE NOT FOUND.\033[0m"
+            exit 1
+        fi
+        INSTALL_PKGS+=("${DEV_DEB}")
+    fi
+
     if [[ $EUID -eq 0 ]]; then
-        dpkg -i "${DEB_PACKAGE}"
+        dpkg -i "${INSTALL_PKGS[@]}"
     else
-        sudo dpkg -i "${DEB_PACKAGE}"
+        sudo dpkg -i "${INSTALL_PKGS[@]}"
     fi
 fi
 
