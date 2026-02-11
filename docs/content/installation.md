@@ -25,7 +25,7 @@ cd retinify
 ## Install retinify
 Build retinify and install its Debian package.
 ```bash
-./build.sh --install --tensorrt
+./build.sh --install --dev
 ```
 
 ## Verify Installation
