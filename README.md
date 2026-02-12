@@ -215,11 +215,11 @@ pipeline.RetrievePointCloud(pointCloud.ptr<float>(), pointCloud.step[0]);
   ROS2 integration reference
 
 ## Supported Backends
-| 🎯 Target             | ⚙️ Env           | 📦 Status                                                               |
-| -------------------- | --------------- | ---------------------------------------------------------------------- |
-| ![target-tensorrt10] | ![env-cuda12]   | [![build-tensorrt10-cuda12-badge]][build-tensorrt10-cuda12-status]     |
-| ![target-tensorrt10] | ![env-cuda13]   | [![build-tensorrt10-cuda13-badge]][build-tensorrt10-cuda13-status]     |
-| ![target-tensorrt10] | ![env-jetpack6] | [![build-tensorrt10-jetpack6-badge]][build-tensorrt10-jetpack6-status] |
+| 🎯 Target             | ⚙️ Env           | 📦 Status                                                                       |
+| -------------------- | --------------- | ------------------------------------------------------------------------------ |
+| ![target-tensorrt10] | ![env-cuda12]   | [![build-cuda12-tensorrt10-amd64-badge]][build-cuda12-tensorrt10-amd64-status] |
+| ![target-tensorrt10] | ![env-cuda13]   | [![build-cuda13-tensorrt10-amd64-badge]][build-cuda13-tensorrt10-amd64-status] |
+| ![target-tensorrt10] | ![env-jetpack6] | [![build-cuda12-tensorrt10-arm64-badge]][build-cuda12-tensorrt10-arm64-status] |
 
 [target-tensorrt10]: https://img.shields.io/badge/-TensorRT%2010-76B900?style=flat-square&logo=nvidia&logoColor=white
 [target-hailort]:    https://img.shields.io/badge/-HailoRT-lightgray?style=flat-square
@@ -230,13 +230,13 @@ pipeline.RetrievePointCloud(pointCloud.ptr<float>(), pointCloud.step[0]);
 [env-jetpack6]: https://img.shields.io/badge/-JETPACK%206-76B900?style=flat-square&logo=nvidia&logoColor=white
 [env-na]:       https://img.shields.io/badge/-TBD-lightgray?style=flat-square
 
-[build-tensorrt10-cuda12-badge]:  https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-cuda12.yml?style=flat-square&label=build
-[build-tensorrt10-cuda13-badge]:  https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-cuda13.yml?style=flat-square&label=build
-[build-tensorrt10-jetpack6-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-tensorrt10-jetpack6.yml?style=flat-square&label=build
+[build-cuda12-tensorrt10-amd64-badge]:  https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-cuda12-tensorrt10-amd64.yml?style=flat-square&label=build
+[build-cuda13-tensorrt10-amd64-badge]:  https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-cuda13-tensorrt10-amd64.yml?style=flat-square&label=build
+[build-cuda12-tensorrt10-arm64-badge]: https://img.shields.io/github/actions/workflow/status/retinify/retinify/build-cuda12-tensorrt10-arm64.yml?style=flat-square&label=build
 
-[build-tensorrt10-cuda12-status]:   https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-cuda12.yml?query=branch%3Amain
-[build-tensorrt10-cuda13-status]:   https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-cuda13.yml?query=branch%3Amain
-[build-tensorrt10-jetpack6-status]: https://github.com/retinify/retinify/actions/workflows/build-tensorrt10-jetpack6.yml?query=branch%3Amain
+[build-cuda12-tensorrt10-amd64-status]:   https://github.com/retinify/retinify/actions/workflows/build-cuda12-tensorrt10-amd64.yml?query=branch%3Amain
+[build-cuda13-tensorrt10-amd64-status]:   https://github.com/retinify/retinify/actions/workflows/build-cuda13-tensorrt10-amd64.yml?query=branch%3Amain
+[build-cuda12-tensorrt10-arm64-status]: https://github.com/retinify/retinify/actions/workflows/build-cuda12-tensorrt10-arm64.yml?query=branch%3Amain
 
 [status-planned]: https://img.shields.io/badge/-Planned-lightgray?style=flat-square
 
