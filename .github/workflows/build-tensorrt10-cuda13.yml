@@ -39,7 +39,7 @@ jobs:
 
             cat /etc/os-release | grep VERSION
 
-            apt update && apt install -y git cmake build-essential
+            apt update && apt install -y git cmake build-essential file dpkg-dev binutils
 
             git config --global --add safe.directory /workspace
             git config --global --add safe.directory /workspace/3rdparty/googletest

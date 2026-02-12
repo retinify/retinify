@@ -49,7 +49,7 @@ jobs:
             cat /etc/os-release | grep VERSION
 
             export DEBIAN_FRONTEND=noninteractive
-            apt update && apt install -y git cmake build-essential
+            apt update && apt install -y git cmake build-essential file dpkg-dev binutils
 
             export PATH=/usr/bin:$PATH
             hash -r
