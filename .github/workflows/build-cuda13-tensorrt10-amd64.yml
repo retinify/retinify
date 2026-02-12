@@ -1,4 +1,4 @@
-name: build-tensorrt10-cuda13
+name: build-cuda13-tensorrt10-amd64
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-tensorrt10-cuda13:
+  build-cuda13-tensorrt10-amd64:
     if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
