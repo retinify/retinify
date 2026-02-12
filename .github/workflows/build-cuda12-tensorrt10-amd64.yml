@@ -1,4 +1,4 @@
-name: build-tensorrt10-jetpack6
+name: build-cuda12-tensorrt10-amd64
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-tensorrt10-jetpack6:
+  build-cuda12-tensorrt10-amd64:
     if: ${{ github.event_name != 'pull_request' || github.actor == 'retinify' }}
     runs-on: ubuntu-latest
 
@@ -18,16 +18,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-      with:
-        platforms: arm64
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+        submodules: true
 
     - name: Login to NVIDIA NGC
       env:
@@ -35,27 +26,22 @@ jobs:
       run: |
         echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
 
-    - name: Build RETINIFY with Jetson TensorRT
+    - name: Build RETINIFY with TensorRT
       run: |
-        docker run --rm --platform linux/arm64 \
+        docker run --rm \
           -v ${{ github.workspace }}:/workspace \
           -w /workspace \
-          nvcr.io/nvidia/l4t-tensorrt:r10.3.0-devel \
+          nvcr.io/nvidia/tensorrt:24.12-py3 \
           bash -c "
             set -e
-            
+
             nvcc --version
-            
+
             cat /etc/os-release | grep VERSION
 
-            export DEBIAN_FRONTEND=noninteractive
-            apt update && apt install -y git cmake build-essential
+            apt update && apt install -y git cmake build-essential file dpkg-dev binutils
 
-            export PATH=/usr/bin:$PATH
-            hash -r
-            cmake --version
-
-            git config --global --add safe.directory /workspace      
+            git config --global --add safe.directory /workspace
             git config --global --add safe.directory /workspace/3rdparty/googletest
             git config --global --add safe.directory /workspace/3rdparty/json
             git submodule update --init --recursive
