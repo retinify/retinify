@@ -1,522 +1,218 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Sensui Yagi. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "imgproc.hpp"
-
+#include "retinify/imgproc.hpp"
 #include "retinify/logging.hpp"
 
-#ifdef BUILD_WITH_TENSORRT
-#include "cuda/cuda_depth.cuh"
-#include "cuda/cuda_occlusion.cuh"
-#include "cuda/cuda_reproject.cuh"
-#include <npp.h>
-#else
-#endif
+#include <algorithm>
+#include <cmath>
 
 namespace retinify
 {
-namespace detail
+auto Resize(const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::size_t srcWidth, std::size_t srcHeight, std::size_t dstWidth, std::size_t dstHeight, std::size_t channels) noexcept -> Status
 {
-auto ResizeImage8U(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || dst.Empty())
+    if (src == nullptr || dst == nullptr)
     {
-        LogError("Source or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("source and destination pointers must not be null.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if (src.Channels() != dst.Channels())
+    if (srcWidth == 0U || srcHeight == 0U || dstWidth == 0U || dstHeight == 0U)
     {
-        LogError("Source and destination must have the same number of channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("source and destination dimensions must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if (src.Channels() != 1 && src.Channels() != 3)
+    if (channels != 1U && channels != 3U)
     {
-        LogError("Source and destination must have 1 or 3 channels.");
-        return Status{};
+        LogError("channels must be 1 or 3.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef BUILD_WITH_TENSORRT
-    const auto srcData = static_cast<const Npp8u *>(src.Data());
-    const auto dstData = static_cast<Npp8u *>(dst.Data());
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-    const auto dstSize = NppiSize{static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())};
-    const auto srcRoi = NppiRect{0, 0, srcSize.width, srcSize.height};
-    const auto dstRoi = NppiRect{0, 0, dstSize.width, dstSize.height};
-
-    NppStatus status{};
-
-    if (src.Channels() == 1)
+    const std::size_t requiredSrcStride = srcWidth * channels * sizeof(std::uint8_t);
+    if (srcStride < requiredSrcStride)
     {
-        status = nppiResize_8u_C1R_Ctx(srcData, srcStride, srcSize, srcRoi, dstData, dstStride, dstSize, dstRoi, NPPI_INTER_LINEAR, stream.GetNppStreamContext());
-        if (status != NPP_SUCCESS)
+        LogError("src stride is too small for the given source width and channels.");
+        LogStrideError(srcStride, requiredSrcStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    const std::size_t requiredDstStride = dstWidth * channels * sizeof(std::uint8_t);
+    if (dstStride < requiredDstStride)
+    {
+        LogError("dst stride is too small for the given destination width and channels.");
+        LogStrideError(dstStride, requiredDstStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
+    }
+
+    const double scaleX = static_cast<double>(srcWidth) / static_cast<double>(dstWidth);
+    const double scaleY = static_cast<double>(srcHeight) / static_cast<double>(dstHeight);
+    const long long maxSrcX = static_cast<long long>(srcWidth - 1U);
+    const long long maxSrcY = static_cast<long long>(srcHeight - 1U);
+
+    for (std::size_t dstY = 0; dstY < dstHeight; ++dstY)
+    {
+        auto *dstRow = dst + dstY * dstStride;
+        const double srcY = (static_cast<double>(dstY) + 0.5) * scaleY - 0.5;
+        const long long srcY0Raw = static_cast<long long>(std::floor(srcY));
+        const long long srcY1Raw = srcY0Raw + 1;
+        const std::size_t srcY0 = static_cast<std::size_t>(std::clamp(srcY0Raw, 0LL, maxSrcY));
+        const std::size_t srcY1 = static_cast<std::size_t>(std::clamp(srcY1Raw, 0LL, maxSrcY));
+        const double weightY = srcY - static_cast<double>(srcY0Raw);
+
+        const auto *srcRow0 = src + srcY0 * srcStride;
+        const auto *srcRow1 = src + srcY1 * srcStride;
+
+        for (std::size_t dstX = 0; dstX < dstWidth; ++dstX)
         {
-            LogError("nppiResize_8u_C1R failed");
-            return Status{StatusCategory::CUDA, StatusCode::FAIL};
+            const double srcX = (static_cast<double>(dstX) + 0.5) * scaleX - 0.5;
+            const long long srcX0Raw = static_cast<long long>(std::floor(srcX));
+            const long long srcX1Raw = srcX0Raw + 1;
+            const std::size_t srcX0 = static_cast<std::size_t>(std::clamp(srcX0Raw, 0LL, maxSrcX));
+            const std::size_t srcX1 = static_cast<std::size_t>(std::clamp(srcX1Raw, 0LL, maxSrcX));
+            const double weightX = srcX - static_cast<double>(srcX0Raw);
+
+            for (std::size_t channel = 0; channel < channels; ++channel)
+            {
+                const std::size_t srcOffset00 = srcX0 * channels + channel;
+                const std::size_t srcOffset10 = srcX1 * channels + channel;
+                const int value00 = static_cast<int>(srcRow0[srcOffset00]);
+                const int value10 = static_cast<int>(srcRow0[srcOffset10]);
+                const int value01 = static_cast<int>(srcRow1[srcOffset00]);
+                const int value11 = static_cast<int>(srcRow1[srcOffset10]);
+
+                const double interpolated = (1.0 - weightX) * (1.0 - weightY) * static_cast<double>(value00) + //
+                                            weightX * (1.0 - weightY) * static_cast<double>(value10) +         //
+                                            (1.0 - weightX) * weightY * static_cast<double>(value01) +         //
+                                            weightX * weightY * static_cast<double>(value11);
+                const int rounded = static_cast<int>(std::lrint(interpolated));
+                const int clamped = std::clamp(rounded, 0, 255);
+                dstRow[dstX * channels + channel] = static_cast<std::uint8_t>(clamped);
+            }
         }
-
-        return Status{};
-    }
-
-    status = nppiResize_8u_C3R_Ctx(srcData, srcStride, srcSize, srcRoi, dstData, dstStride, dstSize, dstRoi, NPPI_INTER_LINEAR, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
-    {
-        LogError("nppiResize_8u_C3R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
     }
 
     return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
 }
 
-auto ResizeDisparity32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
+auto Remap(const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, const float *mapX, std::size_t mapXStride, const float *mapY, std::size_t mapYStride, std::size_t imageWidth, std::size_t imageHeight, std::size_t channels) noexcept -> Status
 {
-    if (src.Empty() || dst.Empty())
+    if (src == nullptr || dst == nullptr || mapX == nullptr || mapY == nullptr)
     {
-        LogError("Source or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("source, destination, and map pointers must not be null.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if (src.Channels() != 1 || dst.Channels() != 1)
+    if (imageWidth == 0U || imageHeight == 0U)
     {
-        LogError("Source and destination must have 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("image dimensions must be greater than zero.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-#ifdef BUILD_WITH_TENSORRT
-    const auto srcData = static_cast<const Npp32f *>(src.Data());
-    const auto dstData = static_cast<Npp32f *>(dst.Data());
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-    const auto dstSize = NppiSize{static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())};
-    const auto srcRoi = NppiRect{0, 0, srcSize.width, srcSize.height};
-    const auto dstRoi = NppiRect{0, 0, dstSize.width, dstSize.height};
-
-    NppStatus status = nppiResize_32f_C1R_Ctx(srcData, srcStride, srcSize, srcRoi, dstData, dstStride, dstSize, dstRoi, NPPI_INTER_NN, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
+    if (channels != 1U && channels != 3U)
     {
-        LogError("nppiResize_32f_C1R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+        LogError("channels must be 1 or 3.");
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    float value_scale = static_cast<float>(dst.Cols()) / static_cast<float>(src.Cols());
-    status = nppiMulC_32f_C1IR_Ctx(static_cast<Npp32f>(value_scale), static_cast<Npp32f *>(dst.Data()), static_cast<int>(dst.Stride()), dstSize, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
+    const std::size_t requiredImageStride = imageWidth * channels * sizeof(std::uint8_t);
+    if (srcStride < requiredImageStride)
     {
-        LogError("nppiMulC_32f_C1IR failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+        LogError("src stride is too small for the given image width and channels.");
+        LogStrideError(srcStride, requiredImageStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-
-auto ConvertImage8UToC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || dst.Empty())
+    if (dstStride < requiredImageStride)
     {
-        LogError("Source or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("dst stride is too small for the given image width and channels.");
+        LogStrideError(dstStride, requiredImageStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if (dst.Channels() != 1)
+    const std::size_t requiredMapStride = imageWidth * sizeof(float);
+    if (mapXStride < requiredMapStride)
     {
-        LogError("Destination must have 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("mapX stride is too small for the given image width.");
+        LogStrideError(mapXStride, requiredMapStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if (src.Channels() != 1 && src.Channels() != 3)
+    if (mapYStride < requiredMapStride)
     {
-        LogError("Source must have 1 or 3 channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
+        LogError("mapY stride is too small for the given image width.");
+        LogStrideError(mapYStride, requiredMapStride);
+        return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
     }
 
-    if ((src.Cols() != dst.Cols()) || (src.Rows() != dst.Rows()))
-    {
-        LogError("Source and destination must have the same size.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
+    const auto *srcBytes = reinterpret_cast<const unsigned char *>(src);
+    auto *dstBytes = reinterpret_cast<unsigned char *>(dst);
+    const auto *mapXBytes = reinterpret_cast<const unsigned char *>(mapX);
+    const auto *mapYBytes = reinterpret_cast<const unsigned char *>(mapY);
 
-#ifdef BUILD_WITH_TENSORRT
-    const auto srcData = static_cast<const Npp8u *>(src.Data());
-    const auto dstData = static_cast<Npp8u *>(dst.Data());
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-
-    if (src.Channels() == 1)
-    {
-        NppStatus status = nppiCopy_8u_C1R_Ctx(srcData, srcStride, dstData, dstStride, srcSize, stream.GetNppStreamContext());
-        if (status != NPP_SUCCESS)
+    const auto sample = [&](const std::uint8_t *row, long long x, std::size_t channel) noexcept -> int {
+        if (row == nullptr || x < 0 || x >= static_cast<long long>(imageWidth))
         {
-            LogError("nppiCopy_8u_C1R failed");
-            return Status{StatusCategory::CUDA, StatusCode::FAIL};
+            return 0;
         }
-
-        return Status{};
-    }
-
-    NppStatus status = nppiRGBToGray_8u_C3C1R_Ctx(srcData, srcStride, dstData, dstStride, srcSize, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
-    {
-        LogError("nppiRGBToGray_8u_C3C1R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
+        return static_cast<int>(row[static_cast<std::size_t>(x) * channels + channel]);
     };
 
-    return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-
-auto Convert8UC1To32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || dst.Empty())
+    for (std::size_t y = 0; y < imageHeight; ++y)
     {
-        LogError("Source or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
+        const auto *mapXRow = reinterpret_cast<const float *>(mapXBytes + y * mapXStride);
+        const auto *mapYRow = reinterpret_cast<const float *>(mapYBytes + y * mapYStride);
+        auto *dstRow = reinterpret_cast<std::uint8_t *>(dstBytes + y * dstStride);
 
-    if (src.Channels() != 1 || dst.Channels() != 1)
-    {
-        LogError("Source and destination must have 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if ((src.Cols() != dst.Cols()) || (src.Rows() != dst.Rows()))
-    {
-        LogError("Source and destination must have the same size.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    const auto srcData = static_cast<const Npp8u *>(src.Data());
-    const auto dstData = static_cast<Npp32f *>(dst.Data());
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-
-    NppStatus status = nppiConvert_8u32f_C1R_Ctx(srcData, srcStride, dstData, dstStride, srcSize, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
-    {
-        LogError("nppiConvert_8u32f_C1R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    };
-
-    return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-
-auto Convert8UC3To32FC3(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || dst.Empty())
-    {
-        LogError("Source or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (src.Channels() != 3 || dst.Channels() != 3)
-    {
-        LogError("Source and destination must have 3 channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if ((src.Cols() != dst.Cols()) || (src.Rows() != dst.Rows()))
-    {
-        LogError("Source and destination must have the same size.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    const auto srcData = static_cast<const Npp8u *>(src.Data());
-    const auto dstData = static_cast<Npp32f *>(dst.Data());
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-
-    NppStatus status = nppiConvert_8u32f_C3R_Ctx(srcData, srcStride, dstData, dstStride, srcSize, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
-    {
-        LogError("nppiConvert_8u32f_C3R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    };
-
-    return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-
-auto DisparityOcclusionFilter32FC1(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || dst.Empty())
-    {
-        LogError("One of the input or output is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (src.Channels() != 1 || dst.Channels() != 1)
-    {
-        LogError("All of the input and output must have 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if ((src.Cols() != dst.Cols()) || (src.Rows() != dst.Rows()))
-    {
-        LogError("Input and output must have the same size.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    cudaError_t error = cudaDisparityOcclusionFilter(static_cast<const float *>(src.Data()), src.Stride(), static_cast<float *>(dst.Data()), dst.Stride(), static_cast<std::uint32_t>(src.Cols()), static_cast<std::uint32_t>(src.Rows()), stream.GetCudaStream());
-    if (error != cudaSuccess)
-    {
-        LogError("cudaDisparityOcclusionFilter failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
-    return Status{};
-#else
-    (void)src;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-
-auto RemapImage8U(const Mat &src, const Mat &mapX, const Mat &mapY, Mat &dst, Stream &stream) noexcept -> Status
-{
-    if (src.Empty() || mapX.Empty() || mapY.Empty() || dst.Empty())
-    {
-        LogError("Source, maps, or destination is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (src.BytesPerElement() != sizeof(std::uint8_t) || dst.BytesPerElement() != sizeof(std::uint8_t))
-    {
-        LogError("Source and destination must be 8-bit unsigned.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (mapX.BytesPerElement() != sizeof(float) || mapY.BytesPerElement() != sizeof(float))
-    {
-        LogError("Maps must be 32-bit floating-point.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (src.Channels() != dst.Channels())
-    {
-        LogError("Source and destination must have the same number of channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (mapX.Channels() != 1 || mapY.Channels() != 1)
-    {
-        LogError("Maps must have 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if ((dst.Cols() != mapX.Cols()) || (dst.Rows() != mapX.Rows()) || (dst.Cols() != mapY.Cols()) || (dst.Rows() != mapY.Rows()))
-    {
-        LogError("Destination and maps must have the same size.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if ((src.Cols() == 0) || (src.Rows() == 0))
-    {
-        LogError("Source size must be non-zero.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (src.Channels() != 1 && src.Channels() != 3)
-    {
-        LogError("Source and destination must have 1 or 3 channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    const auto *srcData = static_cast<const Npp8u *>(src.Data());
-    auto *dstData = static_cast<Npp8u *>(dst.Data());
-    const auto *mapXData = static_cast<const Npp32f *>(mapX.Data());
-    const auto *mapYData = static_cast<const Npp32f *>(mapY.Data());
-    const auto srcSize = NppiSize{static_cast<int>(src.Cols()), static_cast<int>(src.Rows())};
-    const auto dstSize = NppiSize{static_cast<int>(dst.Cols()), static_cast<int>(dst.Rows())};
-    const auto srcRoi = NppiRect{0, 0, srcSize.width, srcSize.height};
-    const auto srcStride = static_cast<int>(src.Stride());
-    const auto dstStride = static_cast<int>(dst.Stride());
-    const auto mapXStep = static_cast<int>(mapX.Stride());
-    const auto mapYStep = static_cast<int>(mapY.Stride());
-
-    NppStatus status{};
-
-    if (src.Channels() == 1)
-    {
-        status = nppiRemap_8u_C1R_Ctx(srcData, srcSize, srcStride, srcRoi, mapXData, mapXStep, mapYData, mapYStep, dstData, dstStride, dstSize, NPPI_INTER_LINEAR, stream.GetNppStreamContext());
-        if (status != NPP_SUCCESS)
+        for (std::size_t x = 0; x < imageWidth; ++x)
         {
-            LogError("nppiRemap_8u_C1R failed");
-            return Status{StatusCategory::CUDA, StatusCode::FAIL};
-        }
+            const double mappedX = static_cast<double>(mapXRow[x]);
+            const double mappedY = static_cast<double>(mapYRow[x]);
+            if (!std::isfinite(mappedX) || !std::isfinite(mappedY))
+            {
+                for (std::size_t channel = 0; channel < channels; ++channel)
+                {
+                    dstRow[x * channels + channel] = 0U;
+                }
+                continue;
+            }
 
-        return Status{};
-    }
+            const long long x0 = static_cast<long long>(std::floor(mappedX));
+            const long long y0 = static_cast<long long>(std::floor(mappedY));
+            const long long x1 = x0 + 1;
+            const long long y1 = y0 + 1;
+            const double weightX = mappedX - static_cast<double>(x0);
+            const double weightY = mappedY - static_cast<double>(y0);
 
-    status = nppiRemap_8u_C3R_Ctx(srcData, srcSize, srcStride, srcRoi, mapXData, mapXStep, mapYData, mapYStep, dstData, dstStride, dstSize, NPPI_INTER_LINEAR, stream.GetNppStreamContext());
-    if (status != NPP_SUCCESS)
-    {
-        LogError("nppiRemap_8u_C3R failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
+            const std::uint8_t *srcRow0 = nullptr;
+            const std::uint8_t *srcRow1 = nullptr;
+            if (y0 >= 0 && y0 < static_cast<long long>(imageHeight))
+            {
+                srcRow0 = reinterpret_cast<const std::uint8_t *>(srcBytes + static_cast<std::size_t>(y0) * srcStride);
+            }
+            if (y1 >= 0 && y1 < static_cast<long long>(imageHeight))
+            {
+                srcRow1 = reinterpret_cast<const std::uint8_t *>(srcBytes + static_cast<std::size_t>(y1) * srcStride);
+            }
 
-    return Status{};
-#else
-    (void)src;
-    (void)mapX;
-    (void)mapY;
-    (void)dst;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
+            for (std::size_t channel = 0; channel < channels; ++channel)
+            {
+                const int value00 = sample(srcRow0, x0, channel);
+                const int value10 = sample(srcRow0, x1, channel);
+                const int value01 = sample(srcRow1, x0, channel);
+                const int value11 = sample(srcRow1, x1, channel);
 
-namespace
-{
-auto ConvertReprojectionMatrixToFloat(const Mat4x4d &src) noexcept -> std::array<float, 16>
-{
-    std::array<float, 16> dst{};
-
-    for (std::size_t row = 0; row < 4; ++row)
-    {
-        for (std::size_t col = 0; col < 4; ++col)
-        {
-            dst[row * 4 + col] = static_cast<float>(src[row][col]);
+                const double interpolated = (1.0 - weightX) * (1.0 - weightY) * static_cast<double>(value00) + //
+                                            weightX * (1.0 - weightY) * static_cast<double>(value10) +         //
+                                            (1.0 - weightX) * weightY * static_cast<double>(value01) +         //
+                                            weightX * weightY * static_cast<double>(value11);
+                const int rounded = static_cast<int>(std::lrint(interpolated));
+                const int clamped = std::clamp(rounded, 0, 255);
+                dstRow[x * channels + channel] = static_cast<std::uint8_t>(clamped);
+            }
         }
     }
 
-    return dst;
-}
-} // namespace
-
-auto ReprojectDisparityTo3D(const Mat &disparity, Mat &points3d, const Mat4x4d &reprojectionMatrix, Stream &stream) noexcept -> Status
-{
-    if (disparity.Empty() || points3d.Empty())
-    {
-        LogError("Disparity or output points buffer is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.Channels() != 1 || points3d.Channels() != 3)
-    {
-        LogError("Disparity must have 1 channel and points must have 3 channels.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.BytesPerElement() != sizeof(float) || points3d.BytesPerElement() != sizeof(float))
-    {
-        LogError("Disparity and points must have 32-bit floating-point elements.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.Rows() != points3d.Rows() || disparity.Cols() != points3d.Cols())
-    {
-        LogError("Disparity and points must have the same spatial dimensions.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    cudaError_t error = cudaReprojectTo3d(static_cast<const float *>(disparity.Data()), disparity.Stride(), static_cast<float *>(points3d.Data()), points3d.Stride(), static_cast<std::uint32_t>(disparity.Cols()), static_cast<std::uint32_t>(disparity.Rows()), ConvertReprojectionMatrixToFloat(reprojectionMatrix).data(), stream.GetCudaStream());
-    if (error != cudaSuccess)
-    {
-        LogError("cudaReprojectTo3d failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
     return Status{};
-#else
-    (void)disparity;
-    (void)points3d;
-    (void)reprojectionMatrix;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
 }
-
-auto DisparityToDepth32FC1(const Mat &disparity, Mat &depth, const Mat4x4d &reprojectionMatrix, Stream &stream) noexcept -> Status
-{
-    if (disparity.Empty() || depth.Empty())
-    {
-        LogError("Disparity or depth buffer is empty.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.Channels() != 1 || depth.Channels() != 1)
-    {
-        LogError("Disparity and depth must have exactly 1 channel.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.BytesPerElement() != sizeof(float) || depth.BytesPerElement() != sizeof(float))
-    {
-        LogError("Disparity and depth must have 32-bit floating-point elements.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-    if (disparity.Rows() != depth.Rows() || disparity.Cols() != depth.Cols())
-    {
-        LogError("Disparity and depth must have the same spatial dimensions.");
-        return Status{StatusCategory::RETINIFY, StatusCode::INVALID_ARGUMENT};
-    }
-
-#ifdef BUILD_WITH_TENSORRT
-    cudaError_t error = cudaDisparityToDepth(static_cast<const float *>(disparity.Data()), disparity.Stride(), static_cast<float *>(depth.Data()), depth.Stride(), static_cast<std::uint32_t>(disparity.Cols()), static_cast<std::uint32_t>(disparity.Rows()), ConvertReprojectionMatrixToFloat(reprojectionMatrix).data(), stream.GetCudaStream());
-    if (error != cudaSuccess)
-    {
-        LogError("cudaDisparityToDepth failed");
-        return Status{StatusCategory::CUDA, StatusCode::FAIL};
-    }
-
-    return Status{};
-#else
-    (void)disparity;
-    (void)depth;
-    (void)reprojectionMatrix;
-    (void)stream;
-    LogError("This function is not available");
-    return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
-#endif
-}
-} // namespace detail
 } // namespace retinify
