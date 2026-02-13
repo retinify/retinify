@@ -280,6 +280,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ab488fcd1a202d5287035c12f8ff23c0a" id="r_ab488fcd1a202d5287035c12f8ff23c0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#ab488fcd1a202d5287035c12f8ff23c0a">InitIdentityMap</a> (float *mapX, std::size_t mapXStride, float *mapY, std::size_t mapYStride, std::size_t imageWidth, std::size_t imageHeight) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:ab488fcd1a202d5287035c12f8ff23c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize identity maps for undistortion/rectification.  <br /></td></tr>
 <tr class="separator:ab488fcd1a202d5287035c12f8ff23c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ad5482d891cdccb199bc9760723c4d" id="r_a04ad5482d891cdccb199bc9760723c4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a04ad5482d891cdccb199bc9760723c4d">Resize</a> (const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, std::size_t srcWidth, std::size_t srcHeight, std::size_t dstWidth, std::size_t dstHeight, std::size_t channels) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a04ad5482d891cdccb199bc9760723c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize an 8-bit image using bilinear interpolation.  <br /></td></tr>
+<tr class="separator:a04ad5482d891cdccb199bc9760723c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd20d857fb7ce716e4a17cc83377aaf" id="r_a7dd20d857fb7ce716e4a17cc83377aaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a7dd20d857fb7ce716e4a17cc83377aaf">Remap</a> (const std::uint8_t *src, std::size_t srcStride, std::uint8_t *dst, std::size_t dstStride, const float *mapX, std::size_t mapXStride, const float *mapY, std::size_t mapYStride, std::size_t imageWidth, std::size_t imageHeight, std::size_t channels) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
+<tr class="memdesc:a7dd20d857fb7ce716e4a17cc83377aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remap an 8-bit image using the provided x/y coordinate maps.  <br /></td></tr>
+<tr class="separator:a7dd20d857fb7ce716e4a17cc83377aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13c2e1584097a06ea80ffd9aeee84639" id="r_a13c2e1584097a06ea80ffd9aeee84639"><td class="memItemLeft" align="right" valign="top"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceretinify.html#a13c2e1584097a06ea80ffd9aeee84639">SaveCalibrationParameters</a> (const char *filename, const <a class="el" href="structretinify_1_1CalibrationParameters.html">CalibrationParameters</a> &amp;parameters) noexcept -&gt; <a class="el" href="classretinify_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:a13c2e1584097a06ea80ffd9aeee84639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save stereo calibration parameters.  <br /></td></tr>
 <tr class="separator:a13c2e1584097a06ea80ffd9aeee84639"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2212,6 +2218,210 @@ template&lt;typename Function &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">function</td><td>The function to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+
+</div>
+</div>
+<a id="a7dd20d857fb7ce716e4a17cc83377aaf" name="a7dd20d857fb7ce716e4a17cc83377aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd20d857fb7ce716e4a17cc83377aaf">&#9670;&#160;</a></span>Remap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Remap </td>
+          <td>(</td>
+          <td class="paramtype">const std::uint8_t *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>srcStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>dstStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>mapX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapXStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>mapY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>mapYStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>imageWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>imageHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>channels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remap an 8-bit image using the provided x/y coordinate maps. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Input image data pointer </td></tr>
+    <tr><td class="paramname">srcStride</td><td>Stride of a row in the source image (in bytes) </td></tr>
+    <tr><td class="paramname">dst</td><td>Output image data pointer </td></tr>
+    <tr><td class="paramname">dstStride</td><td>Stride of a row in the destination image (in bytes) </td></tr>
+    <tr><td class="paramname">mapX</td><td>Map for x-coordinates </td></tr>
+    <tr><td class="paramname">mapXStride</td><td>Stride of a row in mapX (in bytes) </td></tr>
+    <tr><td class="paramname">mapY</td><td>Map for y-coordinates </td></tr>
+    <tr><td class="paramname">mapYStride</td><td>Stride of a row in mapY (in bytes) </td></tr>
+    <tr><td class="paramname">imageWidth</td><td>Image width (in pixels) </td></tr>
+    <tr><td class="paramname">imageHeight</td><td>Image height (in pixels) </td></tr>
+    <tr><td class="paramname">channels</td><td>Number of channels (1 or 3) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classretinify_1_1Status.html" title="This class represents the status of an operation in the retinify library.">Status</a> object that indicates whether the operation was successful </dd></dl>
+
+</div>
+</div>
+<a id="a04ad5482d891cdccb199bc9760723c4d" name="a04ad5482d891cdccb199bc9760723c4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ad5482d891cdccb199bc9760723c4d">&#9670;&#160;</a></span>Resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="attributes_8hpp.html#a26f652e8294f73d41c56d880ace92d28">RETINIFY_API</a> auto retinify::Resize </td>
+          <td>(</td>
+          <td class="paramtype">const std::uint8_t *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>srcStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>dstStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>srcWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>srcHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>dstWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>dstHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>channels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="classretinify_1_1Status.html">Status</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resize an 8-bit image using bilinear interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Input image data pointer </td></tr>
+    <tr><td class="paramname">srcStride</td><td>Stride of a row in the source image (in bytes) </td></tr>
+    <tr><td class="paramname">dst</td><td>Output image data pointer </td></tr>
+    <tr><td class="paramname">dstStride</td><td>Stride of a row in the destination image (in bytes) </td></tr>
+    <tr><td class="paramname">srcWidth</td><td>Source image width (in pixels) </td></tr>
+    <tr><td class="paramname">srcHeight</td><td>Source image height (in pixels) </td></tr>
+    <tr><td class="paramname">dstWidth</td><td>Destination image width (in pixels) </td></tr>
+    <tr><td class="paramname">dstHeight</td><td>Destination image height (in pixels) </td></tr>
+    <tr><td class="paramname">channels</td><td>Number of channels (1 or 3) </td></tr>
   </table>
   </dd>
 </dl>
