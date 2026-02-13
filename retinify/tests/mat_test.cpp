@@ -16,15 +16,15 @@ class MatTest : public ::testing::Test
     static constexpr std::size_t channels = 3;
     static constexpr std::size_t bytesPerElement = sizeof(float);
 
-    Mat mat_;
-    Stream stream_;
+    detail::Mat mat_;
+    detail::Stream stream_;
     cv::Mat hostSrc_ = cv::Mat::eye(rows, cols *channels, CV_32F);
     cv::Mat hostDst_ = cv::Mat::zeros(rows, cols *channels, CV_32F);
 };
 
 TEST_F(MatTest, AllocateDevice)
 {
-    Status status = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::DEVICE);
+    Status status = mat_.Allocate(rows, cols, channels, bytesPerElement, detail::MatLocation::DEVICE);
     ASSERT_TRUE(status.IsOK());
 
     ASSERT_EQ(mat_.Rows(), rows);
@@ -48,7 +48,7 @@ TEST_F(MatTest, UploadDownloadDevice)
     Status stStream = stream_.Create();
     ASSERT_TRUE(stStream.IsOK());
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::DEVICE);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, detail::MatLocation::DEVICE);
     ASSERT_TRUE(stAlloc.IsOK());
 
     Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], stream_);
@@ -77,9 +77,9 @@ TEST_F(MatTest, UploadDownloadHost)
     Status stStream = stream_.Create();
     ASSERT_TRUE(stStream.IsOK());
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, MatLocation::HOST);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElement, detail::MatLocation::HOST);
     ASSERT_TRUE(stAlloc.IsOK());
-    ASSERT_EQ(mat_.Location(), MatLocation::HOST);
+    ASSERT_EQ(mat_.Location(), detail::MatLocation::HOST);
 
     Status stUp = mat_.Upload(hostSrc_.ptr(), hostSrc_.step[0], stream_);
     ASSERT_TRUE(stUp.IsOK());
@@ -110,7 +110,7 @@ TEST_F(MatTest, UploadDownloadDeviceUInt8)
     cv::randu(hostSrc, 0, 255);
     cv::Mat hostDst = cv::Mat::zeros(rows, cols * channels, CV_8U);
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, MatLocation::DEVICE);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, detail::MatLocation::DEVICE);
     ASSERT_TRUE(stAlloc.IsOK());
 
     Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0], stream_);
@@ -136,7 +136,7 @@ TEST_F(MatTest, UploadDownloadDeviceUInt8)
 
 TEST_F(MatTest, UploadDownloadHostUInt8)
 {
-    Stream dummyStream;
+    detail::Stream dummyStream;
 
     constexpr std::size_t bytesPerElementUint8 = sizeof(std::uint8_t);
 
@@ -144,9 +144,9 @@ TEST_F(MatTest, UploadDownloadHostUInt8)
     cv::randu(hostSrc, 0, 255);
     cv::Mat hostDst = cv::Mat::zeros(rows, cols * channels, CV_8U);
 
-    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, MatLocation::HOST);
+    Status stAlloc = mat_.Allocate(rows, cols, channels, bytesPerElementUint8, detail::MatLocation::HOST);
     ASSERT_TRUE(stAlloc.IsOK());
-    ASSERT_EQ(mat_.Location(), MatLocation::HOST);
+    ASSERT_EQ(mat_.Location(), detail::MatLocation::HOST);
 
     Status stUp = mat_.Upload(hostSrc.ptr(), hostSrc.step[0], dummyStream);
     ASSERT_TRUE(stUp.IsOK());

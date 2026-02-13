@@ -17,6 +17,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 enum class MatLocation
 {
     UNKNOWN,
@@ -55,4 +57,5 @@ class RETINIFY_API Mat : public NoCopyMove
     void *deviceData_{nullptr};
     MatLocation location_{MatLocation::UNKNOWN};
 };
+} // namespace detail
 } // namespace retinify

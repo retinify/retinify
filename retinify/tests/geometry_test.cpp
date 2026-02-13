@@ -595,11 +595,11 @@ TEST(GeometryTest, InitUndistortRectifyMapIdentity)
     constexpr int kWidth = 3;
     constexpr int kHeight = 2;
 
-    Mat mapX;
-    Mat mapY;
-    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    detail::Mat mapX;
+    detail::Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusX.IsOK());
-    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
     const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
@@ -640,11 +640,11 @@ TEST(GeometryTest, InitUndistortRectifyMapRotatedCamera)
     constexpr int kWidth = 4;
     constexpr int kHeight = 3;
 
-    Mat mapX;
-    Mat mapY;
-    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    detail::Mat mapX;
+    detail::Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusX.IsOK());
-    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
     const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
@@ -694,11 +694,11 @@ TEST(GeometryTest, InitUndistortRectifyMapAppliesDistortion)
     constexpr int kWidth = 2;
     constexpr int kHeight = 2;
 
-    Mat mapX;
-    Mat mapY;
-    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    detail::Mat mapX;
+    detail::Mat mapY;
+    const Status allocStatusX = mapX.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusX.IsOK());
-    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST);
+    const Status allocStatusY = mapY.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST);
     ASSERT_TRUE(allocStatusY.IsOK());
 
     const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, //
@@ -953,10 +953,10 @@ TEST(GeometryTest, InitUndistortRectifyMapMatchesOpenCV)
     constexpr int kWidth = 64;
     constexpr int kHeight = 48;
 
-    Mat mapX;
-    Mat mapY;
-    ASSERT_TRUE(mapX.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
-    ASSERT_TRUE(mapY.Allocate(kHeight, kWidth, 1, sizeof(float), MatLocation::HOST).IsOK());
+    detail::Mat mapX;
+    detail::Mat mapY;
+    ASSERT_TRUE(mapX.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST).IsOK());
+    ASSERT_TRUE(mapY.Allocate(kHeight, kWidth, 1, sizeof(float), detail::MatLocation::HOST).IsOK());
 
     const Status status = InitUndistortRectifyMap(intrinsics, distortion, rectificationRotation, projection, static_cast<float *>(mapX.Data()), mapX.Stride(), static_cast<float *>(mapY.Data()), mapY.Stride(), kWidth, kHeight);
     ASSERT_TRUE(status.IsOK());

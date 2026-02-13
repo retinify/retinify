@@ -85,16 +85,16 @@ class Pipeline::Impl
         switch (depthMode)
         {
         case DepthMode::FAST:
-            matchingWidth_ = kEngineMinWidth;
-            matchingHeight_ = kEngineMinHeight;
+            matchingWidth_ = detail::kEngineMinWidth;
+            matchingHeight_ = detail::kEngineMinHeight;
             break;
         case DepthMode::BALANCED:
-            matchingWidth_ = kEngineOptWidth;
-            matchingHeight_ = kEngineOptHeight;
+            matchingWidth_ = detail::kEngineOptWidth;
+            matchingHeight_ = detail::kEngineOptHeight;
             break;
         case DepthMode::ACCURATE:
-            matchingWidth_ = kEngineMaxWidth;
-            matchingHeight_ = kEngineMaxHeight;
+            matchingWidth_ = detail::kEngineMaxWidth;
+            matchingHeight_ = detail::kEngineMaxHeight;
             break;
         default:
             LogError("Invalid depth mode.");
@@ -108,50 +108,50 @@ class Pipeline::Impl
             return status;
         }
 
-        status = leftMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = rightMapX_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = rightMapY_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        Mat leftMapXHost, leftMapYHost, rightMapXHost, rightMapYHost;
-        status = leftMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        detail::Mat leftMapXHost, leftMapYHost, rightMapXHost, rightMapYHost;
+        status = leftMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::HOST);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        status = leftMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::HOST);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        status = rightMapXHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::HOST);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::HOST);
+        status = rightMapYHost.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::HOST);
         if (!status.IsOK())
         {
             return status;
@@ -262,91 +262,91 @@ class Pipeline::Impl
             return status;
         }
 
-        status = left8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = left8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = right8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = right8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightRectified8U_.Allocate(imageHeight_, imageWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftDisparity32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftDisparityFiltered32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftDisparityFiltered32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = depth32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = depth32FC1_.Allocate(imageHeight_, imageWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = pointCloud32FC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(float), MatLocation::DEVICE);
+        status = pointCloud32FC3_.Allocate(imageHeight_, imageWidth_, 3, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightResizedRectified8U_.Allocate(matchingHeight_, matchingWidth_, imageChannels_, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = leftResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), MatLocation::DEVICE);
+        status = rightResizedRectified8UC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(std::uint8_t), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = leftResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = leftResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = rightResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = rightResizedRectified32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = disparityResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), MatLocation::DEVICE);
+        status = disparityResized32FC1_.Allocate(matchingHeight_, matchingWidth_, 1, sizeof(float), detail::MatLocation::DEVICE);
         if (!status.IsOK())
         {
             return status;
@@ -358,19 +358,19 @@ class Pipeline::Impl
             return status;
         }
 
-        status = session_.BindInput(kOnnxLeftInputName, leftResizedRectified32FC1_);
+        status = session_.BindInput(detail::kOnnxLeftInputName, leftResizedRectified32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindInput(kOnnxRightInputName, rightResizedRectified32FC1_);
+        status = session_.BindInput(detail::kOnnxRightInputName, rightResizedRectified32FC1_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = session_.BindOutput(kOnnxDisparityOutputName, disparityResized32FC1_);
+        status = session_.BindOutput(detail::kOnnxDisparityOutputName, disparityResized32FC1_);
         if (!status.IsOK())
         {
             return status;
@@ -442,49 +442,49 @@ class Pipeline::Impl
             return status;
         }
 
-        status = RemapImage8U(left8U_, leftMapX_, leftMapY_, leftRectified8U_, stream_);
+        status = detail::RemapImage8U(left8U_, leftMapX_, leftMapY_, leftRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = RemapImage8U(right8U_, rightMapX_, rightMapY_, rightRectified8U_, stream_);
+        status = detail::RemapImage8U(right8U_, rightMapX_, rightMapY_, rightRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8U(leftRectified8U_, leftResizedRectified8U_, stream_);
+        status = detail::ResizeImage8U(leftRectified8U_, leftResizedRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ResizeImage8U(rightRectified8U_, rightResizedRectified8U_, stream_);
+        status = detail::ResizeImage8U(rightRectified8U_, rightResizedRectified8U_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ConvertImage8UToC1(leftResizedRectified8U_, leftResizedRectified8UC1_, stream_);
+        status = detail::ConvertImage8UToC1(leftResizedRectified8U_, leftResizedRectified8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = ConvertImage8UToC1(rightResizedRectified8U_, rightResizedRectified8UC1_, stream_);
+        status = detail::ConvertImage8UToC1(rightResizedRectified8U_, rightResizedRectified8UC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC1To32FC1(leftResizedRectified8UC1_, leftResizedRectified32FC1_, stream_);
+        status = detail::Convert8UC1To32FC1(leftResizedRectified8UC1_, leftResizedRectified32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = Convert8UC1To32FC1(rightResizedRectified8UC1_, rightResizedRectified32FC1_, stream_);
+        status = detail::Convert8UC1To32FC1(rightResizedRectified8UC1_, rightResizedRectified32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -496,13 +496,13 @@ class Pipeline::Impl
             return status;
         }
 
-        status = ResizeDisparity32FC1(disparityResized32FC1_, leftDisparity32FC1_, stream_);
+        status = detail::ResizeDisparity32FC1(disparityResized32FC1_, leftDisparity32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
         }
 
-        status = DisparityOcclusionFilter32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
+        status = detail::DisparityOcclusionFilter32FC1(leftDisparity32FC1_, leftDisparityFiltered32FC1_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -704,7 +704,7 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        status = DisparityToDepth32FC1(leftDisparityFiltered32FC1_, depth32FC1_, reprojectionMatrix_, stream_);
+        status = detail::DisparityToDepth32FC1(leftDisparityFiltered32FC1_, depth32FC1_, reprojectionMatrix_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -749,7 +749,7 @@ class Pipeline::Impl
             return Status(StatusCategory::USER, StatusCode::INVALID_ARGUMENT);
         }
 
-        status = ReprojectDisparityTo3D(leftDisparityFiltered32FC1_, pointCloud32FC3_, reprojectionMatrix_, stream_);
+        status = detail::ReprojectDisparityTo3D(leftDisparityFiltered32FC1_, pointCloud32FC3_, reprojectionMatrix_, stream_);
         if (!status.IsOK())
         {
             return status;
@@ -771,34 +771,34 @@ class Pipeline::Impl
     }
 
   private:
-    bool initialized_{false};        // whether the pipeline is initialized
-    std::size_t imageWidth_{};       // original input image width
-    std::size_t imageHeight_{};      // original input image height
-    std::size_t imageChannels_{};    // original input image channels
-    std::size_t matchingWidth_{};    // image width for stereo matching
-    std::size_t matchingHeight_{};   // image height for stereo matching
-    Session session_;                // inference session
-    Stream stream_;                  // stream for operations
-    Mat leftMapX_;                   // left x map for image remapping
-    Mat leftMapY_;                   // left y map for image remapping
-    Mat rightMapX_;                  // right x map for image remapping
-    Mat rightMapY_;                  // right y map for image remapping
-    Mat left8U_;                     // input left image
-    Mat right8U_;                    // input right image
-    Mat leftRectified8U_;            // rectified left image
-    Mat rightRectified8U_;           // rectified right image
-    Mat leftDisparity32FC1_;         // output left disparity map
-    Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
-    Mat leftResizedRectified8U_;     // resized left image
-    Mat rightResizedRectified8U_;    // resized right image
-    Mat leftResizedRectified8UC1_;   // resized left gray image
-    Mat rightResizedRectified8UC1_;  // resized right gray image
-    Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
-    Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
-    Mat disparityResized32FC1_;      // resized disparity map from stereo matching
-    Mat depth32FC1_;                 // depth map derived from disparity
-    Mat pointCloud32FC3_;            // reprojected 3D point cloud
-    Mat4x4d reprojectionMatrix_{};   // reprojection matrix (double)
+    bool initialized_{false};                // whether the pipeline is initialized
+    std::size_t imageWidth_{};               // original input image width
+    std::size_t imageHeight_{};              // original input image height
+    std::size_t imageChannels_{};            // original input image channels
+    std::size_t matchingWidth_{};            // image width for stereo matching
+    std::size_t matchingHeight_{};           // image height for stereo matching
+    detail::Session session_;                // inference session
+    detail::Stream stream_;                  // stream for operations
+    detail::Mat leftMapX_;                   // left x map for image remapping
+    detail::Mat leftMapY_;                   // left y map for image remapping
+    detail::Mat rightMapX_;                  // right x map for image remapping
+    detail::Mat rightMapY_;                  // right y map for image remapping
+    detail::Mat left8U_;                     // input left image
+    detail::Mat right8U_;                    // input right image
+    detail::Mat leftRectified8U_;            // rectified left image
+    detail::Mat rightRectified8U_;           // rectified right image
+    detail::Mat leftDisparity32FC1_;         // output left disparity map
+    detail::Mat leftDisparityFiltered32FC1_; // output left disparity map after occlusion filtering
+    detail::Mat leftResizedRectified8U_;     // resized left image
+    detail::Mat rightResizedRectified8U_;    // resized right image
+    detail::Mat leftResizedRectified8UC1_;   // resized left gray image
+    detail::Mat rightResizedRectified8UC1_;  // resized right gray image
+    detail::Mat leftResizedRectified32FC1_;  // resized gray image for stereo matching
+    detail::Mat rightResizedRectified32FC1_; // resized gray image for stereo matching
+    detail::Mat disparityResized32FC1_;      // resized disparity map from stereo matching
+    detail::Mat depth32FC1_;                 // depth map derived from disparity
+    detail::Mat pointCloud32FC3_;            // reprojected 3D point cloud
+    Mat4x4d reprojectionMatrix_{};           // reprojection matrix (double)
 };
 
 Pipeline::Pipeline() noexcept
