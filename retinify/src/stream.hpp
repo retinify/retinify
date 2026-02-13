@@ -16,6 +16,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 class RETINIFY_API Stream : public NoCopyMove
 {
   public:
@@ -36,4 +38,5 @@ class RETINIFY_API Stream : public NoCopyMove
     NppStreamContext ctx_{};
 #endif
 };
+} // namespace detail
 } // namespace retinify

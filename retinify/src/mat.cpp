@@ -11,6 +11,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 Mat::~Mat() noexcept
 {
     (void)this->Free();
@@ -355,4 +357,5 @@ auto Mat::Location() const noexcept -> MatLocation
 {
     return location_;
 }
+} // namespace detail
 } // namespace retinify

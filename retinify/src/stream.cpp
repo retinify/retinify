@@ -7,6 +7,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 Stream::~Stream() noexcept
 {
     (void)Destroy();
@@ -93,4 +95,5 @@ auto Stream::GetNppStreamContext() const noexcept -> NppStreamContext
     return ctx_;
 }
 #endif
+} // namespace detail
 } // namespace retinify

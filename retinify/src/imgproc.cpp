@@ -15,6 +15,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 auto ResizeImage8U(const Mat &src, Mat &dst, Stream &stream) noexcept -> Status
 {
     if (src.Empty() || dst.Empty())
@@ -516,4 +518,5 @@ auto DisparityToDepth32FC1(const Mat &disparity, Mat &depth, const Mat4x4d &repr
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
+} // namespace detail
 } // namespace retinify

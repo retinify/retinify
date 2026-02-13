@@ -19,6 +19,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 namespace
 {
 #ifdef BUILD_WITH_TENSORRT
@@ -302,4 +304,5 @@ auto Session::Execute(Stream &stream) const noexcept -> Status
     return Status{StatusCategory::RETINIFY, StatusCode::FAIL};
 #endif
 }
+} // namespace detail
 } // namespace retinify

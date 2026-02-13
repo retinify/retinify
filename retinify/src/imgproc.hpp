@@ -8,6 +8,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 /// @brief
 /// Resize an 8-bit, 1- or 3-channel image using bilinear interpolation
 /// @param src
@@ -123,4 +125,5 @@ namespace retinify
 /// @return
 /// Status code
 [[nodiscard]] auto DisparityToDepth32FC1(const Mat &disparity, Mat &depth, const Mat4x4d &reprojectionMatrix, Stream &stream) noexcept -> Status;
+} // namespace detail
 } // namespace retinify

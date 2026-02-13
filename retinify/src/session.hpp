@@ -21,6 +21,8 @@
 
 namespace retinify
 {
+namespace detail
+{
 constexpr const char kOnnxLeftInputName[] = "left";
 constexpr const char kOnnxRightInputName[] = "right";
 constexpr const char kOnnxDisparityOutputName[] = "disparity";
@@ -49,4 +51,5 @@ class RETINIFY_API Session : public NoCopyMove
 #else
 #endif
 };
+} // namespace detail
 } // namespace retinify
